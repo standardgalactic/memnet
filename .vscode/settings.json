@@ -1,3 +1,51 @@
 {
-  "idf.pythonInstallPath": "/opt/homebrew/bin/python3"
+    "mcpServers": {
+        "smart-tree": {
+            "command": "/aidata/aye/smart-tree/target/release/st",
+            "args": [
+                "--mcp"
+            ],
+            "env": {
+                "SMART_TREE_MODE": "cursor",
+                "AI_TOOLS": "1"
+            },
+            "alwaysAllow": [
+                "find",
+                "search",
+                "analyze",
+                "overview",
+                "tree",
+                "deps",
+                "outdated",
+                "audit",
+                "bloat",
+                "config",
+                "help",
+                "edit",
+                "context",
+                "memory",
+                "feedback",
+                "compare",
+                "verify_permissions",
+                "server_info",
+                "sse",
+                "unified_watcher",
+                "hooks"
+            ],
+            "defaultAllow": [
+                "find",
+                "search",
+                "analyze",
+                "overview",
+                "tree",
+                "deps",
+                "outdated",
+                "audit",
+                "bloat",
+                "config",
+                "help"
+            ],
+            "neverAllow": []
+        }
+    }
 }
