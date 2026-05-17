@@ -6,6 +6,18 @@
 
 [Programming Experiments](https://github.com/standardgalactic/memnet/tree/main/forth/README.md) — *Forth Language*
 
+[Process-Relational Architecture](https://github.com/standardgalactic/memnet/tree/main/working/README.md)
+
+* [Process, Projection, and Propagative Reality](https://standardgalactic.github.io/memnet/working/propagative_reality.pdf)
+
+* [From Classifier to Inverse Engine](https://standardgalactic.github.io/memnet/working/gesture_review.pdf)
+
+* [Silicon Cartography](https://standardgalactic.github.io/memnet/working/silicon_cartography.pdf)
+
+* [When the Formalism Becomes the Interface](https://standardgalactic.github.io/memnet/working/formalism-interface.pdf)
+
+* [Audioscope](https://standardgalactic.github.io/memnet/working/) — *Audio Overviews*
+
 
 MEMNET is a semantic-routing architecture designed around the idea that future computational systems will increasingly coordinate through meaning, salience, and contextual relevance rather than through rigid endpoint addressing alone.
 
