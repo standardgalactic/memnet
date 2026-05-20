@@ -184,7 +184,7 @@ It really is.
 
 47
 00:02:38,420 --> 00:02:48,700
-It was published in May 2026 by an author named Fliction, and it is titled The Admissibility Principle, Computation, Physics, and Analogy as One Operation.
+It was published in May 2026 by an author named Flyxion, and it is titled The Admissibility Principle, Computation, Physics, and Analogy as One Operation.
 
 48
 00:02:48,980 --> 00:02:50,380
@@ -240,7 +240,7 @@ Exactly.
 
 61
 00:03:27,080 --> 00:03:30,540
-What Fliction outlines is a strict five-layer research grammar.
+What Flyxion outlines is a strict five-layer research grammar.
 
 62
 00:03:30,540 --> 00:03:37,180
@@ -704,7 +704,7 @@ Okay, I'm totally with you.
 
 177
 00:08:22,280 --> 00:08:28,500
-But Flixjan takes this classic 1930s math and introduces something wildly visual called sphere pop.
+But Flyxion takes this classic 1930s math and introduces something wildly visual called sphere pop.
 
 178
 00:08:28,860 --> 00:08:29,700
@@ -1132,7 +1132,7 @@ Exactly.
 
 284
 00:13:40,640 --> 00:13:45,160
-So, fliction is very careful to point out what does not qualify as an admissibility collapse.
+So, Flyxion is very careful to point out what does not qualify as an admissibility collapse.
 
 285
 00:13:45,280 --> 00:13:45,420
@@ -1288,7 +1288,7 @@ This is a beautiful transition, because while geometric bubbles and lambda calcu
 
 323
 00:15:17,720 --> 00:15:25,800
-abstract toys, Fliction takes this exact bouncer and VIP math and claims it explains human thought.
+abstract toys, Flyxion takes this exact bouncer and VIP math and claims it explains human thought.
 
 324
 00:15:25,940 --> 00:15:27,140
@@ -1708,7 +1708,7 @@ That's a perfect metaphor.
 
 428
 00:21:00,460 --> 00:21:05,800
-And fliction mathematically cements this by invoking the Curry-Howard correspondence.
+And Flyxion mathematically cements this by invoking the Curry-Howard correspondence.
 
 429
 00:21:06,020 --> 00:21:06,240
@@ -1756,7 +1756,7 @@ And the actual execution of the program, the software running step-by-step to fi
 
 440
 00:21:47,200 --> 00:21:49,740
-So how does fliction map that to the human brain?
+So how does Flyxion map that to the human brain?
 
 441
 00:21:50,180 --> 00:21:54,540
@@ -1812,7 +1812,7 @@ We're talking about math on chalkboards and philosophical theories of mind.
 
 454
 00:22:31,380 --> 00:22:33,580
-But Fliction claims this isn't just a metaphor.
+But Flyxion claims this isn't just a metaphor.
 
 455
 00:22:34,240 --> 00:22:41,120
@@ -2304,7 +2304,7 @@ I can imagine.
 
 577
 00:28:47,660 --> 00:28:52,240
-And when the math breaks down, Flicksheen points out that biological models do something terrifying.
+And when the math breaks down, Flyxion points out that biological models do something terrifying.
 
 578
 00:28:52,240 --> 00:28:57,280
@@ -2624,7 +2624,7 @@ a smartphone failing to stitch a photo, and a biological model failing to predic
 
 657
 00:32:37,100 --> 00:32:41,280
-Infliction argues, this is not just a cute metaphorical overlap.
+Flyxion argues, this is not just a cute metaphorical overlap.
 
 658
 00:32:42,000 --> 00:32:49,940
@@ -2688,7 +2688,7 @@ Let's transition to the physical sciences.
 
 673
 00:33:38,480 --> 00:33:43,320
-Flexional pulls from deeply established physics here to prove the universality of the grammar.
+Flyxion pulls from deeply established physics here to prove the universality of the grammar.
 
 674
 00:33:43,540 --> 00:33:44,220
@@ -2836,7 +2836,7 @@ Yes.
 
 710
 00:35:46,500 --> 00:35:48,720
-The photon flying toward it is the perturbation.
+The photon Flyxion toward it is the perturbation.
 
 711
 00:35:48,720 --> 00:35:55,080
@@ -2896,7 +2896,7 @@ What about lasers?
 
 725
 00:36:45,800 --> 00:36:51,980
-Fliction moves up the energy scale to examine dual chirped optical parametric amplification, or DCOPA.
+Flyxion moves up the energy scale to examine dual chirped optical parametric amplification, or DCOPA.
 
 726
 00:36:52,160 --> 00:36:55,160
@@ -3164,11 +3164,11 @@ It needs a meta rule, a bouncer, that sits above the basic equations and decides
 
 792
 00:40:49,100 --> 00:40:50,980
-And what does Fliction say that rule is?
+And what does Flyxion say that rule is?
 
 793
 00:40:51,080 --> 00:40:59,720
-Fliction points to validating evidence from the frontier algorithm, which is used to simulate complex, chaotic fluids like Rayleigh-Taylor instabilities.
+Flyxion points to validating evidence from the frontier algorithm, which is used to simulate complex, chaotic fluids like Rayleigh-Taylor instabilities.
 
 794
 00:40:59,940 --> 00:41:00,360
@@ -3232,7 +3232,7 @@ Yes.
 
 809
 00:41:53,260 --> 00:41:57,460
-This is where Fliction looks at human engineering attempting to mimic this natural grammar.
+This is where Flyxion looks at human engineering attempting to mimic this natural grammar.
 
 810
 00:41:57,660 --> 00:41:58,220
@@ -3340,7 +3340,7 @@ The math actually supports your skepticism entirely.
 
 836
 00:43:34,460 --> 00:43:37,120
-Infliction explicitly calls this out in the text.
+Flyxion explicitly calls this out in the text.
 
 837
 00:43:37,260 --> 00:43:38,020
@@ -3368,7 +3368,7 @@ Okay, good. I was deeply worried we were drifting out of rigorous science and in
 
 843
 00:44:00,040 --> 00:44:08,340
-Not quite. However, what Fliction points out is that the underlying mechanism the marine engine uses is a fascinating, legitimate example of an admissibility map.
+Not quite. However, what Flyxion points out is that the underlying mechanism the marine engine uses is a fascinating, legitimate example of an admissibility map.
 
 844
 00:44:08,420 --> 00:44:08,940
@@ -3740,7 +3740,7 @@ The historical data of computer chips getting faster did absolutely nothing to c
 
 936
 00:50:10,300 --> 00:50:14,920
-So how does Flixion use the admissibility principle to solve this forecasting trap?
+So how does Flyxion use the admissibility principle to solve this forecasting trap?
 
 937
 00:50:15,140 --> 00:50:16,220
@@ -3752,7 +3752,7 @@ Right, especially when we talk about foam, the terrifying scenario where an AI b
 
 939
 00:50:28,100 --> 00:50:35,900
-To tackle the foam scenario, Flixion introduces a highly speculative thermodynamic model called the RSVP framework.
+To tackle the foam scenario, Flyxion introduces a highly speculative thermodynamic model called the RSVP framework.
 
 940
 00:50:36,440 --> 00:50:38,140
@@ -3856,7 +3856,7 @@ Oh, it does.
 
 965
 00:52:13,040 --> 00:52:20,040
-Fliction explicitly notes that the thermodynamic bound is a scaling constraint, not a hard mathematical impossibility.
+Flyxion explicitly notes that the thermodynamic bound is a scaling constraint, not a hard mathematical impossibility.
 
 966
 00:52:20,700 --> 00:52:20,900
@@ -3932,7 +3932,7 @@ It just becomes a vacuous philosophical metaphor.
 
 984
 00:53:37,040 --> 00:53:41,960
-Flipchon is acutely, rigorously aware of this exact trap.
+Flyxion is acutely, rigorously aware of this exact trap.
 
 985
 00:53:42,220 --> 00:53:42,880
@@ -4040,7 +4040,7 @@ This is layer five, the absolute deepest speculative layer of the paper.
 
 1011
 00:55:21,960 --> 00:55:29,000
-Fliction cites a 2026 pre-publication theory by physicists Modul and Patil on relativistic observerhood.
+Flyxion cites a 2026 pre-publication theory by physicists Modul and Patil on relativistic observerhood.
 
 1012
 00:55:29,000 --> 00:55:30,960
@@ -4248,7 +4248,7 @@ Are we saying the universe itself acts as a giant cosmic filter, constantly prun
 
 1063
 00:58:54,040 --> 00:58:59,260
-That is the grand, terrifying, philosophical inversion of Fliction's paper.
+That is the grand, terrifying, philosophical inversion of Flyxion's paper.
 
 1064
 00:58:59,760 --> 00:59:01,480
@@ -4340,7 +4340,7 @@ The topological structure literally falls apart.
 
 1086
 01:00:04,920 --> 01:00:09,940
-Fliction points out that this is actually a profound geometric manifestation of Goodhart's law.
+Flyxion points out that this is actually a profound geometric manifestation of Goodhart's law.
 
 1087
 01:00:10,140 --> 01:00:10,680
@@ -4424,7 +4424,7 @@ And finally, to the very fabric of relativistic space-time and the limits of obs
 
 1107
 01:01:33,080 --> 01:01:39,200
-And remember, as Fletcher is deeply careful to point out, this is not a proven, finalized universal law yet.
+And remember, as Flyxion is deeply careful to point out, this is not a proven, finalized universal law yet.
 
 1108
 01:01:39,300 --> 01:01:40,600

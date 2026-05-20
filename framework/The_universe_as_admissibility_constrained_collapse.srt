@@ -140,7 +140,7 @@ For sure.
 
 36
 00:01:37,700 --> 00:01:42,940
-The author, Fliction, proposes this universal mechanism called admissibility-constrained collapse.
+The author, Flyxion, proposes this universal mechanism called admissibility-constrained collapse.
 
 37
 00:01:43,320 --> 00:01:47,660

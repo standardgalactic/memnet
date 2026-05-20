@@ -44,7 +44,7 @@ Welcome to the Deep Dive.
 We are so thrilled to have you with us because today we are tackling a giant stack of notes centered on a massive 70-page independent research monograph.
 It's quite the document.
 It really is.
-It was published in May 2026 by an author named Fliction, and it is titled The Admissibility Principle, Computation, Physics, and Analogy as One Operation.
+It was published in May 2026 by an author named Flyxion, and it is titled The Admissibility Principle, Computation, Physics, and Analogy as One Operation.
 That subtitle really says it all.
 Yeah.
 Our mission for you today is to decode this principle because, I mean, to claim a structural unity across computer science, biology, physics, and human thought without claiming they are literally made of the same physical material that is staggeringly ambitious.
@@ -58,7 +58,7 @@ It totally avoids the trap of saying consciousness is quantum physics without an
 Right.
 None of that pseudoscience stuff.
 Exactly.
-What Fliction outlines is a strict five-layer research grammar.
+What Flyxion outlines is a strict five-layer research grammar.
 It starts at layer one, drawing on established, peer-reviewed science, like genetics and fluid dynamics.
 Hard science.
 Hard science.
@@ -174,7 +174,7 @@ Which is the stable output.
 Exactly.
 And the invariant preserved is the logical truth of the original equation.
 Okay, I'm totally with you.
-But Flixjan takes this classic 1930s math and introduces something wildly visual called sphere pop.
+But Flyxion takes this classic 1930s math and introduces something wildly visual called sphere pop.
 Yeah, sphere pop.
 Because standard lambda calculus is just, you know, letters and symbols on a chalkboard.
 Sphere pop tries to turn that flat math into 3D geometry, right?
@@ -281,7 +281,7 @@ And that leads perfectly into the paper section on non-instances.
 Because, you know, if a theory explains everything, it actually explains nothing.
 It becomes vacuous.
 Exactly.
-So, fliction is very careful to point out what does not qualify as an admissibility collapse.
+So, Flyxion is very careful to point out what does not qualify as an admissibility collapse.
 Right.
 And a thermostat is the perfect example of a non-instance.
 Okay.
@@ -320,7 +320,7 @@ It is the preservation of an invariant through a constraint-guided collapse.
 So we need a surviving identity, and we need a history that rewrites the future rules.
 Correct.
 This is a beautiful transition, because while geometric bubbles and lambda calculus are fascinating
-abstract toys, Fliction takes this exact bouncer and VIP math and claims it explains human thought.
+abstract toys, Flyxion takes this exact bouncer and VIP math and claims it explains human thought.
 Yes, cognition itself.
 How your brain, the listener's brain, is working right now.
 Let's bring this down to the cognitive and semantic layer.
@@ -425,7 +425,7 @@ We would be overwhelmed.
 By destroying the irrelevant noise, the coherent signal emerges.
 We are basically carving the statue out of the marble block.
 That's a perfect metaphor.
-And fliction mathematically cements this by invoking the Curry-Howard correspondence.
+And Flyxion mathematically cements this by invoking the Curry-Howard correspondence.
 Okay.
 What's that?
 If we connect this to the bigger picture, Curry-Howard is one of the most profound discoveries in computer science.
@@ -437,7 +437,7 @@ Structurally, yes.
 In Curry-Howard, a specific type of data in a program corresponds directly to a logical proposition.
 Okay.
 And the actual execution of the program, the software running step-by-step to find an answer, is identical to the process of normalizing mathematical proof to find the truth.
-So how does fliction map that to the human brain?
+So how does Flyxion map that to the human brain?
 By arguing that human cognition is just a generalized proof reduction process.
 Wow.
 When your brain struggles with a new concept and finally reaches an aha moment of understanding, you are experiencing the biological equivalent of a computer program successfully compiling.
@@ -451,7 +451,7 @@ But, you know, up until now we've been dealing with layer 3 and layer 4 abstract
 Right.
 Theory.
 We're talking about math on chalkboards and philosophical theories of mind.
-But Fliction claims this isn't just a metaphor.
+But Flyxion claims this isn't just a metaphor.
 The paper explicitly states that biology is the strongest empirical pillar proving this theory exists in physical space.
 It is time to leave the theoretical and look at the wetware.
 Let's dive into Layer 1, Established Science.
@@ -574,7 +574,7 @@ So the math is trying to force a smooth, continuous watercolor cloud to perfectl
 digital-branching stick figure drawing.
 Exactly. Reconciling those two geometries is computationally agonizing.
 I can imagine.
-And when the math breaks down, Flicksheen points out that biological models do something terrifying.
+And when the math breaks down, Flyxion points out that biological models do something terrifying.
 They experience what the paper calls a developmental hallucination.
 Here's where it gets really interesting.
 Because when I hear hallucination, I immediately think of generative AI.
@@ -654,7 +654,7 @@ There is a twist in the data that prevents global coherence.
 That is staggering.
 So the exact same mathematical measurement of geometric obstruction H1 not being zero applies to an AI lying about history,
 a smartphone failing to stitch a photo, and a biological model failing to predict how a stem cell grows.
-Infliction argues, this is not just a cute metaphorical overlap.
+Flyxion argues, this is not just a cute metaphorical overlap.
 Biology must physically execute this admissibility math in real life, or else multicellular organisms could not exist.
 Wait, really?
 Yes. If your cells didn't rigorously enforce their historical constraints, if they allowed local changes without global coherence,
@@ -670,7 +670,7 @@ What happens when we look at systems that deal with raw, unthinking energy and p
 Down to the fundamental forces.
 Yeah. Do the bouncer and the VIP still exist when we were just talking about light and water?
 Let's transition to the physical sciences.
-Flexional pulls from deeply established physics here to prove the universality of the grammar.
+Flyxion pulls from deeply established physics here to prove the universality of the grammar.
 Where do we start?
 Let's start at the very bottom, at the quantum level, with something called quantum weak value dwell times.
 Dwell times? Like how long a guest stays at a hotel?
@@ -707,7 +707,7 @@ Okay, let me try.
 So the cloud of cold atoms is our admissibility region.
 It's the nightclub.
 Yes.
-The photon flying toward it is the perturbation.
+The photon Flyxion toward it is the perturbation.
 And the constraint membrane is the strict interference condition set up by the lasers and the magnetic fields in the lab.
 The membrane is hyper-exclusive.
 It physically rejects any trajectory that doesn't meet the precise resonant requirements.
@@ -722,7 +722,7 @@ So even a single unthinking particle of light hitting an atom has to pass a comp
 Yes.
 Okay, what about something bigger and more powerful?
 What about lasers?
-Fliction moves up the energy scale to examine dual chirped optical parametric amplification, or DCOPA.
+Flyxion moves up the energy scale to examine dual chirped optical parametric amplification, or DCOPA.
 Yeah, I am going to need to explain like I'm five on that one.
 It is the absolute cutting edge of ultra-fast optics.
 Scientists use DCOPA to generate at-a-second laser pulses.
@@ -789,8 +789,8 @@ If the math allows infinite realities, how does the universe actually decide whi
 The universe needs an admissibility selector.
 Ah, the bouncer.
 It needs a meta rule, a bouncer, that sits above the basic equations and decides which mathematically valid future is actually permitted to become physical reality.
-And what does Fliction say that rule is?
-Fliction points to validating evidence from the frontier algorithm, which is used to simulate complex, chaotic fluids like Rayleigh-Taylor instabilities.
+And what does Flyxion say that rule is?
+Flyxion points to validating evidence from the frontier algorithm, which is used to simulate complex, chaotic fluids like Rayleigh-Taylor instabilities.
 What's that?
 That's what happens when a heavy fluid sits on top of a light fluid and they violently mix.
 Yes. The principle that perfectly matches real-world experiments is called the maximum dissipation rate.
@@ -806,7 +806,7 @@ Exactly.
 Let's move from raw physics to applied engineering.
 The paper discusses an audio technology called the marine engine, or Phoenix A-Day.
 Yes.
-This is where Fliction looks at human engineering attempting to mimic this natural grammar.
+This is where Flyxion looks at human engineering attempting to mimic this natural grammar.
 Oh, so.
 Traditional digital audio processing, like the MP3 files on your phone, or standard pitch correction software, relies on a mathematical tool called the short-time Fourier transform, or STFT.
 Okay, I actually know a bit about this.
@@ -833,14 +833,14 @@ The paper quotes internal engineering benchmarks claiming the marine engine achi
 As someone who respects the laws of physics, isn't that literally mathematically impossible under the standard 4A limits?
 You can't cheat the universe.
 The math actually supports your skepticism entirely.
-Infliction explicitly calls this out in the text.
+Flyxion explicitly calls this out in the text.
 Oh, thank goodness.
 Yeah.
 The paper qualifies that claim as a significant overstatement of information theoretic limits.
 You cannot build a machine that violates 4A duality.
 The claim of infinite resolution and zero latency is, frankly, engineering marketing hype meant to sell software.
 Okay, good. I was deeply worried we were drifting out of rigorous science and into Silicon Valley sci-fi magic.
-Not quite. However, what Fliction points out is that the underlying mechanism the marine engine uses is a fascinating, legitimate example of an admissibility map.
+Not quite. However, what Flyxion points out is that the underlying mechanism the marine engine uses is a fascinating, legitimate example of an admissibility map.
 How so?
 Because it discards the 4A transform, it extracts incredibly fine temporal features like microvibrato and acoustic jitter that standard algorithms literally erase by design.
 So how does it act like the bouncer on the club?
@@ -933,10 +933,10 @@ But Moravec spent all his intellectual effort validating the biological compute 
 Which would an artificial intelligence actually require the exact same amount of compute power to achieve intelligence as wet biological tissue does?
 Oh.
 The historical data of computer chips getting faster did absolutely nothing to constrain that assumption.
-So how does Flixion use the admissibility principle to solve this forecasting trap?
+So how does Flyxion use the admissibility principle to solve this forecasting trap?
 That's where we get to foam.
 Right, especially when we talk about foam, the terrifying scenario where an AI becomes smart enough to rewrite its own code, recursively improving itself into a god-like superintelligence in a matter of hours.
-To tackle the foam scenario, Flixion introduces a highly speculative thermodynamic model called the RSVP framework.
+To tackle the foam scenario, Flyxion introduces a highly speculative thermodynamic model called the RSVP framework.
 RSVP framework? What does that stand for?
 It stands for the Relativistic Scalar Vector Plenum.
 Wow. Okay, layer 5 speculation.
@@ -962,7 +962,7 @@ Couldn't it just realize it's getting hot, pause its own thinking, and design a 
 Couldn't it just commandeer all the server farms on Earth to increase its surface area?
 The map actually supports that possibility.
 Oh, it does.
-Fliction explicitly notes that the thermodynamic bound is a scaling constraint, not a hard mathematical impossibility.
+Flyxion explicitly notes that the thermodynamic bound is a scaling constraint, not a hard mathematical impossibility.
 Okay.
 If the AI rapidly expands its physical surface area by hijacking global infrastructure, it changes the bounds.
 Or if the AI utilizes quantum adiabatic computing, which theoretically operates reversibly and produces near-zero entropy, it could bypass the Landauer limit entirely.
@@ -981,7 +981,7 @@ If you can stretch a theory to cover absolutely everything in the universe, isn'
 That's a very fair point.
 If it explains everything, it predicts nothing.
 It just becomes a vacuous philosophical metaphor.
-Flipchon is acutely, rigorously aware of this exact trap.
+Flyxion is acutely, rigorously aware of this exact trap.
 Oh, good.
 How do they deal with it?
 That is specifically why the paper includes an exhaustive mathematical appendix on strong admissibility.
@@ -1008,7 +1008,7 @@ Deepest layer.
 The boundaries of existence itself.
 We are entering the final layer, section six, the ultimate filter, observerhood, and existence.
 This is layer five, the absolute deepest speculative layer of the paper.
-Fliction cites a 2026 pre-publication theory by physicists Modul and Patil on relativistic observerhood.
+Flyxion cites a 2026 pre-publication theory by physicists Modul and Patil on relativistic observerhood.
 What's the context for this?
 To understand this, we have to look at the century-old war between general relativity and quantum mechanics.
 Ah.
@@ -1060,7 +1060,7 @@ These are inadmissible observers.
 They are excluded from reality.
 So what does this all mean?
 Are we saying the universe itself acts as a giant cosmic filter, constantly pruning out anything that cannot maintain its own coherent perspective?
-That is the grand, terrifying, philosophical inversion of Fliction's paper.
+That is the grand, terrifying, philosophical inversion of Flyxion's paper.
 I'm going to quote the text directly here.
 Physical law does not merely govern what exists.
 It governs what can remain coherently observable.
@@ -1083,7 +1083,7 @@ It simply ceases to coherently exist as an observable entity.
 In mathematics, this is called bundle degeneration.
 Bundle degeneration.
 The topological structure literally falls apart.
-Fliction points out that this is actually a profound geometric manifestation of Goodhart's law.
+Flyxion points out that this is actually a profound geometric manifestation of Goodhart's law.
 Goodhart's law.
 That's from economics, right?
 When a measure becomes a target, it ceases to be a good measure.
@@ -1104,7 +1104,7 @@ And we've seen how that exact same sequence links the abstract lambda calculus o
 To the energy transfer in cutting edge at a second lasers.
 To the thermal limits of runaway artificial intelligence.
 And finally, to the very fabric of relativistic space-time and the limits of observerhood.
-And remember, as Fletcher is deeply careful to point out, this is not a proven, finalized universal law yet.
+And remember, as Flyxion is deeply careful to point out, this is not a proven, finalized universal law yet.
 Right. It's an operational schema.
 It is a new lens.
 It gives you, the listener, a powerful cognitive tool.
