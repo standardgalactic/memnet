@@ -53,7 +53,7 @@ It is a wild journey from the math of sound waves to the philosophy of the mind.
 It really is.
 Yeah.
 But our second mission today is perhaps even more practical for you, the person listening.
-We're going to learn what Fliction calls the Ortix Protocol.
+We're going to learn what Flyxion calls the Ortix Protocol.
 The ultimate mental toolkit.
 Exactly. Think of it as a toolkit.
 Yeah.
@@ -179,7 +179,7 @@ FFT.
 Yes.
 The fast Fourier transform.
 It is the mathematical backbone of almost all modern digital signal processing.
-And Flixion notes in the text that FFT has a computational complexity of n log n.
+And Flyxion notes in the text that FFT has a computational complexity of n log n.
 Yes.
 Now, I am not a computer scientist.
 What does that actually mean when my phone is just trying to play a song?
@@ -320,7 +320,7 @@ It's literally how our biology survives in a chaotic universe.
 It's how we navigate reality.
 That is incredible.
 And historically, we've seen this kind of strict constraint produce incredible elegance in computing.
-Fliction points to a wonderful historical example in the text.
+Flyxion points to a wonderful historical example in the text.
 The Commodore 64.
 Yes, the MOS Technology SID chip from the 1980s.
 Oh, man, the legendary SID chip.
@@ -393,7 +393,7 @@ So the memory isn't a thing sitting in a box waiting to be retrieved.
 Not at all.
 It's an active field of energy.
 It's the rippling of the water itself.
-And this leads to what Fliction calls the dissolution of the storage process distinction.
+And this leads to what Flyxion calls the dissolution of the storage process distinction.
 What?
 The storage process distinction.
 Think about the computer or the phone you are using right now.
@@ -414,7 +414,7 @@ The wave interference is both the storage and the process simultaneously.
 The rippling pond is holding the information.
 But the way the ripples crash into each other, the way they amplify and cancel, that is the computing.
 Oh, wow.
-As Fliction writes, memory is something you do, not something you have.
+As Flyxion writes, memory is something you do, not something you have.
 Memory is something you do, not something you have.
 Okay, that sounds beautifully poetic, but what is the actual computational advantage of doing it that way?
 Why build a computer like a pond?
@@ -503,7 +503,7 @@ And that brings us to the ultimate ambition of the Phoenix Corpus, the salient-c
 They want to build it.
 The authors don't just want to improve existing AI, they want to completely replace it from the ground up.
 They claim that this stack, marine HCF-1 ME-M8, is a biologically plausible alternative to modern deep learning.
-Infliction of detail is how the Corpus launches some incredibly heavy critiques at our current AI systems to justify tearing them down.
+Flyxion of detail is how the Corpus launches some incredibly heavy critiques at our current AI systems to justify tearing them down.
 They do not hold back.
 No.
 They outline four main critiques of deep learning that I think are really worth exploring here.
@@ -590,7 +590,7 @@ But this brings us to a critical juncture in the deep dive.
 The architecture we've discussed so far, from the MP3 compression to the puddle memory, it's brilliant on paper.
 It's elegant.
 It really is.
-But Flixion, our guide through this corpus, warns us that this is exactly where the Phoenix ecosystem flies too close to the sun.
+But Flyxion, our guide through this corpus, warns us that this is exactly where the Phoenix ecosystem flies too close to the sun.
 It gets airied, yeah.
 It steps out of the realm of measurable engineering and plunges into dangerous, highly speculative, philosophical territory.
 Because the authors of the Phoenix corpus, they don't just say, hey, our system is a really good, efficient way to build a computer.
@@ -619,7 +619,7 @@ Therefore, temporal coherence isn't just how we hear music.
 Temporal coherence is what creates our conscious experience of reality.
 Yes.
 And if we connect this to the bigger picture, this is where the framework begins to buckle under its own ambition.
-Affliction introduces a concept here that I think is vital for anyone who loves learning to understand.
+Flyxion introduces a concept here that I think is vital for anyone who loves learning to understand.
 They call it universal absorbency.
 The sponge theory.
 Exactly.
@@ -629,7 +629,7 @@ Everything validates the theory.
 Right. A truly scientific theory must make stripped, testable predictions.
 It must state what cannot happen if the theory is true.
 But the Phoenix Corpus starts using the word coherence to explain literally everything.
-I have to bring up a brilliant counterexample that Affliction points out in the text to prove this flaw.
+I have to bring up a brilliant counterexample that Flyxion points out in the text to prove this flaw.
 Yeah.
 Because this really clicked for me when I read it.
 I know exactly the one you mean.
@@ -658,17 +658,17 @@ It absorbs the counterexample by just stretching the definition of the word unti
 So, as curious learners, as people who read dense books and listen to deep dives, how do we protect ourselves from this?
 How do we tell the difference between a genius unifying theory of everything, like, I don't know, Einstein's theory of relativity,
 and a theory that is just playing incredibly sophisticated word games?
-That is exactly what Flixion's monograph is designed to teach us.
+That is exactly what Flyxion's monograph is designed to teach us.
 This brings us to the ORDICS protocol itself.
-Flixion provides an audit toolkit, a way to evaluate speculative, massive systems without throwing the baby out with the bathwater.
+Flyxion provides an audit toolkit, a way to evaluate speculative, massive systems without throwing the baby out with the bathwater.
 Right, because remember, the early engineering stuff, the marine algorithm, the HCF1 compression,
 that was actually really useful math.
 It was brilliant math.
 We don't want to burn down the whole house just because the roof is leaky.
 We need to be surgical.
 We need to know what to keep and what to discard.
-And the first surgical tool Flixion gives us is learning to distinguish between organizational formalism and constraint-providing formalism.
-Flixion has a line in the text that I loved.
+And the first surgical tool Flyxion gives us is learning to distinguish between organizational formalism and constraint-providing formalism.
+Flyxion has a line in the text that I loved.
 Mathematical notation is a promise to constrain the world.
 That hit me so hard.
 It's a crucial insight.
@@ -694,7 +694,7 @@ It might help you organize your thoughts on a page, but I can't actually measure
 It's just pros wearing a math costume.
 That's a perfect description.
 It organizes the author's thoughts, which is fine for philosophy, but it doesn't prove the thoughts are structurally true.
-The second tool affliction gives us is watching out for vocabulary migration.
+The second tool Flyxion gives us is watching out for vocabulary migration.
 This is what we were just talking about with the word coherence, right?
 Yes.
 If you want to audit a grand theory, trace a key word through the text.
@@ -707,7 +707,7 @@ By chapter five, it has migrated into the phenomenological feeling of being a co
 The word stayed exactly the same, but the scientific proof got left behind in chapter one.
 They smuggled the authority of the audio math into the philosophy of the mind just by refusing to change the vocabulary.
 It's a semantic sleight of hand.
-And this raises an important question, which leads to Fliction's final and perhaps most powerful concept for navigating information, the four inferential levels of any theory.
+And this raises an important question, which leads to Flyxion's final and perhaps most powerful concept for navigating information, the four inferential levels of any theory.
 Okay, let's go through these.
 If you want to be truly well-informed, you have to know which level you are standing on at all times and whether the author has actually earned the right to be there.
 Level I is engineering utility.
@@ -749,7 +749,7 @@ Right.
 In a world of absolute information overload, being well-informed isn't just about absorbing data.
 It isn't just knowing what the phoenix corpus is so you can sound smart at a dinner party.
 It's about checking the structural integrity of the ideas being sold to you.
-As Flixian so beautifully put it, a theory that explains everything but forbids nothing isn't a theory.
+As Flyxion so beautifully put it, a theory that explains everything but forbids nothing isn't a theory.
 It's an atmosphere.
 And we must learn to navigate by constraint, not by atmosphere.
 I'm going to leave you, the listener, with one final provocative thought to mull over on your own.
