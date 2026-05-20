@@ -1,5 +1,9 @@
 # MEMNET
 
+[The Admissibility Principle](https://standardgalactic.github.io/memnet/framework/admissibility_principle.pdf)
+
+* [The Universe as Admissibility Constrained Collapse](https://standardgalactic.github.io/memnet/framework/) — *Audio Overview*
+
 [The Semantic State](https://standardgalactic.github.io/memnet/semantic_state.pdf)
 
 * [Audio Overview](https://standardgalactic.github.io/memnet/)
