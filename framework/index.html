@@ -400,6 +400,10 @@ body::before{
     Admissibility Collapse
   </button>
 
+  <button class="track-btn">
+    Universal Admissibility
+  </button>
+
 </div>
 
 <div class="status">
@@ -432,7 +436,9 @@ const TRACKS = [
 
   "The_Ortyx_Protocol_and_wave_based_AI.mp3",
 
-  "The_universe_as_admissibility_constrained_collapse.mp3"
+  "The_universe_as_admissibility_constrained_collapse.mp3",
+
+  "The_Universal_Mathematics_of_System_Admissibility.mp3"
 
 ]
 
@@ -505,15 +511,11 @@ async function loadTrack(i, autoplay=true){
   const file =
     TRACKS[currentTrack]
 
-  /* fully reset previous stream */
-
   audio.pause()
 
   audio.removeAttribute("src")
 
   audio.load()
-
-  /* UI */
 
   buttons.forEach(
     b=>b.classList.remove('active')
@@ -522,17 +524,11 @@ async function loadTrack(i, autoplay=true){
   buttons[currentTrack]
     .classList.add('active')
 
-  /* subtitles */
-
   await loadVTT(
     file.replace('.mp3','.vtt')
   )
 
-  /* assign source ONCE */
-
   audio.src = file
-
-  /* wait for ready */
 
   await new Promise((resolve,reject)=>{
 
