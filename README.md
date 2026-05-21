@@ -1,5 +1,13 @@
 # MEMNET
 
+[Constraint as Ground](https://standardgalactic.github.io/memnet/sparse-representations/constraint_as_ground.pdf)
+
+* [Topological Intelligence](https://standardgalactic.github.io/memnet/sparse-representations/Topological_Intelligence.pdf)
+
+* [Notes](https://standardgalactic.github.io/memnet/sparse-representations/Constraint_as_Ground-notes.pdf)
+
+* [The Engine of Intelligence](https://standardgalactic.github.io/memnet/sparse-representations/) — *Audio Overview*
+
 [The Admissibility Principle](https://standardgalactic.github.io/memnet/framework/admissibility_principle.pdf)
 
 * [The Universe as Admissibility Constrained Collapse](https://standardgalactic.github.io/memnet/framework/) — *Audio Overview*
