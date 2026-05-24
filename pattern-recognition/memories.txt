@@ -1,0 +1,8 @@
+childhood,2,0.95
+alarm,5,0.88
+meeting,12,0.15
+random_noise,20,0.01
+first_lesson,3,0.82
+fever,8,0.61
+holiday,4,0.91
+commute,15,0.08

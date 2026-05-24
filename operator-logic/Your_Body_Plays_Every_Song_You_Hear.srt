@@ -1,0 +1,4760 @@
+1
+00:00:00,000 --> 00:00:05,880
+Has you ever walked out of a concert feeling like you just ran like a half marathon?
+
+2
+00:00:06,220 --> 00:00:08,220
+Yeah, that complete physical exhaustion.
+
+3
+00:00:08,380 --> 00:00:08,700
+Exactly.
+
+4
+00:00:08,880 --> 00:00:13,200
+Even though you spent the entire two hours just sitting comfortably in a velvet chair.
+
+5
+00:00:13,360 --> 00:00:13,680
+Right.
+
+6
+00:00:13,860 --> 00:00:16,840
+Maybe your ears are ringing a bit, sure, but it's more than that.
+
+7
+00:00:16,880 --> 00:00:17,460
+It really is.
+
+8
+00:00:17,760 --> 00:00:23,440
+Your muscles feel fatigued, like your chest feels tight, and your core is actually physically
+
+9
+00:00:23,440 --> 00:00:24,160
+exhausted.
+
+10
+00:00:24,260 --> 00:00:25,380
+We've all had that feeling.
+
+11
+00:00:25,480 --> 00:00:26,300
+We really have.
+
+12
+00:00:26,300 --> 00:00:31,580
+Whether it's walking out of a massive symphony performance or, you know, a thumping rock
+
+13
+00:00:31,580 --> 00:00:36,660
+show, or even just taking off your headphones after a really intense emotional album.
+
+14
+00:00:36,940 --> 00:00:41,780
+It is a completely universal experience, and historically we've had a very hard time explaining
+
+15
+00:00:41,780 --> 00:00:42,020
+it.
+
+16
+00:00:42,220 --> 00:00:42,440
+Yeah.
+
+17
+00:00:42,740 --> 00:00:46,020
+We say we are moved by the music, which is, you know, a lovely poetic sentiment.
+
+18
+00:00:46,200 --> 00:00:46,540
+Oh, totally.
+
+19
+00:00:46,720 --> 00:00:52,060
+But it doesn't really explain the biology of why your quadriceps are tense after listening
+
+20
+00:00:52,060 --> 00:00:52,620
+to Beethoven.
+
+21
+00:00:52,820 --> 00:00:53,100
+Right.
+
+22
+00:00:53,100 --> 00:01:00,780
+And usually when we talk about human anatomy or physiology, we expect this level of engineering
+
+23
+00:01:00,780 --> 00:01:01,380
+precision.
+
+24
+00:01:01,720 --> 00:01:06,080
+If you break your arm, you go to the hospital, they take an x-ray, the doctor points to a
+
+25
+00:01:06,080 --> 00:01:09,780
+jagged white line on a glowing screen and says, well, there is your problem.
+
+26
+00:01:10,040 --> 00:01:10,680
+It's visible.
+
+27
+00:01:11,140 --> 00:01:11,920
+It is measurable.
+
+28
+00:01:12,480 --> 00:01:14,080
+Biology loves categories.
+
+29
+00:01:14,380 --> 00:01:15,080
+It really does.
+
+30
+00:01:15,100 --> 00:01:18,680
+It loves a clear cause and an observable physical effect.
+
+31
+00:01:18,680 --> 00:01:23,440
+But then you step into the world of music and human emotion, and suddenly that x-ray machine
+
+32
+00:01:23,440 --> 00:01:25,140
+feels completely useless.
+
+33
+00:01:25,420 --> 00:01:26,240
+Oh, entirely.
+
+34
+00:01:26,620 --> 00:01:31,840
+We know definitively that a song can make us cry or make us want to dance or leave us completely
+
+35
+00:01:31,840 --> 00:01:32,360
+drained.
+
+36
+00:01:32,620 --> 00:01:39,500
+But if you try to find the mechanism, the actual gears and levers turning inside us, you are
+
+37
+00:01:39,500 --> 00:01:42,180
+looking at a landscape that is incredibly murky.
+
+38
+00:01:42,540 --> 00:01:43,260
+It really is.
+
+39
+00:01:43,260 --> 00:01:49,140
+How does an invisible vibration in the air become like physical exhaustion in your stomach?
+
+40
+00:01:49,400 --> 00:01:52,300
+That is the absolute definition of diagnostic muddy waters.
+
+41
+00:01:52,680 --> 00:01:57,480
+But that invisible bridge between acoustic sound waves and the human flesh is exactly what
+
+42
+00:01:57,480 --> 00:01:58,660
+we are going to cross today.
+
+43
+00:01:59,080 --> 00:02:01,060
+Welcome to today's Deep Dive.
+
+44
+00:02:01,280 --> 00:02:04,880
+If you're listening to this right now, our mission is to completely revolutionize how you
+
+45
+00:02:04,880 --> 00:02:06,380
+experience your favorite playlist.
+
+46
+00:02:06,380 --> 00:02:12,580
+Whether you are listening to a complex jazz ensemble, a heavy metal anthem, or honestly
+
+47
+00:02:12,580 --> 00:02:17,640
+just the ambient noise of the subway train outside your window, we are going to change
+
+48
+00:02:17,640 --> 00:02:22,040
+the way you understand what is happening inside your physical body at this very second.
+
+49
+00:02:22,200 --> 00:02:22,440
+Yes.
+
+50
+00:02:22,880 --> 00:02:27,340
+And we are pulling all of this from an incredibly fascinating text by Arnie Cox.
+
+51
+00:02:27,500 --> 00:02:27,720
+Right.
+
+52
+00:02:27,820 --> 00:02:30,440
+The book is called Music and Embodied Cognition.
+
+53
+00:02:31,120 --> 00:02:33,060
+Listening, Moving, Feeling, and Thinking.
+
+54
+00:02:33,060 --> 00:02:39,100
+And at the center of Cox's work is this concept called the Mimetic Hypothesis.
+
+55
+00:02:39,440 --> 00:02:41,100
+And I don't use this phrase lightly.
+
+56
+00:02:41,440 --> 00:02:45,660
+It is a proposition that fundamentally rewrites how we define the act of listening.
+
+57
+00:02:45,880 --> 00:02:47,240
+Okay, let's unpack this right away.
+
+58
+00:02:47,480 --> 00:02:52,140
+Because the central idea here is that you, me, and everyone listening, we don't just listen
+
+59
+00:02:52,140 --> 00:02:53,100
+to music with our ears.
+
+60
+00:02:53,180 --> 00:02:53,400
+Right.
+
+61
+00:02:53,640 --> 00:02:54,840
+That's a biological illusion.
+
+62
+00:02:55,240 --> 00:03:00,080
+The hypothesis suggests that we actually play and sing along with every piece of music we
+
+63
+00:03:00,080 --> 00:03:00,380
+hear.
+
+64
+00:03:00,540 --> 00:03:01,760
+Even when we're sitting still.
+
+65
+00:03:01,760 --> 00:03:02,320
+Exactly.
+
+66
+00:03:02,680 --> 00:03:07,740
+Using our muscles, our vocal cords, and our motor neurons, even when we are sitting perfectly,
+
+67
+00:03:07,880 --> 00:03:08,600
+completely still.
+
+68
+00:03:09,160 --> 00:03:10,880
+You aren't just absorbing sound.
+
+69
+00:03:11,120 --> 00:03:13,800
+Your body is actively, physically surviving it.
+
+70
+00:03:14,040 --> 00:03:19,740
+To really grasp how radical this idea is, we have to look at the traditional way humanity
+
+71
+00:03:19,740 --> 00:03:20,660
+has studied music.
+
+72
+00:03:21,040 --> 00:03:24,040
+And frankly, the traditional way we've studied the human brain.
+
+73
+00:03:24,180 --> 00:03:24,360
+Yeah.
+
+74
+00:03:24,480 --> 00:03:29,600
+For centuries, there has been this massive disconnect between the people who play music and the people
+
+75
+00:03:29,600 --> 00:03:30,500
+who analyze it.
+
+76
+00:03:30,500 --> 00:03:36,920
+And Cox kicks off his entire exploration with a story from his grad school days that illustrates
+
+77
+00:03:36,920 --> 00:03:38,520
+this disconnect perfectly.
+
+78
+00:03:38,660 --> 00:03:39,620
+It's a great story.
+
+79
+00:03:39,780 --> 00:03:42,660
+I love this anecdote because it is so incredibly relatable.
+
+80
+00:03:43,380 --> 00:03:44,600
+So picture this.
+
+81
+00:03:45,380 --> 00:03:47,220
+Cox is a music theory student.
+
+82
+00:03:47,600 --> 00:03:53,160
+He is sitting in his apartment, completely buried in the complex structural music theory of the
+
+83
+00:03:53,160 --> 00:03:54,800
+composer Claude Debussy.
+
+84
+00:03:54,800 --> 00:03:55,320
+Right.
+
+85
+00:03:55,460 --> 00:03:57,320
+And Debussy is famously intricate.
+
+86
+00:03:57,820 --> 00:03:58,160
+Oh, yeah.
+
+87
+00:03:58,320 --> 00:04:03,300
+We are talking about dense harmonic structures, whole tone scales, very mathematical, highly
+
+88
+00:04:03,300 --> 00:04:04,500
+cerebral compositions.
+
+89
+00:04:04,960 --> 00:04:05,280
+Exactly.
+
+90
+00:04:05,500 --> 00:04:10,440
+So Cox is at his desk mapping out the hierarchical relations among these musical tones, drawing
+
+91
+00:04:10,440 --> 00:04:12,640
+charts, doing the heavy academic lifting.
+
+92
+00:04:12,760 --> 00:04:13,520
+Doing the work.
+
+93
+00:04:13,640 --> 00:04:15,120
+And suddenly his stove breaks.
+
+94
+00:04:15,380 --> 00:04:16,660
+So he has to call a repairman.
+
+95
+00:04:16,660 --> 00:04:23,040
+A very grounded, physical, blue-collar problem, interrupting his high-level, abstract, ivory
+
+96
+00:04:23,040 --> 00:04:23,920
+tower thinking.
+
+97
+00:04:24,240 --> 00:04:25,160
+Perfect contrast.
+
+98
+00:04:25,680 --> 00:04:29,520
+So the stove repairman comes over, gets to work, and they start making small talk.
+
+99
+00:04:30,300 --> 00:04:34,180
+The repairman asks Cox what he is studying up at the college.
+
+100
+00:04:34,300 --> 00:04:34,440
+Right.
+
+101
+00:04:34,680 --> 00:04:36,140
+Cox replies, music theory.
+
+102
+00:04:36,140 --> 00:04:38,240
+And the repairman gets super excited.
+
+103
+00:04:38,940 --> 00:04:44,480
+He pauses his work, looks up, and assumes with total seriousness and genuine enthusiasm
+
+104
+00:04:44,480 --> 00:04:49,620
+that studying music theory must mean studying how music makes us feel things.
+
+105
+00:04:50,060 --> 00:04:54,860
+Which, if you step outside the bubble of academia, is the most logical assumption a human being
+
+106
+00:04:54,860 --> 00:04:55,740
+could possibly make.
+
+107
+00:04:55,800 --> 00:04:56,440
+Totally is.
+
+108
+00:04:56,560 --> 00:04:57,920
+I mean, why do we listen to music?
+
+109
+00:04:58,100 --> 00:04:59,200
+Because it makes us feel.
+
+110
+00:04:59,420 --> 00:05:02,760
+Therefore, the theory of music must be the study of those feelings.
+
+111
+00:05:02,760 --> 00:05:07,700
+But Cox has to stand there and awkwardly explain, well, no, actually, I study the hierarchical
+
+112
+00:05:07,700 --> 00:05:09,540
+relations among musical tones.
+
+113
+00:05:09,660 --> 00:05:11,080
+Just crushing the guy's spirit.
+
+114
+00:05:11,360 --> 00:05:11,560
+Yeah.
+
+115
+00:05:12,220 --> 00:05:15,800
+He basically tells this guy, I studied the math of the invisible airwaves.
+
+116
+00:05:16,560 --> 00:05:21,800
+And Cox notes that the conversation just died a quiet, uncomfortable little death right
+
+117
+00:05:21,800 --> 00:05:22,040
+there.
+
+118
+00:05:22,280 --> 00:05:22,720
+Awkward.
+
+119
+00:05:22,880 --> 00:05:26,940
+The repairman went back to fixing the stove, probably thinking academia was completely useless.
+
+120
+00:05:27,320 --> 00:05:31,180
+But that awkward interaction sparked a massive revelation for Cox.
+
+121
+00:05:31,180 --> 00:05:34,060
+It really highlighted a glaring blind spot.
+
+122
+00:05:34,480 --> 00:05:39,620
+Traditional musical analysis, staring at notes on a piece of paper, mapping out chord
+
+123
+00:05:39,620 --> 00:05:45,100
+progressions, labeling syntax, completely misses the fundamental reason why human beings
+
+124
+00:05:45,100 --> 00:05:46,760
+are drawn to music in the first place.
+
+125
+00:05:46,860 --> 00:05:47,060
+Right.
+
+126
+00:05:47,360 --> 00:05:52,200
+What the stove repairman intuitively understood in his gut, and what traditional theory was
+
+127
+00:05:52,200 --> 00:05:55,840
+entirely missing, is the reality of the embodied mind.
+
+128
+00:05:55,880 --> 00:05:56,560
+The embodied mind.
+
+129
+00:05:56,560 --> 00:06:03,140
+For a very long time, cognitive science, philosophy, and musicology all treated the human brain like
+
+130
+00:06:03,140 --> 00:06:06,000
+a disembodied computer sitting in a vat of fluid.
+
+131
+00:06:06,220 --> 00:06:07,620
+Like a sci-fi brain in a jar.
+
+132
+00:06:07,780 --> 00:06:08,220
+Exactly.
+
+133
+00:06:08,840 --> 00:06:10,660
+The old model was highly mechanical.
+
+134
+00:06:11,520 --> 00:06:16,040
+Sound waves enter the ear microphone, the brain computer processes the syntax of the audio
+
+135
+00:06:16,040 --> 00:06:19,120
+data, and it outputs a cognitive understanding of the song.
+
+136
+00:06:19,220 --> 00:06:22,740
+But I'm assuming that's not how millions of years of evolution actually designed us.
+
+137
+00:06:22,740 --> 00:06:23,620
+Not even close.
+
+138
+00:06:23,740 --> 00:06:28,060
+The brain didn't evolve to be a disembodied calculator analyzing abstract data streams.
+
+139
+00:06:28,260 --> 00:06:28,380
+Right.
+
+140
+00:06:28,800 --> 00:06:33,540
+To understand how we hear music, we have to rewind the evolutionary clock way back.
+
+141
+00:06:34,120 --> 00:06:37,820
+Millions of years ago, life on Earth evolved without central nervous systems.
+
+142
+00:06:38,160 --> 00:06:39,180
+Okay, so way, way back.
+
+143
+00:06:39,280 --> 00:06:39,440
+Yeah.
+
+144
+00:06:39,820 --> 00:06:46,180
+You had single-celled organisms and eventually simple multicellular organisms just floating
+
+145
+00:06:46,180 --> 00:06:48,160
+around reacting to local stimuli.
+
+146
+00:06:48,320 --> 00:06:49,220
+Like a sea sponge.
+
+147
+00:06:49,300 --> 00:06:50,160
+It doesn't have a brain.
+
+148
+00:06:50,300 --> 00:06:51,820
+It just exists and filters water.
+
+149
+00:06:51,820 --> 00:06:52,420
+Exactly.
+
+150
+00:06:53,080 --> 00:06:58,500
+But as organisms became massively multicellular and complex, developing specialized limbs,
+
+151
+00:06:58,700 --> 00:07:04,440
+internal organs, digestive tracts, complex blood circulation, they encountered a massive
+
+152
+00:07:04,440 --> 00:07:05,500
+biological problem.
+
+153
+00:07:05,640 --> 00:07:06,460
+They needed a manager.
+
+154
+00:07:06,700 --> 00:07:10,720
+They needed a centralized way to coordinate all these incredibly disparate parts.
+
+155
+00:07:10,840 --> 00:07:15,020
+If the organism is being attacked, the muscles need to know to move, the heart needs to know
+
+156
+00:07:15,020 --> 00:07:18,080
+to pump faster, the lungs need to take in more oxygen.
+
+157
+00:07:18,080 --> 00:07:22,680
+So the central nervous system evolved to manage this complex bodily machinery.
+
+158
+00:07:22,920 --> 00:07:23,120
+Yes.
+
+159
+00:07:23,360 --> 00:07:26,680
+And its primary directive is to maintain homeostasis.
+
+160
+00:07:26,960 --> 00:07:28,640
+I remember that term from high school biology.
+
+161
+00:07:29,180 --> 00:07:35,300
+Homeostasis is that balanced, stable state where the organism is surviving, everything is
+
+162
+00:07:35,300 --> 00:07:37,320
+functioning well, the engine is running smoothly.
+
+163
+00:07:37,640 --> 00:07:38,100
+Precisely.
+
+164
+00:07:38,360 --> 00:07:39,560
+And here's the crucial part.
+
+165
+00:07:39,560 --> 00:07:45,300
+The mechanism the brain uses to maintain homeostasis is physical affect, feelings.
+
+166
+00:07:45,840 --> 00:07:49,520
+Wait, you're saying emotions were basically the first management tool of the nervous system?
+
+167
+00:07:49,720 --> 00:07:50,740
+Let's look at it practically.
+
+168
+00:07:51,480 --> 00:07:55,380
+A drop in your blood sugar creates a negative affective state.
+
+169
+00:07:55,500 --> 00:07:55,800
+Right.
+
+170
+00:07:55,880 --> 00:07:56,400
+You get hungry.
+
+171
+00:07:56,400 --> 00:08:02,120
+You experience it as a physical feeling of hunger, maybe a bit of lethargy or crankiness.
+
+172
+00:08:02,660 --> 00:08:04,020
+That feeling is an abstract.
+
+173
+00:08:04,740 --> 00:08:06,980
+It is a profound physical motivator.
+
+174
+00:08:07,540 --> 00:08:09,760
+It drives an action, searching for food.
+
+175
+00:08:09,960 --> 00:08:12,000
+You find an apple, you eat it.
+
+176
+00:08:12,480 --> 00:08:16,100
+The digestion changes your blood chemistry, which restores homeostasis.
+
+177
+00:08:16,360 --> 00:08:21,600
+And the brain rewards you with an agreeable affective state, the feeling of satisfaction.
+
+178
+00:08:22,000 --> 00:08:22,260
+Wow.
+
+179
+00:08:22,260 --> 00:08:27,700
+Every single high-level cognitive function we possess today, our memory, our ability to
+
+180
+00:08:27,700 --> 00:08:33,260
+plan for the future, our explicit abstract thoughts, all of it evolved layered on top
+
+181
+00:08:33,260 --> 00:08:37,200
+of this fundamental primitive loop of physical affect and physical action.
+
+182
+00:08:37,380 --> 00:08:38,420
+So what does this all mean?
+
+183
+00:08:38,540 --> 00:08:43,600
+Are you saying my brain processing a Mozart sonata is built on the same evolutionary hardware
+
+184
+00:08:43,600 --> 00:08:47,680
+as my brain deciding I need to eat an apple because my blood sugar is low?
+
+185
+00:08:47,960 --> 00:08:48,360
+Yes.
+
+186
+00:08:48,360 --> 00:08:54,140
+Your capacity to do advanced calculus or write a sonnet is running on an operating system
+
+187
+00:08:54,140 --> 00:08:57,980
+originally designed to make you run away from a tiger or seek out a berry bush.
+
+188
+00:08:58,240 --> 00:09:00,320
+That is a staggering way to frame it.
+
+189
+00:09:00,460 --> 00:09:05,660
+So knowledge, thinking, and logic aren't these pure, isolated things operating in a vacuum.
+
+190
+00:09:05,980 --> 00:09:08,980
+They're literally built out of the hardware of feeling and doing.
+
+191
+00:09:09,180 --> 00:09:09,660
+They are.
+
+192
+00:09:09,920 --> 00:09:12,700
+And musical meaning emerges from this exact combination.
+
+193
+00:09:12,700 --> 00:09:17,800
+You cannot separate the acoustic sound of a cello from the physical affect and physical
+
+194
+00:09:17,800 --> 00:09:19,600
+action it produces in your flesh.
+
+195
+00:09:19,800 --> 00:09:19,900
+Right.
+
+196
+00:09:20,260 --> 00:09:25,700
+The brain processing that Mozart sonata is the exact same biological organ that is constantly
+
+197
+00:09:25,700 --> 00:09:29,000
+neurotically monitoring your body's survival states.
+
+198
+00:09:29,140 --> 00:09:29,320
+Okay.
+
+199
+00:09:29,360 --> 00:09:32,860
+That paints a brilliant picture of how interconnected the mind and body are.
+
+200
+00:09:33,060 --> 00:09:36,540
+But it still leaves a really fascinating mechanical problem on the table.
+
+201
+00:09:36,680 --> 00:09:37,160
+Which is?
+
+202
+00:09:37,160 --> 00:09:42,800
+If my brain is this deeply anchored to the meat and bone of my body, how does a sound wave
+
+203
+00:09:42,800 --> 00:09:43,740
+cross that border?
+
+204
+00:09:44,420 --> 00:09:47,660
+A sound wave is just a disturbance of pressure propagating through the air.
+
+205
+00:09:47,940 --> 00:09:48,880
+It hits my eardrum.
+
+206
+00:09:49,300 --> 00:09:53,340
+How does that invisible vibration translate into the physical feeling of a pounding heart
+
+207
+00:09:53,340 --> 00:09:54,400
+or exhausted limbs?
+
+208
+00:09:54,760 --> 00:09:59,920
+To answer that, we have to introduce the most powerful tool in the human developmental toolkit,
+
+209
+00:10:00,660 --> 00:10:01,120
+imitation.
+
+210
+00:10:01,780 --> 00:10:05,520
+Or, as Cox frames it in the text, memetic behavior.
+
+211
+00:10:05,520 --> 00:10:07,240
+You're talking about monkey see, monkey do.
+
+212
+00:10:07,580 --> 00:10:08,020
+I am.
+
+213
+00:10:08,540 --> 00:10:12,520
+But with human beings, and especially with music, it's also monkey see, monkey imagine.
+
+214
+00:10:12,720 --> 00:10:12,960
+Okay.
+
+215
+00:10:13,680 --> 00:10:17,600
+Cox introduces two crucial terms here that we need to keep in mind for the rest of this
+
+216
+00:10:17,600 --> 00:10:18,100
+deep dive.
+
+217
+00:10:18,540 --> 00:10:22,840
+The first is memetic motor action, which he abbreviates as MMA.
+
+218
+00:10:23,380 --> 00:10:23,640
+Wow.
+
+219
+00:10:23,780 --> 00:10:26,020
+This is overt, visible imitation.
+
+220
+00:10:26,620 --> 00:10:29,860
+You see someone wave their hand, and you physically wave your hand back.
+
+221
+00:10:30,060 --> 00:10:32,520
+You hear a beat, and you tap your foot out loud.
+
+222
+00:10:32,520 --> 00:10:34,060
+So the action is externalized.
+
+223
+00:10:34,140 --> 00:10:35,560
+Anyone in the room can see me doing it.
+
+224
+00:10:35,660 --> 00:10:35,960
+Exactly.
+
+225
+00:10:36,360 --> 00:10:39,520
+The second term is memetic motor imagery, or MMI.
+
+226
+00:10:39,720 --> 00:10:40,080
+MMI.
+
+227
+00:10:40,240 --> 00:10:42,320
+This is covert internal imitation.
+
+228
+00:10:42,800 --> 00:10:46,500
+This is the invisible activity happening in the muscle-related portions of your brain
+
+229
+00:10:46,500 --> 00:10:51,780
+when you imagine an action or observe an action, even if you don't move a single muscle
+
+230
+00:10:51,780 --> 00:10:52,400
+outwardly.
+
+231
+00:10:52,800 --> 00:10:57,100
+You are a statue on the outside, but internally, your brain's motor cortex is firing.
+
+232
+00:10:57,100 --> 00:11:01,960
+So if I'm watching a gymnast do a backflip on TV, I'm sitting motionless on my couch
+
+233
+00:11:01,960 --> 00:11:07,180
+eating potato chips, but part of my brain is covertly mapping out what it would take
+
+234
+00:11:07,180 --> 00:11:09,020
+for my body to execute that backflip.
+
+235
+00:11:09,180 --> 00:11:09,900
+Perfectly stated.
+
+236
+00:11:10,340 --> 00:11:15,400
+And this memetic instinct, both overt and covert, isn't just a neat party trick.
+
+237
+00:11:15,700 --> 00:11:18,440
+It is the literal foundation of human development.
+
+238
+00:11:18,680 --> 00:11:21,520
+Right, because we don't just learn this in music appreciation class?
+
+239
+00:11:21,600 --> 00:11:24,100
+No, we start doing it the second we are born.
+
+240
+00:11:24,100 --> 00:11:26,840
+The text dies deep into infancy on this point.
+
+241
+00:11:27,720 --> 00:11:30,500
+I mean, think about how a baby interacts with a parent.
+
+242
+00:11:30,960 --> 00:11:34,640
+It is just a relentless, continuous loop of mutual imitation.
+
+243
+00:11:35,040 --> 00:11:37,360
+It is the primary mode of early communication.
+
+244
+00:11:37,740 --> 00:11:42,940
+The baby coos, the parent coos back, the parent smiles, the baby's face contorts to try and
+
+245
+00:11:42,940 --> 00:11:47,820
+match the smile, and parents spontaneously model these exaggerated vocalizations.
+
+246
+00:11:48,400 --> 00:11:50,260
+Linguists often call it motherese.
+
+247
+00:11:50,260 --> 00:11:55,460
+Oh, that high-pitched, incredibly musical single-song voice, everyone automatically adopts the second
+
+248
+00:11:55,460 --> 00:11:56,460
+they are handed a newborn.
+
+249
+00:11:56,580 --> 00:11:57,020
+Exactly.
+
+250
+00:11:57,140 --> 00:11:57,980
+Like, who's a good baby?
+
+251
+00:11:58,040 --> 00:11:58,640
+Are you a good baby?
+
+252
+00:11:58,980 --> 00:12:02,360
+The pitch just swings wildly up and down.
+
+253
+00:12:02,700 --> 00:12:07,060
+Motherese has very specific, exaggerated pitch contours and rhythms.
+
+254
+00:12:07,500 --> 00:12:12,980
+And the baby spends an enormous amount of energy trying to imitate those exact contours.
+
+255
+00:12:13,140 --> 00:12:13,360
+Right.
+
+256
+00:12:13,360 --> 00:12:17,240
+But what is deeply profound here is that the imitation goes both ways.
+
+257
+00:12:17,660 --> 00:12:19,920
+The parents are obsessively imitating the infant.
+
+258
+00:12:20,260 --> 00:12:20,420
+Wow.
+
+259
+00:12:21,020 --> 00:12:25,700
+According to the developmental research cited in Cox's text, this mutual imitation is the
+
+260
+00:12:25,700 --> 00:12:27,200
+bedrock of human psychology.
+
+261
+00:12:27,840 --> 00:12:33,280
+When a caregiver physically mimics the facial expression or the vocal cry of a baby, it answers
+
+262
+00:12:33,280 --> 00:12:35,820
+an incredibly deep, implicit need.
+
+263
+00:12:36,180 --> 00:12:40,080
+It proves to the baby, I am capable of generating a response in others.
+
+264
+00:12:40,560 --> 00:12:42,520
+Therefore, I exist and I am understood.
+
+265
+00:12:42,520 --> 00:12:42,860
+Yes.
+
+266
+00:12:43,140 --> 00:12:46,380
+It's not just about learning how to use vocal cords or facial muscles.
+
+267
+00:12:46,620 --> 00:12:48,380
+It's the origin point of empathy.
+
+268
+00:12:48,780 --> 00:12:53,880
+Because by imitating the baby's cry, the adult is essentially communicating, I feel what
+
+269
+00:12:53,880 --> 00:12:54,460
+you are feeling.
+
+270
+00:12:54,600 --> 00:12:55,100
+Exactly.
+
+271
+00:12:55,320 --> 00:12:57,560
+They are enacting the physical exertions of the baby.
+
+272
+00:12:58,040 --> 00:13:02,760
+And because we know physical exertions correlate with emotional states, the adult can actually
+
+273
+00:13:02,760 --> 00:13:05,880
+use their own body to infer the emotional state of the child.
+
+274
+00:13:06,160 --> 00:13:11,720
+And that primal desire, the need to understand others and be understood by them through shared
+
+275
+00:13:11,720 --> 00:13:14,960
+physical states, doesn't just evaporate when we turn 18.
+
+276
+00:13:15,160 --> 00:13:15,920
+Oh, definitely not.
+
+277
+00:13:15,980 --> 00:13:18,180
+It just transforms and becomes more sophisticated.
+
+278
+00:13:18,720 --> 00:13:23,020
+It becomes the basis for how we comprehend the actions of everyone around us in society.
+
+279
+00:13:23,020 --> 00:13:29,240
+Whenever we observe someone doing something, our brain implicitly asks two deeply philosophical
+
+280
+00:13:29,240 --> 00:13:29,880
+questions.
+
+281
+00:13:30,300 --> 00:13:31,540
+What is it like to do that?
+
+282
+00:13:31,540 --> 00:13:34,760
+And what is it like to be that entity?
+
+283
+00:13:34,760 --> 00:13:39,740
+Which brings us to what might be my favorite part of this entire book, the most glorious,
+
+284
+00:13:40,080 --> 00:13:46,360
+overt, uninhibited adult manifestation of this primal instinct, the air guitar phenomenon.
+
+285
+00:13:46,520 --> 00:13:51,980
+It truly is the perfect, universally recognizable example of mimetic motor action in everyday adult
+
+286
+00:13:51,980 --> 00:13:52,360
+life.
+
+287
+00:13:52,680 --> 00:13:55,340
+Cox spends real academic time on this, and it's brilliant.
+
+288
+00:13:55,700 --> 00:14:00,580
+You see people doing air guitar or air drumming on their steering wheel or full-blown lip syncing.
+
+289
+00:14:00,580 --> 00:14:04,340
+The text actually references those early viral YouTube videos.
+
+290
+00:14:04,640 --> 00:14:06,000
+Do you remember the Pneuma Pneuma guy?
+
+291
+00:14:06,220 --> 00:14:07,400
+Oh, Gary Brolsma.
+
+292
+00:14:07,560 --> 00:14:08,040
+Absolutely.
+
+293
+00:14:08,680 --> 00:14:08,920
+Yes.
+
+294
+00:14:10,020 --> 00:14:14,780
+Gary Brolsma, sitting in his computer chair, wearing his headset, vigorously pumping his
+
+295
+00:14:14,780 --> 00:14:18,240
+fists, and aggressively lip syncing to a Romanian pop song.
+
+296
+00:14:18,520 --> 00:14:19,080
+Iconic.
+
+297
+00:14:19,200 --> 00:14:20,460
+Or the Chinese Backstreet Boys.
+
+298
+00:14:21,320 --> 00:14:26,800
+Those two college kids, sitting in their dorm room, passionately miming every single vocal
+
+299
+00:14:26,800 --> 00:14:31,700
+inflection of, I want it that way, while their roommate plays Counter-Strike in the background.
+
+300
+00:14:32,580 --> 00:14:35,040
+Millions upon millions of people watch these videos.
+
+301
+00:14:35,480 --> 00:14:37,140
+They were global sensations.
+
+302
+00:14:37,520 --> 00:14:40,660
+Which raises an incredibly important psychological question.
+
+303
+00:14:40,940 --> 00:14:41,280
+Why?
+
+304
+00:14:41,780 --> 00:14:45,000
+Why do we enjoy watching someone else lip synced to a song?
+
+305
+00:14:45,100 --> 00:14:45,340
+Yeah.
+
+306
+00:14:45,700 --> 00:14:47,580
+If I want to hear the Axe Feet Boys, I have the CD.
+
+307
+00:14:47,760 --> 00:14:48,720
+I can just put the track on.
+
+308
+00:14:48,720 --> 00:14:53,160
+Why do I get so much joy out of watching two random college kids mime the lyrics?
+
+309
+00:14:53,560 --> 00:14:57,280
+Well, the text suggests that watching them satisfies a deep mimetic urge.
+
+310
+00:14:57,760 --> 00:15:02,880
+We enjoy seeing someone else enacting the physical participation that we secretly, subconsciously
+
+311
+00:15:02,880 --> 00:15:03,980
+want to do ourselves.
+
+312
+00:15:04,160 --> 00:15:05,640
+So they're doing the physical work for us.
+
+313
+00:15:05,880 --> 00:15:06,180
+Right.
+
+314
+00:15:06,800 --> 00:15:10,480
+Those guys in the dorm room are providing a first-order overt imitation.
+
+315
+00:15:10,840 --> 00:15:11,740
+They are doing the MMA.
+
+316
+00:15:12,380 --> 00:15:16,700
+And as viewers, we are engaging in a second-order covert imitation.
+
+317
+00:15:16,700 --> 00:15:19,700
+We are vicariously participating in their vicarious participation.
+
+318
+00:15:20,540 --> 00:15:20,900
+Oh, wow.
+
+319
+00:15:21,020 --> 00:15:25,020
+When we see Gary Brolsma having the time of his life throwing his arms around to the
+
+320
+00:15:25,020 --> 00:15:30,060
+Numa Numa song, it validates our own suppressed urges to embody the music.
+
+321
+00:15:30,200 --> 00:15:31,300
+Okay, I love that.
+
+322
+00:15:31,480 --> 00:15:35,060
+But if I'm playing the role of the skeptical listener right now, I have to challenge this
+
+323
+00:15:35,060 --> 00:15:35,320
+a bit.
+
+324
+00:15:35,440 --> 00:15:35,900
+Go for it.
+
+325
+00:15:36,160 --> 00:15:38,760
+I understand singing along or lip syncing.
+
+326
+00:15:38,900 --> 00:15:39,700
+I have vocal cords.
+
+327
+00:15:39,860 --> 00:15:40,320
+I have lips.
+
+328
+00:15:40,460 --> 00:15:41,780
+I know how to make human speech sounds.
+
+329
+00:15:42,180 --> 00:15:45,140
+So when I lip sync, my imitation is mechanically accurate.
+
+330
+00:15:45,300 --> 00:15:45,540
+Yeah.
+
+331
+00:15:45,540 --> 00:15:46,860
+But air guitar.
+
+332
+00:15:47,220 --> 00:15:47,540
+Yeah.
+
+333
+00:15:48,260 --> 00:15:50,260
+I have never taken a guitar lesson in my life.
+
+334
+00:15:50,540 --> 00:15:52,080
+I do not know how to play the instrument.
+
+335
+00:15:52,300 --> 00:15:56,140
+If I play air guitar, I'm just blindly flailing my arms around in the air.
+
+336
+00:15:56,200 --> 00:15:56,520
+Sure.
+
+337
+00:15:56,700 --> 00:16:00,220
+My left hand is not forming actual cords on an invisible fretboard.
+
+338
+00:16:00,860 --> 00:16:06,800
+How can my flailing possibly be considered cognition or genuine imitation if it's completely
+
+339
+00:16:06,800 --> 00:16:07,700
+technically inaccurate?
+
+340
+00:16:08,000 --> 00:16:09,980
+That is a brilliant pushback.
+
+341
+00:16:10,140 --> 00:16:13,720
+And the text explicitly addresses this apparent contradiction.
+
+342
+00:16:13,720 --> 00:16:19,900
+What's fascinating here is that the exactness, the technical accuracy doesn't actually matter
+
+343
+00:16:19,900 --> 00:16:20,500
+to the brain.
+
+344
+00:16:20,640 --> 00:16:21,080
+It doesn't.
+
+345
+00:16:21,200 --> 00:16:21,480
+No.
+
+346
+00:16:21,480 --> 00:16:26,620
+Air guitar requires absolutely zero technical musical expertise.
+
+347
+00:16:27,180 --> 00:16:31,260
+When you play air guitar, your imitation is trying to answer that subconscious question
+
+348
+00:16:31,260 --> 00:16:32,120
+we mentioned earlier.
+
+349
+00:16:32,120 --> 00:16:33,960
+What is it like to do that?
+
+350
+00:16:34,080 --> 00:16:38,660
+What is it like to be the rock star making that incredible wailing sound?
+
+351
+00:16:38,800 --> 00:16:40,620
+So my brain doesn't care about the fret placement.
+
+352
+00:16:40,740 --> 00:16:42,220
+It just wants to capture the vibe.
+
+353
+00:16:42,380 --> 00:16:44,160
+Vibe is a good colloquial term for it.
+
+354
+00:16:44,180 --> 00:16:46,300
+But in cognitive science, we call it the schema.
+
+355
+00:16:46,680 --> 00:16:47,360
+Schema, right?
+
+356
+00:16:47,360 --> 00:16:50,780
+The text defines a schema as the overall pattern of energy.
+
+357
+00:16:50,780 --> 00:16:56,120
+When you wildly strum your invisible guitar, you are imitating the rate of the rhythm, the
+
+358
+00:16:56,120 --> 00:17:01,020
+intensity and violence of the strumming arm, the physical attitude, the facial contortions
+
+359
+00:17:01,020 --> 00:17:02,020
+of the exertion.
+
+360
+00:17:02,120 --> 00:17:06,140
+You are mapping the energy dynamics of the audio track onto your own body.
+
+361
+00:17:06,460 --> 00:17:06,980
+Exactly.
+
+362
+00:17:07,300 --> 00:17:12,880
+Even if your left hand is nowhere near a correct chord position, your gross motor movements
+
+363
+00:17:12,880 --> 00:17:18,160
+are perfectly congruent with the effort and the passion of the actual guitarist on the
+
+364
+00:17:18,160 --> 00:17:18,540
+recording.
+
+365
+00:17:18,600 --> 00:17:19,440
+That makes perfect sense.
+
+366
+00:17:19,500 --> 00:17:19,620
+Yeah.
+
+367
+00:17:19,620 --> 00:17:24,840
+It's about simulating the feeling of the exertion, not the technical precision of the fingering.
+
+368
+00:17:25,320 --> 00:17:29,060
+I'm feeling the aggression of a power chord, not the geometry of it.
+
+369
+00:17:29,140 --> 00:17:29,660
+Precisely.
+
+370
+00:17:29,880 --> 00:17:30,000
+Right.
+
+371
+00:17:30,120 --> 00:17:35,400
+And this overt physical participation is incredibly rewarding to our nervous system.
+
+372
+00:17:35,520 --> 00:17:35,720
+Yeah.
+
+373
+00:17:35,720 --> 00:17:41,180
+We see this manifested culturally in the massive success of video games like Guitar Hero or
+
+374
+00:17:41,180 --> 00:17:41,820
+Rock Band.
+
+375
+00:17:41,940 --> 00:17:43,180
+Oh man, Guitar Hero.
+
+376
+00:17:43,640 --> 00:17:45,660
+Think about the mechanics of those early games.
+
+377
+00:17:46,060 --> 00:17:51,340
+The imitation was originally just pushing brightly colored plastic buttons on a fake plastic guitar.
+
+378
+00:17:51,580 --> 00:17:54,760
+It looked nothing like playing a real Fender Stratocaster.
+
+379
+00:17:54,880 --> 00:17:55,280
+Not at all.
+
+380
+00:17:55,340 --> 00:18:00,340
+But it allowed millions of non-musicians to enjoy the aesthetic, physical and competitive
+
+381
+00:18:00,340 --> 00:18:02,720
+rewards of successful memetic participation.
+
+382
+00:18:03,280 --> 00:18:04,720
+People get fiercely competitive.
+
+383
+00:18:04,720 --> 00:18:06,240
+Competitive of a guitar hero.
+
+384
+00:18:06,240 --> 00:18:11,800
+And what's funny is, if you walk into a living room where people are playing rock band, the
+
+385
+00:18:11,800 --> 00:18:15,840
+person playing the plastic guitar is almost always singing along with the lyrics too.
+
+386
+00:18:16,060 --> 00:18:16,500
+Always.
+
+387
+00:18:16,500 --> 00:18:22,080
+Even though the game doesn't score, they're singing, their hands are busy, but the urge to fully
+
+388
+00:18:22,080 --> 00:18:27,520
+embody the music is just so overwhelmingly strong that their voice has to join in.
+
+389
+00:18:27,600 --> 00:18:29,480
+It is a total bodily takeover.
+
+390
+00:18:29,600 --> 00:18:31,780
+The memetic urge demands expression.
+
+391
+00:18:32,340 --> 00:18:32,640
+Okay.
+
+392
+00:18:32,840 --> 00:18:37,880
+So we have a really clear picture of what it looks like when we actively overtly participate.
+
+393
+00:18:37,880 --> 00:18:40,540
+The air guitar, the lip cinching, the foot tapping.
+
+394
+00:18:40,720 --> 00:18:42,600
+We are moving our bodies in space.
+
+395
+00:18:42,780 --> 00:18:42,820
+Right.
+
+396
+00:18:43,140 --> 00:18:45,160
+But let's take it a step further into the invisible.
+
+397
+00:18:45,160 --> 00:18:49,660
+What is happening in the brain when we are sitting perfectly still on a crowded subway,
+
+398
+00:18:49,860 --> 00:18:52,060
+wearing noise-canceling headphones, just listening?
+
+399
+00:18:52,260 --> 00:18:53,100
+We are moving an inch.
+
+400
+00:18:53,200 --> 00:18:54,220
+We aren't tapping a foot.
+
+401
+00:18:54,780 --> 00:19:00,580
+How does the memetic hypothesis explain our reaction to music when we look completely passive?
+
+402
+00:19:00,580 --> 00:19:06,160
+To understand the passive listener, we have to transition from MMA back to MMI, memetic
+
+403
+00:19:06,160 --> 00:19:06,920
+motor imagery.
+
+404
+00:19:07,280 --> 00:19:12,520
+We have to dive into the neurology of musical empathy, and that starts with one of the most
+
+405
+00:19:12,520 --> 00:19:17,840
+famous neurological discoveries of the late 20th century, the mirror neuron system.
+
+406
+00:19:18,100 --> 00:19:19,780
+Ah, the famous mirror neurons.
+
+407
+00:19:20,220 --> 00:19:25,100
+I feel like these get brought up in every conversation about psychology or empathy, but how do they actually
+
+408
+00:19:25,100 --> 00:19:26,120
+work in this context?
+
+409
+00:19:26,120 --> 00:19:32,100
+Well, the initial neurological studies, which heavily utilized fMRI scans, revealed something
+
+410
+00:19:32,100 --> 00:19:33,920
+astonishing about the primate brain.
+
+411
+00:19:34,280 --> 00:19:34,940
+What did they find?
+
+412
+00:19:35,120 --> 00:19:41,200
+They found that simply observing a goal-directed action lights up the exact same motor areas
+
+413
+00:19:41,200 --> 00:19:45,240
+of the brain as if the observer were performing that action themselves.
+
+414
+00:19:45,400 --> 00:19:45,720
+Wow.
+
+415
+00:19:46,140 --> 00:19:51,120
+To use a simple example, if we are sitting across from each other and I watch you reach out,
+
+416
+00:19:51,120 --> 00:19:56,880
+grasp a coffee mug and lift it to your mouth, the specific regions in my motor cortex that
+
+417
+00:19:56,880 --> 00:20:00,000
+control my own hand, arm, and grasping fingers light up.
+
+418
+00:20:00,100 --> 00:20:00,900
+Even though you aren't moving.
+
+419
+00:20:01,100 --> 00:20:01,380
+Right.
+
+420
+00:20:01,680 --> 00:20:05,440
+I'm not moving, but my brain is literally simulating your physical action.
+
+421
+00:20:05,760 --> 00:20:06,760
+That is wild.
+
+422
+00:20:06,960 --> 00:20:09,700
+My brain is essentially rehearsing your life in real time.
+
+423
+00:20:10,220 --> 00:20:10,660
+Exactly.
+
+424
+00:20:10,840 --> 00:20:12,720
+It is a covert simulation.
+
+425
+00:20:12,780 --> 00:20:16,080
+Now, for a long time, this was primarily studied visually.
+
+426
+00:20:16,600 --> 00:20:18,220
+Monkey see, monkey simulate.
+
+427
+00:20:18,220 --> 00:20:23,820
+But the text cites several crucial studies demonstrating that this mirror system isn't
+
+428
+00:20:23,820 --> 00:20:24,840
+strictly visual.
+
+429
+00:20:25,120 --> 00:20:26,640
+It happens acoustically, too.
+
+430
+00:20:26,780 --> 00:20:30,800
+We don't just mimic what we see, we vividly mimic what we hear.
+
+431
+00:20:30,920 --> 00:20:36,340
+So if I'm blindfolded and I hear a sound, my brain still tries to simulate the physical
+
+432
+00:20:36,340 --> 00:20:37,840
+action that created that sound.
+
+433
+00:20:37,960 --> 00:20:38,280
+Yes.
+
+434
+00:20:38,920 --> 00:20:44,720
+Cox references a landmark study by researchers Gazzola, Azizadeh, and Kiesers.
+
+435
+00:20:44,860 --> 00:20:45,600
+How do they prove it?
+
+436
+00:20:45,600 --> 00:20:52,180
+They put human participants inside fMRI machines and had them physically perform specific hand
+
+437
+00:20:52,180 --> 00:20:56,000
+actions, like ripping a piece of paper in half or breaking a peanut shell.
+
+438
+00:20:56,420 --> 00:20:58,720
+The machines recorded the motor cortex activity.
+
+439
+00:20:59,340 --> 00:21:03,380
+Then they had those same participants lie perfectly still and just listen to audio recordings
+
+440
+00:21:03,380 --> 00:21:05,140
+of paper ripping or peanuts breaking.
+
+441
+00:21:05,400 --> 00:21:08,220
+And let me guess, the exact same motor areas lit up.
+
+442
+00:21:08,280 --> 00:21:09,100
+Almost identically.
+
+443
+00:21:09,300 --> 00:21:13,360
+Hearing the sound was entirely sufficient to trigger the motor simulation of the physical
+
+444
+00:21:13,360 --> 00:21:14,460
+action that produced it.
+
+445
+00:21:14,760 --> 00:21:17,520
+The auditory cortex talks directly to the motor cortex.
+
+446
+00:21:17,880 --> 00:21:19,220
+So applying that to music.
+
+447
+00:21:20,220 --> 00:21:25,460
+If the sound of a piano is physically the sound of human fingers striking wooden keys, then
+
+448
+00:21:25,460 --> 00:21:29,080
+my brain simulates finger strikes when I hear a piano sonata.
+
+449
+00:21:29,280 --> 00:21:29,620
+Yes.
+
+450
+00:21:30,140 --> 00:21:34,840
+Your brain is running a silent, invisible simulation of finger movements.
+
+451
+00:21:34,840 --> 00:21:39,880
+Now, the resolution of that simulation depends heavily on your own personal expertise, which
+
+452
+00:21:39,880 --> 00:21:40,880
+we will get to later.
+
+453
+00:21:41,040 --> 00:21:41,220
+Okay.
+
+454
+00:21:41,440 --> 00:21:46,380
+But the most profound universal avenue for this acoustic mimicking isn't our fingers.
+
+455
+00:21:46,900 --> 00:21:48,160
+It is the human voice.
+
+456
+00:21:48,560 --> 00:21:52,080
+And this brings us to a concept called mimetic sub-vocalization.
+
+457
+00:21:52,460 --> 00:21:53,380
+Sub-vocalization.
+
+458
+00:21:53,580 --> 00:21:53,700
+Yeah.
+
+459
+00:21:53,700 --> 00:21:56,080
+Literally silent singing beneath the voice.
+
+460
+00:21:56,300 --> 00:21:56,720
+Exactly.
+
+461
+00:21:56,720 --> 00:22:02,240
+Whenever we listen to someone speak or sing or yell, we are silently, subconsciously imitating
+
+462
+00:22:02,240 --> 00:22:03,740
+them with our own vocal apparatus.
+
+463
+00:22:04,060 --> 00:22:04,440
+Wait, really?
+
+464
+00:22:04,820 --> 00:22:05,080
+Always?
+
+465
+00:22:05,380 --> 00:22:05,740
+Always.
+
+466
+00:22:06,300 --> 00:22:10,060
+The text references incredibly precise electromyography studies.
+
+467
+00:22:10,500 --> 00:22:14,660
+That's where researchers attach sensors to measure the actual microscopic muscle electrical
+
+468
+00:22:14,660 --> 00:22:17,580
+activity in the lips, larynx, and tongues of participants.
+
+469
+00:22:18,000 --> 00:22:18,280
+Wow.
+
+470
+00:22:18,440 --> 00:22:22,940
+When people listen to spoken words, even while sitting completely still and staring at a blank
+
+471
+00:22:22,940 --> 00:22:26,600
+wall, the sensors picked up microactivations in their tongue and lip muscles.
+
+472
+00:22:26,920 --> 00:22:30,000
+The muscles were actually firing, like trying to form the words.
+
+473
+00:22:30,180 --> 00:22:30,420
+Yes.
+
+474
+00:22:30,940 --> 00:22:34,380
+Excitation of the tongue muscles occurred just by listening to consonants.
+
+475
+00:22:34,880 --> 00:22:39,700
+We are constantly, invisibly shadowing the sounds we hear with our own throats and mouths.
+
+476
+00:22:39,960 --> 00:22:42,900
+That immediately makes me think of poetry and literature.
+
+477
+00:22:43,140 --> 00:22:43,800
+Oh, absolutely.
+
+478
+00:22:44,260 --> 00:22:48,700
+The text brings up Vladimir Nabokov's deeply controversial but linguistically brilliant novel,
+
+479
+00:22:49,140 --> 00:22:49,520
+Lolita.
+
+480
+00:22:50,120 --> 00:22:54,240
+There is that famous opening paragraph where the narrator is obsessing over the name.
+
+481
+00:22:54,240 --> 00:22:57,620
+Lolita, light of my life, fire of my loins.
+
+482
+00:22:58,060 --> 00:22:59,440
+My sin, my soul.
+
+483
+00:22:59,860 --> 00:23:03,960
+The lid tip of the tongue, taking a trip of three steps down the palate to tap.
+
+484
+00:23:04,320 --> 00:23:05,620
+At three, on the teeth.
+
+485
+00:23:05,800 --> 00:23:06,020
+Lo.
+
+486
+00:23:06,400 --> 00:23:06,640
+Li.
+
+487
+00:23:06,840 --> 00:23:07,280
+Ah.
+
+488
+00:23:07,840 --> 00:23:12,400
+It is a stunning example to bring up because Nabokov, whether he knew the neuroscience or
+
+489
+00:23:12,400 --> 00:23:17,740
+not, is forcing the reader to become explicitly aware of their own physical, muscular act of
+
+490
+00:23:17,740 --> 00:23:18,540
+sub-vocalization.
+
+491
+00:23:18,720 --> 00:23:19,180
+Exactly.
+
+492
+00:23:19,460 --> 00:23:23,600
+You literally cannot read that sentence silently without physically feeling your own tongue
+
+493
+00:23:23,600 --> 00:23:24,900
+tapping the back of your front teeth.
+
+494
+00:23:24,900 --> 00:23:30,380
+He is using the sensual, mechanical physicality of the words to make you memetically comprehend
+
+495
+00:23:30,380 --> 00:23:31,740
+the narrator's physical obsession.
+
+496
+00:23:32,100 --> 00:23:34,020
+He weaponizes sub-vocalization.
+
+497
+00:23:34,020 --> 00:23:40,780
+You physically feel the words as you read them, and the exact same covert mirroring happens
+
+498
+00:23:40,780 --> 00:23:41,480
+with music.
+
+499
+00:23:41,860 --> 00:23:47,200
+When we hear a singer belting out a ballad, our vocal folds are microscopically tensing,
+
+500
+00:23:47,400 --> 00:23:50,180
+stretching, and relaxing in total sympathy with them.
+
+501
+00:23:50,260 --> 00:23:50,480
+Okay.
+
+502
+00:23:50,640 --> 00:23:52,540
+But this raises a huge question.
+
+503
+00:23:53,180 --> 00:23:58,040
+It's easy to understand sub-vocalizing a spoken word, or even a singer, in a normal range.
+
+504
+00:23:58,120 --> 00:23:58,380
+Yeah.
+
+505
+00:23:58,380 --> 00:24:03,320
+But what about sounds that aren't human voices, or sounds that defy human anatomy?
+
+506
+00:24:03,540 --> 00:24:03,780
+Right.
+
+507
+00:24:04,000 --> 00:24:08,220
+The text mentions this incredible television commercial for Nike featuring LeBron James.
+
+508
+00:24:08,400 --> 00:24:08,620
+Yes.
+
+509
+00:24:08,780 --> 00:24:13,860
+The commercial from years ago, set to the instrumental funk track Summer Madness by Kool and the
+
+510
+00:24:13,860 --> 00:24:14,120
+Gang.
+
+511
+00:24:14,240 --> 00:24:14,460
+Right.
+
+512
+00:24:14,740 --> 00:24:16,520
+If you haven't seen it, the commercial is gorgeous.
+
+513
+00:24:17,000 --> 00:24:21,960
+LeBron James is wearing a crisp white suit, and he is diving in extreme slow motion off a
+
+514
+00:24:21,960 --> 00:24:24,660
+massively high diving platform into a swimming pool.
+
+515
+00:24:24,840 --> 00:24:25,320
+Yes.
+
+516
+00:24:25,320 --> 00:24:29,280
+And as he falls through the air, this iconic synthesizer note in the Kool and the Gang
+
+517
+00:24:29,280 --> 00:24:30,680
+track just starts climbing.
+
+518
+00:24:30,980 --> 00:24:35,400
+It sweeps higher and higher, this continuous ascending glissando, until it ends on this
+
+519
+00:24:35,400 --> 00:24:38,060
+incredibly piercing high Eshtar 7 note.
+
+520
+00:24:38,140 --> 00:24:39,040
+It's an iconic moment.
+
+521
+00:24:39,360 --> 00:24:41,280
+Now, here's where it gets really interesting.
+
+522
+00:24:42,140 --> 00:24:42,960
+I have tried.
+
+523
+00:24:43,620 --> 00:24:46,600
+I physically cannot sing an Eshtar 7.
+
+524
+00:24:47,120 --> 00:24:49,920
+My vocal cords do not go anywhere near that high.
+
+525
+00:24:49,960 --> 00:24:50,180
+Right.
+
+526
+00:24:50,260 --> 00:24:51,240
+Most people's don't.
+
+527
+00:24:51,240 --> 00:24:58,080
+So how on earth can my brain be sub-vocalizing a synthesizer note that is biologically impossible
+
+528
+00:24:58,080 --> 00:24:59,400
+for my body to produce?
+
+529
+00:24:59,400 --> 00:25:01,400
+That is the edge case that proves the rule.
+
+530
+00:25:01,980 --> 00:25:06,780
+If sub-vocalization is entirely based on mapping sound to our own physical experience,
+
+531
+00:25:07,260 --> 00:25:08,700
+how do we mimic the impossible?
+
+532
+00:25:09,180 --> 00:25:10,920
+How do we map a synthesizer?
+
+533
+00:25:11,020 --> 00:25:11,480
+Yeah, how?
+
+534
+00:25:11,760 --> 00:25:16,160
+The text suggests that the human brain has an incredible capacity to extrapolate.
+
+535
+00:25:16,460 --> 00:25:18,220
+We imagine doing more of the same.
+
+536
+00:25:18,280 --> 00:25:19,740
+What does that mean, more of the same?
+
+537
+00:25:19,740 --> 00:25:23,640
+Well, you know what it feels like to stretch your vocal folds to reach the highest note
+
+538
+00:25:23,640 --> 00:25:24,200
+you can sing?
+
+539
+00:25:24,700 --> 00:25:28,800
+You know the physical sensation of that strain in your neck, the tightness in your larynx?
+
+540
+00:25:29,000 --> 00:25:30,020
+Yeah, I know that feeling.
+
+541
+00:25:30,300 --> 00:25:35,100
+When the synthesizer continues to ascend past your physical breaking point, your brain doesn't
+
+542
+00:25:35,100 --> 00:25:36,460
+just shut off the simulation.
+
+543
+00:25:36,980 --> 00:25:41,900
+It takes that feeling of muscular stretching and effort, and it just keeps pushing it internally.
+
+544
+00:25:42,220 --> 00:25:44,720
+It mathematically extrapolates the effort.
+
+545
+00:25:45,140 --> 00:25:45,440
+Oh.
+
+546
+00:25:45,440 --> 00:25:50,860
+So my brain is imagining what it would feel like if my vocal cords were made of rubber and
+
+547
+00:25:50,860 --> 00:25:53,400
+could just keep stretching indefinitely without snapping.
+
+548
+00:25:53,640 --> 00:25:54,120
+Exactly.
+
+549
+00:25:54,500 --> 00:25:58,040
+You are simulating an impossible bodily state.
+
+550
+00:25:58,380 --> 00:26:08,240
+And the effective result of that, the emotional feeling it generates in your mind, is this incredibly thrilling sensation of transcending your own bodily limitations.
+
+551
+00:26:08,240 --> 00:26:15,760
+You are experiencing a superhuman effort, a feeling of flying or defying gravity, achieved entirely
+
+552
+00:26:15,760 --> 00:26:17,560
+through memetic motor imagery.
+
+553
+00:26:17,800 --> 00:26:22,460
+That is why that synthesizer sweep makes the slow motion dive feel so epic.
+
+554
+00:26:22,640 --> 00:26:24,980
+You are vicariously breaking the laws of physics.
+
+555
+00:26:25,120 --> 00:26:26,820
+That is just so cool.
+
+556
+00:26:27,000 --> 00:26:30,620
+I am vicariously breaking the laws of human anatomy through a synthesizer.
+
+557
+00:26:30,640 --> 00:26:31,280
+You really are.
+
+558
+00:26:31,280 --> 00:26:34,560
+So we are constantly, invisibly mirroring the music we hear.
+
+559
+00:26:35,000 --> 00:26:38,820
+But obviously, if I put my playlist on shuffle, not all sounds are asking to be mirrored in
+
+560
+00:26:38,820 --> 00:26:39,600
+the exact same way.
+
+561
+00:26:39,680 --> 00:26:43,100
+A heavy metal song and a lullaby are asking my body for very different things.
+
+562
+00:26:43,160 --> 00:26:43,540
+They are.
+
+563
+00:26:43,700 --> 00:26:48,500
+And that leads us to a central framework in Cox's book, The Concept of the Mimetic Invitation.
+
+564
+00:26:48,980 --> 00:26:49,760
+I love this framing.
+
+565
+00:26:50,040 --> 00:26:50,640
+An invitation.
+
+566
+00:26:50,640 --> 00:26:56,880
+The text argues that every single piece of music issues an invitation to the listener
+
+567
+00:26:56,880 --> 00:26:57,540
+to participate.
+
+568
+00:26:58,420 --> 00:27:03,440
+And as listeners, we intuitively evaluate music based on what it is inviting us to do.
+
+569
+00:27:03,560 --> 00:27:03,840
+Yes.
+
+570
+00:27:04,060 --> 00:27:08,620
+The primary metrics we use to evaluate these invitations are singability and danceability.
+
+571
+00:27:09,160 --> 00:27:14,340
+Music that is easily singable usually features a clear, stepwise melody, meaning the notes are
+
+572
+00:27:14,340 --> 00:27:18,200
+close together, a limited vocal range, and simple, predictable rhythms.
+
+573
+00:27:18,360 --> 00:27:18,580
+Okay.
+
+574
+00:27:18,580 --> 00:27:24,560
+Easily danceable music has a pronounced, regular beat and a tempo that affords efficient, comfortable,
+
+575
+00:27:24,840 --> 00:27:25,860
+whole body movements.
+
+576
+00:27:26,100 --> 00:27:30,920
+So if a massive pop song by Taylor Swift or The Weeknd comes on the radio, it is sending
+
+577
+00:27:30,920 --> 00:27:33,740
+out a very clear, very demanding RSVP.
+
+578
+00:27:33,920 --> 00:27:38,120
+Like, hey, tap your foot to this incredibly regular beat and hum along to this incredibly
+
+579
+00:27:38,120 --> 00:27:39,800
+catchy mid-range chorus.
+
+580
+00:27:39,920 --> 00:27:40,400
+Precisely.
+
+581
+00:27:40,600 --> 00:27:42,320
+It is an easy invitation to accept.
+
+582
+00:27:42,700 --> 00:27:46,680
+And our aesthetic preference, meaning whether we actually like the song or think it's annoying,
+
+583
+00:27:46,680 --> 00:27:50,960
+often depends entirely on whether we want to inhabit the physical state that the music
+
+584
+00:27:50,960 --> 00:27:52,520
+is inviting us into at that moment.
+
+585
+00:27:52,660 --> 00:27:53,440
+Ah, that makes sense.
+
+586
+00:27:53,740 --> 00:27:56,540
+The text provides a brilliant comparative example.
+
+587
+00:27:57,120 --> 00:28:02,460
+Julie Andrews singing the classic show tune, My Favorite Things, versus the legendary saxophonist
+
+588
+00:28:02,460 --> 00:28:05,500
+John Coltrane's jazz rendition of that exact same song.
+
+589
+00:28:05,500 --> 00:28:07,380
+Oh, that is the perfect contrast.
+
+590
+00:28:07,540 --> 00:28:12,260
+Julie Andrews, in The Sound of Music, is very crisp, clear, straightforward.
+
+591
+00:28:13,000 --> 00:28:14,640
+Every syllable is enunciated.
+
+592
+00:28:15,060 --> 00:28:16,060
+It is highly singable.
+
+593
+00:28:16,140 --> 00:28:16,340
+Right.
+
+594
+00:28:16,760 --> 00:28:20,480
+Coltrane's version, on the other hand, takes that simple melody and shatters it.
+
+595
+00:28:20,480 --> 00:28:25,980
+It is harmonically complex, rhythmically elaborate, constantly pushing the boundaries of tempo
+
+596
+00:28:25,980 --> 00:28:26,720
+and structure.
+
+597
+00:28:26,720 --> 00:28:31,460
+They are playing the same underlying composition, but they issue vastly different physical invitations
+
+598
+00:28:31,460 --> 00:28:32,240
+to the listener.
+
+599
+00:28:32,980 --> 00:28:37,320
+Andrews invites a relatively constrained, straightforward, joyful embodiment.
+
+600
+00:28:37,620 --> 00:28:39,920
+You know exactly where to put your feet and your voice.
+
+601
+00:28:40,160 --> 00:28:40,340
+Yeah.
+
+602
+00:28:40,620 --> 00:28:46,120
+Coltrane invites a much more complex, unpredictable, elaborate, and perhaps even chaotic, memetic
+
+603
+00:28:46,120 --> 00:28:46,720
+engagement.
+
+604
+00:28:47,300 --> 00:28:51,220
+Your internal simulation has to work overtime to track his saxophone lines.
+
+605
+00:28:51,220 --> 00:28:55,580
+So, if I prefer the Coltrane version, it is partly because I actually enjoy the complex
+
+606
+00:28:55,580 --> 00:28:59,220
+physical and mental gymnastics it forces my brain to simulate?
+
+607
+00:28:59,740 --> 00:29:00,060
+Yes.
+
+608
+00:29:00,880 --> 00:29:03,480
+You enjoy the cognitive and memetic workout.
+
+609
+00:29:03,960 --> 00:29:09,420
+But if you dislike the Coltrane version, it might be because you find that complex, memetic
+
+610
+00:29:09,420 --> 00:29:13,000
+invitation exhausting, abrasive, or confusing.
+
+611
+00:29:13,400 --> 00:29:17,160
+You don't want to do the internal work it demands, so you reject the song.
+
+612
+00:29:17,160 --> 00:29:21,840
+And it isn't just about the vocal cords tracking a melody or the foot tapping to a snare drum.
+
+613
+00:29:22,520 --> 00:29:24,920
+This is where the text completely blew my mind.
+
+614
+00:29:25,300 --> 00:29:29,020
+It moves beyond the extremities and introduces a modal imitation.
+
+615
+00:29:29,420 --> 00:29:29,720
+Yes.
+
+616
+00:29:29,980 --> 00:29:35,760
+A modal meaning it isn't specific to a single sensory mode or a specific limb like the hands
+
+617
+00:29:35,760 --> 00:29:36,580
+or the voice.
+
+618
+00:29:36,900 --> 00:29:41,520
+It refers to the center of mass, the core, the abdominal muscles, the diaphragm.
+
+619
+00:29:41,580 --> 00:29:41,800
+Right.
+
+620
+00:29:41,980 --> 00:29:46,020
+If you're listening right now, you might be thinking, I don't flex my abs when a pop song
+
+621
+00:29:46,020 --> 00:29:47,400
+comes on, I'm just driving my car.
+
+622
+00:29:47,500 --> 00:29:47,680
+Sure.
+
+623
+00:29:47,880 --> 00:29:52,360
+But the text points out that every single time a drummer hits a crash cymbal with force
+
+624
+00:29:52,360 --> 00:29:57,420
+or a brass player blows a massive loud note or an opera singer belts a soaring aria, the
+
+625
+00:29:57,420 --> 00:29:59,120
+performer has to flex their core.
+
+626
+00:29:59,260 --> 00:29:59,800
+They do.
+
+627
+00:29:59,800 --> 00:30:05,140
+They have to engage their abdominal muscles to anchor that physical exertion and push the
+
+628
+00:30:05,140 --> 00:30:05,560
+air out.
+
+629
+00:30:06,340 --> 00:30:10,240
+And because we are memetically mirroring them, because we're asking what is it like to be
+
+630
+00:30:10,240 --> 00:30:15,800
+the person making that sound, we actually feel that clenching and relaxing in our own gut.
+
+631
+00:30:16,020 --> 00:30:19,820
+It is a deeply visceral, completely subconscious reaction.
+
+632
+00:30:20,260 --> 00:30:24,680
+The overall energy dynamics of the music, the swelling crescendos, the violent crashes,
+
+633
+00:30:24,680 --> 00:30:30,740
+the intense, silent holds are perfectly mirrored in the tension of our own abdominal muscles and
+
+634
+00:30:30,740 --> 00:30:31,760
+our respiratory rate.
+
+635
+00:30:32,180 --> 00:30:34,120
+We quite literally have a gut reaction to the music.
+
+636
+00:30:34,180 --> 00:30:34,600
+Exactly.
+
+637
+00:30:34,800 --> 00:30:35,760
+We breathe with it.
+
+638
+00:30:35,860 --> 00:30:36,740
+We clench with it.
+
+639
+00:30:36,880 --> 00:30:41,800
+This connects so perfectly to the story of Evelyn Glennie, the profoundly deaf percussionist
+
+640
+00:30:41,800 --> 00:30:42,620
+the text mentions.
+
+641
+00:30:42,620 --> 00:30:43,060
+Yes.
+
+642
+00:30:43,380 --> 00:30:45,200
+Dame Evelyn Glennie is a phenomenal example.
+
+643
+00:30:45,360 --> 00:30:50,660
+Because she is deaf, she experiences acoustic sound not as auditory information decoded in
+
+644
+00:30:50,660 --> 00:30:56,580
+the ear, but as physical touch, raw vibrations felt through her bare feet on the floorboards
+
+645
+00:30:56,580 --> 00:30:58,720
+and through the resonance in her chest and stomach.
+
+646
+00:30:59,100 --> 00:31:01,660
+It proves that sound is a physical impact event.
+
+647
+00:31:02,220 --> 00:31:05,920
+We all have the biological capacity to feel music physically.
+
+648
+00:31:06,360 --> 00:31:06,720
+Yeah.
+
+649
+00:31:06,940 --> 00:31:10,260
+Glennie just relies on it profoundly to perform and understand the music.
+
+650
+00:31:10,260 --> 00:31:10,600
+Right.
+
+651
+00:31:10,880 --> 00:31:14,560
+But we are all feeling those heavy bass notes and cymbal crashes in our chest and gut,
+
+652
+00:31:14,660 --> 00:31:18,960
+even if we are primarily distracted by hearing them through our ears.
+
+653
+00:31:19,120 --> 00:31:20,880
+But this raises another interesting challenge.
+
+654
+00:31:20,980 --> 00:31:23,900
+We've talked about pop songs and jazz and heavy drums.
+
+655
+00:31:24,200 --> 00:31:28,520
+What about music that actively resists any kind of bodily participation?
+
+656
+00:31:29,100 --> 00:31:31,400
+What about music that gives you nothing to hold on to?
+
+657
+00:31:31,500 --> 00:31:31,660
+Right.
+
+658
+00:31:31,800 --> 00:31:32,760
+The ambient stuff.
+
+659
+00:31:32,840 --> 00:31:33,020
+Yeah.
+
+660
+00:31:33,020 --> 00:31:38,940
+The text brings up the avant-garde composer Gjörgy Ligeti, specifically his piece Atmospheres,
+
+661
+00:31:39,320 --> 00:31:42,720
+which famously featured in the movie 2001, A Space Odyssey.
+
+662
+00:31:42,920 --> 00:31:43,740
+Ah, yes.
+
+663
+00:31:43,800 --> 00:31:48,800
+If you haven't heard it, it is essentially a giant, static, slowly shifting mass of microtonal
+
+664
+00:31:48,800 --> 00:31:49,260
+sound.
+
+665
+00:31:49,980 --> 00:31:51,720
+There is no beat to tap your foot to.
+
+666
+00:31:51,800 --> 00:31:52,960
+There is no melody to hum.
+
+667
+00:31:53,260 --> 00:31:56,520
+It is just a terrifying, creeping wall of sonic fog.
+
+668
+00:31:56,800 --> 00:32:00,160
+How on earth do we mimetically participate with a wall of fog?
+
+669
+00:32:00,380 --> 00:32:01,300
+It's a great question.
+
+670
+00:32:01,300 --> 00:32:06,740
+Arnie Cox notes in the book that for years, he used Ligeti's Atmospheres in his classes
+
+671
+00:32:06,740 --> 00:32:10,500
+as the ultimate example of music with a zero-degree memetic invitation.
+
+672
+00:32:11,040 --> 00:32:12,800
+He thought it was the exception to his own rule.
+
+673
+00:32:13,060 --> 00:32:13,440
+Oh, you're right.
+
+674
+00:32:13,500 --> 00:32:17,920
+But then one day, a student in his class was listening to the piece, and she raised her
+
+675
+00:32:17,920 --> 00:32:20,460
+hand and said, I don't know, it kind of makes me want to do this.
+
+676
+00:32:20,500 --> 00:32:26,640
+And she very, very slowly extended both of her arms outward, stretching them wide, and
+
+677
+00:32:26,640 --> 00:32:28,860
+slowly rotated her head and torso.
+
+678
+00:32:29,260 --> 00:32:29,620
+Wow.
+
+679
+00:32:29,620 --> 00:32:36,560
+So even with a wall of sound, she found a way to embody the slow, massive expansion of
+
+680
+00:32:36,560 --> 00:32:37,400
+the acoustic energy.
+
+681
+00:32:37,460 --> 00:32:37,900
+Exactly.
+
+682
+00:32:38,060 --> 00:32:38,840
+It was a revelation.
+
+683
+00:32:39,480 --> 00:32:42,900
+It shows that the memetic invitation never truly drops to zero.
+
+684
+00:32:43,160 --> 00:32:48,680
+Even with ambient, atmospheric, beatless music, our nervous system is so desperate to connect
+
+685
+00:32:48,680 --> 00:32:52,380
+that we will find a way to map its energy dynamics onto our bodies.
+
+686
+00:32:52,460 --> 00:32:53,800
+Even if the movement is weird.
+
+687
+00:32:53,900 --> 00:32:54,120
+Right.
+
+688
+00:32:54,120 --> 00:32:58,760
+Even if the resulting physical movement is non-normative, slow, or extremely abstract.
+
+689
+00:32:58,980 --> 00:33:03,920
+And this instinct, this desperate drive to map the energy of the world onto our own muscles,
+
+690
+00:33:04,340 --> 00:33:06,020
+extends way beyond music.
+
+691
+00:33:06,280 --> 00:33:09,700
+This is where Cox tells the story about the wood splitter, which is just brilliant.
+
+692
+00:33:09,940 --> 00:33:16,580
+It is a fantastic demonstration of how far our memetic empathy reaches into the non-human
+
+693
+00:33:16,580 --> 00:33:16,940
+world.
+
+694
+00:33:17,440 --> 00:33:19,140
+So picture this scene.
+
+695
+00:33:19,800 --> 00:33:24,080
+Cox and his brother are out in the yard chopping firewood for the winter, but they aren't using
+
+696
+00:33:24,080 --> 00:33:24,560
+axes.
+
+697
+00:33:25,100 --> 00:33:29,860
+They're using a massive, motorized, 43-ton hydraulic wood splitter.
+
+698
+00:33:29,920 --> 00:33:30,240
+Right.
+
+699
+00:33:30,240 --> 00:33:36,660
+It's this terrifying, loud piece of heavy machinery that just slowly, inexorably pushes a steel
+
+700
+00:33:36,660 --> 00:33:38,720
+wedge through giant, solid oak logs.
+
+701
+00:33:38,960 --> 00:33:41,340
+It crunches and groans as it shreds the wood.
+
+702
+00:33:41,940 --> 00:33:45,760
+And as they are working, his brother keeps watching the machine operate, clenching his fist,
+
+703
+00:33:46,120 --> 00:33:50,080
+and yelling, feel the power, feel the power, over the noise of the engine.
+
+704
+00:33:50,240 --> 00:33:52,320
+They are empathizing with the hydraulic press.
+
+705
+00:33:52,720 --> 00:33:54,740
+Now, obviously, a machine does not have feelings.
+
+706
+00:33:54,840 --> 00:33:56,360
+It doesn't have a soul or a nervous system.
+
+707
+00:33:56,480 --> 00:33:58,960
+There is no consciousness there to actually empathize with.
+
+708
+00:33:58,960 --> 00:33:59,180
+Right.
+
+709
+00:33:59,260 --> 00:34:00,680
+The machine isn't trying to do anything.
+
+710
+00:34:00,800 --> 00:34:01,840
+It's just fluid dynamics.
+
+711
+00:34:02,240 --> 00:34:06,180
+But what is happening in the brother's brain is that he is imagining what it would be like
+
+712
+00:34:06,180 --> 00:34:06,860
+to be the machine.
+
+713
+00:34:06,860 --> 00:34:13,300
+He is projecting his own human bodily sense of muscular effort, strain, and eventual
+
+714
+00:34:13,300 --> 00:34:16,640
+achievement onto the mechanical action of the steel wedge.
+
+715
+00:34:17,160 --> 00:34:17,940
+That makes total sense.
+
+716
+00:34:18,060 --> 00:34:23,720
+He is watching the wood splinter and feeling the awe of that massive physical exertion vicariously
+
+717
+00:34:23,720 --> 00:34:25,320
+in his own chest and arms.
+
+718
+00:34:25,320 --> 00:34:27,240
+We anthropomorphize the energy.
+
+719
+00:34:27,820 --> 00:34:32,040
+And we do this with the most mundane, silent things, too, not just loud machinery.
+
+720
+00:34:32,840 --> 00:34:35,460
+The text talks about empathizing with printing fonts.
+
+721
+00:34:35,680 --> 00:34:35,980
+Yes.
+
+722
+00:34:36,420 --> 00:34:40,720
+Typography offers a perfect visual equivalent to the acoustic memetic invitation.
+
+723
+00:34:41,080 --> 00:34:42,320
+I found this so relatable.
+
+724
+00:34:42,800 --> 00:34:47,440
+The text points out that we have genuine, physical, effective reactions to seeing bold or
+
+725
+00:34:47,440 --> 00:34:49,180
+italic fonts on a page or screen.
+
+726
+00:34:49,340 --> 00:34:49,740
+We do.
+
+727
+00:34:49,740 --> 00:34:54,840
+When you get a text message or read a headline printed in heavy, bold, all-caps font, you
+
+728
+00:34:54,840 --> 00:34:56,680
+don't just read it louder in your inner monologue.
+
+729
+00:34:57,280 --> 00:35:02,220
+Your brain actually simulates the physical energy required to drag a heavy marker to draw
+
+730
+00:35:02,220 --> 00:35:03,680
+those thick, dark lines.
+
+731
+00:35:04,100 --> 00:35:08,860
+Or it simulates the physical respiratory effort required to shout those words across a room.
+
+732
+00:35:09,180 --> 00:35:12,960
+It fundamentally alters the motor imagery of your sublocalization.
+
+733
+00:35:12,960 --> 00:35:26,000
+So whether it is a deaf percussionist feeling the vibrations in the floorboards, a college
+
+734
+00:35:26,000 --> 00:35:31,080
+student slowly extending her arms to a Legetti soundscape, my brother yelling at a hydraulic
+
+735
+00:35:31,080 --> 00:35:37,520
+wood splitter, or me getting stressed out by a bold font email from my boss, our bodies
+
+736
+00:35:37,520 --> 00:35:42,620
+are constantly, relentlessly striving to mirror the energy of the world around us.
+
+737
+00:35:43,020 --> 00:35:43,940
+It is inescapable.
+
+738
+00:35:44,360 --> 00:35:47,620
+But everything we have discussed so far in this deep dive is fairly isolated.
+
+739
+00:35:47,760 --> 00:35:49,140
+One listener reacting to one singer.
+
+740
+00:35:49,520 --> 00:35:51,000
+One listener reacting to one machine.
+
+741
+00:35:51,520 --> 00:35:54,920
+To really test the limits of this theory, we have to look at what happens when the source
+
+742
+00:35:54,920 --> 00:35:55,920
+material multiplies.
+
+743
+00:35:56,080 --> 00:35:58,180
+What happens when there are 50 people on stage?
+
+744
+00:35:58,240 --> 00:35:58,600
+Yes.
+
+745
+00:35:59,300 --> 00:36:00,300
+The symphony orchestra.
+
+746
+00:36:00,840 --> 00:36:01,740
+The massive choir.
+
+747
+00:36:02,100 --> 00:36:04,320
+How does the memetic hypothesis handle a crowd?
+
+748
+00:36:04,540 --> 00:36:05,480
+That's a great question.
+
+749
+00:36:05,480 --> 00:36:11,520
+If my brain is biologically wired to mirror the performer, what happens when I put on
+
+750
+00:36:11,520 --> 00:36:14,360
+my headphones and listen to a balked two-part invention?
+
+751
+00:36:14,740 --> 00:36:19,800
+You have two completely independent piano melodies weaving in and out of each other simultaneously.
+
+752
+00:36:20,460 --> 00:36:22,220
+I only have one inner voice.
+
+753
+00:36:22,640 --> 00:36:26,420
+I can't sub-vocalize two different melodies at the exact same time.
+
+754
+00:36:26,640 --> 00:36:28,440
+Does my brain just crash like a computer?
+
+755
+00:36:28,940 --> 00:36:29,660
+Not at all.
+
+756
+00:36:30,120 --> 00:36:32,560
+The text has a fascinating explanation for this.
+
+757
+00:36:32,560 --> 00:36:39,040
+In cases like a two-part invention or a small string quartet, our memetic participation rapidly,
+
+758
+00:36:39,300 --> 00:36:43,000
+subconsciously jumps back and forth between the distinct melodies.
+
+759
+00:36:43,320 --> 00:36:46,340
+The author compares it to visual secades.
+
+760
+00:36:46,560 --> 00:36:47,340
+Visual secades.
+
+761
+00:36:47,440 --> 00:36:47,940
+What are those?
+
+762
+00:36:48,220 --> 00:36:53,320
+Secades are the rapid, involuntary, jerky eye movements we make when we are looking at
+
+763
+00:36:53,320 --> 00:36:56,500
+something, like scanning a painting or looking at a person's face.
+
+764
+00:36:56,580 --> 00:36:58,480
+Oh, like when we jump from point to point.
+
+765
+00:36:58,480 --> 00:37:01,980
+You don't just stare blankly at the exact center of a face and absorb the whole thing
+
+766
+00:37:01,980 --> 00:37:02,440
+at once.
+
+767
+00:37:02,760 --> 00:37:06,540
+Your eyes dart rapidly from the left eye to the right eye to the mouth to the hairline,
+
+768
+00:37:06,940 --> 00:37:07,960
+piecing the image together.
+
+769
+00:37:08,340 --> 00:37:09,740
+Okay, so auditory secades.
+
+770
+00:37:10,560 --> 00:37:16,600
+My auditory attention and my internal sub-vocalization is darting back and forth between the high melody
+
+771
+00:37:16,600 --> 00:37:21,760
+and the low bass line, actively engaging with whichever one holds my focus at that microsecond.
+
+772
+00:37:21,860 --> 00:37:22,240
+Exactly.
+
+773
+00:37:22,640 --> 00:37:24,980
+You are rapidly switching your memetic allegiance.
+
+774
+00:37:24,980 --> 00:37:28,040
+But what if we scale it up even further?
+
+775
+00:37:28,540 --> 00:37:31,280
+What if it isn't just two lines or four?
+
+776
+00:37:31,520 --> 00:37:35,600
+What if it is Thomas Tallis' famous composition, Spem, in Allium?
+
+777
+00:37:36,000 --> 00:37:36,380
+Oh, wow.
+
+778
+00:37:36,660 --> 00:37:40,880
+That's the Renaissance motet written for 40 completely independent singing voices.
+
+779
+00:37:41,160 --> 00:37:43,260
+40 different vocal lines happening at once.
+
+780
+00:37:43,420 --> 00:37:43,680
+Yes.
+
+781
+00:37:44,020 --> 00:37:48,500
+In that scenario, your brain simply cannot perform secades fast enough to jump between 40 voices.
+
+782
+00:37:48,760 --> 00:37:50,660
+It is biologically impossible to track.
+
+783
+00:37:50,960 --> 00:37:51,500
+So what do we do?
+
+784
+00:37:51,560 --> 00:37:52,160
+Do we give up?
+
+785
+00:37:52,380 --> 00:37:52,760
+No.
+
+786
+00:37:52,760 --> 00:37:57,840
+The text argues that in these overwhelming ensemble situations, we shift our strategy.
+
+787
+00:37:58,400 --> 00:38:00,360
+We no longer follow an individual voice.
+
+788
+00:38:00,540 --> 00:38:04,960
+Instead, we memetically mirror the composite emergent musical entity.
+
+789
+00:38:05,180 --> 00:38:06,060
+The composite entity.
+
+790
+00:38:06,460 --> 00:38:11,940
+So I'm treating the entire 40-person choir as if it were one giant, multi-lunged organism.
+
+791
+00:38:11,940 --> 00:38:12,900
+Precisely.
+
+792
+00:38:13,280 --> 00:38:20,620
+You mirror the overall metric schema, the shared rhythmic pulse, the general massive wave of vocal exertion.
+
+793
+00:38:20,840 --> 00:38:23,260
+You aren't imitating 40 individuals.
+
+794
+00:38:23,580 --> 00:38:28,020
+You are imitating the choir as a single breathing entity.
+
+795
+00:38:28,220 --> 00:38:29,080
+That makes total sense.
+
+796
+00:38:29,400 --> 00:38:30,740
+We zoom out to the macro level.
+
+797
+00:38:30,740 --> 00:38:36,260
+Now, does my personal background change how I perform this mirroring?
+
+798
+00:38:36,260 --> 00:38:43,120
+If I am a trained musician versus someone who just listens to the radio, am I mirroring that choir or that orchestra differently?
+
+799
+00:38:43,380 --> 00:38:43,780
+Absolutely.
+
+800
+00:38:44,180 --> 00:38:47,100
+Expertise profoundly changes the physical mechanics of listening.
+
+801
+00:38:47,360 --> 00:38:50,240
+The text points to some incredible neurological studies that confirm this.
+
+802
+00:38:50,300 --> 00:38:50,460
+Okay.
+
+803
+00:38:50,640 --> 00:38:50,920
+Like what?
+
+804
+00:38:51,180 --> 00:39:00,940
+In one fMRI study, researchers looked at the brains of expert, professionally trained pianists and compared them to non-pianists, while both groups just passively listened to piano music.
+
+805
+00:39:00,940 --> 00:39:01,780
+And what did they find?
+
+806
+00:39:02,200 --> 00:39:05,700
+The motor cortex of the expert pianists lit up significantly more.
+
+807
+00:39:05,700 --> 00:39:19,200
+Because they had spent thousands of hours physically moving their fingers across keys, their brains possessed a much richer, more highly detailed, high-resolution motor map of what it takes to produce those specific acoustic sounds.
+
+808
+00:39:19,540 --> 00:39:21,560
+They weren't just generally feeling the rhythm.
+
+809
+00:39:22,100 --> 00:39:25,600
+Their brains were intensely simulating the precise finger movements.
+
+810
+00:39:25,600 --> 00:39:32,060
+Oh, and this completely explains that other study mentioned in the text, the interference study by Drost and his colleagues.
+
+811
+00:39:32,220 --> 00:39:33,100
+I love this one.
+
+812
+00:39:33,220 --> 00:39:33,440
+Yes.
+
+813
+00:39:33,700 --> 00:39:36,940
+The Drost study is a perfect demonstration of intramodal imitation.
+
+814
+00:39:37,400 --> 00:39:40,580
+So let me describe this experiment because it is so clever.
+
+815
+00:39:41,320 --> 00:39:45,360
+The researchers took a group of musicians, some guitarists and some pianists.
+
+816
+00:39:45,640 --> 00:39:52,960
+They sat them down and instructed them to silently play a specific chord on their own instrument as fast as they could when prompted.
+
+817
+00:39:53,220 --> 00:39:53,500
+Right.
+
+818
+00:39:53,500 --> 00:40:02,280
+But right as they were supposed to play their silent chord, the researchers would blast an audio recording of a different clashing chord in their ears.
+
+819
+00:40:02,340 --> 00:40:02,640
+Right.
+
+820
+00:40:02,840 --> 00:40:04,300
+They created a cognitive conflict.
+
+821
+00:40:04,560 --> 00:40:04,940
+Exactly.
+
+822
+00:40:05,440 --> 00:40:12,620
+If the musician was supposed to play a major chord, but the audio played a dissonant minor chord, it caused an interference effect.
+
+823
+00:40:13,060 --> 00:40:16,220
+It caused a measurable delay in their reaction time.
+
+824
+00:40:16,680 --> 00:40:17,620
+Their fingers stumbled.
+
+825
+00:40:18,340 --> 00:40:19,860
+But here is the crazy part.
+
+826
+00:40:19,860 --> 00:40:25,480
+This interference only happened if the conflicting audio chord was played on the musician's own instrument.
+
+827
+00:40:25,580 --> 00:40:27,020
+That is the key finding.
+
+828
+00:40:27,420 --> 00:40:35,660
+If a pianist was told to play a chord and they heard a conflicting dissonant chord played on a guitar, they didn't stumble at all.
+
+829
+00:40:35,780 --> 00:40:37,380
+Their reaction time was perfect.
+
+830
+00:40:37,500 --> 00:40:43,140
+Because the acoustic sound of the guitar didn't trigger the pianist's specific high-resolution,
+
+831
+00:40:43,140 --> 00:40:46,940
+mimetic motor imagery strongly enough to interfere with their fingers.
+
+832
+00:40:47,060 --> 00:40:47,960
+That is wild.
+
+833
+00:40:47,960 --> 00:40:53,000
+Their brain heard the guitar and essentially said, that is a guitar's physical problem.
+
+834
+00:40:53,200 --> 00:40:53,900
+We are a piano.
+
+835
+00:40:54,160 --> 00:40:54,700
+Ignore it.
+
+836
+00:40:55,180 --> 00:41:00,980
+But when they heard a piano chord, their brain automatically tried to physically mirror the piano fingering,
+
+837
+00:41:01,120 --> 00:41:04,600
+which crashed into the fingering they were consciously trying to perform.
+
+838
+00:41:04,600 --> 00:41:10,120
+It proves that our bodies are hyper-tuned to simulate what we already know how to do physically.
+
+839
+00:41:10,660 --> 00:41:14,240
+We all have that baseline cross-modal imitation we all sub-vocalize.
+
+840
+00:41:14,620 --> 00:41:19,640
+But if you have specific physical expertise, your finger-to-finger mirroring is incredibly powerful.
+
+841
+00:41:19,860 --> 00:41:22,740
+And sometimes, whether you are an expert or a novice,
+
+842
+00:41:22,880 --> 00:41:28,940
+that primal urge to participate, to mirror the sound, is so powerful it overrides our logical brain entirely.
+
+843
+00:41:29,140 --> 00:41:30,880
+It overrides social conditioning.
+
+844
+00:41:30,880 --> 00:41:35,420
+Which brings us to one of the funniest and most touching stories in the entire book,
+
+845
+00:41:35,980 --> 00:41:37,700
+the Thomas Kvostov concert.
+
+846
+00:41:37,920 --> 00:41:38,240
+Yes.
+
+847
+00:41:38,900 --> 00:41:43,300
+Thomas Kvostov is a highly respected classical bass baritone singer.
+
+848
+00:41:43,860 --> 00:41:44,840
+This setting is important.
+
+849
+00:41:45,540 --> 00:41:50,400
+A classical vocal recital is one of the most strictly regulated social environments on Earth.
+
+850
+00:41:50,420 --> 00:41:50,900
+Oh, totally.
+
+851
+00:41:51,260 --> 00:41:56,140
+You sit in velvet chairs, you wear nice clothes, you do not cough, you do not unwrap a lozenge,
+
+852
+00:41:56,140 --> 00:41:59,600
+and you absolutely do not make a sound while the performer is singing.
+
+853
+00:41:59,600 --> 00:42:01,040
+It is peak social etiquette.
+
+854
+00:42:01,760 --> 00:42:04,580
+So Arnie Cox is sitting in the audience at this recital.
+
+855
+00:42:05,260 --> 00:42:07,860
+Kvostov comes back out on stage for his final encore,
+
+856
+00:42:08,320 --> 00:42:12,680
+and he starts singing the classic, deep, resonant song, Old Man River.
+
+857
+00:42:13,160 --> 00:42:18,140
+A song with a massive, very specific, mimetic invitation for male voices.
+
+858
+00:42:18,280 --> 00:42:18,420
+Right.
+
+859
+00:42:18,540 --> 00:42:22,240
+So Cox is listening, and suddenly he keeps hearing this faint echo.
+
+860
+00:42:22,680 --> 00:42:26,140
+He looks forward, and there is an elderly man sitting two rows ahead of him,
+
+861
+00:42:26,140 --> 00:42:30,620
+and this man is just singing along out loud to Old Man River, in the middle of a classical recital.
+
+862
+00:42:30,940 --> 00:42:32,200
+His wife is mortified.
+
+863
+00:42:32,360 --> 00:42:37,040
+She keeps jabbing him in the ribs, shushing him, furiously whispering for him to be quiet.
+
+864
+00:42:37,780 --> 00:42:38,680
+The old man stops.
+
+865
+00:42:39,340 --> 00:42:44,000
+But then a few bars later, the melody swells, and he just starts singing again.
+
+866
+00:42:44,320 --> 00:42:45,520
+He cannot stop himself.
+
+867
+00:42:45,740 --> 00:42:50,360
+It is a beautiful, hilarious example of what the text calls the memetic imperative.
+
+868
+00:42:50,620 --> 00:42:51,580
+The memetic imperative.
+
+869
+00:42:51,580 --> 00:42:52,660
+I love that phrase.
+
+870
+00:42:52,760 --> 00:42:55,740
+It sounds like a sci-fi concept, but it's just biology.
+
+871
+00:42:56,140 --> 00:42:59,700
+If we connect this to the bigger picture, for that elderly man,
+
+872
+00:43:00,160 --> 00:43:03,760
+the deep evolutionary social urge to participate in the music,
+
+873
+00:43:04,020 --> 00:43:07,660
+to physically share in that emotional and vocal state with Kvostov,
+
+874
+00:43:07,880 --> 00:43:12,520
+was stronger than a lifetime of societal conditioning about sitting quietly at a recital.
+
+875
+00:43:12,860 --> 00:43:13,000
+Yeah.
+
+876
+00:43:13,060 --> 00:43:14,300
+He was caught in a tug-of-war.
+
+877
+00:43:14,800 --> 00:43:17,900
+He was forced to choose between strict, polite social etiquette
+
+878
+00:43:17,900 --> 00:43:21,400
+and the overwhelming evolutionary reward of communal participation.
+
+879
+00:43:22,140 --> 00:43:24,040
+And the memetic biology won.
+
+880
+00:43:24,240 --> 00:43:26,900
+It totally reminds me of the Miles Davis anecdote in the text.
+
+881
+00:43:27,000 --> 00:43:29,600
+It's the exact same phenomenon, just in a different genre.
+
+882
+00:43:29,740 --> 00:43:30,360
+Ah, yes.
+
+883
+00:43:30,620 --> 00:43:33,380
+The story about jazz saxophonist Bob Berg.
+
+884
+00:43:33,740 --> 00:43:33,960
+Right.
+
+885
+00:43:34,160 --> 00:43:36,900
+So Bob Berg is playing saxophone in Miles Davis' band.
+
+886
+00:43:37,680 --> 00:43:40,880
+And during a live set, there is a specific section of a song
+
+887
+00:43:40,880 --> 00:43:43,940
+where Berg is explicitly supposed to lay out.
+
+888
+00:43:44,520 --> 00:43:47,360
+He's supposed to rest, hold his sax, and let the rhythm section play.
+
+889
+00:43:48,020 --> 00:43:51,120
+But in the heat of the moment, the groove is so tight, he just plays anyway.
+
+890
+00:43:51,200 --> 00:43:52,240
+He blows right over his rest.
+
+891
+00:43:53,200 --> 00:43:57,760
+After the show, they are backstage, and Miles Davis, with his famous raspy voice,
+
+892
+00:43:58,140 --> 00:43:59,080
+comes up to him and asks,
+
+893
+00:43:59,520 --> 00:44:01,080
+Bob, why do you play in this spot?
+
+894
+00:44:01,360 --> 00:44:02,620
+You're not supposed to play in this spot.
+
+895
+00:44:03,000 --> 00:44:04,120
+And Berg defensively says,
+
+896
+00:44:04,680 --> 00:44:05,700
+It sounded so good, Chief.
+
+897
+00:44:05,900 --> 00:44:06,620
+I had to play it.
+
+898
+00:44:06,760 --> 00:44:09,420
+To which Miles Davis delivers the ultimate rebuke.
+
+899
+00:44:09,480 --> 00:44:11,620
+The reason it sounded so good is because you wasn't playing.
+
+900
+00:44:11,620 --> 00:44:15,340
+Oh, a typical devastating Miles Davis burn.
+
+901
+00:44:16,000 --> 00:44:17,260
+But look at Berg's defense.
+
+902
+00:44:17,820 --> 00:44:21,700
+It is the exact same defense as the old band singing at the Kvostov Recital.
+
+903
+00:44:22,240 --> 00:44:24,040
+It sounded so good I had to play it.
+
+904
+00:44:24,540 --> 00:44:27,100
+The mimetic invitation of the rhythm section was so strong,
+
+905
+00:44:27,180 --> 00:44:30,200
+his fingers and lungs literally could not resist joining in.
+
+906
+00:44:30,500 --> 00:44:33,600
+And this highlights why live music is so fundamentally different
+
+907
+00:44:33,600 --> 00:44:36,120
+and often more powerful than recorded music.
+
+908
+00:44:36,460 --> 00:44:39,460
+In a live setting, the mimetic participation is amplified
+
+909
+00:44:39,460 --> 00:44:42,720
+by the sheer danger and unpredictability of the event.
+
+910
+00:44:42,840 --> 00:44:43,560
+What do you mean, danger?
+
+911
+00:44:43,560 --> 00:44:50,640
+We are watching fragile human bodies attempt to perform incredibly complex physical tasks in real time.
+
+912
+00:44:51,120 --> 00:44:52,440
+The singer might crack a note.
+
+913
+00:44:52,580 --> 00:44:53,960
+The drummer might drop a stick.
+
+914
+00:44:54,220 --> 00:44:56,340
+There is a real chance they might fail.
+
+915
+00:44:56,460 --> 00:44:56,940
+Oh, I see.
+
+916
+00:44:57,020 --> 00:44:58,480
+We are holding our breath with them.
+
+917
+00:44:58,580 --> 00:44:58,960
+Exactly.
+
+918
+00:44:59,240 --> 00:45:01,780
+When they succeed, when the tenor hits the high note,
+
+919
+00:45:01,780 --> 00:45:03,740
+or the band nails the complex transition,
+
+920
+00:45:04,100 --> 00:45:07,820
+we are vicariously achieving those musical goals right alongside them.
+
+921
+00:45:08,220 --> 00:45:11,200
+The shared physical achievement is palpable in the room.
+
+922
+00:45:11,200 --> 00:45:14,280
+So, up to this point, we have definitively established
+
+923
+00:45:14,280 --> 00:45:18,620
+that listening to music is a deeply physical embodied experience.
+
+924
+00:45:19,240 --> 00:45:20,340
+We are flexing our core.
+
+925
+00:45:20,540 --> 00:45:22,300
+We are vibrating our vocal cords.
+
+926
+00:45:22,420 --> 00:45:23,940
+We are firing our motor neurons.
+
+927
+00:45:24,100 --> 00:45:25,960
+We are fighting the urge to sing out loud.
+
+928
+00:45:26,340 --> 00:45:27,380
+We are moving our bodies.
+
+929
+00:45:27,660 --> 00:45:27,900
+Yes.
+
+930
+00:45:28,180 --> 00:45:31,560
+But how does all of this invisible internal physical activity
+
+931
+00:45:31,560 --> 00:45:36,060
+dictate the actual words that come out of our mouths when we sit down to talk about music?
+
+932
+00:45:36,380 --> 00:45:39,620
+This is where we cross from biology into linguistics.
+
+933
+00:45:39,620 --> 00:45:43,140
+This brings us to the concept of the metaphors we listen by.
+
+934
+00:45:43,400 --> 00:45:45,080
+Okay, let's unpack this language aspect.
+
+935
+00:45:45,240 --> 00:45:48,580
+Because if you think about it, music is totally invisible.
+
+936
+00:45:49,140 --> 00:45:50,060
+It is intangible.
+
+937
+00:45:50,260 --> 00:45:51,120
+It is ephemeral.
+
+938
+00:45:51,240 --> 00:45:54,420
+The second the note stops sounding, it ceases to exist.
+
+939
+00:45:54,540 --> 00:45:55,060
+Exactly.
+
+940
+00:45:55,240 --> 00:45:56,580
+You can't point to a C sharp.
+
+941
+00:45:57,040 --> 00:45:59,140
+So, if we want to talk about it with another human being,
+
+942
+00:45:59,320 --> 00:46:02,120
+we can't use literal physical descriptions.
+
+943
+00:46:02,460 --> 00:46:05,920
+We have to use what linguists call conceptual metaphors.
+
+944
+00:46:06,240 --> 00:46:06,740
+Exactly.
+
+945
+00:46:06,740 --> 00:46:11,800
+The foundational theory here comes from cognitive linguists George Lakoff and Mark Johnson,
+
+946
+00:46:12,000 --> 00:46:14,360
+who wrote a famous book called Metaphors We Live By.
+
+947
+00:46:14,880 --> 00:46:19,960
+They proposed that human language and our entire conceptual system is fundamentally metaphorical.
+
+948
+00:46:20,480 --> 00:46:24,620
+We only understand abstract, invisible things by mapping them onto concrete,
+
+949
+00:46:24,880 --> 00:46:27,040
+physical experiences that we have had with our bodies.
+
+950
+00:46:27,300 --> 00:46:29,400
+And they have a very specific formula for this mapping.
+
+951
+00:46:29,620 --> 00:46:31,200
+Target domain is source domain.
+
+952
+00:46:31,200 --> 00:46:36,840
+Yes, the target domain is the abstract, difficult concept we are trying to understand or explain.
+
+953
+00:46:37,340 --> 00:46:42,780
+The source domain is the concrete, bodily, physical experience we use as a tool to explain it.
+
+954
+00:46:42,940 --> 00:46:44,100
+Let me make sure I have this right.
+
+955
+00:46:44,260 --> 00:46:44,820
+It's like Shakespeare.
+
+956
+00:46:45,500 --> 00:46:47,180
+Romeo saying, Juliet is the sun.
+
+957
+00:46:47,760 --> 00:46:54,440
+Juliet, or rather the abstract feeling of overwhelming, intoxicating teenage love that Romeo has for Juliet,
+
+958
+00:46:54,700 --> 00:46:55,900
+is the target domain.
+
+959
+00:46:56,300 --> 00:46:57,800
+The sun is the source domain.
+
+960
+00:46:57,980 --> 00:46:58,380
+That's right.
+
+961
+00:46:58,380 --> 00:47:00,520
+The sun is a concrete, physical object.
+
+962
+00:47:00,940 --> 00:47:01,760
+It radiates heat.
+
+963
+00:47:02,000 --> 00:47:02,820
+It provides light.
+
+964
+00:47:02,940 --> 00:47:04,040
+It has immense gravity.
+
+965
+00:47:04,180 --> 00:47:04,760
+It gives life.
+
+966
+00:47:05,340 --> 00:47:13,160
+Romeo maps the literal warmth and gravity of the sun onto the abstract feeling of his love to explain his emotions to the audience.
+
+967
+00:47:13,560 --> 00:47:15,540
+That is a perfect literary example.
+
+968
+00:47:15,540 --> 00:47:20,700
+But Lakoff and Johnson argue we do this constantly in everyday language, not just in poetry.
+
+969
+00:47:21,100 --> 00:47:23,160
+And we do it obsessively in music.
+
+970
+00:47:23,920 --> 00:47:28,240
+The text points out how we take physical actions and nominalize them into musical objects.
+
+971
+00:47:28,440 --> 00:47:30,640
+We turn physical verbs into musical nouns.
+
+972
+00:47:30,840 --> 00:47:31,440
+Give me an example.
+
+973
+00:47:31,740 --> 00:47:33,180
+Think about the terms we use for intervals.
+
+974
+00:47:33,600 --> 00:47:38,220
+We call a small change in pitch musical step, and we call a large change in pitch a musical leap.
+
+975
+00:47:38,320 --> 00:47:38,520
+Right.
+
+976
+00:47:38,880 --> 00:47:39,920
+The melody takes a leap.
+
+977
+00:47:39,920 --> 00:47:41,920
+But what is a leap, literally?
+
+978
+00:47:42,440 --> 00:47:45,420
+A literal, physical leap is an exertion schema.
+
+979
+00:47:45,760 --> 00:47:55,460
+It requires planning, a starting point, a sudden burst of physical effort in the legs, movement through three-dimensional space, and the shock of a landing.
+
+980
+00:47:55,460 --> 00:48:14,100
+Because a musical interval, say, jumping from a low C to a high G requires a very similar feeling of sudden vocal exertion and transition in our throats when we subvocalize it, we map the physical action of jumping over a puddle onto the auditory experience of changing pitch.
+
+981
+00:48:14,300 --> 00:48:18,720
+We call it a leap because it physically feels like a leap in our vocal cords.
+
+982
+00:48:18,800 --> 00:48:18,980
+Right.
+
+983
+00:48:19,040 --> 00:48:20,400
+And we do this with instruments, too.
+
+984
+00:48:20,460 --> 00:48:21,660
+We don't just do it with notes.
+
+985
+00:48:21,740 --> 00:48:21,980
+Right.
+
+986
+00:48:21,980 --> 00:48:25,920
+The text has a whole section explaining how instrumental sounds are vocal sounds.
+
+987
+00:48:26,300 --> 00:48:31,880
+We constantly aggressively filter the mechanical sounds of wood and brass through the metaphor of the human voice.
+
+988
+00:48:31,960 --> 00:48:34,500
+Yes, look at the vocabulary of music criticism.
+
+989
+00:48:34,820 --> 00:48:40,940
+We say an electric guitar is screaming, or a solo violin is weeping, or we praise a pianist for making the keys sing.
+
+990
+00:48:41,260 --> 00:48:49,000
+We talk about a Bach fugue having four independent voices, even if all four lines are being played by one person on a completely mechanical pipe organ.
+
+991
+00:48:49,320 --> 00:48:50,020
+Why do we do that?
+
+992
+00:48:50,020 --> 00:48:53,320
+A saxophone is a piece of brass with a wooden reed.
+
+993
+00:48:53,400 --> 00:48:54,480
+It doesn't have lungs.
+
+994
+00:48:54,800 --> 00:48:55,880
+It cannot weep.
+
+995
+00:48:55,880 --> 00:49:03,140
+Because the human voice was our primary, most fundamental evolutionary tool for acoustic emotional communication.
+
+996
+00:49:03,140 --> 00:49:13,920
+Long before we invented flutes or drums, we screamed in terror, we wept in grief, we cooed in love, we map the emotional properties of the human voice onto mechanical instruments.
+
+997
+00:49:14,520 --> 00:49:30,920
+We interpret a high, loud, distorted electric guitar solo as a scream because it triggers the exact same immodal and cross-modal mimetic responses in our nervous system as hearing a human being physically screaming in extreme agony or ecstasy.
+
+998
+00:49:30,920 --> 00:49:35,620
+Okay, I hear you, but I have to push back here because I think the listener might be getting stuck on the same thing I am.
+
+999
+00:49:36,040 --> 00:49:42,020
+I completely understand that a saxophone doesn't literally have vocal cords, so calling it sound of voice is clearly a poetic metaphor.
+
+1000
+00:49:42,200 --> 00:49:42,440
+Sure.
+
+1001
+00:49:42,440 --> 00:49:48,660
+But when I say a melody takes a leap, or more specifically, when I say a pitch is high or low, I don't feel like I'm using a metaphor.
+
+1002
+00:49:49,040 --> 00:49:50,200
+That doesn't feel like poetry.
+
+1003
+00:49:51,000 --> 00:49:52,980
+That is literally what the sheet music shows.
+
+1004
+00:49:53,100 --> 00:49:54,460
+The notes go up and down the lines.
+
+1005
+00:49:54,820 --> 00:49:57,140
+It feels like a literal, objective fact of music.
+
+1006
+00:49:57,140 --> 00:50:03,580
+This is where Cox's work gets incredibly deep, and it challenges the very foundation of Western music.
+
+1007
+00:50:04,100 --> 00:50:12,780
+The fact that calling a note high doesn't feel like a metaphor to you is actually proof of how deeply sedimented that metaphor is in our cognition.
+
+1008
+00:50:12,960 --> 00:50:13,860
+Okay, explain that.
+
+1009
+00:50:13,980 --> 00:50:16,140
+It is so ingrained we forget it's a metaphor.
+
+1010
+00:50:16,480 --> 00:50:21,940
+We have to realize that the metaphor greater is higher is practically a universal human concept.
+
+1011
+00:50:22,140 --> 00:50:23,300
+What do you mean greater is higher?
+
+1012
+00:50:23,300 --> 00:50:31,020
+We universally map the physical dimension of vertical height onto abstract concepts of quantity, magnitude, or value.
+
+1013
+00:50:31,560 --> 00:50:33,260
+Think about the phrases we use every day.
+
+1014
+00:50:33,360 --> 00:50:35,560
+We say high prices, high quality, high stress.
+
+1015
+00:50:35,740 --> 00:50:35,840
+Right.
+
+1016
+00:50:36,140 --> 00:50:39,620
+Or, in the realm of emotion, we use the metaphor happy is up.
+
+1017
+00:50:39,700 --> 00:50:42,660
+We say we are in high spirits, we are on top of the world.
+
+1018
+00:50:42,840 --> 00:50:46,460
+Or conversely, we feel down in the dumps, we are feeling low.
+
+1019
+00:50:46,540 --> 00:50:47,240
+Okay, but why?
+
+1020
+00:50:47,420 --> 00:50:48,500
+Why is happy up?
+
+1021
+00:50:48,720 --> 00:50:50,840
+Because of our physical bodies in the real world.
+
+1022
+00:50:50,840 --> 00:50:57,600
+In childhood development, if you add more wooden blocks to a pile, the pile literally gets higher in space.
+
+1023
+00:50:58,080 --> 00:50:59,220
+More equals higher.
+
+1024
+00:50:59,600 --> 00:51:08,560
+If you stand up, proud, victorious, and happy, your posture straightens, and you are physically taller than if you were slumped over, defeated, and depressed.
+
+1025
+00:51:08,640 --> 00:51:09,000
+Oh, wow.
+
+1026
+00:51:09,060 --> 00:51:09,900
+That makes a lot of sense.
+
+1027
+00:51:10,100 --> 00:51:14,080
+The physical correlation cements the conceptual metaphor in our developing brains.
+
+1028
+00:51:14,080 --> 00:51:20,760
+More of something, or a more intense state of something, equates to being higher in physical space.
+
+1029
+00:51:20,840 --> 00:51:24,680
+Okay, so we use height to describe intensity or quantity.
+
+1030
+00:51:25,440 --> 00:51:27,800
+Which brings us to the ultimate musical illusion.
+
+1031
+00:51:28,640 --> 00:51:33,720
+If high just means a greater quantity of something, what exactly is greater about a high note?
+
+1032
+00:51:33,720 --> 00:51:36,860
+To answer that, we first have to shatter the illusion entirely.
+
+1033
+00:51:37,460 --> 00:51:43,020
+We have to acknowledge that pitch height, the idea that notes go up and down in space, is not a universal human given.
+
+1034
+00:51:43,240 --> 00:51:44,900
+It is a culturally constructed metaphor.
+
+1035
+00:51:45,160 --> 00:51:45,580
+Wait, really?
+
+1036
+00:51:45,960 --> 00:51:47,400
+Not everyone calls it high and low.
+
+1037
+00:51:47,780 --> 00:51:48,160
+No.
+
+1038
+00:51:48,560 --> 00:51:56,120
+The text points out that many other cultures throughout history have used completely different spatial or physical metaphors for pitch.
+
+1039
+00:51:56,120 --> 00:52:02,900
+The Sia people, an indigenous group in South America, describe pitches as young and old.
+
+1040
+00:52:03,180 --> 00:52:04,440
+Young for the squeaky notes.
+
+1041
+00:52:04,660 --> 00:52:05,820
+Old for the deep notes.
+
+1042
+00:52:06,120 --> 00:52:06,600
+Exactly.
+
+1043
+00:52:07,260 --> 00:52:10,340
+The Balinese musical tradition uses small and large.
+
+1044
+00:52:10,740 --> 00:52:15,380
+The ancient Greeks, who laid the foundation for much of our acoustic math, didn't use high and low.
+
+1045
+00:52:15,860 --> 00:52:20,380
+They used the terms oxys and berries, which translate to sharp and heavy.
+
+1046
+00:52:20,640 --> 00:52:21,640
+Sharp and heavy.
+
+1047
+00:52:21,760 --> 00:52:22,840
+That is fascinating.
+
+1048
+00:52:22,840 --> 00:52:27,520
+So the acoustic frequency of a sound wave doesn't inherently possess vertical height in the real world.
+
+1049
+00:52:28,300 --> 00:52:34,620
+A 440 hertz sound wave and a note is physically hovering in the air two feet above a 220-yard sound wave.
+
+1050
+00:52:34,780 --> 00:52:36,900
+They are just vibrating air at different speeds.
+
+1051
+00:52:37,020 --> 00:52:37,420
+Exactly.
+
+1052
+00:52:37,560 --> 00:52:38,960
+So why do we call it high and low?
+
+1053
+00:52:39,060 --> 00:52:42,940
+Is it just because high frequencies have a greater number of vibrations per second?
+
+1054
+00:52:43,100 --> 00:52:43,360
+Is it?
+
+1055
+00:52:43,500 --> 00:52:49,900
+Well, human beings were singing high and low notes millennia before we had the technology to measure acoustic frequencies in hertz.
+
+1056
+00:52:49,900 --> 00:52:53,840
+The spatial metaphor heavily predates the acoustic science.
+
+1057
+00:52:54,380 --> 00:53:01,620
+The text argues that the concept of pitch height actually originates from one specific physical reality, human vocal exertion.
+
+1058
+00:53:01,680 --> 00:53:02,380
+Vocal exertion.
+
+1059
+00:53:02,420 --> 00:53:04,180
+How hard do we have to work to make the sound?
+
+1060
+00:53:04,320 --> 00:53:04,620
+Yes.
+
+1061
+00:53:05,120 --> 00:53:06,960
+Think about the physical mechanics of singing.
+
+1062
+00:53:07,580 --> 00:53:12,460
+To sing a high note requires significantly greater physical exertion than singing a mid-range note.
+
+1063
+00:53:12,460 --> 00:53:23,260
+It requires tighter vocal fold tension, vastly increased subglottal breath pressure from the lungs, and often a literal physical lifting of the chest, the chin, and the larynx.
+
+1064
+00:53:23,280 --> 00:53:24,800
+Oh, I see where this is going.
+
+1065
+00:53:25,400 --> 00:53:33,320
+And because of the memetic hypothesis, because we are constantly invisibly sub-vocalizing everything we hear when I listen to a high note played on a violin,
+
+1066
+00:53:34,040 --> 00:53:37,960
+I am internally simulating that extreme physical effort in my own throat.
+
+1067
+00:53:37,960 --> 00:53:38,900
+You've got it.
+
+1068
+00:53:39,000 --> 00:53:40,280
+You simulate the effort.
+
+1069
+00:53:41,020 --> 00:53:46,360
+And because your brain runs on the metaphor that greater physical effort equates to higher in space,
+
+1070
+00:53:46,780 --> 00:53:54,400
+the note feels high, the pitch feels vertically elevated, because the muscular effort required to produce it is greater.
+
+1071
+00:53:54,740 --> 00:53:56,120
+That is absolutely incredible.
+
+1072
+00:53:56,240 --> 00:54:00,520
+We literally mistake our own muscular strain for spatial elevation.
+
+1073
+00:54:00,860 --> 00:54:06,220
+And the text traces this linguistic habit all the way back to biblical origins, doesn't it?
+
+1074
+00:54:06,520 --> 00:54:06,960
+It does.
+
+1075
+00:54:06,960 --> 00:54:14,820
+It points to the ancient Hebrew words used for vocalizing in the Bible, words like nasa and rome, which literally translate to lift up.
+
+1076
+00:54:14,920 --> 00:54:16,180
+They wouldn't say sing louder.
+
+1077
+00:54:16,300 --> 00:54:23,920
+They would say lift up your voice, deeply tying the physical act of vocal exertion and emotional conveyance to upward vertical motion.
+
+1078
+00:54:24,280 --> 00:54:26,860
+And we still use that exact same spatial phrasing today.
+
+1079
+00:54:27,040 --> 00:54:31,000
+If someone is shouting in a restaurant, we don't tell them to reduce their subglottal breath pressure.
+
+1080
+00:54:31,100 --> 00:54:32,800
+We say, hey, keep your voice down.
+
+1081
+00:54:32,800 --> 00:54:37,140
+We are asking them to reduce their physical exertion, which we spatially metaphorizes down.
+
+1082
+00:54:37,760 --> 00:54:45,720
+And this hidden biology of vocal exertion perfectly explains why climactic moments in music are so emotionally devastating to us as listeners.
+
+1083
+00:54:45,720 --> 00:54:50,440
+Think of Puccini's famous opera aria, Nessun Dorn.
+
+1084
+00:54:50,480 --> 00:54:52,240
+Oh, the legendary Pavarotti aria.
+
+1085
+00:54:52,360 --> 00:54:54,560
+The one everyone knows, even if they don't know opera.
+
+1086
+00:54:54,780 --> 00:54:55,100
+Yes.
+
+1087
+00:54:55,680 --> 00:55:01,060
+At the very end of that aria, the tenor has to hit and hold a sustained high B.
+
+1088
+00:55:01,740 --> 00:55:03,760
+It is a brutally difficult note.
+
+1089
+00:55:03,940 --> 00:55:07,840
+It is hovering near the absolute anatomical limit of the human chest voice.
+
+1090
+00:55:07,840 --> 00:55:09,220
+Yeah, you hear the strain.
+
+1091
+00:55:09,420 --> 00:55:17,440
+The sheer, raw, physical effort required to generate that sound to maintain the breath pressure without your voice cracking or breaking is immense.
+
+1092
+00:55:17,520 --> 00:55:19,260
+You can see the sweat on the singer's face.
+
+1093
+00:55:19,380 --> 00:55:23,400
+And because of everything we've talked about, because of MMI and subvoculation and immodal limitation,
+
+1094
+00:55:24,020 --> 00:55:27,640
+when I sit in the darkened auditorium and hear him hit that high B,
+
+1095
+00:55:28,240 --> 00:55:34,040
+my brain, my throat, and my core muscles are silently simulating that exact same superhuman tension.
+
+1096
+00:55:34,660 --> 00:55:36,000
+I am holding my breath with him.
+
+1097
+00:55:36,000 --> 00:55:38,760
+I am vicariously surviving that exertion.
+
+1098
+00:55:38,960 --> 00:55:39,180
+You are.
+
+1099
+00:55:39,300 --> 00:55:44,680
+You literally feel the triumph of the singer's physical exertion in the fibers of your own body.
+
+1100
+00:55:44,880 --> 00:55:48,420
+The emotional climax of the story, the character's moment of triumph,
+
+1101
+00:55:48,540 --> 00:55:53,540
+is perfectly, seamlessly married to the physical climax of the performer's body,
+
+1102
+00:55:53,700 --> 00:55:56,740
+which is simultaneously mirrored in the listener's body.
+
+1103
+00:55:56,960 --> 00:55:59,280
+It is a shared biological triumph.
+
+1104
+00:55:59,540 --> 00:56:05,140
+So if I'm synthesizing all of this correctly, what does this mean for how we read music?
+
+1105
+00:56:05,140 --> 00:56:06,540
+Think about sheet music.
+
+1106
+00:56:07,040 --> 00:56:11,940
+The staff with the five lines, the little black dots with stems moving up and down the page.
+
+1107
+00:56:12,120 --> 00:56:15,320
+I always thought that was a graph of sound waves, but it isn't, is it?
+
+1108
+00:56:15,480 --> 00:56:17,500
+No, it's not a graph of sound waves in the air.
+
+1109
+00:56:17,780 --> 00:56:20,300
+The sheet music is a map of the human body's effort.
+
+1110
+00:56:20,560 --> 00:56:21,980
+It's a graph of muscular tension.
+
+1111
+00:56:22,520 --> 00:56:27,340
+When the notes go up the page, it is a visual instruction to increase your bodily exertion.
+
+1112
+00:56:27,440 --> 00:56:31,300
+That is a profoundly beautiful synthesis, and you are entirely correct.
+
+1113
+00:56:31,300 --> 00:56:35,440
+The musical staff is a visual representation of an embodied metaphor.
+
+1114
+00:56:36,060 --> 00:56:40,100
+We have built the entire towering architecture of Western music theory
+
+1115
+00:56:40,100 --> 00:56:44,440
+upon the foundational reality of how our muscles tense and relax.
+
+1116
+00:56:44,620 --> 00:56:48,700
+This completely changes everything about how I will ever listen to an album again.
+
+1117
+00:56:49,620 --> 00:56:52,160
+Let's recap this incredible journey we have been on today,
+
+1118
+00:56:52,280 --> 00:56:55,040
+because we covered a massive amount of ground.
+
+1119
+00:56:55,040 --> 00:57:00,200
+We started with a simple, almost naive question from a blue-collar stove repairman
+
+1120
+00:57:00,200 --> 00:57:05,680
+who just assumed, naturally, that studying music meant studying human feelings.
+
+1121
+00:57:05,940 --> 00:57:10,140
+And after navigating through neurology, linguistics, and evolutionary biology,
+
+1122
+00:57:10,360 --> 00:57:11,900
+we proved that he was absolutely right.
+
+1123
+00:57:12,240 --> 00:57:13,320
+He was completely right.
+
+1124
+00:57:13,720 --> 00:57:17,180
+We moved from that apartment to the nursery, looking at baby babble,
+
+1125
+00:57:17,620 --> 00:57:20,760
+and how parents cooing is the birth of human empathy.
+
+1126
+00:57:20,760 --> 00:57:26,080
+We talked about the visceral, uninhibited joy of playing air guitar and lip-syncing
+
+1127
+00:57:26,080 --> 00:57:28,660
+to the Numa Numa song in a computer chair.
+
+1128
+00:57:28,740 --> 00:57:28,940
+Yeah.
+
+1129
+00:57:29,320 --> 00:57:31,180
+We unpacked the mirror neuron system,
+
+1130
+00:57:31,300 --> 00:57:34,720
+proving that our tongues actually microscopically twitch when we hear speech,
+
+1131
+00:57:34,880 --> 00:57:38,100
+and that our vocal cords silently stretch to the breaking point
+
+1132
+00:57:38,100 --> 00:57:41,540
+when we hear a synthesizer climb into the stratosphere in a Nike commercial.
+
+1133
+00:57:41,820 --> 00:57:43,720
+We explored the memetic invitation,
+
+1134
+00:57:43,980 --> 00:57:47,820
+discovering how different songs physically ask us to do different things,
+
+1135
+00:57:47,820 --> 00:57:50,320
+making us want to tap our feet, sing along,
+
+1136
+00:57:50,440 --> 00:57:54,620
+or just clench our abdominal muscles in awe to a wall of Leggetti sound.
+
+1137
+00:57:55,180 --> 00:57:58,880
+We talked about old men singing out loud at stuffy classical recitals
+
+1138
+00:57:58,880 --> 00:58:02,000
+because the memetic urge is stronger than social politeness.
+
+1139
+00:58:02,520 --> 00:58:04,940
+And finally, we arrived at this massive realization
+
+1140
+00:58:04,940 --> 00:58:10,220
+that the very words we used to describe music steps, leaps, high, lows,
+
+1141
+00:58:10,340 --> 00:58:15,660
+are all just metaphors mapping our bodily, physical actions onto invisible sounds.
+
+1142
+00:58:15,720 --> 00:58:16,060
+Right.
+
+1143
+00:58:16,060 --> 00:58:21,100
+When we listen to music, our bodies are silently, invisibly dancing, singing, and struggling along.
+
+1144
+00:58:21,500 --> 00:58:24,340
+We don't just hear a symphony, we physically survive it.
+
+1145
+00:58:24,460 --> 00:58:27,820
+Which, if we look at the ultimate conclusion of Arnie Cox's work,
+
+1146
+00:58:27,980 --> 00:58:33,160
+leaves us with a rather profound and perhaps slightly unsettling implication to consider.
+
+1147
+00:58:33,460 --> 00:58:34,820
+I am ready. Lay it on us.
+
+1148
+00:58:34,920 --> 00:58:36,740
+If the memetic hypothesis is true,
+
+1149
+00:58:36,880 --> 00:58:43,080
+if our bodies and our motor neurons are constantly subconsciously mimicking the acoustic sounds around us
+
+1150
+00:58:43,080 --> 00:58:46,760
+to figure out what it's like to be that thing, making that sound,
+
+1151
+00:58:46,880 --> 00:58:48,820
+what happens when you take off your headphones?
+
+1152
+00:58:49,120 --> 00:58:52,440
+What happens when you step away from your carefully curated playlist?
+
+1153
+00:58:52,740 --> 00:58:53,300
+Oh, wow.
+
+1154
+00:58:54,060 --> 00:58:55,500
+I haven't even thought about the rest of the world.
+
+1155
+00:58:55,580 --> 00:58:59,600
+We live in an incredibly violently noisy world.
+
+1156
+00:59:00,120 --> 00:59:05,480
+If your nervous system and your muscles are always seeking to mirror the energy dynamics of your environment,
+
+1157
+00:59:05,480 --> 00:59:10,680
+how is the ambient noise of your life secretly puppeteering your body right now?
+
+1158
+00:59:10,840 --> 00:59:11,560
+Okay, like what?
+
+1159
+00:59:11,800 --> 00:59:12,380
+Think about it.
+
+1160
+00:59:12,680 --> 00:59:15,620
+The low, constant electrical hum of your refrigerator,
+
+1161
+00:59:16,060 --> 00:59:19,520
+the sudden, violent screech of a subway car breaking on steel tracks,
+
+1162
+00:59:19,740 --> 00:59:24,760
+the erratic, violent rhythm of a jackhammer tearing up the concrete outside your office window,
+
+1163
+00:59:24,760 --> 00:59:30,520
+or, on the positive side, the gentle, sweeping rushing of wind through the trees in a park.
+
+1164
+00:59:30,740 --> 00:59:33,960
+My body is trying to mimetically comprehend the jackhammer.
+
+1165
+00:59:34,080 --> 00:59:36,000
+It's trying to simulate the mechanical violence.
+
+1166
+00:59:36,420 --> 00:59:36,720
+Yes.
+
+1167
+00:59:37,340 --> 00:59:41,260
+Your muscles are bracing your core, is reacting to the staccato bursts.
+
+1168
+00:59:41,620 --> 00:59:44,740
+Your vocal cords are tightening at the screech of the subway.
+
+1169
+00:59:45,400 --> 00:59:47,600
+These environmental sounds aren't just noise.
+
+1170
+00:59:47,760 --> 00:59:50,080
+They are issuing constant mimetic invitations.
+
+1171
+00:59:50,080 --> 00:59:54,780
+And they are shaping your physical tension, your stress levels, and your mood right now
+
+1172
+00:59:54,780 --> 00:59:57,380
+without you ever consciously realizing it.
+
+1173
+00:59:57,700 --> 00:59:57,820
+Wow.
+
+1174
+00:59:58,040 --> 01:00:01,840
+So the question is, what are you mimetically participating in at this very second?
+
+1175
+01:00:02,060 --> 01:00:03,400
+That is a staggering thought.
+
+1176
+01:00:03,560 --> 01:00:06,560
+I am physically embodying the traffic outside my window.
+
+1177
+01:00:06,760 --> 01:00:09,240
+It goes right back to where we started this entire deep dive.
+
+1178
+01:00:09,340 --> 01:00:09,460
+Right.
+
+1179
+01:00:09,640 --> 01:00:13,100
+We said at the beginning that you can look at an x-ray of a broken arm,
+
+1180
+01:00:13,180 --> 01:00:18,640
+but you can't x-ray why a song makes you cry or why a city street makes you stressed.
+
+1181
+01:00:18,640 --> 01:00:21,660
+Well, maybe we can't literally put it on an x-ray screen.
+
+1182
+01:00:21,840 --> 01:00:27,360
+But thanks to Arnie Cox and the Manetic Hypothesis, we can finally feel the mechanism at work.
+
+1183
+01:00:27,540 --> 01:00:32,160
+You can feel the tension in our throats, the rhythm in our gut, and the empathy in our muscles.
+
+1184
+01:00:32,520 --> 01:00:35,720
+So to everyone listening to this right now, I have a challenge for you.
+
+1185
+01:00:35,780 --> 01:00:39,200
+When this deep dive ends, go put on your absolute favorite song.
+
+1186
+01:00:39,540 --> 01:00:41,960
+But this time, don't just passively listen to the melody.
+
+1187
+01:00:42,400 --> 01:00:45,660
+Pay attention to what your gut, your chest, and your throat are doing.
+
+1188
+01:00:45,880 --> 01:00:48,540
+Feel the invisible dance happening inside you.
+
+1189
+01:00:48,720 --> 01:00:50,380
+Thanks for joining us on this deep dive.
+
+1190
+01:00:50,380 --> 01:00:50,400
+Thanks for joining us on this deep dive.
+

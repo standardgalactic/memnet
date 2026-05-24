@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Geometry of Constraints</title>
+<style>
+  html, body {
+    margin: 0;
+    background: #050805;
+    color: #b8ffd6;
+    font-family: monospace;
+    overflow: hidden;
+  }
+
+  canvas {
+    display: block;
+  }
+
+  #hud {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    padding: 12px 14px;
+    border: 1px solid #00ff8855;
+    background: #001a0dcc;
+    box-shadow: 0 0 18px #00ff8844;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<canvas id="field"></canvas>
+
+<div id="hud">
+  GEOMETRY OF CONSTRAINTS<br>
+  green = admissible basin<br>
+  red = constraint pressure<br>
+  blue = trajectory memory<br>
+  click = inject constraint
+</div>
+
+<script>
+const canvas = document.getElementById("field");
+const ctx = canvas.getContext("2d");
+
+let W, H, dpr;
+
+function resize() {
+  dpr = window.devicePixelRatio || 1;
+  W = innerWidth;
+  H = innerHeight;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + "px";
+  canvas.style.height = H + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+window.addEventListener("resize", resize);
+resize();
+
+const points = [];
+const constraints = [];
+
+for (let i = 0; i < 420; i++) {
+  points.push({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    vx: (Math.random() - 0.5) * 0.7,
+    vy: (Math.random() - 0.5) * 0.7,
+    memory: 0
+  });
+}
+
+function addConstraint(x, y) {
+  constraints.push({
+    x,
+    y,
+    r: 30 + Math.random() * 70,
+    strength: 1.0
+  });
+}
+
+canvas.addEventListener("pointerdown", e => {
+  addConstraint(e.clientX, e.clientY);
+});
+
+function constraintPressure(p) {
+  let pressure = 0;
+
+  for (const c of constraints) {
+    const dx = p.x - c.x;
+    const dy = p.y - c.y;
+    const d = Math.sqrt(dx * dx + dy * dy) + 0.001;
+    pressure += c.strength * Math.exp(-(d * d) / (c.r * c.r));
+  }
+
+  return pressure;
+}
+
+function step() {
+  ctx.fillStyle = "rgba(0, 8, 4, 0.18)";
+  ctx.fillRect(0, 0, W, H);
+
+  for (const c of constraints) {
+    c.strength *= 0.992;
+
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(255,80,80,${0.25 * c.strength})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  for (const p of points) {
+    const pressure = constraintPressure(p);
+    const admissibility = 1 / (1 + pressure);
+
+    const cx = W / 2;
+    const cy = H / 2;
+
+    const dx = cx - p.x;
+    const dy = cy - p.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) + 0.001;
+
+    const pull = admissibility * 0.012;
+    const rotate = pressure * 0.018;
+
+    p.vx += (dx / dist) * pull - (dy / dist) * rotate;
+    p.vy += (dy / dist) * pull + (dx / dist) * rotate;
+
+    p.vx *= 0.985;
+    p.vy *= 0.985;
+
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x < 0 || p.x > W) p.vx *= -1;
+    if (p.y < 0 || p.y > H) p.vy *= -1;
+
+    p.x = Math.max(0, Math.min(W, p.x));
+    p.y = Math.max(0, Math.min(H, p.y));
+
+    p.memory = 0.96 * p.memory + 0.04 * admissibility;
+
+    const g = Math.floor(255 * admissibility);
+    const r = Math.floor(255 * pressure / (1 + pressure));
+    const b = Math.floor(180 * p.memory);
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 1.6 + 2.5 * p.memory, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${r},${g},${b},0.75)`;
+    ctx.fill();
+  }
+
+  for (let i = constraints.length - 1; i >= 0; i--) {
+    if (constraints[i].strength < 0.02) {
+      constraints.splice(i, 1);
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+addConstraint(W * 0.35, H * 0.45);
+addConstraint(W * 0.65, H * 0.55);
+
+step();
+</script>
+</body>
+</html>

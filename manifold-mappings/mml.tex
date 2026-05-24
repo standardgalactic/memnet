@@ -1,0 +1,372 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{RGB}{245,245,245}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    frame=single,
+    columns=fullflexible,
+    breaklines=true
+}
+
+\title{MML:\\
+Toward a Constraint-First Language for Semantic Manifolds}
+
+\author{Flyxion}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+This essay introduces the Manifold Mapping Language (MML), a domain-specific language designed for describing semantic manifolds, admissibility structures, constraint geometries, and residual semantic artifacts. Unlike conventional programming languages, which treat symbolic manipulation as primary, MML begins from the assumption that coherent systems are fundamentally geometric, topological, and constraint-governed.
+
+The language models cognition, ontology, compression, semantic persistence, and structural transformation through regions, flows, mappings, bubbles, relations, and residuals. In this framework, semantic structure is interpreted not as static symbolic data but as a dynamically stabilized field unfolding over admissibility landscapes.
+
+MML therefore functions simultaneously as:
+a semantic topology language,
+a constraint-oriented ontology framework,
+a manifold projection calculus,
+and a programmable geometric representation system.
+
+\end{abstract}
+
+\section{Introduction}
+
+Most programming languages inherit an implicitly symbolic ontology. Their primitive assumptions concern:
+objects,
+functions,
+variables,
+types,
+instructions,
+or algebraic expressions.
+
+Even graph-based systems typically reduce meaning to discrete nodes connected by edges.
+
+MML begins from a fundamentally different premise.
+
+Rather than treating symbolic entities as primary, MML assumes that coherent systems emerge through constrained stabilization processes occurring over structured semantic manifolds. Regions of stability, attractor basins, compression boundaries, residual artifacts, and admissibility flows become the primary representational primitives.
+
+The language therefore models semantic organization geometrically rather than symbolically.
+
+A manifold in MML is not merely a container of data. It is a constrained semantic field whose local regions possess measurable characteristics such as:
+entropy,
+salience,
+density,
+curvature,
+and admissibility thresholds.
+
+Flows describe directional semantic trajectories. Constraints regulate admissible deformation. Mappings define projection operators between semantic spaces. Residuals encode persistent artifacts surviving compression or transformation.
+
+The result is a language whose semantics resemble a field theory of meaning more than a traditional symbolic grammar.
+
+\section{Constraint-First Semantics}
+
+A defining principle of MML is that admissibility precedes representation.
+
+Traditional systems generally assume the following sequence:
+
+\[
+\text{Syntax} \rightarrow \text{Representation} \rightarrow \text{Validation}
+\]
+
+MML instead assumes:
+
+\[
+\text{Constraint Geometry} \rightarrow \text{Admissibility} \rightarrow \text{Representation}
+\]
+
+The semantic validity of a structure is therefore not reducible to syntactic correctness alone. A manifold may parse successfully while still representing an unstable or incoherent semantic geometry.
+
+This principle appears throughout the validator architecture.
+
+Regions are evaluated according to quantities such as:
+entropy,
+salience,
+density,
+curvature,
+and xylomorphic stability.
+
+A region satisfying:
+
+\[
+\Phi > S
+\]
+
+where $\Phi$ denotes salience and $S$ denotes entropy, is treated as xylomorphic, meaning structurally persistent and semantically stable.
+
+Conversely, regions where entropy exceeds salience are interpreted as dissolution zones or unstable attractor structures.
+
+Thus semantic coherence becomes a dynamical property rather than a symbolic property.
+
+\section{Regions and Semantic Basins}
+
+The primitive semantic object in MML is the region.
+
+A region represents a localized semantic basin embedded within a manifold. Regions may contain:
+subregions,
+flows,
+constraints,
+and nested semantic structures.
+
+This recursive organization reflects the assumption that semantic systems are hierarchically stratified rather than flat.
+
+A typical region declaration appears as follows:
+
+\begin{lstlisting}
+region memory-basin {
+    entropy: 0.2
+    salience: 0.8
+    density: 0.7
+    curvature: 0.1
+}
+\end{lstlisting}
+
+The quantities associated with a region are intentionally geometric.
+
+Entropy represents semantic instability or trajectory divergence.
+
+Salience measures reinforcement strength and persistence potential.
+
+Density corresponds to local semantic concentration.
+
+Curvature represents geometric deformation pressure within the manifold.
+
+These quantities collectively determine whether the region remains admissible under semantic evolution.
+
+\section{Flows as Semantic Trajectories}
+
+Flows describe directional propagation across semantic regions.
+
+Unlike ordinary graph edges, flows possess dynamical characteristics including:
+persistence,
+compression,
+phase-locking,
+and amplification.
+
+For example:
+
+\begin{lstlisting}
+flow reinforcement {
+    origin: sensory
+    target: memory
+    persistence: 0.9
+    compression: lossy
+    amplification: resonant
+}
+\end{lstlisting}
+
+A flow therefore behaves less like a discrete transition and more like a constrained trajectory through semantic phase space.
+
+Persistence determines whether semantic structure survives traversal.
+
+Compression determines whether information reduction occurs during propagation.
+
+Amplification governs local resonance reinforcement.
+
+Phase-locking models synchronization stability between regions.
+
+The resulting interpretation resembles a dynamical field theory of semantic transport.
+
+\section{Mappings and Projection Geometry}
+
+Mappings define projections between semantic spaces.
+
+This component formalizes a recurring principle within admissibility-oriented cognition:
+all representation is necessarily compressive.
+
+A mapping therefore specifies:
+which properties survive projection,
+which properties are discarded,
+and which invariants remain structurally preserved.
+
+For example:
+
+\begin{lstlisting}
+mapping abstraction {
+    source-space: sensory
+    target-space: symbolic
+
+    preserve: [
+        continuity,
+        coherence
+    ]
+
+    discard: [
+        noise,
+        microstructure
+    ]
+}
+\end{lstlisting}
+
+Mappings thus behave analogously to projection operators:
+
+\[
+\pi : X \rightarrow M
+\]
+
+where:
+$X$ denotes high-dimensional trajectory space,
+and
+$M$ denotes compressed representational structure.
+
+The language therefore explicitly encodes representational loss rather than hiding it behind symbolic abstraction.
+
+\section{Residual Artifacts}
+
+One of the most unusual features of MML is the explicit representation of residuals.
+
+Traditional computational systems generally treat compression artifacts as noise or implementation details.
+
+MML instead assumes that compression remnants possess semantic significance.
+
+Residuals represent structures that survive reduction despite projection loss.
+
+For example:
+
+\begin{lstlisting}
+residual echo {
+    source: compressed-memory
+    persistence: fading
+    coherence: 0.28
+}
+\end{lstlisting}
+
+Residuals therefore formalize:
+afterimages,
+semantic traces,
+memory remnants,
+compression ghosts,
+and partially preserved coherence structures.
+
+This allows the language to model systems where information destruction is incomplete and residual topology continues influencing future semantic evolution.
+
+\section{Spherepop Structures and Bubble Geometry}
+
+The inclusion of bubbles and relations introduces a Spherepop-inspired organizational layer.
+
+Bubbles represent localized semantic enclosures. Relations define nested or coupled geometric interactions between these enclosures.
+
+For example:
+
+\begin{lstlisting}
+bubble parent {
+    density: 0.9
+}
+
+bubble child {
+    density: 0.7
+}
+
+relation nesting {
+    parent: parent
+    child: child
+    coupling: resonant
+}
+\end{lstlisting}
+
+These structures allow semantic organization to be represented through recursive pressure-stabilized local regions rather than purely symbolic hierarchies.
+
+The resulting ontology is closer to a nested field geometry than a tree structure.
+
+\section{Validation as Semantic Thermodynamics}
+
+The validator architecture reveals the deeper philosophical assumptions underlying MML.
+
+Validation does not merely check:
+syntax,
+types,
+or lexical correctness.
+
+Instead it evaluates:
+stability,
+admissibility,
+curvature pressure,
+coherence persistence,
+and manifold consistency.
+
+A manifold may therefore be syntactically valid while semantically unstable.
+
+This transforms validation into a form of semantic thermodynamics.
+
+The compiler effectively becomes an admissibility engine governing which structures can stably persist within the manifold.
+
+\section{Emission and Representation Invariance}
+
+The emitter system further reinforces the geometric worldview of MML.
+
+The same manifold can be emitted as:
+canonical source code,
+JSON semantic structure,
+adjacency graphs,
+or Graphviz topologies.
+
+These representations are interpreted not as separate meanings but as projections of the same underlying semantic geometry.
+
+Thus MML treats representation itself as manifold projection.
+
+The manifold remains invariant while multiple external views preserve different subsets of structure.
+
+\section{Toward Semantic Geometry}
+
+MML represents an attempt to move beyond purely symbolic computational paradigms.
+
+The language assumes that meaning is:
+topological,
+dynamical,
+constraint-governed,
+and geometrically stabilized.
+
+Semantic organization emerges through:
+admissibility,
+trajectory persistence,
+resonance,
+compression,
+residual survival,
+and recursive structural coupling.
+
+Rather than treating cognition as symbolic manipulation over discrete tokens, MML treats cognition as constrained field evolution occurring over semantic manifolds.
+
+In this sense, the language is simultaneously:
+a parser,
+a semantic geometry engine,
+a constraint calculus,
+and a programmable ontology framework.
+
+\section{Conclusion}
+
+The Manifold Mapping Language proposes a shift from symbolic-first computation toward constraint-first semantic geometry.
+
+Its primitives are not functions or classes but:
+regions,
+flows,
+constraints,
+mappings,
+bubbles,
+relations,
+and residuals.
+
+Its semantics are not fundamentally algebraic but topological and dynamical.
+
+Its validator behaves less like a compiler pass and more like a thermodynamic admissibility regulator.
+
+Its mappings formalize the geometry of projection and compression.
+
+Its residuals acknowledge that reduction never completely erases structure.
+
+Ultimately, MML attempts to provide a computational language for describing coherent systems as evolving semantic manifolds governed by admissibility constraints and geometric persistence.
+
+\end{document}

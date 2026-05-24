@@ -1,5 +1,17 @@
 # MEMNET
 
+[Hydra — Hybrid Dynamic Reasoning Architecture](https://standardgalactic.github.io/memnet/operator-logic/hydra.pdf)
+
+* [Architecture of Constraint](https://standardgalactic.github.io/memnet/operator-logic/Architecture_of_Constraint.pdf) — *Notes*
+
+* [Semantic Physics](https://standardgalactic.github.io/memnet/operator-logic/Semantic_Physics.pdf) — *Notes*
+
+[Constraint Geometry Audioscope](https://standardgalactic.github.io/memnet/operator-logic/) — *Audio Overviews*
+
+* Dynamic Programming from Physics to Consciousness
+* Your Body Plays Every Song You Hear
+* Intelligence is the Geometry of Constraints
+
 [Constraint as Ground](https://standardgalactic.github.io/memnet/sparse-representations/constraint_as_ground.pdf)
 
 * [Topological Intelligence](https://standardgalactic.github.io/memnet/sparse-representations/Topological_Intelligence.pdf)

@@ -1,0 +1,524 @@
+.
+├── 42.MD
+├── ARCHITECTURE.md
+├── CLAUDE.md
+├── GLOSSARY.md
+├── INTEGRATION.md
+├── LICENSE
+├── NAVIGATION.md
+├── QUICK_REFERENCE.md
+├── README.md
+├── RESEARCH_INDEX.md
+├── The_Semantic_State.mp3
+├── The_Semantic_State.vtt
+├── USE_CASES.md
+├── admissibility-kernels
+│   ├── admissibility_kernel.c
+│   ├── spherepop_boundary.c
+│   ├── spherepop_lattice.c
+│   └── spherepop_stack.c
+├── axiom-synthesis
+│   └── MarineSalience.lean
+├── ayeos
+│   ├── ayeos_memnet_protocol.md
+│   └── ayevn
+│       ├── README.md
+│       ├── ayevn-mem8-integration.md
+│       ├── ayevn-reference.md
+│       └── ayevn-spec.md
+├── constraint-topology
+├── entropy-reduction-flows
+│   ├── admissibility_flow.jl
+│   ├── cognitive_heat_death.jl
+│   ├── entropy_gradient_flow.jl
+│   ├── marine_salience_flow.jl
+│   ├── mesoscale_dynamics.jl
+│   ├── recursive_field_memory.jl
+│   ├── resonance_field.jl
+│   └── semantic_entropy_fields.jl
+├── file-list.txt
+├── forth
+│   ├── 01-semantic-relaxation.fth
+│   ├── 02-clio-projection.fth
+│   ├── 03-constraint-automaton.fth
+│   ├── 04-rsvp-dynamics.fth
+│   ├── 05-experimental-suite.fth
+│   ├── 06-flyxion-core-vocabulary.fth
+│   └── README.md
+├── framework
+│   ├── README.md
+│   ├── System_Admissibility.pdf
+│   ├── The_Admissibility_Principle.pdf
+│   ├── The_Ortyx_Protocol_and_wave_based_AI.json
+│   ├── The_Ortyx_Protocol_and_wave_based_AI.mp3
+│   ├── The_Ortyx_Protocol_and_wave_based_AI.srt
+│   ├── The_Ortyx_Protocol_and_wave_based_AI.tsv
+│   ├── The_Ortyx_Protocol_and_wave_based_AI.txt
+│   ├── The_Ortyx_Protocol_and_wave_based_AI.vtt
+│   ├── The_Phoenix_Paradigm_Audit.pdf
+│   ├── The_Universal_Mathematics_of_System_Admissibility.json
+│   ├── The_Universal_Mathematics_of_System_Admissibility.mp3
+│   ├── The_Universal_Mathematics_of_System_Admissibility.srt
+│   ├── The_Universal_Mathematics_of_System_Admissibility.tsv
+│   ├── The_Universal_Mathematics_of_System_Admissibility.txt
+│   ├── The_Universal_Mathematics_of_System_Admissibility.vtt
+│   ├── The_universe_as_admissibility_constrained_collapse.json
+│   ├── The_universe_as_admissibility_constrained_collapse.mp3
+│   ├── The_universe_as_admissibility_constrained_collapse.srt
+│   ├── The_universe_as_admissibility_constrained_collapse.tsv
+│   ├── The_universe_as_admissibility_constrained_collapse.txt
+│   ├── The_universe_as_admissibility_constrained_collapse.vtt
+│   ├── admissibility_principle.pdf
+│   ├── admissibility_principle.tex
+│   ├── fix_transcription-errors.py
+│   ├── index.html
+│   ├── ortyx-project
+│   │   ├── appendices
+│   │   │   ├── appA.tex
+│   │   │   ├── appB.tex
+│   │   │   ├── appC.tex
+│   │   │   ├── appD.tex
+│   │   │   ├── appE.tex
+│   │   │   ├── appF.tex
+│   │   │   └── appG.tex
+│   │   ├── bibliography
+│   │   │   └── ortyx.bib
+│   │   ├── build
+│   │   ├── figures
+│   │   ├── frontmatter
+│   │   │   └── preface.tex
+│   │   ├── main.tex
+│   │   ├── parts
+│   │   │   ├── interlude-collapse
+│   │   │   │   └── interlude.tex
+│   │   │   ├── part1
+│   │   │   │   ├── ch01.tex
+│   │   │   │   ├── ch02.tex
+│   │   │   │   ├── ch03.tex
+│   │   │   │   ├── ch04.tex
+│   │   │   │   └── ch05.tex
+│   │   │   ├── part2
+│   │   │   │   ├── ch06.tex
+│   │   │   │   ├── ch07.tex
+│   │   │   │   ├── ch08.tex
+│   │   │   │   ├── ch09.tex
+│   │   │   │   └── ch10.tex
+│   │   │   ├── part3
+│   │   │   │   ├── ch11.tex
+│   │   │   │   ├── ch12.tex
+│   │   │   │   ├── ch13.tex
+│   │   │   │   ├── ch14.tex
+│   │   │   │   └── ch15.tex
+│   │   │   ├── part4
+│   │   │   │   ├── ch16.tex
+│   │   │   │   ├── ch17.tex
+│   │   │   │   ├── ch18.tex
+│   │   │   │   ├── ch19.tex
+│   │   │   │   └── ch20.tex
+│   │   │   └── part5
+│   │   │       ├── ch21.tex
+│   │   │       ├── ch22.tex
+│   │   │       ├── ch23.tex
+│   │   │       └── ch24.tex
+│   │   └── preamble
+│   │       ├── boxes.tex
+│   │       ├── colors.tex
+│   │       ├── macros.tex
+│   │       ├── packages.tex
+│   │       ├── theorem-envs.tex
+│   │       └── typography.tex
+│   ├── ortyx_protocol.pdf
+│   ├── phoenix_preregistration.pdf
+│   ├── phoenix_preregistration.tex
+│   └── teaser-poster.png
+├── geometry-of-constraints
+│   └── index.html
+├── governing-dynamics
+│   ├── README.md
+│   ├── oblicosm-paper.aux
+│   ├── oblicosm-paper.log
+│   ├── oblicosm-paper.out
+│   ├── oblicosm-paper.pdf
+│   ├── oblicosm-paper.tex
+│   └── oblicosm.py
+├── heuristic-buffers
+│   ├── README.md
+│   ├── heuristic_buffer.ahk
+│   ├── marine_salience_buffer.ahk
+│   ├── mesoscale_buffer.ahk
+│   ├── phoenix_monitor.ahk
+│   ├── predictive_heuristic_buffer.ahk
+│   ├── resonance_buffer.ahk
+│   └── semantic_afterimage.ahk
+├── icepick.sh
+├── icepick.txt
+├── index.html
+├── make-directories.sh
+├── manifold-mappings
+│   ├── Cargo.toml
+│   ├── README.md
+│   ├── icepick.txt
+│   ├── mml.aux
+│   ├── mml.log
+│   ├── mml.out
+│   ├── mml.pdf
+│   ├── mml.tex
+│   ├── python
+│   ├── samples
+│   ├── src
+│   │   ├── ast.rs
+│   │   ├── emitter.rs
+│   │   ├── parser.rs
+│   │   ├── token.rs
+│   │   └── validator.rs
+│   └── templates
+├── mem8
+│   ├── README.md
+│   ├── mem8-paper-January.md
+│   ├── mem8-paper.md
+│   ├── mem8_temporal_philosophy.md
+│   ├── mem_8_vs_wrnn.md
+│   └── mem_8_vs_wrnn.mp3
+├── ontology-engineering
+│   ├── AdmissibilityEngine.hs
+│   ├── CognitiveTopology.hs
+│   ├── MesoscaleOntology.hs
+│   ├── OntologicalCompression.hs
+│   ├── OntologyCore.hs
+│   ├── ResonanceOntology.hs
+│   ├── SemanticField.hs
+│   └── WaveGraph.hs
+├── operator-logic
+│   ├── Architecture_of_Constraint.pdf
+│   ├── Dynamic_programming_from_physics_to_consciousness.json
+│   ├── Dynamic_programming_from_physics_to_consciousness.mp3
+│   ├── Dynamic_programming_from_physics_to_consciousness.srt
+│   ├── Dynamic_programming_from_physics_to_consciousness.tsv
+│   ├── Dynamic_programming_from_physics_to_consciousness.txt
+│   ├── Dynamic_programming_from_physics_to_consciousness.vtt
+│   ├── Intelligence_is_the_geometry_of_constraints.json
+│   ├── Intelligence_is_the_geometry_of_constraints.mp3
+│   ├── Intelligence_is_the_geometry_of_constraints.srt
+│   ├── Intelligence_is_the_geometry_of_constraints.tsv
+│   ├── Intelligence_is_the_geometry_of_constraints.txt
+│   ├── Intelligence_is_the_geometry_of_constraints.vtt
+│   ├── Semantic_Physics.pdf
+│   ├── Your_Body_Plays_Every_Song_You_Hear.json
+│   ├── Your_Body_Plays_Every_Song_You_Hear.mp3
+│   ├── Your_Body_Plays_Every_Song_You_Hear.srt
+│   ├── Your_Body_Plays_Every_Song_You_Hear.tsv
+│   ├── Your_Body_Plays_Every_Song_You_Hear.txt
+│   ├── Your_Body_Plays_Every_Song_You_Hear.vtt
+│   ├── hydra.aux
+│   ├── hydra.log
+│   ├── hydra.out
+│   ├── hydra.pdf
+│   ├── hydra.tex
+│   ├── hydra.toc
+│   └── index.html
+├── pattern-recognition
+│   ├── README.md
+│   ├── admissibility_gate.sh
+│   ├── dynamic_equivalence.sh
+│   ├── events.txt
+│   ├── field.txt
+│   ├── field_init.csv
+│   ├── interference_field.sh
+│   ├── marine_jitter_detector.sh
+│   ├── memories.txt
+│   ├── memory_bank.txt
+│   ├── mesoscale_cluster_detector.sh
+│   ├── phoenix_lifecycle.sh
+│   ├── resonance_overlap.sh
+│   ├── rsvp_field_evolver.sh
+│   ├── sheaf_glue_checker.sh
+│   ├── signal.txt
+│   ├── signal_batch.csv
+│   ├── tartan_tiler.sh
+│   └── wave_decay_memory.sh
+├── processing
+│   ├── The_Semantic_State.json
+│   ├── The_Semantic_State.mp3
+│   ├── The_Semantic_State.srt
+│   ├── The_Semantic_State.tsv
+│   ├── The_Semantic_State.txt
+│   ├── The_Semantic_State.vtt
+│   ├── semantic_state.aux
+│   ├── semantic_state.log
+│   ├── semantic_state.out
+│   ├── semantic_state.pdf
+│   └── semantic_state.tex
+├── pulse-modulation
+│   ├── entropy_reduction_pulse.rs
+│   ├── heartbeat_scheduler.rs
+│   ├── marine_pulse_modulator.rs
+│   ├── mesoscale_pulse_field.rs
+│   ├── pulse_train.rs
+│   ├── recursive_pulse_memory.rs
+│   ├── resonance_pulse_network.rs
+│   └── semantic_pwm.rs
+├── residual-artifacts
+│   ├── __pycache__
+│   │   ├── cognitive_afterimage.cpython-312.pyc
+│   │   ├── entropy_residual_pressure.cpython-312.pyc
+│   │   ├── interference_artifact_mapper.cpython-312.pyc
+│   │   ├── mesoscale_residual_detector.cpython-312.pyc
+│   │   ├── residual_echo_detector.cpython-312.pyc
+│   │   ├── residual_phase_locking.cpython-312.pyc
+│   │   ├── semantic_residual_field.cpython-312.pyc
+│   │   └── wave_memory_residue.cpython-312.pyc
+│   ├── cognitive_afterimage.py
+│   ├── entropy_residual_pressure.py
+│   ├── interference_artifact_mapper.py
+│   ├── mesoscale_residual_detector.py
+│   ├── residual_echo_detector.py
+│   ├── residual_phase_locking.py
+│   ├── rsvp_pipeline.py
+│   ├── semantic_residual_field.py
+│   └── wave_memory_residue.py
+├── semantic_state.pdf
+├── semantic_state.tex
+├── signal-as-structure
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── README.md
+│   ├── examples
+│   │   └── demo.rs
+│   ├── pyproject.toml
+│   └── src
+│       ├── entropy.rs
+│       ├── equiv.rs
+│       ├── lib.rs
+│       ├── phase.rs
+│       ├── residual.rs
+│       ├── rsvp.rs
+│       ├── signal.rs
+│       └── wave.rs
+├── smart-tree
+│   ├── AI_OPTIMIZATION.md
+│   ├── COMPRESSION_EXAMPLES.md
+│   ├── COMPRESSION_GUIDE.md
+│   ├── CONTEXT_GATHERING.md
+│   ├── EIGHT_O_MODE_VISION.md
+│   ├── EMOTIONAL_MODE_IMPLEMENTATION.md
+│   ├── ENHANCED_FIND_TOOL.md
+│   ├── FEATURES_OVERVIEW.md
+│   ├── FUNCTION_MARKDOWN_FEATURE.md
+│   ├── FUNCTION_MARKDOWN_VISION.md
+│   ├── HETZNER_DEPLOYMENT_GUIDE.md
+│   ├── HOME_DIRECTORY_SAFETY.md
+│   ├── INDEX.md
+│   ├── LLM_INTEGRATION.md
+│   ├── MCP_AI_BEST_PRACTICES.md
+│   ├── MCP_QUANTUM_CRATE_VISION.md
+│   ├── MCP_TOOL_CONSOLIDATION.md
+│   ├── MERMAID_EXAMPLES.md
+│   ├── MODE_SELECTION_GUIDE.md
+│   ├── MULTI_REMOTE_WORKFLOW.md
+│   ├── NETWORK_EFFICIENT_COMPRESSION.md
+│   ├── NETWORK_GAMING_OPUS_EXAMPLE.md
+│   ├── NEXT_MISSIONS.md
+│   ├── PACKET_EFFICIENCY_CRIME.md
+│   ├── PERFORMANCE_METRICS.md
+│   ├── PERMISSION_GATING_SYSTEM.md
+│   ├── PPS_CONTEXT_SWITCH_WISDOM.md
+│   ├── QCP_SPECIFICATION.md
+│   ├── QUANTUM_FORMAT_SUCCESS.md
+│   ├── QUANTUM_HANG_FIX.md
+│   ├── QUANTUM_JSON_SAFETY.md
+│   ├── QUANTUM_NATIVE_ACHIEVEMENT.md
+│   ├── QUANTUM_NATIVE_SPEC.md
+│   ├── QUANTUM_SEMANTIC.md
+│   ├── QUANTUM_SEMANTIC_COMPRESSION.md
+│   ├── README.md
+│   ├── README_FOR_DXT_EXAMPLES.md
+│   ├── RELATIONS_FEATURE.md
+│   ├── RELEASE_V3_QUANTUM_AWAKENING.md
+│   ├── Room-For-Improvements.md
+│   ├── SECURITY_VIGILANCE_VISION.md
+│   ├── SMART_TOOLS_VISION.md
+│   ├── SMART_TREE_PHILOSOPHY.md
+│   ├── SMART_TREE_TERMINAL_VISION.md
+│   ├── SSE_SERVER_SPEC.md
+│   ├── SSE_USAGE.md
+│   ├── TERMINAL_DEMO.md
+│   ├── ULTRA_COMPRESSION_SPEC.md
+│   ├── ULTRA_COMPRESSION_SUMMARY.md
+│   ├── ULTRA_V2_ARCHITECTURE.md
+│   ├── ULTRA_V2_DEFAULT_SPEC.md
+│   ├── ULTRA_V2_INSIGHTS.md
+│   ├── ULTRA_V2_TRAVERSAL_SPEC.md
+│   ├── mcp-guide.md
+│   ├── mcp-quick-reference.md
+│   ├── mcp-troubleshooting-cheat.md
+│   ├── mem8-proxy.code-workspace
+│   ├── smart-tree-mcp-prompts-cheat.md
+│   ├── st-cheetsheet.md
+│   └── st.1
+├── snapshot.md
+├── sparse-representations
+│   ├── Constraint_as_Ground-notes.pdf
+│   ├── Topological_Intelligence.pdf
+│   ├── Why_Constraints_Are_The_Engine_Of_Intelligence.json
+│   ├── Why_Constraints_Are_The_Engine_Of_Intelligence.mp3
+│   ├── Why_Constraints_Are_The_Engine_Of_Intelligence.srt
+│   ├── Why_Constraints_Are_The_Engine_Of_Intelligence.tsv
+│   ├── Why_Constraints_Are_The_Engine_Of_Intelligence.txt
+│   ├── Why_Constraints_Are_The_Engine_Of_Intelligence.vtt
+│   ├── Why_intelligence_requires_ignoring_information.json
+│   ├── Why_intelligence_requires_ignoring_information.mp3
+│   ├── Why_intelligence_requires_ignoring_information.srt
+│   ├── Why_intelligence_requires_ignoring_information.tsv
+│   ├── Why_intelligence_requires_ignoring_information.txt
+│   ├── Why_intelligence_requires_ignoring_information.vtt
+│   ├── constraint_as_ground-draft.pdf
+│   ├── constraint_as_ground.pdf
+│   ├── index.html
+│   └── monograph
+│       ├── appendices
+│       │   ├── appA_rsvp_formal.aux
+│       │   ├── appA_rsvp_formal.tex
+│       │   ├── appB_kes_formal.aux
+│       │   ├── appB_kes_formal.tex
+│       │   ├── appC_spherepop.aux
+│       │   ├── appC_spherepop.tex
+│       │   ├── appD_tartan.aux
+│       │   ├── appD_tartan.tex
+│       │   ├── appE_clio.aux
+│       │   ├── appE_clio.tex
+│       │   ├── appF_obstruction.aux
+│       │   ├── appF_obstruction.tex
+│       │   ├── appG_juarrero_deacon.aux
+│       │   ├── appG_juarrero_deacon.tex
+│       │   ├── appH_stone_piano.aux
+│       │   ├── appH_stone_piano.tex
+│       │   ├── appI_companion_index.aux
+│       │   ├── appI_companion_index.tex
+│       │   ├── appJ_perceptual.aux
+│       │   └── appJ_perceptual.tex
+│       ├── chapters
+│       │   ├── ch01_distributed_manifold.aux
+│       │   ├── ch01_distributed_manifold.tex
+│       │   ├── ch02_vocabulary.aux
+│       │   ├── ch02_vocabulary.tex
+│       │   ├── ch03_scaffolded_amplification.aux
+│       │   ├── ch03_scaffolded_amplification.tex
+│       │   ├── ch04_ellul_constraint.aux
+│       │   ├── ch04_ellul_constraint.tex
+│       │   ├── ch05_yarncrawler_formal.aux
+│       │   ├── ch05_yarncrawler_formal.tex
+│       │   ├── ch06_sheaf_repair.aux
+│       │   ├── ch06_sheaf_repair.tex
+│       │   ├── ch07_ecological_cultural_computational.aux
+│       │   ├── ch07_ecological_cultural_computational.tex
+│       │   ├── ch08_cosmological.aux
+│       │   ├── ch08_cosmological.tex
+│       │   ├── ch09_social_institutional.aux
+│       │   ├── ch09_social_institutional.tex
+│       │   ├── ch10_kes_spherepop.aux
+│       │   ├── ch10_kes_spherepop.tex
+│       │   ├── ch11_method_as_consequence.aux
+│       │   ├── ch11_method_as_consequence.tex
+│       │   ├── ch12_identity_bootstrapping.aux
+│       │   ├── ch12_identity_bootstrapping.tex
+│       │   ├── ch13_conclusion.aux
+│       │   └── ch13_conclusion.tex
+│       ├── constraint_as_ground.pdf
+│       ├── frontmatter
+│       │   ├── methodological.aux
+│       │   ├── methodological.tex
+│       │   ├── prefatory.aux
+│       │   ├── prefatory.tex
+│       │   ├── titlepage.aux
+│       │   └── titlepage.tex
+│       ├── main.aux
+│       ├── main.bbl
+│       ├── main.blg
+│       ├── main.log
+│       ├── main.out
+│       ├── main.pdf
+│       ├── main.tex
+│       ├── main.toc
+│       ├── parts
+│       │   ├── part1.aux
+│       │   ├── part1.tex
+│       │   ├── part2.aux
+│       │   ├── part2.tex
+│       │   ├── part3.aux
+│       │   ├── part3.tex
+│       │   ├── part4.aux
+│       │   ├── part4.tex
+│       │   ├── part5.aux
+│       │   └── part5.tex
+│       └── references.bib
+└── working
+    ├── How_machines_reconstruct_your_physical_intent.json
+    ├── How_machines_reconstruct_your_physical_intent.mp3
+    ├── How_machines_reconstruct_your_physical_intent.srt
+    ├── How_machines_reconstruct_your_physical_intent.tsv
+    ├── How_machines_reconstruct_your_physical_intent.txt
+    ├── How_machines_reconstruct_your_physical_intent.vtt
+    ├── Mapping_software_to_spatial_silicon_chips.json
+    ├── Mapping_software_to_spatial_silicon_chips.mp3
+    ├── Mapping_software_to_spatial_silicon_chips.srt
+    ├── Mapping_software_to_spatial_silicon_chips.tsv
+    ├── Mapping_software_to_spatial_silicon_chips.txt
+    ├── Mapping_software_to_spatial_silicon_chips.vtt
+    ├── README.md
+    ├── Reality_Is_a_Verb_Not_a_Noun.json
+    ├── Reality_Is_a_Verb_Not_a_Noun.mp3
+    ├── Reality_Is_a_Verb_Not_a_Noun.srt
+    ├── Reality_Is_a_Verb_Not_a_Noun.tsv
+    ├── Reality_Is_a_Verb_Not_a_Noun.txt
+    ├── Reality_Is_a_Verb_Not_a_Noun.vtt
+    ├── Recursive_Stabilization-notes.pdf
+    ├── Silicon_Cartography-original.pdf
+    ├── The_Formalism_Audit.pdf
+    ├── Why_mental_models_override_reality.json
+    ├── Why_mental_models_override_reality.mp3
+    ├── Why_mental_models_override_reality.srt
+    ├── Why_mental_models_override_reality.tsv
+    ├── Why_mental_models_override_reality.txt
+    ├── Why_mental_models_override_reality.vtt
+    ├── blog-post
+    ├── coarticulation.md
+    ├── cognitive-architecture.md
+    ├── concept-comparison.md
+    ├── end-of-buttons.md
+    ├── end-of-objects.md
+    ├── fix_transcription_errors.py
+    ├── formalism-interface.aux
+    ├── formalism-interface.log
+    ├── formalism-interface.out
+    ├── formalism-interface.pdf
+    ├── formalism-interface.tex
+    ├── gesture_review.pdf
+    ├── gesture_review.tex
+    ├── human-motion.md
+    ├── implementation-roadmap.md
+    ├── index.html
+    ├── introductory-guide.md
+    ├── kes-cheatsheet.aux
+    ├── kes-cheatsheet.log
+    ├── kes-cheatsheet.pdf
+    ├── kes-cheatsheet.tex
+    ├── map-not-process.md
+    ├── methodological-audit-protocol.md
+    ├── operational-analysis.md
+    ├── organizational-governance.md
+    ├── propagative_reality.aux
+    ├── propagative_reality.log
+    ├── propagative_reality.out
+    ├── propagative_reality.pdf
+    ├── propagative_reality.tex
+    ├── representational-sovereignty.md
+    ├── semantic-inverse-engine.md
+    ├── silicon_cartography.pdf
+    ├── silicon_cartography.tex
+    ├── strategic-roadmap.md
+    ├── taxonomy.md
+    ├── technical-specification.md
+    ├── topology.md
+    └── tyranny-of-the-interface.md
+
+50 directories, 472 files

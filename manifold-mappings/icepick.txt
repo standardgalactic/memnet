@@ -1,0 +1,1635 @@
+
+===== ./Cargo.toml =====
+[package]
+name        = "mml"
+version     = "0.1.0"
+edition     = "2021"
+description = "Manifold Mapping Language — parser, AST, validator, and evaluator"
+license     = "MIT"
+keywords    = ["mml", "rsvp", "manifold", "semantic", "parser"]
+
+[lib]
+name       = "mml"
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = []
+python  = ["pyo3"]
+
+[dependencies]
+pyo3 = { version = "0.21", features = ["extension-module"], optional = true }
+
+[dev-dependencies]
+approx = "0.5"
+
+===== ./icepick.txt =====
+
+===== ./src/ast.rs =====
+// src/ast.rs
+//
+// MML Abstract Syntax Tree.
+//
+// Every structural concept in MML has a dedicated AST node.
+// Numeric field values are stored as f64; string values as String;
+// bool values as bool.  Unknown value types are stored as StringLit
+// for forward compatibility.
+
+use std::collections::HashMap;
+
+// ── Value ───────────────────────────────────────────────────────────────────
+
+/// A scalar value in an MML field.
+#[derive(Debug, Clone, PartialEq)]
+pub enum Value {
+    Number(f64),
+    Text(String),
+    Bool(bool),
+    /// A bare identifier used as an enum-like value (e.g. `compression: lossy`)
+    Enum(String),
+    /// An inline list of values (e.g. `preserve: [continuity, local-coherence]`)
+    List(Vec<Value>),
+}
+
+impl Value {
+    pub fn as_f64(&self) -> Option<f64> {
+        if let Value::Number(n) = self { Some(*n) } else { None }
+    }
+    pub fn as_str(&self) -> Option<&str> {
+        match self {
+            Value::Text(s) | Value::Enum(s) => Some(s),
+            _ => None,
+        }
+    }
+    pub fn as_bool(&self) -> Option<bool> {
+        if let Value::Bool(b) = self { Some(*b) } else { None }
+    }
+    pub fn as_list(&self) -> Option<&[Value]> {
+        if let Value::List(v) = self { Some(v) } else { None }
+    }
+}
+
+impl std::fmt::Display for Value {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Value::Number(n)  => write!(f, "{n}"),
+            Value::Text(s)    => write!(f, "\"{s}\""),
+            Value::Bool(b)    => write!(f, "{b}"),
+            Value::Enum(s)    => write!(f, "{s}"),
+            Value::List(v)    => {
+                write!(f, "[")?;
+                for (i, e) in v.iter().enumerate() {
+                    if i > 0 { write!(f, ", ")?; }
+                    write!(f, "{e}")?;
+                }
+                write!(f, "]")
+            }
+        }
+    }
+}
+
+// ── Field map ───────────────────────────────────────────────────────────────
+
+/// Ordered key–value pairs for a block's scalar fields.
+pub type Fields = HashMap<String, Value>;
+
+// ── Flow ────────────────────────────────────────────────────────────────────
+
+/// A directional semantic trajectory between two regions.
+#[derive(Debug, Clone)]
+pub struct Flow {
+    pub name:   String,
+    pub fields: Fields,
+    /// Origin region / attractor name.
+    pub origin: Option<String>,
+    /// Target region / basin name.
+    pub target: Option<String>,
+}
+
+impl Flow {
+    pub fn persistence(&self) -> Option<f64> {
+        self.fields.get("persistence").and_then(|v| v.as_f64())
+    }
+    pub fn compression(&self) -> Option<&str> {
+        self.fields.get("compression").and_then(|v| v.as_str())
+    }
+    pub fn amplification(&self) -> Option<&str> {
+        self.fields.get("amplification").and_then(|v| v.as_str())
+    }
+    pub fn phase_lock(&self) -> Option<&str> {
+        self.fields.get("phase-lock").and_then(|v| v.as_str())
+    }
+}
+
+// ── Constraint ───────────────────────────────────────────────────────────────
+
+/// An admissibility constraint governing stability, collapse, and deformation.
+#[derive(Debug, Clone)]
+pub struct Constraint {
+    pub name:   String,
+    pub fields: Fields,
+}
+
+impl Constraint {
+    pub fn threshold(&self) -> Option<f64> {
+        self.fields.get("threshold").and_then(|v| v.as_f64())
+    }
+    pub fn max_torsion(&self) -> Option<f64> {
+        self.fields.get("max-torsion").and_then(|v| v.as_f64())
+    }
+}
+
+// ── Mapping ──────────────────────────────────────────────────────────────────
+
+/// A projection between semantic spaces.
+#[derive(Debug, Clone)]
+pub struct Mapping {
+    pub name:         String,
+    pub source_space: Option<String>,
+    pub target_space: Option<String>,
+    /// Properties preserved under the projection.
+    pub preserve:     Vec<String>,
+    /// Properties discarded under the projection.
+    pub discard:      Vec<String>,
+    pub fields:       Fields,
+}
+
+// ── Region ───────────────────────────────────────────────────────────────────
+
+/// A localised semantic basin within a manifold.
+#[derive(Debug, Clone)]
+pub struct Region {
+    pub name:        String,
+    pub fields:      Fields,
+    pub flows:       Vec<Flow>,
+    pub constraints: Vec<Constraint>,
+    /// Nested sub-regions.
+    pub sub_regions: Vec<Region>,
+}
+
+impl Region {
+    pub fn entropy(&self)  -> Option<f64> { self.fields.get("entropy").and_then(|v| v.as_f64()) }
+    pub fn salience(&self) -> Option<f64> { self.fields.get("salience").and_then(|v| v.as_f64()) }
+    pub fn density(&self)  -> Option<f64> { self.fields.get("density").and_then(|v| v.as_f64()) }
+    pub fn curvature(&self)-> Option<f64> { self.fields.get("curvature").and_then(|v| v.as_f64()) }
+
+    /// True when xylomorphic: salience > entropy (Φ > S).
+    pub fn is_xylomorphic(&self) -> bool {
+        match (self.salience(), self.entropy()) {
+            (Some(sal), Some(ent)) => sal > ent,
+            _ => false,
+        }
+    }
+}
+
+// ── Bubble ───────────────────────────────────────────────────────────────────
+
+/// A Spherepop bubble node.
+#[derive(Debug, Clone)]
+pub struct Bubble {
+    pub name:   String,
+    pub fields: Fields,
+}
+
+// ── Relation ─────────────────────────────────────────────────────────────────
+
+/// A structural relation between two named entities (typically bubbles).
+#[derive(Debug, Clone)]
+pub struct Relation {
+    pub name:    String,
+    pub parent:  Option<String>,
+    pub child:   Option<String>,
+    pub fields:  Fields,
+}
+
+// ── Residual ─────────────────────────────────────────────────────────────────
+
+/// A residual artifact that persists after compression.
+#[derive(Debug, Clone)]
+pub struct Residual {
+    pub name:   String,
+    pub source: Option<String>,
+    pub fields: Fields,
+}
+
+impl Residual {
+    pub fn persistence(&self) -> Option<&str> {
+        self.fields.get("persistence").and_then(|v| v.as_str())
+    }
+    pub fn coherence(&self) -> Option<f64> {
+        self.fields.get("coherence").and_then(|v| v.as_f64())
+    }
+}
+
+// ── Manifold ─────────────────────────────────────────────────────────────────
+
+/// The top-level MML document container.
+#[derive(Debug, Clone)]
+pub struct Manifold {
+    pub name:        String,
+    pub fields:      Fields,
+    pub regions:     Vec<Region>,
+    pub flows:       Vec<Flow>,
+    pub constraints: Vec<Constraint>,
+    pub mappings:    Vec<Mapping>,
+    pub bubbles:     Vec<Bubble>,
+    pub relations:   Vec<Relation>,
+    pub residuals:   Vec<Residual>,
+}
+
+impl Manifold {
+    pub fn dimension(&self) -> Option<f64> {
+        self.fields.get("dimension").and_then(|v| v.as_f64())
+    }
+    pub fn topology(&self) -> Option<&str> {
+        self.fields.get("topology").and_then(|v| v.as_str())
+    }
+    pub fn admissibility_threshold(&self) -> Option<f64> {
+        self.fields.get("admissibility-threshold").and_then(|v| v.as_f64())
+    }
+
+    /// Collect all flows (top-level and nested inside regions).
+    pub fn all_flows(&self) -> Vec<&Flow> {
+        let mut out: Vec<&Flow> = self.flows.iter().collect();
+        for r in &self.regions {
+            collect_flows_region(r, &mut out);
+        }
+        out
+    }
+
+    /// Collect all constraints (top-level and nested).
+    pub fn all_constraints(&self) -> Vec<&Constraint> {
+        let mut out: Vec<&Constraint> = self.constraints.iter().collect();
+        for r in &self.regions {
+            collect_constraints_region(r, &mut out);
+        }
+        out
+    }
+}
+
+fn collect_flows_region<'a>(r: &'a Region, out: &mut Vec<&'a Flow>) {
+    out.extend(r.flows.iter());
+    for sub in &r.sub_regions { collect_flows_region(sub, out); }
+}
+
+fn collect_constraints_region<'a>(r: &'a Region, out: &mut Vec<&'a Constraint>) {
+    out.extend(r.constraints.iter());
+    for sub in &r.sub_regions { collect_constraints_region(sub, out); }
+}
+
+/// A complete parsed MML document (may contain multiple manifolds).
+#[derive(Debug, Clone)]
+pub struct Document {
+    pub manifolds: Vec<Manifold>,
+}
+
+impl Document {
+    pub fn manifold(&self, name: &str) -> Option<&Manifold> {
+        self.manifolds.iter().find(|m| m.name == name)
+    }
+}
+
+===== ./src/emitter.rs =====
+// src/emitter.rs
+//
+// MML emitters:
+//   - Pretty-printer: regenerates canonical MML source from an AST.
+//   - JSON exporter: serialises the AST to a JSON-like string.
+//   - Graph builder: extracts the flow graph as an adjacency list.
+//   - Dot exporter: produces Graphviz DOT notation for visualisation.
+
+use crate::ast::*;
+use std::collections::HashMap;
+
+// ── Pretty-printer ────────────────────────────────────────────────────────────
+
+pub struct PrettyPrinter {
+    indent: usize,
+}
+
+impl PrettyPrinter {
+    pub fn new() -> Self { Self { indent: 0 } }
+
+    fn ind(&self) -> String { "    ".repeat(self.indent) }
+
+    pub fn print_document(&mut self, doc: &Document) -> String {
+        doc.manifolds.iter().map(|m| self.print_manifold(m)).collect::<Vec<_>>().join("\n\n")
+    }
+
+    pub fn print_manifold(&mut self, m: &Manifold) -> String {
+        let kind = m.fields.get("_kind")
+            .and_then(|v| v.as_str()).unwrap_or("manifold");
+        let mut out = format!("@{kind} {} {{\n", m.name);
+        self.indent += 1;
+        out += &self.print_fields(&m.fields, &["_kind"]);
+        for r  in &m.regions    { out += &self.print_region(r); }
+        for f  in &m.flows      { out += &self.print_flow(f); }
+        for c  in &m.constraints{ out += &self.print_constraint(c); }
+        for mp in &m.mappings   { out += &self.print_mapping(mp); }
+        for b  in &m.bubbles    { out += &self.print_bubble(b); }
+        for rel in &m.relations { out += &self.print_relation(rel); }
+        for res in &m.residuals { out += &self.print_residual(res); }
+        self.indent -= 1;
+        out += &format!("{}}}\n", self.ind());
+        out
+    }
+
+    fn print_fields(&self, fields: &Fields, skip: &[&str]) -> String {
+        let mut out = String::new();
+        // Sort for deterministic output, skip internal keys
+        let mut keys: Vec<&String> = fields.keys()
+            .filter(|k| !skip.contains(&k.as_str()))
+            .collect();
+        keys.sort();
+        for k in keys {
+            let v = &fields[k];
+            out += &format!("{}{}: {}\n", self.ind(), k, v);
+        }
+        out
+    }
+
+    fn print_region(&mut self, r: &Region) -> String {
+        let mut out = format!("{}region {} {{\n", self.ind(), r.name);
+        self.indent += 1;
+        out += &self.print_fields(&r.fields, &[]);
+        for f in &r.flows      { out += &self.print_flow(f); }
+        for c in &r.constraints{ out += &self.print_constraint(c); }
+        for s in &r.sub_regions{ out += &self.print_region(s); }
+        self.indent -= 1;
+        out += &format!("{}}}\n", self.ind());
+        out
+    }
+
+    fn print_flow(&mut self, f: &Flow) -> String {
+        let mut out = format!("{}flow {} {{\n", self.ind(), f.name);
+        self.indent += 1;
+        out += &self.print_fields(&f.fields, &["origin", "target"]);
+        if let Some(ref o) = f.origin { out += &format!("{}origin: {o}\n", self.ind()); }
+        if let Some(ref t) = f.target { out += &format!("{}target: {t}\n", self.ind()); }
+        self.indent -= 1;
+        out += &format!("{}}}\n", self.ind());
+        out
+    }
+
+    fn print_constraint(&mut self, c: &Constraint) -> String {
+        let mut out = format!("{}constraint {} {{\n", self.ind(), c.name);
+        self.indent += 1;
+        out += &self.print_fields(&c.fields, &[]);
+        self.indent -= 1;
+        out += &format!("{}}}\n", self.ind());
+        out
+    }
+
+    fn print_mapping(&mut self, mp: &Mapping) -> String {
+        let mut out = format!("{}mapping {} {{\n", self.ind(), mp.name);
+        self.indent += 1;
+        out += &self.print_fields(&mp.fields, &["source-space","target-space","preserve","discard"]);
+        if let Some(ref s) = mp.source_space { out += &format!("{}source-space: {s}\n", self.ind()); }
+        if let Some(ref t) = mp.target_space { out += &format!("{}target-space: {t}\n", self.ind()); }
+        if !mp.preserve.is_empty() {
+            out += &format!("{}preserve: [{}]\n", self.ind(), mp.preserve.join(", "));
+        }
+        if !mp.discard.is_empty() {
+            out += &format!("{}discard: [{}]\n", self.ind(), mp.discard.join(", "));
+        }
+        self.indent -= 1;
+        out += &format!("{}}}\n", self.ind());
+        out
+    }
+
+    fn print_bubble(&mut self, b: &Bubble) -> String {
+        let mut out = format!("{}bubble {} {{\n", self.ind(), b.name);
+        self.indent += 1;
+        out += &self.print_fields(&b.fields, &[]);
+        self.indent -= 1;
+        out += &format!("{}}}\n", self.ind());
+        out
+    }
+
+    fn print_relation(&mut self, rel: &Relation) -> String {
+        let mut out = format!("{}relation {} {{\n", self.ind(), rel.name);
+        self.indent += 1;
+        out += &self.print_fields(&rel.fields, &["parent","child"]);
+        if let Some(ref p) = rel.parent { out += &format!("{}parent: {p}\n", self.ind()); }
+        if let Some(ref c) = rel.child  { out += &format!("{}child: {c}\n", self.ind()); }
+        self.indent -= 1;
+        out += &format!("{}}}\n", self.ind());
+        out
+    }
+
+    fn print_residual(&mut self, res: &Residual) -> String {
+        let mut out = format!("{}residual {} {{\n", self.ind(), res.name);
+        self.indent += 1;
+        out += &self.print_fields(&res.fields, &["source"]);
+        if let Some(ref s) = res.source { out += &format!("{}source: {s}\n", self.ind()); }
+        self.indent -= 1;
+        out += &format!("{}}}\n", self.ind());
+        out
+    }
+}
+
+impl Default for PrettyPrinter { fn default() -> Self { Self::new() } }
+
+// ── JSON exporter ─────────────────────────────────────────────────────────────
+
+pub fn to_json(doc: &Document) -> String {
+    let manifolds: Vec<String> = doc.manifolds.iter().map(manifold_to_json).collect();
+    format!("{{\"manifolds\":[{}]}}", manifolds.join(","))
+}
+
+fn manifold_to_json(m: &Manifold) -> String {
+    let mut parts = vec![
+        format!("\"name\":\"{}\"", m.name),
+        format!("\"fields\":{}", fields_to_json(&m.fields, &["_kind"])),
+        format!("\"regions\":[{}]", m.regions.iter().map(region_to_json).collect::<Vec<_>>().join(",")),
+        format!("\"flows\":[{}]", m.flows.iter().map(flow_to_json).collect::<Vec<_>>().join(",")),
+        format!("\"mappings\":[{}]", m.mappings.iter().map(mapping_to_json).collect::<Vec<_>>().join(",")),
+        format!("\"bubbles\":[{}]", m.bubbles.iter().map(bubble_to_json).collect::<Vec<_>>().join(",")),
+        format!("\"relations\":[{}]", m.relations.iter().map(relation_to_json).collect::<Vec<_>>().join(",")),
+        format!("\"residuals\":[{}]", m.residuals.iter().map(residual_to_json).collect::<Vec<_>>().join(",")),
+    ];
+    format!("{{{}}}", parts.join(","))
+}
+
+fn region_to_json(r: &Region) -> String {
+    format!("{{\"name\":\"{}\",\"fields\":{},\"flows\":[{}],\"sub_regions\":[{}]}}",
+        r.name,
+        fields_to_json(&r.fields, &[]),
+        r.flows.iter().map(flow_to_json).collect::<Vec<_>>().join(","),
+        r.sub_regions.iter().map(region_to_json).collect::<Vec<_>>().join(","),
+    )
+}
+
+fn flow_to_json(f: &Flow) -> String {
+    format!("{{\"name\":\"{}\",\"origin\":{},\"target\":{},\"fields\":{}}}",
+        f.name,
+        f.origin.as_deref().map(|s| format!("\"{s}\"")).unwrap_or("null".into()),
+        f.target.as_deref().map(|s| format!("\"{s}\"")).unwrap_or("null".into()),
+        fields_to_json(&f.fields, &["origin","target"]),
+    )
+}
+
+fn mapping_to_json(mp: &Mapping) -> String {
+    format!("{{\"name\":\"{}\",\"source_space\":{},\"target_space\":{},\"preserve\":[{}],\"discard\":[{}]}}",
+        mp.name,
+        mp.source_space.as_deref().map(|s| format!("\"{s}\"")).unwrap_or("null".into()),
+        mp.target_space.as_deref().map(|s| format!("\"{s}\"")).unwrap_or("null".into()),
+        mp.preserve.iter().map(|s| format!("\"{s}\"")).collect::<Vec<_>>().join(","),
+        mp.discard.iter().map(|s| format!("\"{s}\"")).collect::<Vec<_>>().join(","),
+    )
+}
+
+fn bubble_to_json(b: &Bubble) -> String {
+    format!("{{\"name\":\"{}\",\"fields\":{}}}", b.name, fields_to_json(&b.fields, &[]))
+}
+
+fn relation_to_json(rel: &Relation) -> String {
+    format!("{{\"name\":\"{}\",\"parent\":{},\"child\":{},\"fields\":{}}}",
+        rel.name,
+        rel.parent.as_deref().map(|s| format!("\"{s}\"")).unwrap_or("null".into()),
+        rel.child.as_deref().map(|s| format!("\"{s}\"")).unwrap_or("null".into()),
+        fields_to_json(&rel.fields, &["parent","child"]),
+    )
+}
+
+fn residual_to_json(res: &Residual) -> String {
+    format!("{{\"name\":\"{}\",\"source\":{},\"fields\":{}}}",
+        res.name,
+        res.source.as_deref().map(|s| format!("\"{s}\"")).unwrap_or("null".into()),
+        fields_to_json(&res.fields, &["source"]),
+    )
+}
+
+fn fields_to_json(fields: &Fields, skip: &[&str]) -> String {
+    let pairs: Vec<String> = fields.iter()
+        .filter(|(k, _)| !skip.contains(&k.as_str()))
+        .map(|(k, v)| format!("\"{}\":{}", k, value_to_json(v)))
+        .collect();
+    format!("{{{}}}", pairs.join(","))
+}
+
+fn value_to_json(v: &Value) -> String {
+    match v {
+        Value::Number(n)  => format!("{n}"),
+        Value::Text(s)    => format!("\"{s}\""),
+        Value::Bool(b)    => format!("{b}"),
+        Value::Enum(s)    => format!("\"{s}\""),
+        Value::List(items)=> format!("[{}]", items.iter().map(value_to_json).collect::<Vec<_>>().join(",")),
+    }
+}
+
+// ── Flow graph ────────────────────────────────────────────────────────────────
+
+/// Adjacency list: origin → [(target, persistence)]
+pub type FlowGraph = HashMap<String, Vec<(String, f64)>>;
+
+pub fn build_flow_graph(m: &Manifold) -> FlowGraph {
+    let mut graph: FlowGraph = HashMap::new();
+    for f in m.all_flows() {
+        if let (Some(o), Some(t)) = (&f.origin, &f.target) {
+            graph.entry(o.clone()).or_default().push((t.clone(), f.persistence().unwrap_or(1.0)));
+        }
+    }
+    graph
+}
+
+// ── DOT exporter ──────────────────────────────────────────────────────────────
+
+pub fn to_dot(m: &Manifold) -> String {
+    let mut out = format!("digraph \"{}\" {{\n", m.name);
+    out += "    rankdir=LR;\n";
+    out += "    node [shape=ellipse, style=filled, fillcolor=lightblue];\n";
+
+    // Nodes: regions and bubbles
+    for r in &m.regions {
+        let ent = r.entropy().map(|e| format!(" S={e:.2}")).unwrap_or_default();
+        let sal = r.salience().map(|s| format!(" Φ={s:.2}")).unwrap_or_default();
+        let fill = if r.is_xylomorphic() { "\"#b8f0b8\"" } else { "\"#f0c8c8\"" };
+        out += &format!("    \"{}\" [label=\"{}{}{}\", fillcolor={}];\n",
+            r.name, r.name, ent, sal, fill);
+    }
+    for b in &m.bubbles {
+        out += &format!("    \"{}\" [shape=circle, fillcolor=\"#e8d8f8\"];\n", b.name);
+    }
+
+    // Edges: flows
+    for f in m.all_flows() {
+        if let (Some(o), Some(t)) = (&f.origin, &f.target) {
+            let label = format!("{}{}", f.name,
+                f.persistence().map(|p| format!(" p={p:.2}")).unwrap_or_default());
+            out += &format!("    \"{}\" -> \"{}\" [label=\"{}\"];\n", o, t, label);
+        }
+    }
+
+    // Edges: relations (bubbles)
+    for rel in &m.relations {
+        if let (Some(p), Some(c)) = (&rel.parent, &rel.child) {
+            let coup = rel.fields.get("coupling").and_then(|v| v.as_str()).unwrap_or("nested");
+            out += &format!("    \"{}\" -> \"{}\" [label=\"{} ({})\", style=dashed];\n",
+                p, c, rel.name, coup);
+        }
+    }
+
+    out += "}\n";
+    out
+}
+
+===== ./src/parser.rs =====
+// src/parser.rs
+//
+// MML recursive-descent parser.
+// Consumes a SpannedToken stream from the Lexer and produces a Document AST.
+
+use crate::token::{Span, SpannedToken, Token};
+use crate::ast::*;
+
+// ── Error ────────────────────────────────────────────────────────────────────
+
+#[derive(Debug, Clone)]
+pub struct ParseError {
+    pub msg:  String,
+    pub span: Span,
+}
+
+impl std::fmt::Display for ParseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "ParseError at {}: {}", self.span, self.msg)
+    }
+}
+
+type PResult<T> = Result<T, ParseError>;
+
+// ── Parser ────────────────────────────────────────────────────────────────────
+
+pub struct Parser {
+    tokens: Vec<SpannedToken>,
+    pos:    usize,
+}
+
+impl Parser {
+    pub fn new(tokens: Vec<SpannedToken>) -> Self {
+        Self { tokens, pos: 0 }
+    }
+
+    // ── Token navigation ───────────────────────────────────────────────────
+
+    fn peek(&self) -> &Token {
+        self.tokens.get(self.pos).map(|st| &st.token).unwrap_or(&Token::Eof)
+    }
+
+    fn span(&self) -> Span {
+        self.tokens.get(self.pos).map(|st| st.span.clone())
+            .unwrap_or(Span { line: 0, col: 0 })
+    }
+
+    fn advance(&mut self) -> &Token {
+        let t = self.tokens.get(self.pos).map(|st| &st.token).unwrap_or(&Token::Eof);
+        if self.pos < self.tokens.len() { self.pos += 1; }
+        t
+    }
+
+    fn expect_lbrace(&mut self) -> PResult<()> {
+        match self.peek() {
+            Token::LBrace => { self.advance(); Ok(()) }
+            t => Err(ParseError { msg: format!("expected '{{', got {t}"), span: self.span() })
+        }
+    }
+
+    fn expect_colon(&mut self) -> PResult<()> {
+        match self.peek() {
+            Token::Colon => { self.advance(); Ok(()) }
+            t => Err(ParseError { msg: format!("expected ':', got {t}"), span: self.span() })
+        }
+    }
+
+    fn take_ident(&mut self) -> PResult<String> {
+        match self.peek().clone() {
+            Token::Ident(s)   => { let s = s.clone(); self.advance(); Ok(s) }
+            Token::Keyword(s) => { let s = s.clone(); self.advance(); Ok(s) }
+            t => Err(ParseError { msg: format!("expected identifier, got {t}"), span: self.span() })
+        }
+    }
+
+    // ── Value parsing ──────────────────────────────────────────────────────
+
+    fn parse_value(&mut self) -> PResult<Value> {
+        match self.peek().clone() {
+            Token::Number(n)     => { let n = n; self.advance(); Ok(Value::Number(n)) }
+            Token::StringLit(s)  => { let s = s.clone(); self.advance(); Ok(Value::Text(s)) }
+            Token::Bool(b)       => { let b = b; self.advance(); Ok(Value::Bool(b)) }
+            Token::Ident(s)      => { let s = s.clone(); self.advance(); Ok(Value::Enum(s)) }
+            Token::LBracket      => {
+                self.advance(); // consume '['
+                let mut items = Vec::new();
+                while *self.peek() != Token::RBracket && *self.peek() != Token::Eof {
+                    items.push(self.parse_value()?);
+                }
+                match self.peek() {
+                    Token::RBracket => { self.advance(); }
+                    t => return Err(ParseError {
+                        msg: format!("expected ']', got {t}"), span: self.span()
+                    }),
+                }
+                Ok(Value::List(items))
+            }
+            t => Err(ParseError { msg: format!("expected value, got {t}"), span: self.span() })
+        }
+    }
+
+    // ── Generic field parser ───────────────────────────────────────────────
+    // Reads key: value pairs until RBrace or a block keyword.
+
+    fn parse_fields_until_rbrace(&mut self) -> PResult<Fields> {
+        let mut fields = Fields::new();
+        loop {
+            match self.peek() {
+                Token::RBrace | Token::Eof => break,
+                // Stop when we see a nested block keyword
+                Token::Keyword(_) | Token::At(_) => break,
+                Token::Ident(_) => {
+                    let key = self.take_ident()?;
+                    self.expect_colon()?;
+                    let val = self.parse_value()?;
+                    fields.insert(key, val);
+                }
+                other => {
+                    return Err(ParseError {
+                        msg: format!("unexpected token in field list: {other}"),
+                        span: self.span(),
+                    });
+                }
+            }
+        }
+        Ok(fields)
+    }
+
+    // ── Block parsers ──────────────────────────────────────────────────────
+
+    fn parse_flow(&mut self) -> PResult<Flow> {
+        // flow <name> { ... }
+        let name = self.take_ident()?;
+        self.expect_lbrace()?;
+        let fields = self.parse_fields_until_rbrace()?;
+        match self.peek() {
+            Token::RBrace => { self.advance(); }
+            t => return Err(ParseError {
+                msg: format!("expected '}}' to close flow '{name}', got {t}"),
+                span: self.span(),
+            }),
+        }
+        let origin = fields.get("origin").and_then(|v| v.as_str()).map(|s| s.to_string());
+        let target = fields.get("target").and_then(|v| v.as_str()).map(|s| s.to_string());
+        Ok(Flow { name, fields, origin, target })
+    }
+
+    fn parse_constraint(&mut self) -> PResult<Constraint> {
+        let name = self.take_ident()?;
+        self.expect_lbrace()?;
+        let fields = self.parse_fields_until_rbrace()?;
+        match self.peek() {
+            Token::RBrace => { self.advance(); }
+            t => return Err(ParseError {
+                msg: format!("expected '}}' to close constraint '{name}', got {t}"),
+                span: self.span(),
+            }),
+        }
+        Ok(Constraint { name, fields })
+    }
+
+    fn parse_mapping(&mut self) -> PResult<Mapping> {
+        let name = self.take_ident()?;
+        self.expect_lbrace()?;
+        let fields = self.parse_fields_until_rbrace()?;
+        // preserve / discard are list values stored in fields
+        let preserve = extract_str_list(&fields, "preserve");
+        let discard  = extract_str_list(&fields, "discard");
+        let source_space = fields.get("source-space").and_then(|v| v.as_str()).map(str::to_string);
+        let target_space = fields.get("target-space").and_then(|v| v.as_str()).map(str::to_string);
+        match self.peek() {
+            Token::RBrace => { self.advance(); }
+            t => return Err(ParseError {
+                msg: format!("expected '}}' to close mapping '{name}', got {t}"),
+                span: self.span(),
+            }),
+        }
+        Ok(Mapping { name, source_space, target_space, preserve, discard, fields })
+    }
+
+    fn parse_bubble(&mut self) -> PResult<Bubble> {
+        let name = self.take_ident()?;
+        self.expect_lbrace()?;
+        let fields = self.parse_fields_until_rbrace()?;
+        match self.peek() {
+            Token::RBrace => { self.advance(); }
+            t => return Err(ParseError {
+                msg: format!("expected '}}' to close bubble '{name}', got {t}"),
+                span: self.span(),
+            }),
+        }
+        Ok(Bubble { name, fields })
+    }
+
+    fn parse_relation(&mut self) -> PResult<Relation> {
+        let name = self.take_ident()?;
+        self.expect_lbrace()?;
+        let fields = self.parse_fields_until_rbrace()?;
+        let parent = fields.get("parent").and_then(|v| v.as_str()).map(str::to_string);
+        let child  = fields.get("child").and_then(|v| v.as_str()).map(str::to_string);
+        match self.peek() {
+            Token::RBrace => { self.advance(); }
+            t => return Err(ParseError {
+                msg: format!("expected '}}' to close relation '{name}', got {t}"),
+                span: self.span(),
+            }),
+        }
+        Ok(Relation { name, parent, child, fields })
+    }
+
+    fn parse_residual(&mut self) -> PResult<Residual> {
+        let name = self.take_ident()?;
+        self.expect_lbrace()?;
+        let fields = self.parse_fields_until_rbrace()?;
+        let source = fields.get("source").and_then(|v| v.as_str()).map(str::to_string);
+        match self.peek() {
+            Token::RBrace => { self.advance(); }
+            t => return Err(ParseError {
+                msg: format!("expected '}}' to close residual '{name}', got {t}"),
+                span: self.span(),
+            }),
+        }
+        Ok(Residual { name, source, fields })
+    }
+
+    fn parse_region(&mut self) -> PResult<Region> {
+        let name = self.take_ident()?;
+        self.expect_lbrace()?;
+        let fields       = self.parse_fields_until_rbrace()?;
+        let mut flows    = Vec::new();
+        let mut constraints = Vec::new();
+        let mut sub_regions = Vec::new();
+
+        loop {
+            match self.peek().clone() {
+                Token::RBrace | Token::Eof => { break; }
+                Token::Keyword(ref k) if k == "flow" => {
+                    self.advance();
+                    flows.push(self.parse_flow()?);
+                }
+                Token::Keyword(ref k) if k == "constraint" => {
+                    self.advance();
+                    constraints.push(self.parse_constraint()?);
+                }
+                Token::Keyword(ref k) if k == "region" => {
+                    self.advance();
+                    sub_regions.push(self.parse_region()?);
+                }
+                // trajectories: [...] and constraints: [...] blocks
+                Token::Ident(ref s) if s == "trajectories" || s == "constraints" => {
+                    self.advance(); // key
+                    self.expect_colon()?;
+                    // consume '['
+                    match self.peek() {
+                        Token::LBracket => { self.advance(); }
+                        _ => {}
+                    }
+                    // parse nested blocks until ']'
+                    loop {
+                        match self.peek() {
+                            Token::RBracket | Token::Eof => { self.advance(); break; }
+                            Token::Keyword(ref k) if k == "flow" => {
+                                self.advance();
+                                flows.push(self.parse_flow()?);
+                            }
+                            Token::Keyword(ref k) if k == "constraint" || k == "curvature-limit" || k == "entropy-pressure" => {
+                                self.advance();
+                                constraints.push(self.parse_constraint()?);
+                            }
+                            Token::Ident(_) => {
+                                // bare ident acting as constraint name
+                                let name = self.take_ident()?;
+                                self.expect_lbrace()?;
+                                let f = self.parse_fields_until_rbrace()?;
+                                match self.peek() { Token::RBrace => { self.advance(); } _ => {} }
+                                constraints.push(Constraint { name, fields: f });
+                            }
+                            t => {
+                                return Err(ParseError {
+                                    msg: format!("unexpected token in block list: {t}"),
+                                    span: self.span(),
+                                });
+                            }
+                        }
+                    }
+                }
+                other => {
+                    return Err(ParseError {
+                        msg: format!("unexpected token in region '{name}': {other}"),
+                        span: self.span(),
+                    });
+                }
+            }
+        }
+
+        match self.peek() {
+            Token::RBrace => { self.advance(); }
+            t => return Err(ParseError {
+                msg: format!("expected '}}' to close region '{name}', got {t}"),
+                span: self.span(),
+            }),
+        }
+        Ok(Region { name, fields, flows, constraints, sub_regions })
+    }
+
+    fn parse_manifold(&mut self, kind: String) -> PResult<Manifold> {
+        let name = self.take_ident()?;
+        self.expect_lbrace()?;
+        let fields         = self.parse_fields_until_rbrace()?;
+        let mut regions    = Vec::new();
+        let mut flows      = Vec::new();
+        let mut constraints = Vec::new();
+        let mut mappings   = Vec::new();
+        let mut bubbles    = Vec::new();
+        let mut relations  = Vec::new();
+        let mut residuals  = Vec::new();
+
+        loop {
+            match self.peek().clone() {
+                Token::RBrace | Token::Eof => break,
+                Token::Keyword(ref k) if k == "region"     => { self.advance(); regions.push(self.parse_region()?); }
+                Token::Keyword(ref k) if k == "flow"       => { self.advance(); flows.push(self.parse_flow()?); }
+                Token::Keyword(ref k) if k == "constraint" => { self.advance(); constraints.push(self.parse_constraint()?); }
+                Token::Keyword(ref k) if k == "mapping"    => { self.advance(); mappings.push(self.parse_mapping()?); }
+                Token::Keyword(ref k) if k == "bubble"     => { self.advance(); bubbles.push(self.parse_bubble()?); }
+                Token::Keyword(ref k) if k == "relation"   => { self.advance(); relations.push(self.parse_relation()?); }
+                Token::Keyword(ref k) if k == "residual"   => { self.advance(); residuals.push(self.parse_residual()?); }
+                other => {
+                    return Err(ParseError {
+                        msg: format!("unexpected token in manifold '{name}': {other}"),
+                        span: self.span(),
+                    });
+                }
+            }
+        }
+
+        match self.peek() {
+            Token::RBrace => { self.advance(); }
+            t => return Err(ParseError {
+                msg: format!("expected '}}' to close manifold '{name}', got {t}"),
+                span: self.span(),
+            }),
+        }
+
+        // Store the manifold kind (manifold / template) in fields for introspection
+        let mut fields = fields;
+        fields.entry("_kind".into()).or_insert(Value::Enum(kind));
+
+        Ok(Manifold { name, fields, regions, flows, constraints, mappings, bubbles, relations, residuals })
+    }
+
+    // ── Top-level ──────────────────────────────────────────────────────────
+
+    pub fn parse_document(&mut self) -> PResult<Document> {
+        let mut manifolds = Vec::new();
+        loop {
+            match self.peek().clone() {
+                Token::Eof => break,
+                Token::At(ref kind) => {
+                    let kind = kind.clone();
+                    self.advance();
+                    manifolds.push(self.parse_manifold(kind)?);
+                }
+                t => {
+                    return Err(ParseError {
+                        msg: format!("expected @keyword at top level, got {t}"),
+                        span: self.span(),
+                    });
+                }
+            }
+        }
+        Ok(Document { manifolds })
+    }
+}
+
+// ── Helper ────────────────────────────────────────────────────────────────────
+
+fn extract_str_list(fields: &Fields, key: &str) -> Vec<String> {
+    fields.get(key)
+        .and_then(|v| v.as_list())
+        .map(|items| items.iter().filter_map(|v| v.as_str().map(str::to_string)).collect())
+        .unwrap_or_default()
+}
+
+// ── Tests ─────────────────────────────────────────────────────────────────────
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::token::Lexer;
+
+    fn parse(src: &str) -> Document {
+        let tokens = Lexer::new(src).tokenize().expect("lex");
+        Parser::new(tokens).parse_document().expect("parse")
+    }
+
+    #[test]
+    fn parse_minimal_manifold() {
+        let doc = parse("@manifold test { dimension: 3 }");
+        assert_eq!(doc.manifolds.len(), 1);
+        assert_eq!(doc.manifolds[0].name, "test");
+        assert_eq!(doc.manifolds[0].dimension(), Some(3.0));
+    }
+
+    #[test]
+    fn parse_region_with_flow() {
+        let src = r#"
+@manifold m {
+    region r {
+        entropy: 0.2
+        flow f { origin: a  target: b  persistence: 0.9 }
+    }
+}
+"#;
+        let doc = parse(src);
+        let r = &doc.manifolds[0].regions[0];
+        assert_eq!(r.name, "r");
+        assert_eq!(r.entropy(), Some(0.2));
+        assert_eq!(r.flows[0].name, "f");
+        assert_eq!(r.flows[0].persistence(), Some(0.9));
+    }
+
+    #[test]
+    fn parse_mapping_preserve_discard() {
+        let src = r#"
+@manifold m {
+    mapping proj {
+        source-space: sensory
+        target-space: symbolic
+        preserve: [continuity, coherence]
+        discard: [noise]
+    }
+}
+"#;
+        let doc = parse(src);
+        let mp = &doc.manifolds[0].mappings[0];
+        assert_eq!(mp.name, "proj");
+        assert_eq!(mp.preserve, vec!["continuity", "coherence"]);
+        assert_eq!(mp.discard, vec!["noise"]);
+    }
+
+    #[test]
+    fn parse_bubble_and_relation() {
+        let src = r#"
+@manifold m {
+    bubble a { density: 0.9 }
+    bubble b { density: 0.7 }
+    relation nest { parent: a  child: b  coupling: resonant }
+}
+"#;
+        let doc = parse(src);
+        assert_eq!(doc.manifolds[0].bubbles.len(), 2);
+        assert_eq!(doc.manifolds[0].relations[0].parent, Some("a".into()));
+    }
+
+    #[test]
+    fn parse_residual() {
+        let src = r#"
+@manifold m {
+    region compressed { entropy: 0.4 }
+    residual echo { source: compressed  persistence: fading  coherence: 0.28 }
+}
+"#;
+        let doc = parse(src);
+        let res = &doc.manifolds[0].residuals[0];
+        assert_eq!(res.source, Some("compressed".into()));
+        assert_eq!(res.coherence(), Some(0.28));
+    }
+
+    #[test]
+    fn xylomorphic_criterion() {
+        let src = "@manifold m { region stable { salience: 0.9  entropy: 0.2 } }";
+        let doc  = parse(src);
+        assert!(doc.manifolds[0].regions[0].is_xylomorphic());
+    }
+}
+
+===== ./src/token.rs =====
+// src/token.rs
+//
+// MML Lexer: converts raw source text into a flat token stream.
+//
+// MML token grammar (informal):
+//   keyword   ::= '@manifold' | 'region' | 'flow' | 'constraint'
+//               | 'mapping' | 'bubble' | 'relation' | 'residual'
+//   ident     ::= [a-zA-Z_][a-zA-Z0-9_-]*
+//   number    ::= [-]?[0-9]+(\.[0-9]+)?
+//   string    ::= '"' [^"]* '"'
+//   colon     ::= ':'
+//   lbrace    ::= '{'
+//   rbrace    ::= '}'
+//   lbracket  ::= '['
+//   rbracket  ::= ']'
+//   comment   ::= '#' ... '\n'
+//   whitespace (skipped)
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum Token {
+    // Block keywords
+    At(String),      // @manifold, @include, etc.
+    Keyword(String), // region, flow, constraint, mapping, bubble, relation, residual
+    Ident(String),   // any bare identifier or hyphenated-name
+    // Values
+    Number(f64),
+    StringLit(String),
+    Bool(bool),
+    // Punctuation
+    Colon,
+    LBrace,
+    RBrace,
+    LBracket,
+    RBracket,
+    // Structural
+    Eof,
+}
+
+impl Token {
+    pub fn is_value(&self) -> bool {
+        matches!(self, Token::Number(_) | Token::StringLit(_) | Token::Bool(_) | Token::Ident(_))
+    }
+}
+
+impl std::fmt::Display for Token {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Token::At(s)         => write!(f, "@{s}"),
+            Token::Keyword(s)    => write!(f, "{s}"),
+            Token::Ident(s)      => write!(f, "{s}"),
+            Token::Number(n)     => write!(f, "{n}"),
+            Token::StringLit(s)  => write!(f, "\"{s}\""),
+            Token::Bool(b)       => write!(f, "{b}"),
+            Token::Colon         => write!(f, ":"),
+            Token::LBrace        => write!(f, "{{"),
+            Token::RBrace        => write!(f, "}}"),
+            Token::LBracket      => write!(f, "["),
+            Token::RBracket      => write!(f, "]"),
+            Token::Eof           => write!(f, "<EOF>"),
+        }
+    }
+}
+
+// ── Keywords ────────────────────────────────────────────────────────────────
+
+const BLOCK_KEYWORDS: &[&str] = &[
+    "region", "flow", "constraint", "mapping",
+    "bubble", "relation", "residual", "include",
+];
+
+// ── Lexer ───────────────────────────────────────────────────────────────────
+
+#[derive(Debug, Clone)]
+pub struct Span {
+    pub line: usize,
+    pub col:  usize,
+}
+
+impl std::fmt::Display for Span {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}:{}", self.line, self.col)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct SpannedToken {
+    pub token: Token,
+    pub span:  Span,
+}
+
+pub struct Lexer<'a> {
+    src:  &'a str,
+    pos:  usize,
+    line: usize,
+    col:  usize,
+}
+
+impl<'a> Lexer<'a> {
+    pub fn new(src: &'a str) -> Self {
+        Self { src, pos: 0, line: 1, col: 1 }
+    }
+
+    fn peek(&self) -> Option<char> {
+        self.src[self.pos..].chars().next()
+    }
+
+    fn advance(&mut self) -> Option<char> {
+        let c = self.peek()?;
+        self.pos += c.len_utf8();
+        if c == '\n' { self.line += 1; self.col = 1; }
+        else          { self.col  += 1; }
+        Some(c)
+    }
+
+    fn skip_whitespace_and_comments(&mut self) {
+        loop {
+            match self.peek() {
+                Some(c) if c.is_ascii_whitespace() => { self.advance(); }
+                Some('#') => { while self.peek().map(|c| c != '\n').unwrap_or(false) { self.advance(); } }
+                _ => break,
+            }
+        }
+    }
+
+    fn span(&self) -> Span { Span { line: self.line, col: self.col } }
+
+    fn read_ident_or_keyword(&mut self) -> Token {
+        let mut s = String::new();
+        while let Some(c) = self.peek() {
+            if c.is_alphanumeric() || c == '_' || c == '-' { s.push(c); self.advance(); }
+            else { break; }
+        }
+        match s.as_str() {
+            "true"  => Token::Bool(true),
+            "false" => Token::Bool(false),
+            k if BLOCK_KEYWORDS.contains(&k) => Token::Keyword(s),
+            _ => Token::Ident(s),
+        }
+    }
+
+    fn read_number(&mut self, first: char) -> Token {
+        let mut s = first.to_string();
+        while let Some(c) = self.peek() {
+            if c.is_ascii_digit() || c == '.' { s.push(c); self.advance(); }
+            else { break; }
+        }
+        Token::Number(s.parse().unwrap_or(0.0))
+    }
+
+    fn read_string(&mut self) -> Token {
+        let mut s = String::new();
+        while let Some(c) = self.advance() {
+            if c == '"' { break; }
+            s.push(c);
+        }
+        Token::StringLit(s)
+    }
+
+    pub fn tokenize(&mut self) -> Result<Vec<SpannedToken>, LexError> {
+        let mut tokens = Vec::new();
+        loop {
+            self.skip_whitespace_and_comments();
+            let span = self.span();
+            let tok = match self.peek() {
+                None      => { tokens.push(SpannedToken { token: Token::Eof, span }); break; }
+                Some('@') => {
+                    self.advance();
+                    let Token::Ident(s) | Token::Keyword(s) = self.read_ident_or_keyword()
+                    else { return Err(LexError { msg: "expected identifier after @".into(), span }); };
+                    Token::At(s)
+                }
+                Some(c) if c.is_alphabetic() || c == '_' => {
+                    self.advance();
+                    let rest = self.read_ident_or_keyword();
+                    // prepend first char
+                    match rest {
+                        Token::Ident(mut s)   => { s.insert(0, c); Token::Ident(s) }
+                        Token::Keyword(mut s) => { s.insert(0, c); Token::Keyword(s) }
+                        Token::Bool(b)        => Token::Bool(b),
+                        other                 => other,
+                    }
+                }
+                Some(c) if c.is_ascii_digit() => { self.advance(); self.read_number(c) }
+                Some('-') => {
+                    self.advance();
+                    if self.peek().map(|c| c.is_ascii_digit()).unwrap_or(false) {
+                        let d = self.advance().unwrap();
+                        match self.read_number(d) {
+                            Token::Number(n) => Token::Number(-n),
+                            t => t,
+                        }
+                    } else {
+                        // hyphen in identifier — backtrack not possible; treat as ident start
+                        Token::Ident("-".into())
+                    }
+                }
+                Some('"') => { self.advance(); self.read_string() }
+                Some(':') => { self.advance(); Token::Colon }
+                Some('{') => { self.advance(); Token::LBrace }
+                Some('}') => { self.advance(); Token::RBrace }
+                Some('[') => { self.advance(); Token::LBracket }
+                Some(']') => { self.advance(); Token::RBracket }
+                Some(c)   => {
+                    return Err(LexError { msg: format!("unexpected character '{c}'"), span });
+                }
+            };
+            tokens.push(SpannedToken { token: tok, span });
+        }
+        Ok(tokens)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct LexError {
+    pub msg:  String,
+    pub span: Span,
+}
+
+impl std::fmt::Display for LexError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "LexError at {}: {}", self.span, self.msg)
+    }
+}
+
+// ── Tests ───────────────────────────────────────────────────────────────────
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn lex(src: &str) -> Vec<Token> {
+        Lexer::new(src).tokenize().unwrap().into_iter().map(|st| st.token).collect()
+    }
+
+    #[test]
+    fn lex_at_keyword() {
+        let t = lex("@manifold");
+        assert_eq!(t[0], Token::At("manifold".into()));
+    }
+
+    #[test]
+    fn lex_number_negative() {
+        let t = lex("-0.42");
+        assert_eq!(t[0], Token::Number(-0.42));
+    }
+
+    #[test]
+    fn lex_block() {
+        let t = lex("region foo { entropy: 0.1 }");
+        assert_eq!(t[0], Token::Keyword("region".into()));
+        assert_eq!(t[1], Token::Ident("foo".into()));
+        assert_eq!(t[2], Token::LBrace);
+    }
+
+    #[test]
+    fn lex_comment_skipped() {
+        let t = lex("# comment\nregion");
+        assert_eq!(t[0], Token::Keyword("region".into()));
+    }
+
+    #[test]
+    fn lex_string() {
+        let t = lex("\"hello world\"");
+        assert_eq!(t[0], Token::StringLit("hello world".into()));
+    }
+}
+
+===== ./src/validator.rs =====
+// src/validator.rs
+//
+// MML semantic validator.
+//
+// Checks:
+//   - All flow origin/target references resolve to known region names.
+//   - All relation parent/child references resolve to known bubble names.
+//   - All residual source references resolve to known region names.
+//   - Numeric field values are in plausible ranges (entropy ∈ [0,1], etc.).
+//   - Admissibility threshold is present and in range.
+//   - Xylomorphic criterion flags (salience > entropy) are reported.
+//   - Dangling references (flows with unknown targets) are flagged.
+//   - Constraint thresholds are checked for consistency.
+
+use crate::ast::*;
+use std::collections::HashSet;
+
+// ── Diagnostics ───────────────────────────────────────────────────────────────
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum Severity { Error, Warning, Info }
+
+impl std::fmt::Display for Severity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Severity::Error   => write!(f, "ERROR"),
+            Severity::Warning => write!(f, "WARN "),
+            Severity::Info    => write!(f, "INFO "),
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct Diagnostic {
+    pub severity: Severity,
+    pub path:     String,   // e.g. "manifold.region.flow"
+    pub message:  String,
+}
+
+impl std::fmt::Display for Diagnostic {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "[{}] {}: {}", self.severity, self.path, self.message)
+    }
+}
+
+pub struct ValidationReport {
+    pub diagnostics: Vec<Diagnostic>,
+}
+
+impl ValidationReport {
+    fn new() -> Self { Self { diagnostics: Vec::new() } }
+
+    fn push(&mut self, severity: Severity, path: impl Into<String>, message: impl Into<String>) {
+        self.diagnostics.push(Diagnostic { severity, path: path.into(), message: message.into() });
+    }
+
+    pub fn errors(&self) -> Vec<&Diagnostic> {
+        self.diagnostics.iter().filter(|d| d.severity == Severity::Error).collect()
+    }
+
+    pub fn warnings(&self) -> Vec<&Diagnostic> {
+        self.diagnostics.iter().filter(|d| d.severity == Severity::Warning).collect()
+    }
+
+    pub fn is_valid(&self) -> bool { self.errors().is_empty() }
+
+    pub fn summary(&self) -> String {
+        format!(
+            "ValidationReport: {} error(s), {} warning(s), {} info(s)",
+            self.errors().len(),
+            self.warnings().len(),
+            self.diagnostics.iter().filter(|d| d.severity == Severity::Info).count(),
+        )
+    }
+}
+
+// ── Validator ─────────────────────────────────────────────────────────────────
+
+pub struct Validator;
+
+impl Validator {
+    pub fn validate(doc: &Document) -> ValidationReport {
+        let mut rep = ValidationReport::new();
+        for m in &doc.manifolds {
+            Self::validate_manifold(m, &mut rep);
+        }
+        rep
+    }
+
+    fn validate_manifold(m: &Manifold, rep: &mut ValidationReport) {
+        let path = format!("manifold.{}", m.name);
+
+        // Collect known region names (flat + nested)
+        let region_names  = collect_region_names(&m.regions);
+        // Collect known bubble names
+        let bubble_names: HashSet<String> = m.bubbles.iter().map(|b| b.name.clone()).collect();
+
+        // Admissibility threshold
+        match m.admissibility_threshold() {
+            None => rep.push(Severity::Warning, &path,
+                "admissibility-threshold not set; defaulting to 0.5"),
+            Some(t) if !(0.0..=1.0).contains(&t) => rep.push(Severity::Error, &path,
+                format!("admissibility-threshold {t} is out of [0,1]")),
+            _ => {}
+        }
+
+        // Dimension
+        if let Some(d) = m.dimension() {
+            if d < 1.0 { rep.push(Severity::Error, &path, "dimension must be ≥ 1"); }
+            if d.fract() != 0.0 { rep.push(Severity::Warning, &path,
+                format!("non-integer dimension {d} — intentional?")); }
+        }
+
+        // Validate regions
+        for r in &m.regions {
+            Self::validate_region(r, &region_names, &format!("{path}.region.{}", r.name), rep);
+        }
+
+        // Validate top-level flows
+        for f in &m.flows {
+            Self::validate_flow(f, &region_names, &format!("{path}.flow.{}", f.name), rep);
+        }
+
+        // Validate top-level constraints
+        for c in &m.constraints {
+            Self::validate_constraint(c, &format!("{path}.constraint.{}", c.name), rep);
+        }
+
+        // Validate mappings
+        for mp in &m.mappings {
+            Self::validate_mapping(mp, &format!("{path}.mapping.{}", mp.name), rep);
+        }
+
+        // Validate relations (parent/child must be known bubble names)
+        for rel in &m.relations {
+            let rpath = format!("{path}.relation.{}", rel.name);
+            if let Some(ref p) = rel.parent {
+                if !bubble_names.contains(p) && !region_names.contains(p) {
+                    rep.push(Severity::Error, &rpath,
+                        format!("parent '{p}' does not refer to a known bubble or region"));
+                }
+            }
+            if let Some(ref c) = rel.child {
+                if !bubble_names.contains(c) && !region_names.contains(c) {
+                    rep.push(Severity::Error, &rpath,
+                        format!("child '{c}' does not refer to a known bubble or region"));
+                }
+            }
+        }
+
+        // Validate residuals (source must be a known region)
+        for res in &m.residuals {
+            let rpath = format!("{path}.residual.{}", res.name);
+            if let Some(ref src) = res.source {
+                if !region_names.contains(src) {
+                    rep.push(Severity::Warning, &rpath,
+                        format!("source '{src}' does not refer to a known region"));
+                }
+            }
+            if let Some(coh) = res.coherence() {
+                if !(0.0..=1.0).contains(&coh) {
+                    rep.push(Severity::Error, &rpath,
+                        format!("coherence {coh} is out of [0,1]"));
+                }
+            }
+        }
+    }
+
+    fn validate_region(r: &Region, known: &HashSet<String>, path: &str, rep: &mut ValidationReport) {
+        // Range checks
+        check_range(r.entropy(),   path, "entropy",   0.0, 1.0, rep);
+        check_range(r.salience(),  path, "salience",  0.0, 1.0, rep);
+        check_range(r.density(),   path, "density",   0.0, 1.0, rep);
+
+        // Xylomorphic info
+        if r.is_xylomorphic() {
+            rep.push(Severity::Info, path,
+                "region is xylomorphic (salience > entropy): stable admissibility basin");
+        } else if r.entropy().is_some() && r.salience().is_some() {
+            rep.push(Severity::Info, path,
+                "region is non-xylomorphic (entropy ≥ salience): potential dissolution zone");
+        }
+
+        // Curvature (no strict range, but warn on large values)
+        if let Some(k) = r.curvature() {
+            if k.abs() > 1.0 {
+                rep.push(Severity::Warning, path,
+                    format!("curvature {k} is large (|k| > 1); may indicate geometric instability"));
+            }
+        }
+
+        // Validate nested flows and constraints
+        for f in &r.flows {
+            Self::validate_flow(f, known, &format!("{path}.flow.{}", f.name), rep);
+        }
+        for c in &r.constraints {
+            Self::validate_constraint(c, &format!("{path}.constraint.{}", c.name), rep);
+        }
+        for sub in &r.sub_regions {
+            Self::validate_region(sub, known, &format!("{path}.region.{}", sub.name), rep);
+        }
+    }
+
+    fn validate_flow(f: &Flow, known: &HashSet<String>, path: &str, rep: &mut ValidationReport) {
+        if let Some(ref o) = f.origin {
+            if !known.contains(o) {
+                rep.push(Severity::Warning, path,
+                    format!("flow origin '{o}' does not refer to a known region"));
+            }
+        } else {
+            rep.push(Severity::Warning, path, "flow has no origin specified");
+        }
+        if let Some(ref t) = f.target {
+            if !known.contains(t) {
+                rep.push(Severity::Warning, path,
+                    format!("flow target '{t}' does not refer to a known region"));
+            }
+        } else {
+            rep.push(Severity::Warning, path, "flow has no target specified");
+        }
+        check_range(f.persistence(), path, "persistence", 0.0, 1.0, rep);
+    }
+
+    fn validate_constraint(c: &Constraint, path: &str, rep: &mut ValidationReport) {
+        if let Some(t) = c.threshold() {
+            if !(0.0..=1.0).contains(&t) {
+                rep.push(Severity::Warning, path,
+                    format!("constraint threshold {t} outside [0,1]"));
+            }
+        }
+        if let Some(mt) = c.max_torsion() {
+            if mt < 0.0 {
+                rep.push(Severity::Error, path,
+                    format!("max-torsion {mt} must be non-negative"));
+            }
+        }
+    }
+
+    fn validate_mapping(mp: &Mapping, path: &str, rep: &mut ValidationReport) {
+        if mp.source_space.is_none() {
+            rep.push(Severity::Warning, path, "mapping has no source-space");
+        }
+        if mp.target_space.is_none() {
+            rep.push(Severity::Warning, path, "mapping has no target-space");
+        }
+        if mp.preserve.is_empty() && mp.discard.is_empty() {
+            rep.push(Severity::Info, path,
+                "mapping specifies neither preserve nor discard properties");
+        }
+    }
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+fn collect_region_names(regions: &[Region]) -> HashSet<String> {
+    let mut names = HashSet::new();
+    for r in regions {
+        names.insert(r.name.clone());
+        names.extend(collect_region_names(&r.sub_regions));
+    }
+    names
+}
+
+fn check_range(val: Option<f64>, path: &str, field: &str, lo: f64, hi: f64, rep: &mut ValidationReport) {
+    if let Some(v) = val {
+        if !(lo..=hi).contains(&v) {
+            rep.push(Severity::Error, path,
+                format!("{field} {v} is out of [{lo},{hi}]"));
+        }
+    }
+}
+
+// ── Tests ─────────────────────────────────────────────────────────────────────
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{token::Lexer, parser::Parser};
+
+    fn validate(src: &str) -> ValidationReport {
+        let tokens = Lexer::new(src).tokenize().unwrap();
+        let doc    = Parser::new(tokens).parse_document().unwrap();
+        Validator::validate(&doc)
+    }
+
+    #[test]
+    fn valid_minimal() {
+        let rep = validate("@manifold m { admissibility-threshold: 0.5 }");
+        assert!(rep.is_valid());
+    }
+
+    #[test]
+    fn invalid_threshold() {
+        let rep = validate("@manifold m { admissibility-threshold: 1.5 }");
+        assert!(!rep.is_valid());
+    }
+
+    #[test]
+    fn dangling_flow_origin_is_warning() {
+        let src = "@manifold m { flow f { origin: unknown  target: also_unknown } }";
+        let rep = validate(src);
+        assert!(!rep.warnings().is_empty());
+    }
+
+    #[test]
+    fn xylomorphic_info() {
+        let src = "@manifold m { region r { salience: 0.9  entropy: 0.2 } }";
+        let rep = validate(src);
+        let infos: Vec<_> = rep.diagnostics.iter().filter(|d| d.severity == Severity::Info).collect();
+        assert!(!infos.is_empty());
+        assert!(infos[0].message.contains("xylomorphic"));
+    }
+}
