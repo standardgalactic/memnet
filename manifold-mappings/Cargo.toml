@@ -1,0 +1,21 @@
+[package]
+name        = "mml"
+version     = "0.1.0"
+edition     = "2021"
+description = "Manifold Mapping Language — parser, AST, validator, and evaluator"
+license     = "MIT"
+keywords    = ["mml", "rsvp", "manifold", "semantic", "parser"]
+
+[lib]
+name       = "mml"
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = []
+python  = ["pyo3"]
+
+[dependencies]
+pyo3 = { version = "0.21", features = ["extension-module"], optional = true }
+
+[dev-dependencies]
+approx = "0.5"

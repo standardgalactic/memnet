@@ -1,0 +1,69 @@
+\contentsline {chapter}{Abstract}{2}{chapter*.1}%
+\contentsline {chapter}{\numberline {1}Introduction}{6}{chapter.1}%
+\contentsline {section}{\numberline {1.1}The Symbolic Paradigm and Its Limitations}{6}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Toward a Process-Centered Geometric Ontology}{7}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Overview of the Monograph}{7}{section.1.3}%
+\contentsline {chapter}{\numberline {2}RSVP as an Ontology of Admissible Fields}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}The Field Triple}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}The RSVP Field Equations}{9}{section.2.2}%
+\contentsline {section}{\numberline {2.3}The Projection Formalism}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Metastability and Admissibility Basins}{11}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Stratified Semantic Manifolds}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Whitney Stratification}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Tangent-Constrained Optimization}{14}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Semantic Phase Transitions}{15}{section.3.3}%
+\contentsline {section}{\numberline {3.4}The Riemannian Metric and Semantic Distance}{15}{section.3.4}%
+\contentsline {chapter}{\numberline {4}HYDRA as a Compositional Geometric Architecture}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}The Composition Law}{17}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Admissibility Preservation at Each Layer}{18}{section.4.2}%
+\contentsline {section}{\numberline {4.3}The TARTAN Tiling Operator in Detail}{19}{section.4.3}%
+\contentsline {section}{\numberline {4.4}The Memory Operator and Latent Causal Trajectories}{20}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Sheaf-Theoretic Semantics}{21}{chapter.5}%
+\contentsline {section}{\numberline {5.1}The Category of Contexts}{21}{section.5.1}%
+\contentsline {section}{\numberline {5.2}The Sheaf Condition and Semantic Coherence}{21}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Global Sections as Coherent Interpretations}{22}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Čech Cohomology and the Measure of Semantic Inconsistency}{23}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Memory as Stabilized Field Residue}{24}{chapter.6}%
+\contentsline {section}{\numberline {6.1}The Field-Theoretic Account of Memory}{24}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Memory Persistence and Lyapunov Analysis}{24}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Retrieval as Resonance Reconstruction}{25}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Generalized Memoization and Dynamic Programming}{26}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Recursive Admissibility and the Hidden Geometry of Optimization}{27}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Memoization as Civilizational Infrastructure}{28}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Orientation Fields and Distributed Semantic Structure}{31}{section.6.7}%
+\contentsline {chapter}{\numberline {7}Category Theory and Admissible Computation}{34}{chapter.7}%
+\contentsline {section}{\numberline {7.1}The Category of Admissible States}{34}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Functorial Representation of HYDRA Components}{34}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Natural Transformations as Reasoning Regime Changes}{35}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Monoidal Structure and Semantic Composition}{36}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Toward a Geometry of Intelligence}{37}{chapter.8}%
+\contentsline {section}{\numberline {8.1}The Formal Definition of Coherent Agency}{37}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Intelligence as Recursive Admissibility Preservation}{37}{section.8.2}%
+\contentsline {section}{\numberline {8.3}The Geometry-Intelligence Correspondence}{38}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Toward a Semantic Physics}{39}{section.8.4}%
+\contentsline {chapter}{\numberline {9}Semantic Fibers, Equivalence Classes, and the Geometry of Meaning}{41}{chapter.9}%
+\contentsline {section}{\numberline {9.1}The Realization Map and Semantic Equivalence}{41}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Admissibility-Preserving Reparameterization}{42}{section.9.2}%
+\contentsline {section}{\numberline {9.3}The Ontological Compression Funnel}{43}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Entropy as Admissible Future Volume}{43}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Projection Collapse and the Pathology of Mistaken Maps}{45}{section.9.5}%
+\contentsline {chapter}{\numberline {10}Formal Grammar and Dependent Types of HYDRA}{47}{chapter.10}%
+\contentsline {section}{\numberline {10.1}HYDRA as a Compositional Formal System}{47}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Dependent Type Theory of HYDRA}{48}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Stack-Theoretic Extension for Ambiguous Cognition}{49}{section.10.3}%
+\contentsline {chapter}{\numberline {11}Engineering Realizations of Admissible Computation}{51}{chapter.11}%
+\contentsline {section}{\numberline {11.1}The Theory-Realization Relationship}{51}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Marine: The Admissibility Gate}{52}{section.11.2}%
+\contentsline {section}{\numberline {11.3}MEM$|$8: Wave-Mechanical Memory as Stabilized Field Residue}{53}{section.11.3}%
+\contentsline {section}{\numberline {11.4}The Phoenix Protocol: Entropy-Resistant Reconstruction}{54}{section.11.4}%
+\contentsline {section}{\numberline {11.5}AyeOS: Distributed Semantic Orchestration}{55}{section.11.5}%
+\contentsline {section}{\numberline {11.6}Substrate Independence and the Admissibility Landscape}{56}{section.11.6}%
+\contentsline {chapter}{\numberline {12}Unified Semantic Physics}{58}{chapter.12}%
+\contentsline {section}{\numberline {12.1}The Program of a Semantic Physics}{58}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Recurring Structural Transformations}{59}{section.12.2}%
+\contentsline {section}{\numberline {12.3}The Meta-Project: From Object Ontology to Process Topology}{60}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Prediction of Implementation Diversity}{61}{section.12.4}%
+\contentsline {chapter}{\numberline {13}Conclusion}{62}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Summary of the Framework}{62}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Open Problems}{64}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Closing Remarks}{65}{section.13.3}%

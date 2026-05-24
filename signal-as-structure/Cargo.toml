@@ -1,0 +1,27 @@
+[package]
+name        = "signal_as_structure"
+version     = "0.1.0"
+edition     = "2021"
+description = "RSVP signal-as-structure: admissibility, wave memory, and residual field analysis"
+license     = "MIT"
+repository  = "https://github.com/standardgalactic/signal-as-structure"
+keywords    = ["signal-processing", "rsvp", "wave", "admissibility", "mem8"]
+categories  = ["science", "algorithms"]
+
+[lib]
+name    = "signal_as_structure"
+crate-type = ["cdylib", "rlib"]   # cdylib for PyO3 FFI, rlib for Rust consumers
+
+[features]
+default  = []
+python   = ["pyo3"]               # enable with: cargo build --features python
+
+[dependencies]
+pyo3    = { version = "0.21", features = ["extension-module"], optional = true }
+
+[dev-dependencies]
+approx = "0.5"
+
+[[example]]
+name = "demo"
+path = "examples/demo.rs"
