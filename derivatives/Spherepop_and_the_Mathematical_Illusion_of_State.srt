@@ -1,0 +1,8884 @@
+1
+00:00:00,000 --> 00:00:09,480
+You know, usually when we talk about computer memory or even our own human memory, there's this expectation of a static, highly organized archiving system.
+
+2
+00:00:09,660 --> 00:00:10,620
+Right, like a filing cabinet.
+
+3
+00:00:10,820 --> 00:00:25,800
+Yeah, exactly. I always picture this massive, well-lit warehouse. You walk in, you put a box on a designated shelf, the inventory database logs the exact location, and then, you know, a year later when you need it, you just point at the shelf and say, there it is.
+
+4
+00:00:25,800 --> 00:00:32,800
+It is an incredibly comforting visualization. I mean, we gravitate toward the idea of a localized state.
+
+5
+00:00:33,680 --> 00:00:34,420
+The localized state.
+
+6
+00:00:34,440 --> 00:00:46,700
+Yeah, a fixed snapshot of exactly how things are right now. We build our mental models and our physical machines, too, around the illusion that the current state of a system tells us everything we need to know about it.
+
+7
+00:00:46,720 --> 00:00:48,620
+Like box on the shelf or no box on the shelf.
+
+8
+00:00:48,640 --> 00:00:48,780
+Yeah.
+
+9
+00:00:48,980 --> 00:00:50,060
+Binary. Clean.
+
+10
+00:00:50,380 --> 00:00:51,380
+Exactly. Clean.
+
+11
+00:00:51,380 --> 00:00:59,640
+But then you step into the world of possibility space and trajectory-based computation, and, well, suddenly that pristine warehouse just burns to the ground.
+
+12
+00:00:59,700 --> 00:01:00,800
+Oh, absolutely ashes.
+
+13
+00:01:01,180 --> 00:01:09,280
+We are looking at a computational and cognitive landscape today that is an absolute inversion of how we normally perceive reality.
+
+14
+00:01:10,120 --> 00:01:16,220
+So, if you are joining us for this deep dive, you're likely looking for that intellectual aha moment, right?
+
+15
+00:01:16,220 --> 00:01:21,160
+The one that bridges your everyday habits with some seriously deep theoretical computer science.
+
+16
+00:01:21,220 --> 00:01:27,400
+Yes. And we have an incredibly dense, profoundly fascinating source to get us there today.
+
+17
+00:01:27,540 --> 00:01:39,300
+We do. The document on the table is a 96-page monograph. It's titled Sphere Pop, A Complete Theory, Histories, Continuations, and the Algebra of Reachable Computation.
+
+18
+00:01:39,540 --> 00:01:40,380
+That is quite the title.
+
+19
+00:01:40,380 --> 00:01:50,740
+Right. It is written by an independent researcher who goes by the name Flyxion. And, um, on the surface, it functions as a complete formal theory for a radically new programming language called Sphere Pop.
+
+20
+00:01:50,860 --> 00:01:52,380
+But it's not just a programming manual.
+
+21
+00:01:52,540 --> 00:02:03,860
+Not at all. Beneath the syntax and all the theorems, it doubles as a sweeping philosophical treatise. It touches on epistemology, the nature of memory, and, like, the foundational infrastructure of human civilization.
+
+22
+00:02:03,860 --> 00:02:12,340
+So, the mission of this deep dive is to completely dismantle how we think about computer programming. And, by extension, our own memories.
+
+23
+00:02:12,640 --> 00:02:13,380
+That's the goal.
+
+24
+00:02:13,640 --> 00:02:27,160
+We are going to explore a radical, almost disorienting claim. The claim that history is the fundamental substance. And, you know, the way things are right now, that box on the shelf, is nothing more than a mathematical illusion.
+
+25
+00:02:27,160 --> 00:02:35,880
+We are going to fundamentally rethink what a simple, scribbled, grocery list has in common with the deepest mathematics of computation.
+
+26
+00:02:36,160 --> 00:02:40,300
+I love that. The core convergence of the paper is stated very early on.
+
+27
+00:02:40,320 --> 00:02:40,540
+Right.
+
+28
+00:02:40,580 --> 00:02:42,260
+It sets the tone for everything.
+
+29
+00:02:42,580 --> 00:02:50,120
+Yeah. The author writes something really striking. They say, a note is an externalized continuation. A Sphere Pop history is an internalized note.
+
+30
+00:02:50,120 --> 00:02:59,600
+Okay. Let's unpack that. Because, to understand how computers should work, according to the Sphere Pop architecture, we actually have to step away from the keyboard first.
+
+31
+00:02:59,680 --> 00:03:04,000
+We do. We have to look at how human beings externalize knowledge in the physical world.
+
+32
+00:03:04,080 --> 00:03:05,800
+Right. We have to talk about taking notes.
+
+33
+00:03:06,120 --> 00:03:10,080
+The paper starts by attacking something it calls the passive theory of notes.
+
+34
+00:03:10,480 --> 00:03:18,640
+Yes. So, the passive theory of notes is the default assumption most of us operate under. It posits that notes are essentially prosthetic memories.
+
+35
+00:03:18,640 --> 00:03:20,660
+Like a crutch for a leaky brain.
+
+36
+00:03:20,740 --> 00:03:30,460
+Exactly. They are viewed as passive records of the past, created specifically to compensate for the biological reality that our brains are incredibly forgetful.
+
+37
+00:03:30,520 --> 00:03:30,740
+Sure.
+
+38
+00:03:31,060 --> 00:03:36,500
+So, under this theory, a note's entire value is judged by its retrospective fidelity.
+
+39
+00:03:37,340 --> 00:03:44,360
+Retrospective fidelity, meaning, how accurately does this piece of paper reflect what just happened?
+
+40
+00:03:44,360 --> 00:03:55,800
+Precisely that. If you experience an event, say, an important lecture, and you write down what the speaker said, the passive theory argues that a good note perfectly reproduces the past event.
+
+41
+00:03:55,960 --> 00:03:58,460
+And a bad note distorts it, or leaves things out.
+
+42
+00:03:58,540 --> 00:04:01,860
+Right. The orientation of the artifact is entirely backward-looking.
+
+43
+00:04:01,960 --> 00:04:03,380
+Okay, but I have to push back here.
+
+44
+00:04:03,400 --> 00:04:03,600
+Yeah.
+
+45
+00:04:03,800 --> 00:04:06,460
+Because isn't that exactly what taking notes in a meeting actually is?
+
+46
+00:04:06,540 --> 00:04:07,220
+Tell me how you mean.
+
+47
+00:04:07,220 --> 00:04:20,480
+Well, if I am sitting in a boardroom, and my boss is listing off a dozen action items for the quarter, and I am desperately typing on my laptop so I don't forget what was just said, I am quite literally recording the past.
+
+48
+00:04:20,680 --> 00:04:22,100
+It definitely feels that way.
+
+49
+00:04:22,160 --> 00:04:29,080
+Right. My brain is going to forget those 12 items by lunch. My notes are the prosthetic memory of that meeting.
+
+50
+00:04:29,080 --> 00:04:36,720
+The author acknowledges that this retrospective illusion is really powerful, but Flyxion dismantles it by asking us to shift our gaze.
+
+51
+00:04:36,900 --> 00:04:37,460
+Shift it where?
+
+52
+00:04:37,820 --> 00:04:44,920
+Away from celebrated historical records or meeting minutes, and instead look at the most common, mundane notes we create.
+
+53
+00:04:45,780 --> 00:04:47,640
+Consider a standard grocery list.
+
+54
+00:04:47,760 --> 00:04:50,000
+Okay. Milk, eggs, bread.
+
+55
+00:04:50,400 --> 00:04:53,840
+Look at that list. Does it record anything that happened in the past?
+
+56
+00:04:53,900 --> 00:04:56,720
+Well, no. I mean, I haven't bought the eggs yet. I haven't even gone to the store.
+
+57
+00:04:56,720 --> 00:05:06,260
+Exactly. The items on that list do not exist in the form the list anticipates. They haven't been purchased. They haven't been placed in your cart. They haven't been carried into your kitchen.
+
+58
+00:05:06,860 --> 00:05:08,440
+Oh, wow. I see what you're saying.
+
+59
+00:05:08,540 --> 00:05:13,300
+The list is definitively not a memory. It is a structured record of a future act.
+
+60
+00:05:13,600 --> 00:05:18,860
+That is a very weird way to think about a piece of paper on my fridge.
+
+61
+00:05:19,280 --> 00:05:25,700
+The author provides a whole cascade of these examples. A blueprint describes a building that has not yet been constructed.
+
+62
+00:05:25,700 --> 00:05:29,500
+A musical playlist is a record of a future act of listening.
+
+63
+00:05:30,320 --> 00:05:34,060
+Source code itself records computations that have not yet been executed.
+
+64
+00:05:34,500 --> 00:05:37,100
+A calendar entry records a commitment you haven't yet honored.
+
+65
+00:05:37,360 --> 00:05:41,900
+None of these artifacts are memories in the passive retrospective sense.
+
+66
+00:05:42,060 --> 00:05:42,380
+Exactly.
+
+67
+00:05:42,540 --> 00:05:47,380
+So the passive theory gets the phenomenology of note-taking completely backwards.
+
+68
+00:05:48,180 --> 00:05:54,120
+When I write down a to-do list, I am not preserving the past at all. I am literally constructing a future.
+
+69
+00:05:54,120 --> 00:05:59,600
+Taking it a step further, the paper introduces a concept from theoretical computer science called a continuation.
+
+70
+00:05:59,960 --> 00:06:01,000
+A continuation. Okay.
+
+71
+00:06:01,140 --> 00:06:06,440
+If a state is a snapshot of right now, a continuation is the entire sequence of what comes next.
+
+72
+00:06:06,700 --> 00:06:10,060
+It is the future execution that is enabled by a present configuration.
+
+73
+00:06:10,500 --> 00:06:13,980
+And this leads to the paper's core thesis on human artifacts, right?
+
+74
+00:06:14,060 --> 00:06:15,400
+The continuation account of notes.
+
+75
+00:06:15,400 --> 00:06:23,180
+Yes. The formal definition given in the source is that a note is any artifact that increases the reachability of a continuation.
+
+76
+00:06:23,640 --> 00:06:31,920
+Reachability. Meaning it makes a specific future trajectory more probable or significantly less costly to traverse.
+
+77
+00:06:32,180 --> 00:06:32,480
+Right.
+
+78
+00:06:32,960 --> 00:06:39,240
+To measure this, Flyxion introduces two mathematical concepts that completely reframe how we value information.
+
+79
+00:06:39,380 --> 00:06:39,700
+Which are?
+
+80
+00:06:39,700 --> 00:06:42,420
+Continuation volume and reachability leverage.
+
+81
+00:06:43,140 --> 00:06:48,380
+Continuation volume refers to the sheer number of distinct futures a single note opens up.
+
+82
+00:06:48,600 --> 00:06:50,600
+Okay. Volume makes sense. What about the leverage part?
+
+83
+00:06:50,920 --> 00:06:53,700
+Reachability leverage is where the everyday practicality hits.
+
+84
+00:06:54,160 --> 00:07:01,980
+Reachability leverage is the energetic or temporal cost you save by having the note versus the cost of figuring everything out from first principles without it.
+
+85
+00:07:02,260 --> 00:07:03,900
+The leverage aspect makes perfect sense.
+
+86
+00:07:03,900 --> 00:07:09,880
+Let's say I'm reading a massive, incredibly dense, 500-page textbook on organic chemistry.
+
+87
+00:07:10,140 --> 00:07:10,380
+Okay.
+
+88
+00:07:10,620 --> 00:07:17,320
+And I come across a specific formula and I spend 10 seconds folding over the corner of the page and hitting a paragraph with a yellow highlighter.
+
+89
+00:07:17,540 --> 00:07:19,340
+Just a 10-second physical action.
+
+90
+00:07:19,640 --> 00:07:19,920
+Right.
+
+91
+00:07:20,620 --> 00:07:25,560
+The cost of creating that note, the physical act of dog, earing, and highlighting is negligible.
+
+92
+00:07:25,820 --> 00:07:26,460
+10 seconds.
+
+93
+00:07:26,460 --> 00:07:39,120
+But two years later, when I am in a lab and I desperately need that exact formula, that 10-second physical deformation of the paper saves me three hours of frantically flipping through 500 pages.
+
+94
+00:07:39,320 --> 00:07:42,040
+That is an insane amount of reachability leverage.
+
+95
+00:07:42,380 --> 00:07:42,540
+Yeah.
+
+96
+00:07:42,740 --> 00:07:45,660
+And notice what gives that dog-eared page its value.
+
+97
+00:07:45,900 --> 00:07:50,060
+Its worth has absolutely nothing to do with how well it remembers the past act of you reading the book.
+
+98
+00:07:50,140 --> 00:07:53,240
+Right. Its entire value is derived from the future access it guarantees.
+
+99
+00:07:53,240 --> 00:07:57,140
+Flyxion argues that notes are actually anti-collapse artifacts.
+
+100
+00:07:57,700 --> 00:07:59,900
+Our biological memory is constantly collapsing.
+
+101
+00:08:00,200 --> 00:08:03,080
+The universe's entropy is constantly collapsing possibilities.
+
+102
+00:08:03,540 --> 00:08:09,840
+So notes are physical anchors we drop into reality to preserve access to futures that would otherwise be permanently lost.
+
+103
+00:08:09,960 --> 00:08:10,860
+Beautifully said.
+
+104
+00:08:11,000 --> 00:08:13,080
+Okay. This is a brilliant philosophical reframing.
+
+105
+00:08:13,420 --> 00:08:15,060
+But here is the massive disconnect.
+
+106
+00:08:15,060 --> 00:08:24,260
+If human beings organically build notes to preserve access to futures, why on earth do we build computers to only care about the present moment?
+
+107
+00:08:24,480 --> 00:08:28,160
+And this bridges us perfectly into the critique of traditional computation.
+
+108
+00:08:28,560 --> 00:08:37,760
+Right. Because if we look at the standard premise of programming, the way everyone is taught to code from day one, it's entirely state-centric.
+
+109
+00:08:37,760 --> 00:08:44,180
+You open any introductory textbook on Python or C++, and the very first lesson is about variables.
+
+110
+00:08:44,880 --> 00:08:49,260
+You are taught that a variable is a named location in memory that holds a value.
+
+111
+00:08:49,440 --> 00:08:53,820
+You write x equals 5. Then on the next line, you write y equals x plus 1.
+
+112
+00:08:53,980 --> 00:08:59,000
+It's the warehouse analogy again. I have a box labeled x, and I put a 5 inside it.
+
+113
+00:08:59,080 --> 00:09:04,740
+Right. It feels intuitive because it mirrors how we naively interact with physical objects.
+
+114
+00:09:04,740 --> 00:09:08,680
+A ball is red. Then we paint it blue. Its state changed.
+
+115
+00:09:09,060 --> 00:09:11,280
+Traditional computation operates on this paradigm.
+
+116
+00:09:11,600 --> 00:09:17,400
+A program starts in an initial state. A sequence of instructions mutates that state step by step.
+
+117
+00:09:17,500 --> 00:09:22,280
+And whatever the final state of the machine happens to be when the program halts, well, that's your answer.
+
+118
+00:09:22,380 --> 00:09:25,160
+But the author of SpherePop calls this the state illusion.
+
+119
+00:09:25,500 --> 00:09:26,480
+The state illusion.
+
+120
+00:09:26,800 --> 00:09:30,960
+Yes. And there's a specific foundational mathematical proposition here.
+
+121
+00:09:31,420 --> 00:09:33,280
+Proposition 2.2 in the text.
+
+122
+00:09:33,280 --> 00:09:37,200
+It claims that state is not a real physical property.
+
+123
+00:09:37,920 --> 00:09:41,960
+State is actually a degenerate projection that collapses and erases history.
+
+124
+00:09:42,500 --> 00:09:43,960
+Okay. We need to break down the math here.
+
+125
+00:09:44,260 --> 00:09:48,880
+What exactly does it mean that state is a degenerate projection?
+
+126
+00:09:49,500 --> 00:09:56,780
+In mathematics, a function or a projection is injective if every distinct input maps to a unique distinct output.
+
+127
+00:09:57,220 --> 00:09:58,040
+Nothing is lost.
+
+128
+00:09:58,260 --> 00:09:59,760
+Okay. So a one-to-one mapping.
+
+129
+00:09:59,760 --> 00:10:08,120
+Exactly. A projection becomes non-injective or degenerate when it collapses multiple, completely different inputs into the exact same output.
+
+130
+00:10:08,320 --> 00:10:09,440
+Can you give me a visual for that?
+
+131
+00:10:09,680 --> 00:10:10,780
+Think of a shadow on a wall.
+
+132
+00:10:11,200 --> 00:10:14,980
+If you shine a light on a cylinder from the top down, it casts a circular shadow.
+
+133
+00:10:15,480 --> 00:10:19,040
+If you shine a light on a sphere, it also casts a circular shadow.
+
+134
+00:10:19,180 --> 00:10:19,560
+Oh, wow.
+
+135
+00:10:19,560 --> 00:10:24,880
+The 3D history of those objects is completely different, but the 2D state, the shadow, is identical.
+
+136
+00:10:25,060 --> 00:10:29,660
+The projection to a lower dimension threw away the vital context of what the object actually is.
+
+137
+00:10:29,920 --> 00:10:34,600
+So applied to computers, the history is the sequence of all events that have actually occurred in the system.
+
+138
+00:10:35,420 --> 00:10:38,780
+But the computer's RAM, its memory, is finite.
+
+139
+00:10:38,780 --> 00:10:44,240
+Right. The space of all possible histories in an active system is infinitely large.
+
+140
+00:10:44,800 --> 00:10:48,960
+Every action, every millisecond, adds a new branch to the tree of history.
+
+141
+00:10:49,340 --> 00:10:55,960
+But the space of observable states, the physical transistors holding bits in a computer's memory, is strictly finite.
+
+142
+00:10:56,160 --> 00:11:03,500
+Therefore, any mathematical mapping from the infinite space of history to the finite space of memory must be non-injective.
+
+143
+00:11:03,800 --> 00:11:06,180
+The system is forced to throw away the trajectory.
+
+144
+00:11:06,180 --> 00:11:10,640
+It keeps the summary, but it permanently burns the evidence of how it arrived at that summary.
+
+145
+00:11:11,100 --> 00:11:13,420
+That lost information is the degeneracy.
+
+146
+00:11:13,980 --> 00:11:15,280
+Why does this actually matter, though?
+
+147
+00:11:15,340 --> 00:11:20,100
+I mean, as a programmer, if I just want to know that X is 5, why do I care how it became 5?
+
+148
+00:11:20,260 --> 00:11:27,420
+The paper argues that you care because this foundation of amnesia is the root cause of almost every catastrophic failure in modern software.
+
+149
+00:11:27,840 --> 00:11:28,900
+Really? Like what?
+
+150
+00:11:29,200 --> 00:11:32,740
+Think about the most notorious, difficult-to-track bugs in computer science.
+
+151
+00:11:33,340 --> 00:11:34,300
+Race conditions.
+
+152
+00:11:34,300 --> 00:11:36,140
+Use after free vulnerabilities.
+
+153
+00:11:36,600 --> 00:11:37,200
+Okay, yeah.
+
+154
+00:11:37,560 --> 00:11:38,420
+Those are a nightmare.
+
+155
+00:11:38,420 --> 00:11:42,700
+They do not happen because the final state is mathematically wrong.
+
+156
+00:11:43,160 --> 00:11:50,540
+They happen precisely because traditional languages conflate distinct histories into a single, indistinguishable state.
+
+157
+00:11:50,800 --> 00:11:52,680
+Let me make sure I'm wrapping my head around this.
+
+158
+00:11:52,740 --> 00:11:53,960
+Let's take a race condition.
+
+159
+00:11:54,140 --> 00:11:54,540
+Go for it.
+
+160
+00:11:54,540 --> 00:12:05,600
+So, I have a banking app, and two different processes, Thread A and Thread B, are trying to access the same bank account variable at the exact same millisecond.
+
+161
+00:12:05,680 --> 00:12:07,640
+Right, a classic concurrency problem.
+
+162
+00:12:07,800 --> 00:12:09,280
+Thread A wants to deposit money.
+
+163
+00:12:09,500 --> 00:12:11,080
+Thread B wants to withdraw money.
+
+164
+00:12:11,540 --> 00:12:13,600
+Because they overlap, they overwrite each other.
+
+165
+00:12:13,840 --> 00:12:17,620
+When the dust settles, the final state of the account variable might be $100.
+
+166
+00:12:17,620 --> 00:12:23,540
+But the computer literally has no idea if Thread A wrote that $100 or if Thread B wrote it.
+
+167
+00:12:23,620 --> 00:12:25,880
+Or if it was some corrupted combination of both.
+
+168
+00:12:26,480 --> 00:12:32,840
+The state says $100, but the history of who did what and when have been permanently erased by the architecture of the language.
+
+169
+00:12:33,080 --> 00:12:35,880
+That is the exact mechanism of a race condition.
+
+170
+00:12:36,460 --> 00:12:41,720
+Or consider a use-after-free bug, which is how a massive percentage of security hacks occur.
+
+171
+00:12:41,880 --> 00:12:42,980
+How does that play out here?
+
+172
+00:12:42,980 --> 00:12:48,180
+A program creates a pointer, a reference to a specific location in memory.
+
+173
+00:12:48,860 --> 00:12:52,160
+Later, the program says, I'm done with this memory, free it up.
+
+174
+00:12:52,460 --> 00:12:53,440
+The memory is freed.
+
+175
+00:12:53,860 --> 00:12:57,820
+But due to a bug, the original pointer still exists in the system.
+
+176
+00:12:58,100 --> 00:12:58,580
+Exactly.
+
+177
+00:12:59,000 --> 00:13:00,820
+The state of that pointer hasn't changed.
+
+178
+00:13:00,940 --> 00:13:03,620
+It still holds the exact same memory address.
+
+179
+00:13:03,840 --> 00:13:10,760
+But the history of that memory region, the crucial fact that a free event occurred, is not attached to the pointer's state.
+
+180
+00:13:10,940 --> 00:13:12,260
+The system forgot the trajectory.
+
+181
+00:13:12,260 --> 00:13:19,800
+So the program follows the pointer, accesses memory it no longer owns, and the system crashes or gets hijacked by a malicious payload.
+
+182
+00:13:20,040 --> 00:13:24,400
+I am thinking about how developers actually deal with this in the real world.
+
+183
+00:13:24,800 --> 00:13:27,780
+And it is honestly wild when you frame it this way.
+
+184
+00:13:28,040 --> 00:13:32,000
+It's the difference between a conventional software debugger and a git commit history.
+
+185
+00:13:32,140 --> 00:13:34,120
+Oh, that is a fantastic comparison.
+
+186
+00:13:34,120 --> 00:13:43,140
+If my Python code crashes and I open a traditional debugger, I am basically stepping into the role of a forensic archaeologist arriving at a crime scene.
+
+187
+00:13:43,400 --> 00:13:53,060
+I am looking at a crash state, a dead body on the floor, and I am desperately trying to reverse engineer a timeline of events based on scattered clues.
+
+188
+00:13:53,060 --> 00:13:58,920
+Because the actual evidence of the timeline was systematically destroyed by the computer as it was executing.
+
+189
+00:13:58,920 --> 00:14:02,700
+A debugger is a tool designed to mitigate the tragedy of state erasure.
+
+190
+00:14:03,240 --> 00:14:07,560
+You are trying to guess the history that the machine was explicitly designed to forget.
+
+191
+00:14:08,080 --> 00:14:12,060
+But if I look at a version control system like Git, the philosophy is completely different.
+
+192
+00:14:12,900 --> 00:14:16,300
+A Git repository isn't just the current file tree sitting on my hard drive.
+
+193
+00:14:16,300 --> 00:14:19,820
+No, Git proves that the history is the actual substance.
+
+194
+00:14:20,120 --> 00:14:22,800
+And the current file tree is just a temporary, degenerate summary.
+
+195
+00:14:23,720 --> 00:14:26,520
+In Git, I don't have to guess how a bug got introduced.
+
+196
+00:14:27,220 --> 00:14:30,820
+I could see every single branch, every line of code added or deleted,
+
+197
+00:14:31,180 --> 00:14:36,740
+every commit with a timestamp and an author stretching all the way back to the very first day the project started.
+
+198
+00:14:36,740 --> 00:14:40,700
+And this is the exact revelation that birthed the SpherePop architecture.
+
+199
+00:14:40,700 --> 00:14:46,080
+If history is what gets lost in traditional computing, causing structural fragility,
+
+200
+00:14:46,400 --> 00:14:49,840
+then history must become the primary substance of the machine.
+
+201
+00:14:50,340 --> 00:14:53,120
+SpherePop refuses to discard the trajectory.
+
+202
+00:14:53,480 --> 00:14:59,180
+The author points out that the state illusion in computing and the passive theory of notes in human cognition
+
+203
+00:14:59,180 --> 00:15:02,380
+are actually the exact same philosophical mistake.
+
+204
+00:15:02,460 --> 00:15:02,860
+How so?
+
+205
+00:15:02,860 --> 00:15:08,260
+Both identify value with a terminal state, the final biological memory,
+
+206
+00:15:08,500 --> 00:15:12,940
+or the final variable value rather than respecting the trajectory that produced it.
+
+207
+00:15:12,940 --> 00:15:15,080
+Okay, I am fully bought into the problem.
+
+208
+00:15:15,200 --> 00:15:15,440
+Yes.
+
+209
+00:15:15,600 --> 00:15:18,840
+State is an illusion that causes amnesia and crashes.
+
+210
+00:15:19,640 --> 00:15:21,320
+History is the truth.
+
+211
+00:15:21,620 --> 00:15:22,420
+Glad you're on board.
+
+212
+00:15:22,420 --> 00:15:27,880
+So practically speaking, how do you actually build a functioning programming language out of history?
+
+213
+00:15:28,240 --> 00:15:32,620
+I mean, if I can't use variables, if I can't just say, store this number here, what am I even doing?
+
+214
+00:15:32,620 --> 00:15:37,420
+This brings us to the theoretical core of the paper, the four operators of possibility.
+
+215
+00:15:37,580 --> 00:15:38,240
+The four operators.
+
+216
+00:15:38,400 --> 00:15:38,600
+Okay.
+
+217
+00:15:38,840 --> 00:15:42,780
+If you strip away the concept of a variable and you strip away the concept of a state,
+
+218
+00:15:42,980 --> 00:15:45,100
+what is the fundamental fabric you are left with?
+
+219
+00:15:46,020 --> 00:15:49,140
+According to SpherePop, you are lumped with possibility space,
+
+220
+00:15:49,600 --> 00:15:51,940
+the infinite landscape of all potential futures.
+
+221
+00:15:52,620 --> 00:15:55,940
+The author proposes that you do not need variables or memory addresses.
+
+222
+00:15:55,940 --> 00:16:00,820
+You only need a minimal, mathematically complete set of four operations
+
+223
+00:16:00,820 --> 00:16:03,940
+to navigate and shape this possibility space.
+
+224
+00:16:04,560 --> 00:16:09,620
+And these four operations are entirely sufficient to build any conceivable computer program.
+
+225
+00:16:09,840 --> 00:16:15,400
+The four operators are pop, refuse, bind, and collapse.
+
+226
+00:16:15,580 --> 00:16:17,200
+We need to go through these meticulously.
+
+227
+00:16:17,540 --> 00:16:18,380
+Let's start with pop.
+
+228
+00:16:18,660 --> 00:16:20,100
+What is the pop operator?
+
+229
+00:16:20,280 --> 00:16:21,960
+Pop is the operator of commitment.
+
+230
+00:16:22,620 --> 00:16:24,720
+Its function is to narrow possibility.
+
+231
+00:16:24,720 --> 00:16:26,060
+Like making a choice.
+
+232
+00:16:26,260 --> 00:16:26,580
+Exactly.
+
+233
+00:16:27,000 --> 00:16:30,240
+Imagine you are standing at a crossroads with five distinct paths.
+
+234
+00:16:30,940 --> 00:16:34,660
+Pop is the singular act of committing to one specific path
+
+235
+00:16:34,660 --> 00:16:37,620
+and irreversibly removing it from the space of options.
+
+236
+00:16:37,820 --> 00:16:39,700
+It is the primitive act of moving forward in time.
+
+237
+00:16:39,800 --> 00:16:40,060
+Yes.
+
+238
+00:16:40,300 --> 00:16:42,080
+When you pop a value or an action,
+
+239
+00:16:42,280 --> 00:16:44,980
+you are effectively foreclosing all other alternate futures
+
+240
+00:16:44,980 --> 00:16:46,320
+in which your choice was different.
+
+241
+00:16:46,460 --> 00:16:47,760
+So pop is taking a step.
+
+242
+00:16:47,980 --> 00:16:49,160
+It's executing a choice.
+
+243
+00:16:49,280 --> 00:16:49,600
+Got it.
+
+244
+00:16:49,740 --> 00:16:51,000
+The second operator is refuse.
+
+245
+00:16:51,360 --> 00:16:53,960
+The paper calls this documented inadmissibility.
+
+246
+00:16:53,960 --> 00:16:57,300
+This operator is arguably the most crucial invention in the architecture.
+
+247
+00:16:58,060 --> 00:17:01,740
+Refuse is how the system records that a specific path in the possibility space
+
+248
+00:17:01,740 --> 00:17:03,720
+was found to be invalid or dangerous.
+
+249
+00:17:04,160 --> 00:17:07,560
+But, and this is the vital distinction from traditional error handling,
+
+250
+00:17:08,560 --> 00:17:11,640
+the refuse operator always requires a reason, right?
+
+251
+00:17:11,900 --> 00:17:12,220
+Always.
+
+252
+00:17:12,400 --> 00:17:14,820
+It doesn't just block a path with a generic no.
+
+253
+00:17:15,140 --> 00:17:18,640
+It requires a formal proof of no because of X.
+
+254
+00:17:18,840 --> 00:17:19,120
+Okay.
+
+255
+00:17:19,120 --> 00:17:22,880
+Furthermore, unlike pop, which consumes a choice,
+
+256
+00:17:23,460 --> 00:17:26,340
+refuse does not remove the option from the structural space.
+
+257
+00:17:26,980 --> 00:17:28,360
+It leaves the path visible,
+
+258
+00:17:28,760 --> 00:17:32,880
+but marks it as semantically inadmissible for any future trajectory.
+
+259
+00:17:33,220 --> 00:17:36,240
+I want to really ground why the reason is so important.
+
+260
+00:17:36,540 --> 00:17:40,060
+Why can't the system just hit a dead end, throw a red flag, and bounce back?
+
+261
+00:17:40,160 --> 00:17:42,700
+Because without a permanent attached reason,
+
+262
+00:17:42,960 --> 00:17:46,240
+a refused path is completely indistinguishable from a path
+
+263
+00:17:46,240 --> 00:17:48,640
+that was simply never considered in the first place.
+
+264
+00:17:48,760 --> 00:17:48,940
+Ah.
+
+265
+00:17:49,120 --> 00:17:51,380
+The reason is the evidence of the exploration.
+
+266
+00:17:51,680 --> 00:17:54,820
+The reason becomes a first-class component of the system's history.
+
+267
+00:17:55,280 --> 00:17:56,120
+Let me try an analogy.
+
+268
+00:17:56,680 --> 00:17:58,380
+Let's say we were exploring a labyrinth.
+
+269
+00:17:58,820 --> 00:18:00,600
+If I walk down a corridor and simply tell you,
+
+270
+00:18:00,920 --> 00:18:02,340
+don't open the blue door at the end,
+
+271
+00:18:02,460 --> 00:18:03,380
+you might listen to me today.
+
+272
+00:18:03,480 --> 00:18:03,700
+Sure.
+
+273
+00:18:03,900 --> 00:18:04,680
+But a week later,
+
+274
+00:18:05,120 --> 00:18:06,980
+when you are stressed and looking for an exit,
+
+275
+00:18:07,100 --> 00:18:07,540
+you might think,
+
+276
+00:18:07,600 --> 00:18:09,160
+well, maybe he just didn't like the color blue,
+
+277
+00:18:09,200 --> 00:18:10,020
+and you open it anyway.
+
+278
+00:18:10,320 --> 00:18:11,020
+Human nature.
+
+279
+00:18:11,020 --> 00:18:12,880
+But if I use the refuse operator,
+
+280
+00:18:13,460 --> 00:18:14,360
+I am saying,
+
+281
+00:18:14,760 --> 00:18:15,900
+don't open the blue door,
+
+282
+00:18:16,300 --> 00:18:18,220
+and here is the irrefutable proof
+
+283
+00:18:18,220 --> 00:18:20,460
+that there is a literal tiger behind it.
+
+284
+00:18:20,580 --> 00:18:21,520
+That changes things.
+
+285
+00:18:21,680 --> 00:18:21,840
+Right.
+
+286
+00:18:22,120 --> 00:18:25,220
+That attached reason fundamentally and permanently
+
+287
+00:18:25,220 --> 00:18:27,760
+alters your future relationship with that door.
+
+288
+00:18:28,400 --> 00:18:29,880
+It's not just a blocked path.
+
+289
+00:18:30,200 --> 00:18:31,940
+It is documented knowledge.
+
+290
+00:18:32,240 --> 00:18:33,920
+A perfect translation of the concept.
+
+291
+00:18:34,500 --> 00:18:36,800
+The third operator in the set is bind.
+
+292
+00:18:36,980 --> 00:18:40,720
+The paper defines this as dependency declaration.
+
+293
+00:18:41,020 --> 00:18:42,140
+What are we binding together?
+
+294
+00:18:42,420 --> 00:18:45,820
+Bind couples two independent trajectory elements together
+
+295
+00:18:45,820 --> 00:18:47,560
+without consuming either of them.
+
+296
+00:18:47,720 --> 00:18:48,980
+It records a relationship.
+
+297
+00:18:49,240 --> 00:18:49,500
+Okay.
+
+298
+00:18:49,500 --> 00:18:51,040
+If pop is taking a step
+
+299
+00:18:51,040 --> 00:18:52,940
+and refuse is documenting a tiger,
+
+300
+00:18:53,640 --> 00:18:55,280
+bind is drawing a line on a map
+
+301
+00:18:55,280 --> 00:18:56,700
+connecting your current location
+
+302
+00:18:56,700 --> 00:18:58,020
+to the location of the tiger.
+
+303
+00:18:58,640 --> 00:18:58,960
+It says,
+
+304
+00:18:59,240 --> 00:19:00,340
+the existence of this element
+
+305
+00:19:00,340 --> 00:19:01,700
+is now formally dependent
+
+306
+00:19:01,700 --> 00:19:03,160
+on the existence of that element.
+
+307
+00:19:03,540 --> 00:19:05,080
+And finally, we have the fourth operator.
+
+308
+00:19:05,200 --> 00:19:05,340
+Go.
+
+309
+00:19:05,420 --> 00:19:05,860
+Collapse.
+
+310
+00:19:06,300 --> 00:19:08,280
+The paper calls this observation under rule.
+
+311
+00:19:08,720 --> 00:19:10,420
+Collapse is essentially a meta operation.
+
+312
+00:19:10,420 --> 00:19:12,340
+Pop, refuse, and bind
+
+313
+00:19:12,340 --> 00:19:13,840
+all operate silently
+
+314
+00:19:13,840 --> 00:19:14,640
+on the invisible,
+
+315
+00:19:14,900 --> 00:19:16,600
+ever-growing history of the system.
+
+316
+00:19:16,760 --> 00:19:18,200
+But we eventually need to see something.
+
+317
+00:19:18,560 --> 00:19:18,800
+Right.
+
+318
+00:19:19,180 --> 00:19:20,200
+Collapse is the mechanism
+
+319
+00:19:20,200 --> 00:19:22,060
+that makes those invisible histories
+
+320
+00:19:22,060 --> 00:19:23,160
+visible to an observer.
+
+321
+00:19:23,840 --> 00:19:26,580
+It maps the vast, complex history space
+
+322
+00:19:26,580 --> 00:19:29,060
+down to a finite, observable state.
+
+323
+00:19:29,180 --> 00:19:30,200
+But it does so safely.
+
+324
+00:19:30,560 --> 00:19:31,460
+It acts as a lens.
+
+325
+00:19:31,840 --> 00:19:32,740
+And, crucially,
+
+326
+00:19:33,140 --> 00:19:34,740
+a collapse operation requires
+
+327
+00:19:34,740 --> 00:19:36,200
+an admissibility certificate.
+
+328
+00:19:36,200 --> 00:19:37,940
+A proof that the history
+
+329
+00:19:37,940 --> 00:19:38,780
+it is summarizing
+
+330
+00:19:38,780 --> 00:19:39,780
+is actually valid
+
+331
+00:19:39,780 --> 00:19:41,200
+and hasn't violated
+
+332
+00:19:41,200 --> 00:19:42,620
+any refuse documents
+
+333
+00:19:42,620 --> 00:19:43,240
+along the way.
+
+334
+00:19:43,700 --> 00:19:44,480
+I have to pause here.
+
+335
+00:19:44,700 --> 00:19:44,880
+I mean,
+
+336
+00:19:45,000 --> 00:19:46,020
+I have written
+
+337
+00:19:46,020 --> 00:19:47,160
+my fair share of code.
+
+338
+00:19:47,700 --> 00:19:48,140
+Python,
+
+339
+00:19:48,580 --> 00:19:48,960
+JavaScript,
+
+340
+00:19:49,300 --> 00:19:49,860
+a little C.
+
+341
+00:19:50,360 --> 00:19:51,160
+So you know
+
+342
+00:19:51,160 --> 00:19:52,040
+the standard toolkit.
+
+343
+00:19:52,280 --> 00:19:52,480
+Yeah.
+
+344
+00:19:52,580 --> 00:19:53,520
+And I am looking at these
+
+345
+00:19:53,520 --> 00:19:55,640
+four highly abstract,
+
+346
+00:19:56,040 --> 00:19:57,520
+almost philosophical verbs.
+
+347
+00:19:57,720 --> 00:19:58,060
+Commit,
+
+348
+00:19:58,420 --> 00:19:58,880
+refuse,
+
+349
+00:19:59,260 --> 00:19:59,600
+bind,
+
+350
+00:19:59,980 --> 00:20:00,300
+observe.
+
+351
+00:20:00,540 --> 00:20:01,740
+Are you seriously telling me
+
+352
+00:20:01,740 --> 00:20:02,440
+that I can build
+
+353
+00:20:02,440 --> 00:20:04,300
+any standard computer program
+
+354
+00:20:04,300 --> 00:20:05,060
+with just this?
+
+355
+00:20:05,400 --> 00:20:05,800
+I am.
+
+356
+00:20:05,900 --> 00:20:06,920
+I can build an if statement.
+
+357
+00:20:07,100 --> 00:20:07,960
+I can manage RAM.
+
+358
+00:20:08,200 --> 00:20:09,640
+I can handle network concurrency
+
+359
+00:20:09,640 --> 00:20:11,340
+with just these four things.
+
+360
+00:20:11,460 --> 00:20:12,240
+The paper dedicates
+
+361
+00:20:12,240 --> 00:20:13,380
+a massive section,
+
+362
+00:20:13,660 --> 00:20:14,600
+theorem 3.7,
+
+363
+00:20:14,660 --> 00:20:15,180
+the completeness
+
+364
+00:20:15,180 --> 00:20:16,000
+of the four operators,
+
+365
+00:20:16,140 --> 00:20:17,200
+to proving exactly that.
+
+366
+00:20:17,540 --> 00:20:18,360
+Everything you do
+
+367
+00:20:18,360 --> 00:20:19,340
+in a traditional language
+
+368
+00:20:19,340 --> 00:20:20,140
+is just a macro
+
+369
+00:20:20,140 --> 00:20:20,900
+built on top
+
+370
+00:20:20,900 --> 00:20:21,760
+of these four primitives.
+
+371
+00:20:21,860 --> 00:20:22,540
+Okay, prove it.
+
+372
+00:20:22,620 --> 00:20:23,820
+Let's take the most basic example
+
+373
+00:20:23,820 --> 00:20:24,500
+I brought up earlier.
+
+374
+00:20:24,840 --> 00:20:26,500
+Variable assignment dot x equals 5.
+
+375
+00:20:26,820 --> 00:20:27,060
+Right.
+
+376
+00:20:27,320 --> 00:20:29,040
+How do you do x equals 5
+
+377
+00:20:29,040 --> 00:20:30,000
+without a variable?
+
+378
+00:20:30,260 --> 00:20:30,460
+Yeah.
+
+379
+00:20:30,640 --> 00:20:31,480
+In SpherePop,
+
+380
+00:20:31,660 --> 00:20:33,120
+variable assignment doesn't exist.
+
+381
+00:20:33,620 --> 00:20:33,920
+Instead,
+
+382
+00:20:34,380 --> 00:20:35,360
+the system executes
+
+383
+00:20:35,360 --> 00:20:36,820
+a pop of the value 5,
+
+384
+00:20:37,080 --> 00:20:38,100
+committing the number 5
+
+385
+00:20:38,100 --> 00:20:38,860
+into the history.
+
+386
+00:20:39,060 --> 00:20:39,760
+Okay, so the 5
+
+387
+00:20:39,760 --> 00:20:40,520
+is a step we took.
+
+388
+00:20:40,620 --> 00:20:40,920
+Then,
+
+389
+00:20:41,040 --> 00:20:42,040
+it executes a bind,
+
+390
+00:20:42,220 --> 00:20:44,280
+coupling the human-readable symbol x
+
+391
+00:20:44,280 --> 00:20:46,520
+to that specific historical pop event.
+
+392
+00:20:46,960 --> 00:20:48,620
+The value isn't stored in x.
+
+393
+00:20:49,060 --> 00:20:50,340
+x is just a pointer
+
+394
+00:20:50,340 --> 00:20:51,580
+to a moment in history
+
+395
+00:20:51,580 --> 00:20:52,700
+where 5 was chosen.
+
+396
+00:20:52,940 --> 00:20:53,240
+Wow.
+
+397
+00:20:53,400 --> 00:20:53,600
+Okay.
+
+398
+00:20:54,020 --> 00:20:55,000
+What about control flow?
+
+399
+00:20:55,400 --> 00:20:56,720
+How do I write an if statement?
+
+400
+00:20:56,880 --> 00:20:57,100
+Mm-hmm.
+
+401
+00:20:57,100 --> 00:20:58,280
+Like, if the weather is raining,
+
+402
+00:20:58,640 --> 00:20:59,180
+take an umbrella.
+
+403
+00:20:59,580 --> 00:20:59,820
+Otherwise,
+
+404
+00:21:00,220 --> 00:21:00,920
+take sunglasses.
+
+405
+00:21:00,920 --> 00:21:02,120
+An if statement
+
+406
+00:21:02,120 --> 00:21:03,240
+is a bifurcation
+
+407
+00:21:03,240 --> 00:21:04,700
+of possibility space.
+
+408
+00:21:05,200 --> 00:21:06,100
+The system evaluates
+
+409
+00:21:06,100 --> 00:21:06,600
+the condition.
+
+410
+00:21:07,000 --> 00:21:07,520
+Is it raining?
+
+411
+00:21:08,140 --> 00:21:09,540
+That evaluation is a pop.
+
+412
+00:21:09,840 --> 00:21:11,040
+Let's say it is raining.
+
+413
+00:21:11,180 --> 00:21:11,380
+Then,
+
+414
+00:21:11,500 --> 00:21:12,240
+the system pops
+
+415
+00:21:12,240 --> 00:21:13,120
+the true branch
+
+416
+00:21:13,120 --> 00:21:14,140
+taking the umbrella.
+
+417
+00:21:14,360 --> 00:21:14,940
+But what about
+
+418
+00:21:14,940 --> 00:21:15,880
+the false branch?
+
+419
+00:21:16,120 --> 00:21:17,080
+In traditional code,
+
+420
+00:21:17,160 --> 00:21:17,780
+the false branch
+
+421
+00:21:17,780 --> 00:21:18,820
+is just ignored.
+
+422
+00:21:19,260 --> 00:21:19,900
+In SpherePop,
+
+423
+00:21:20,000 --> 00:21:20,820
+the system uses
+
+424
+00:21:20,820 --> 00:21:21,960
+the refuse operator
+
+425
+00:21:21,960 --> 00:21:22,920
+on the false branch,
+
+426
+00:21:23,140 --> 00:21:24,060
+permanently documenting
+
+427
+00:21:24,060 --> 00:21:25,000
+exactly why
+
+428
+00:21:25,000 --> 00:21:26,180
+the sunglasses trajectory
+
+429
+00:21:26,180 --> 00:21:27,080
+was not taken,
+
+430
+00:21:27,080 --> 00:21:28,520
+because the rain condition
+
+431
+00:21:28,520 --> 00:21:29,820
+evaluated to true.
+
+432
+00:21:30,180 --> 00:21:30,720
+So the history
+
+433
+00:21:30,720 --> 00:21:32,340
+explicitly records
+
+434
+00:21:32,340 --> 00:21:33,520
+both the path taken
+
+435
+00:21:33,520 --> 00:21:34,580
+and the mathematically
+
+436
+00:21:34,580 --> 00:21:35,580
+certified reason
+
+437
+00:21:35,580 --> 00:21:36,460
+the alternate path
+
+438
+00:21:36,460 --> 00:21:37,020
+was rejected.
+
+439
+00:21:37,380 --> 00:21:37,860
+Exactly.
+
+440
+00:21:38,020 --> 00:21:38,900
+That is mind-blowing.
+
+441
+00:21:39,220 --> 00:21:40,240
+The code doesn't just
+
+442
+00:21:40,240 --> 00:21:41,180
+know what it did,
+
+443
+00:21:41,240 --> 00:21:42,460
+it knows exactly why
+
+444
+00:21:42,460 --> 00:21:43,660
+it didn't do something else.
+
+445
+00:21:43,760 --> 00:21:43,960
+Right.
+
+446
+00:21:44,120 --> 00:21:45,360
+What about when things go wrong?
+
+447
+00:21:45,420 --> 00:21:46,160
+What about exceptions
+
+448
+00:21:46,160 --> 00:21:47,360
+or system crashes?
+
+449
+00:21:47,700 --> 00:21:48,920
+An exception being thrown
+
+450
+00:21:48,920 --> 00:21:49,700
+is no longer
+
+451
+00:21:49,700 --> 00:21:50,680
+a catastrophic event
+
+452
+00:21:50,680 --> 00:21:52,020
+that destroys the call stack.
+
+453
+00:21:52,480 --> 00:21:53,480
+An exception is simply
+
+454
+00:21:53,480 --> 00:21:54,500
+a refuse operator
+
+455
+00:21:54,500 --> 00:21:55,640
+that carries its reason,
+
+456
+00:21:55,640 --> 00:21:57,580
+perhaps a file-not-found error
+
+457
+00:21:57,580 --> 00:21:58,880
+as a first-class certificate.
+
+458
+00:21:59,240 --> 00:22:00,220
+The system doesn't crash.
+
+459
+00:22:00,740 --> 00:22:01,520
+It just adds
+
+460
+00:22:01,520 --> 00:22:03,120
+a highly detailed refusal
+
+461
+00:22:03,120 --> 00:22:03,900
+to the history.
+
+462
+00:22:04,160 --> 00:22:04,480
+Yes.
+
+463
+00:22:04,960 --> 00:22:05,880
+And memory management,
+
+464
+00:22:06,760 --> 00:22:07,480
+freeing up RAM.
+
+465
+00:22:07,880 --> 00:22:09,100
+Even memory deallocation
+
+466
+00:22:09,100 --> 00:22:10,440
+is just a refuse operator
+
+467
+00:22:10,440 --> 00:22:11,700
+applied to a memory pointer.
+
+468
+00:22:12,140 --> 00:22:13,820
+It records that the memory region
+
+469
+00:22:13,820 --> 00:22:15,040
+is no longer admissible
+
+470
+00:22:15,040 --> 00:22:15,580
+to access.
+
+471
+00:22:15,900 --> 00:22:16,920
+So if a later part
+
+472
+00:22:16,920 --> 00:22:17,420
+of the program
+
+473
+00:22:17,420 --> 00:22:18,820
+tries to access that memory?
+
+474
+00:22:18,900 --> 00:22:19,580
+Which would cause
+
+475
+00:22:19,580 --> 00:22:20,900
+a use-after-free bug
+
+476
+00:22:20,900 --> 00:22:21,540
+in C++.
+
+477
+00:22:21,960 --> 00:22:22,160
+Right.
+
+478
+00:22:22,300 --> 00:22:23,440
+SpherePop simply traces
+
+479
+00:22:23,440 --> 00:22:24,020
+the history,
+
+480
+00:22:24,560 --> 00:22:25,320
+hits the refuse
+
+481
+00:22:25,320 --> 00:22:25,860
+documentation,
+
+482
+00:22:26,520 --> 00:22:27,060
+and stops.
+
+483
+00:22:27,580 --> 00:22:28,840
+It turns a silent,
+
+484
+00:22:29,080 --> 00:22:30,200
+dangerous memory corruption
+
+485
+00:22:30,200 --> 00:22:31,140
+into a clean,
+
+486
+00:22:31,520 --> 00:22:32,460
+mathematically proven
+
+487
+00:22:32,460 --> 00:22:33,460
+type-level error.
+
+488
+00:22:33,960 --> 00:22:34,900
+The history protects
+
+489
+00:22:34,900 --> 00:22:35,400
+the future.
+
+490
+00:22:35,840 --> 00:22:36,820
+The elegance of that
+
+491
+00:22:36,820 --> 00:22:37,800
+is hard to overstate.
+
+492
+00:22:38,680 --> 00:22:39,920
+And out of this architecture,
+
+493
+00:22:40,360 --> 00:22:41,040
+Fitchin derives
+
+494
+00:22:41,040 --> 00:22:41,740
+this overarching
+
+495
+00:22:41,740 --> 00:22:42,880
+mathematical principle
+
+496
+00:22:42,880 --> 00:22:44,220
+called the conservation
+
+497
+00:22:44,220 --> 00:22:45,600
+law of possibility.
+
+498
+00:22:45,980 --> 00:22:47,140
+Theorem 3.8.
+
+499
+00:22:47,320 --> 00:22:48,300
+It reads like a law
+
+500
+00:22:48,300 --> 00:22:49,100
+of thermodynamics
+
+501
+00:22:49,100 --> 00:22:49,900
+for computation.
+
+502
+00:22:49,900 --> 00:22:51,400
+It mathematically proves
+
+503
+00:22:51,400 --> 00:22:52,620
+that in this architecture,
+
+504
+00:22:53,120 --> 00:22:54,640
+possibility cannot be created
+
+505
+00:22:54,640 --> 00:22:55,240
+or destroyed.
+
+506
+00:22:55,740 --> 00:22:56,900
+It can only be consumed
+
+507
+00:22:56,900 --> 00:22:57,620
+by a pop
+
+508
+00:22:57,620 --> 00:22:58,580
+or documented
+
+509
+00:22:58,580 --> 00:22:59,360
+by a refuse.
+
+510
+00:22:59,660 --> 00:23:01,140
+Because every single operation,
+
+511
+00:23:01,420 --> 00:23:02,120
+whether it succeeds
+
+512
+00:23:02,120 --> 00:23:02,700
+or fails,
+
+513
+00:23:03,000 --> 00:23:03,860
+must be appended
+
+514
+00:23:03,860 --> 00:23:04,500
+to the log.
+
+515
+00:23:04,980 --> 00:23:05,820
+Every operation
+
+516
+00:23:05,820 --> 00:23:07,180
+strictly increases
+
+517
+00:23:07,180 --> 00:23:08,080
+the overall length
+
+518
+00:23:08,080 --> 00:23:09,300
+of the system's history.
+
+519
+00:23:09,520 --> 00:23:10,640
+Which means time
+
+520
+00:23:10,640 --> 00:23:11,700
+in the SpherePop universe
+
+521
+00:23:11,700 --> 00:23:13,140
+is strictly irreversible.
+
+522
+00:23:13,700 --> 00:23:15,420
+You can never truly hit undo
+
+523
+00:23:15,420 --> 00:23:17,120
+and return to a pristine
+
+524
+00:23:17,120 --> 00:23:18,060
+prior state.
+
+525
+00:23:18,180 --> 00:23:19,140
+Because to go backwards,
+
+526
+00:23:19,560 --> 00:23:20,920
+to truly erase a mistake
+
+527
+00:23:20,920 --> 00:23:22,220
+would require erasing
+
+528
+00:23:22,220 --> 00:23:23,460
+the history of the steps
+
+529
+00:23:23,460 --> 00:23:24,700
+you took to make the mistake,
+
+530
+00:23:24,900 --> 00:23:25,620
+which violates
+
+531
+00:23:25,620 --> 00:23:26,760
+the foundational premise
+
+532
+00:23:26,760 --> 00:23:28,100
+of the entire framework.
+
+533
+00:23:28,380 --> 00:23:29,120
+In SpherePop,
+
+534
+00:23:29,300 --> 00:23:30,820
+computation isn't the manipulation
+
+535
+00:23:30,820 --> 00:23:31,980
+of static values.
+
+536
+00:23:32,800 --> 00:23:34,160
+Computation is the progressive,
+
+537
+00:23:34,660 --> 00:23:35,820
+irreversible restriction
+
+538
+00:23:35,820 --> 00:23:36,600
+of possibility.
+
+539
+00:23:36,740 --> 00:23:37,440
+Beautifully put.
+
+540
+00:23:37,600 --> 00:23:38,380
+This is where the paper
+
+541
+00:23:38,380 --> 00:23:39,240
+pulls off a maneuver
+
+542
+00:23:39,240 --> 00:23:40,680
+that completely caught me off guard.
+
+543
+00:23:40,720 --> 00:23:40,860
+Yeah.
+
+544
+00:23:40,940 --> 00:23:41,680
+The taxonomy.
+
+545
+00:23:42,000 --> 00:23:42,320
+Yes.
+
+546
+00:23:43,000 --> 00:23:44,400
+Having spent 40 pages
+
+547
+00:23:44,400 --> 00:23:45,300
+establishing these
+
+548
+00:23:45,300 --> 00:23:46,640
+four mathematical operators,
+
+549
+00:23:46,940 --> 00:23:48,180
+pop, refuse, bind,
+
+550
+00:23:48,320 --> 00:23:49,780
+collapse for machine computation,
+
+551
+00:23:49,780 --> 00:23:51,920
+Flyxion suddenly pans
+
+552
+00:23:51,920 --> 00:23:52,840
+the camera back out
+
+553
+00:23:52,840 --> 00:23:53,900
+to human civilization.
+
+554
+00:23:54,540 --> 00:23:55,420
+The author maps
+
+555
+00:23:55,420 --> 00:23:56,860
+these exact same
+
+556
+00:23:56,860 --> 00:23:58,060
+four operators
+
+557
+00:23:58,060 --> 00:23:59,720
+onto the physical artifacts
+
+558
+00:23:59,720 --> 00:24:01,200
+we create in society,
+
+559
+00:24:01,780 --> 00:24:02,840
+generating what is called
+
+560
+00:24:02,840 --> 00:24:04,780
+the SpherePop note taxonomy.
+
+561
+00:24:05,120 --> 00:24:06,500
+It is a stunning convergence.
+
+562
+00:24:07,400 --> 00:24:08,160
+The assertion is that
+
+563
+00:24:08,160 --> 00:24:09,040
+the artifacts we use
+
+564
+00:24:09,040 --> 00:24:10,320
+to organize human society
+
+565
+00:24:10,320 --> 00:24:11,600
+aren't just loosely
+
+566
+00:24:11,600 --> 00:24:12,940
+analogous to computation.
+
+567
+00:24:13,360 --> 00:24:14,700
+They are literal realizations
+
+568
+00:24:14,700 --> 00:24:15,760
+of the exact same
+
+569
+00:24:15,760 --> 00:24:16,700
+four operators.
+
+570
+00:24:17,200 --> 00:24:18,240
+The paper identifies
+
+571
+00:24:18,240 --> 00:24:20,040
+seven distinct classes of notes.
+
+572
+00:24:20,120 --> 00:24:21,140
+Let's weave through these
+
+573
+00:24:21,140 --> 00:24:22,320
+because it completely changes
+
+574
+00:24:22,320 --> 00:24:23,140
+how you look at a desk
+
+575
+00:24:23,140 --> 00:24:23,680
+full of paper.
+
+576
+00:24:24,060 --> 00:24:25,420
+The first class is capture notes.
+
+577
+00:24:25,740 --> 00:24:26,540
+Capture notes map
+
+578
+00:24:26,540 --> 00:24:28,120
+directly to the refuse operator.
+
+579
+00:24:28,460 --> 00:24:29,320
+The primary examples
+
+580
+00:24:29,320 --> 00:24:30,180
+are photographs,
+
+581
+00:24:30,360 --> 00:24:31,000
+audio recordings,
+
+582
+00:24:31,180 --> 00:24:32,060
+or a scientist's
+
+583
+00:24:32,060 --> 00:24:33,200
+raw laboratory notebook.
+
+584
+00:24:33,320 --> 00:24:33,920
+What are they doing?
+
+585
+00:24:34,000 --> 00:24:35,200
+They are refusing the collapse
+
+586
+00:24:35,200 --> 00:24:36,420
+of a perceptual trajectory.
+
+587
+00:24:37,100 --> 00:24:38,260
+When you take a photograph
+
+588
+00:24:38,260 --> 00:24:39,060
+of a sunset,
+
+589
+00:24:39,480 --> 00:24:40,140
+that photograph
+
+590
+00:24:40,140 --> 00:24:41,560
+is a physical artifact
+
+591
+00:24:41,560 --> 00:24:42,080
+asserting,
+
+592
+00:24:42,720 --> 00:24:43,540
+I refuse to let
+
+593
+00:24:43,540 --> 00:24:44,940
+the infinite visual complexity
+
+594
+00:24:44,940 --> 00:24:45,960
+of the specific moment
+
+595
+00:24:45,960 --> 00:24:46,940
+in history be collapsed
+
+596
+00:24:46,940 --> 00:24:47,780
+into a vague,
+
+597
+00:24:48,140 --> 00:24:48,940
+low-resolution
+
+598
+00:24:48,940 --> 00:24:50,040
+biological memory.
+
+599
+00:24:50,400 --> 00:24:51,020
+They are anchors
+
+600
+00:24:51,020 --> 00:24:51,820
+against the decay
+
+601
+00:24:51,820 --> 00:24:52,480
+of perception.
+
+602
+00:24:52,820 --> 00:24:53,360
+I love that.
+
+603
+00:24:54,240 --> 00:24:55,360
+The second class
+
+604
+00:24:55,360 --> 00:24:56,600
+is perspective notes,
+
+605
+00:24:56,820 --> 00:24:57,340
+which maps
+
+606
+00:24:57,340 --> 00:24:58,460
+to the bind operator.
+
+607
+00:24:58,620 --> 00:24:59,680
+We touched on these earlier.
+
+608
+00:24:59,960 --> 00:25:00,480
+Calendars,
+
+609
+00:25:00,680 --> 00:25:01,760
+architectural blueprints,
+
+610
+00:25:01,940 --> 00:25:02,860
+project roadmaps,
+
+611
+00:25:03,020 --> 00:25:05,020
+they bind a present state
+
+612
+00:25:05,020 --> 00:25:06,020
+to a future action.
+
+613
+00:25:06,220 --> 00:25:06,740
+Importantly,
+
+614
+00:25:06,860 --> 00:25:07,740
+a calendar appointment
+
+615
+00:25:07,740 --> 00:25:08,780
+does not execute
+
+616
+00:25:08,780 --> 00:25:09,280
+the meeting.
+
+617
+00:25:09,440 --> 00:25:09,680
+Right.
+
+618
+00:25:09,820 --> 00:25:10,580
+That execution
+
+619
+00:25:10,580 --> 00:25:11,340
+would be a POC.
+
+620
+00:25:11,800 --> 00:25:12,360
+The calendar
+
+621
+00:25:12,360 --> 00:25:13,200
+merely records
+
+622
+00:25:13,200 --> 00:25:13,900
+the dependency
+
+623
+00:25:13,900 --> 00:25:14,920
+between today
+
+624
+00:25:14,920 --> 00:25:15,540
+and tomorrow.
+
+625
+00:25:15,540 --> 00:25:17,480
+The paper points out
+
+626
+00:25:17,480 --> 00:25:18,240
+that human-written
+
+627
+00:25:18,240 --> 00:25:18,820
+source code
+
+628
+00:25:18,820 --> 00:25:19,360
+is actually
+
+629
+00:25:19,360 --> 00:25:20,300
+a perspective note.
+
+630
+00:25:20,820 --> 00:25:21,440
+It binds
+
+631
+00:25:21,440 --> 00:25:22,900
+a future machine execution
+
+632
+00:25:22,900 --> 00:25:23,740
+to a present
+
+633
+00:25:23,740 --> 00:25:24,880
+human specification.
+
+634
+00:25:25,500 --> 00:25:26,080
+The third class
+
+635
+00:25:26,080 --> 00:25:27,220
+is repair notes.
+
+636
+00:25:27,840 --> 00:25:28,460
+These combine
+
+637
+00:25:28,460 --> 00:25:30,020
+refuse and pop.
+
+638
+00:25:30,480 --> 00:25:31,340
+Troubleshooting guides
+
+639
+00:25:31,340 --> 00:25:32,340
+and maintenance manuals
+
+640
+00:25:32,340 --> 00:25:33,320
+are the best examples.
+
+641
+00:25:33,980 --> 00:25:34,600
+A repair note
+
+642
+00:25:34,600 --> 00:25:35,760
+is a preemptive reduction
+
+643
+00:25:35,760 --> 00:25:37,200
+of reconstruction costs.
+
+644
+00:25:37,280 --> 00:25:38,020
+So it anticipates
+
+645
+00:25:38,020 --> 00:25:38,440
+a failure.
+
+646
+00:25:38,600 --> 00:25:39,160
+A refusal
+
+647
+00:25:39,160 --> 00:25:40,200
+in the real world,
+
+648
+00:25:40,340 --> 00:25:41,300
+like a printer jamming.
+
+649
+00:25:41,680 --> 00:25:42,520
+It acknowledges
+
+650
+00:25:42,520 --> 00:25:43,100
+that the system
+
+651
+00:25:43,100 --> 00:25:44,660
+has hit an inadmissible state
+
+652
+00:25:44,660 --> 00:25:45,300
+and it provides
+
+653
+00:25:45,300 --> 00:25:45,900
+a stored,
+
+654
+00:25:46,100 --> 00:25:46,860
+certified sequence
+
+655
+00:25:46,860 --> 00:25:47,460
+of POPs.
+
+656
+00:25:47,820 --> 00:25:48,320
+Step one,
+
+657
+00:25:48,580 --> 00:25:49,100
+open tray.
+
+658
+00:25:49,500 --> 00:25:49,940
+Step two,
+
+659
+00:25:50,260 --> 00:25:50,880
+remove paper.
+
+660
+00:25:51,360 --> 00:25:52,220
+This navigates
+
+661
+00:25:52,220 --> 00:25:52,800
+the user back
+
+662
+00:25:52,800 --> 00:25:54,020
+to a functional trajectory.
+
+663
+00:25:54,360 --> 00:25:54,780
+The fourth
+
+664
+00:25:54,780 --> 00:25:55,780
+is refusal notes.
+
+665
+00:25:56,080 --> 00:25:56,660
+This is the pure
+
+666
+00:25:56,660 --> 00:25:57,140
+application
+
+667
+00:25:57,140 --> 00:25:58,260
+of the refuse operator.
+
+668
+00:25:58,700 --> 00:25:59,800
+Mathematical proofs,
+
+669
+00:26:00,100 --> 00:26:01,180
+cryptographic checksums,
+
+670
+00:26:01,640 --> 00:26:02,300
+legal deeds,
+
+671
+00:26:02,660 --> 00:26:03,880
+their entire function
+
+672
+00:26:03,880 --> 00:26:04,580
+is to prevent
+
+673
+00:26:04,580 --> 00:26:05,220
+the collapse
+
+674
+00:26:05,220 --> 00:26:05,940
+of a distinction.
+
+675
+00:26:06,280 --> 00:26:07,200
+Like a math proof.
+
+676
+00:26:07,360 --> 00:26:07,700
+Yes.
+
+677
+00:26:07,700 --> 00:26:08,920
+A 50-page
+
+678
+00:26:08,920 --> 00:26:09,920
+mathematical proof
+
+679
+00:26:09,920 --> 00:26:11,180
+refuses the collapse
+
+680
+00:26:11,180 --> 00:26:11,980
+of a complex
+
+681
+00:26:11,980 --> 00:26:13,080
+logical trajectory
+
+682
+00:26:13,080 --> 00:26:14,960
+into a mere assertion.
+
+683
+00:26:15,480 --> 00:26:16,580
+You don't have to just trust
+
+684
+00:26:16,580 --> 00:26:17,580
+that a theorem is true.
+
+685
+00:26:18,260 --> 00:26:19,180
+The refusal note
+
+686
+00:26:19,180 --> 00:26:20,540
+preserves the exact
+
+687
+00:26:20,540 --> 00:26:21,780
+rigorous path
+
+688
+00:26:21,780 --> 00:26:22,340
+of truth,
+
+689
+00:26:22,660 --> 00:26:23,520
+preventing anyone
+
+690
+00:26:23,520 --> 00:26:24,060
+from taking
+
+691
+00:26:24,060 --> 00:26:24,960
+an inadmissible
+
+692
+00:26:24,960 --> 00:26:25,960
+logical shortcut
+
+693
+00:26:25,960 --> 00:26:27,080
+whether or not
+
+694
+00:26:27,080 --> 00:26:27,980
+anyone ever reads
+
+695
+00:26:27,980 --> 00:26:28,940
+the full proof again.
+
+696
+00:26:29,220 --> 00:26:29,580
+Fifth,
+
+697
+00:26:29,980 --> 00:26:31,160
+we have generative notes.
+
+698
+00:26:31,560 --> 00:26:32,220
+These correspond
+
+699
+00:26:32,220 --> 00:26:33,300
+to the POP operator.
+
+700
+00:26:33,580 --> 00:26:34,300
+Physical maps,
+
+701
+00:26:34,640 --> 00:26:35,440
+scientific theories,
+
+702
+00:26:35,600 --> 00:26:36,280
+grammar rules,
+
+703
+00:26:36,420 --> 00:26:37,300
+they open paths
+
+704
+00:26:37,300 --> 00:26:38,060
+that were previously
+
+705
+00:26:38,060 --> 00:26:39,200
+completely unreachable.
+
+706
+00:26:39,280 --> 00:26:40,480
+A map doesn't just record
+
+707
+00:26:40,480 --> 00:26:41,220
+where someone walked?
+
+708
+00:26:41,300 --> 00:26:41,580
+No,
+
+709
+00:26:41,580 --> 00:26:42,440
+it creates access
+
+710
+00:26:42,440 --> 00:26:43,680
+to entirely new
+
+711
+00:26:43,680 --> 00:26:44,380
+continuations
+
+712
+00:26:44,380 --> 00:26:45,540
+in physical possibility
+
+713
+00:26:45,540 --> 00:26:46,540
+space for anyone
+
+714
+00:26:46,540 --> 00:26:47,260
+holding them out.
+
+715
+00:26:47,600 --> 00:26:47,640
+Okay,
+
+716
+00:26:47,780 --> 00:26:48,820
+now for the sixth class.
+
+717
+00:26:49,180 --> 00:26:49,740
+This is the one
+
+718
+00:26:49,740 --> 00:26:50,600
+I really wrestled with.
+
+719
+00:26:51,020 --> 00:26:51,660
+Collapse notes.
+
+720
+00:26:52,140 --> 00:26:52,960
+Mapping directly
+
+721
+00:26:52,960 --> 00:26:54,000
+to the collapse operator.
+
+722
+00:26:54,160 --> 00:26:54,760
+The examples
+
+723
+00:26:54,760 --> 00:26:55,880
+Flyxion gives are
+
+724
+00:26:55,880 --> 00:26:56,820
+indexes in the back
+
+725
+00:26:56,820 --> 00:26:57,260
+of a book,
+
+726
+00:26:57,660 --> 00:26:58,900
+file names on a computer,
+
+727
+00:26:59,260 --> 00:27:00,560
+biological taxonomies,
+
+728
+00:27:00,680 --> 00:27:01,880
+and even human words
+
+729
+00:27:01,880 --> 00:27:02,400
+themselves.
+
+730
+00:27:02,700 --> 00:27:03,420
+This brings us
+
+731
+00:27:03,420 --> 00:27:04,560
+to the profound paradox
+
+732
+00:27:04,560 --> 00:27:05,440
+of the collapse note.
+
+733
+00:27:06,420 --> 00:27:07,440
+Every other class
+
+734
+00:27:07,440 --> 00:27:08,540
+of note we just discussed
+
+735
+00:27:08,540 --> 00:27:09,140
+is designed
+
+736
+00:27:09,140 --> 00:27:10,320
+to preserve information,
+
+737
+00:27:10,580 --> 00:27:11,380
+to preserve history,
+
+738
+00:27:11,380 --> 00:27:11,780
+Right.
+
+739
+00:27:12,040 --> 00:27:12,640
+Collapse notes,
+
+740
+00:27:12,920 --> 00:27:13,940
+mathematically speaking,
+
+741
+00:27:14,480 --> 00:27:15,740
+exist to destroy
+
+742
+00:27:15,740 --> 00:27:16,420
+information.
+
+743
+00:27:17,300 --> 00:27:18,560
+They take a complex,
+
+744
+00:27:18,840 --> 00:27:19,500
+rich history
+
+745
+00:27:19,500 --> 00:27:21,300
+and forcefully compress it
+
+746
+00:27:21,300 --> 00:27:22,060
+into a tiny,
+
+747
+00:27:22,200 --> 00:27:23,220
+degenerate representation.
+
+748
+00:27:23,780 --> 00:27:24,600
+Let's really dig
+
+749
+00:27:24,600 --> 00:27:25,420
+into this paradox
+
+750
+00:27:25,420 --> 00:27:26,580
+because the idea
+
+751
+00:27:26,580 --> 00:27:27,780
+that destroying information
+
+752
+00:27:27,780 --> 00:27:29,580
+is a necessary social good
+
+753
+00:27:29,580 --> 00:27:31,180
+is counterintuitive.
+
+754
+00:27:31,400 --> 00:27:32,020
+Very much so.
+
+755
+00:27:32,160 --> 00:27:32,360
+Right.
+
+756
+00:27:32,400 --> 00:27:33,040
+Let's say I write
+
+757
+00:27:33,040 --> 00:27:34,240
+a 500-page biography
+
+758
+00:27:34,240 --> 00:27:35,140
+of Abraham Lincoln.
+
+759
+00:27:35,260 --> 00:27:35,500
+Okay.
+
+760
+00:27:35,660 --> 00:27:36,280
+And then I give it
+
+761
+00:27:36,280 --> 00:27:36,980
+the title Lincoln.
+
+762
+00:27:37,160 --> 00:27:37,400
+Okay.
+
+763
+00:27:37,400 --> 00:27:38,560
+By summarizing
+
+764
+00:27:38,560 --> 00:27:39,680
+half a million words
+
+765
+00:27:39,680 --> 00:27:40,280
+into a single
+
+766
+00:27:40,280 --> 00:27:41,160
+seven-letter word,
+
+767
+00:27:41,500 --> 00:27:42,200
+I have engaged
+
+768
+00:27:42,200 --> 00:27:43,420
+in a massive destruction
+
+769
+00:27:43,420 --> 00:27:44,080
+of information.
+
+770
+00:27:44,320 --> 00:27:45,120
+I have thrown away
+
+771
+00:27:45,120 --> 00:27:47,380
+99.99% of the nuance.
+
+772
+00:27:47,480 --> 00:27:48,640
+But what Flyxion points out
+
+773
+00:27:48,640 --> 00:27:49,640
+is that this violence,
+
+774
+00:27:49,800 --> 00:27:50,360
+this destruction,
+
+775
+00:27:50,360 --> 00:27:51,820
+is absolutely necessary
+
+776
+00:27:51,820 --> 00:27:52,900
+to make the book reachable.
+
+777
+00:27:52,960 --> 00:27:53,300
+Exactly.
+
+778
+00:27:53,460 --> 00:27:54,320
+Let me phrase it differently.
+
+779
+00:27:54,720 --> 00:27:56,120
+The author formalizes this
+
+780
+00:27:56,120 --> 00:27:57,440
+in Theorem 13.2,
+
+781
+00:27:57,940 --> 00:27:58,500
+the necessity
+
+782
+00:27:58,500 --> 00:27:59,420
+of collapse notes.
+
+783
+00:28:00,100 --> 00:28:01,340
+Imagine a massive
+
+784
+00:28:01,340 --> 00:28:02,340
+national library
+
+785
+00:28:02,340 --> 00:28:03,980
+containing 10 million books.
+
+786
+00:28:03,980 --> 00:28:04,360
+Okay.
+
+787
+00:28:04,660 --> 00:28:05,440
+But none of the books
+
+788
+00:28:05,440 --> 00:28:06,520
+have titles on the spine.
+
+789
+00:28:06,920 --> 00:28:07,460
+None of them have
+
+790
+00:28:07,460 --> 00:28:08,220
+authors listed.
+
+791
+00:28:08,680 --> 00:28:10,320
+And there is no card catalog.
+
+792
+00:28:10,840 --> 00:28:11,580
+Sounds like a nightmare.
+
+793
+00:28:11,820 --> 00:28:13,020
+The library preserves
+
+794
+00:28:13,020 --> 00:28:14,560
+100% of the information
+
+795
+00:28:14,560 --> 00:28:15,120
+perfectly.
+
+796
+00:28:15,680 --> 00:28:16,860
+No history is lost.
+
+797
+00:28:17,700 --> 00:28:18,700
+But the search cost
+
+798
+00:28:18,700 --> 00:28:20,220
+to find a specific paragraph
+
+799
+00:28:20,220 --> 00:28:21,560
+on a specific topic
+
+800
+00:28:21,560 --> 00:28:23,620
+is so astronomically high
+
+801
+00:28:23,620 --> 00:28:24,460
+that the books
+
+802
+00:28:24,460 --> 00:28:25,860
+are effectively unreachable.
+
+803
+00:28:26,240 --> 00:28:26,980
+The information
+
+804
+00:28:26,980 --> 00:28:28,080
+might as well not exist.
+
+805
+00:28:28,400 --> 00:28:29,460
+So by destroying
+
+806
+00:28:29,460 --> 00:28:30,060
+the nuance
+
+807
+00:28:30,060 --> 00:28:31,080
+of the book's contents
+
+808
+00:28:31,080 --> 00:28:32,540
+and slapping a single
+
+809
+00:28:32,540 --> 00:28:33,720
+highly compressed
+
+810
+00:28:33,720 --> 00:28:34,480
+summary title
+
+811
+00:28:34,480 --> 00:28:35,140
+on the spine,
+
+812
+00:28:35,260 --> 00:28:36,040
+a collapse note,
+
+813
+00:28:36,200 --> 00:28:37,220
+you impose structure
+
+814
+00:28:37,220 --> 00:28:37,920
+on chaos.
+
+815
+00:28:38,100 --> 00:28:38,340
+Yes.
+
+816
+00:28:38,920 --> 00:28:39,540
+Language itself
+
+817
+00:28:39,540 --> 00:28:40,320
+operates this way.
+
+818
+00:28:40,900 --> 00:28:41,660
+The spoken word
+
+819
+00:28:41,660 --> 00:28:43,240
+tree is a collapse note.
+
+820
+00:28:43,520 --> 00:28:43,980
+How so?
+
+821
+00:28:44,340 --> 00:28:45,000
+When I say tree,
+
+822
+00:28:45,260 --> 00:28:46,080
+I am compressing
+
+823
+00:28:46,080 --> 00:28:47,040
+millions of unique
+
+824
+00:28:47,040 --> 00:28:48,840
+complex perceptual trajectories
+
+825
+00:28:48,840 --> 00:28:49,920
+of individual leaves,
+
+826
+00:28:50,300 --> 00:28:50,920
+rough bark,
+
+827
+00:28:51,360 --> 00:28:52,120
+branching patterns,
+
+828
+00:28:52,320 --> 00:28:53,100
+and shifting light
+
+829
+00:28:53,100 --> 00:28:54,340
+into one single
+
+830
+00:28:54,340 --> 00:28:56,160
+retrievable auditory token.
+
+831
+00:28:56,480 --> 00:28:57,580
+Without collapse notes
+
+832
+00:28:57,580 --> 00:28:58,900
+constantly destroying nuance
+
+833
+00:28:58,900 --> 00:29:00,380
+to create manageable symbols,
+
+834
+00:29:00,800 --> 00:29:01,540
+we wouldn't suffer
+
+835
+00:29:01,540 --> 00:29:02,580
+from a lack of facts.
+
+836
+00:29:02,960 --> 00:29:03,420
+We would suffer
+
+837
+00:29:03,420 --> 00:29:05,200
+from total navigational failure.
+
+838
+00:29:05,340 --> 00:29:06,180
+We would be paralyzed
+
+839
+00:29:06,180 --> 00:29:07,580
+by the infinite fidelity
+
+840
+00:29:07,580 --> 00:29:08,280
+of the universe.
+
+841
+00:29:08,440 --> 00:29:09,280
+Which leads perfectly
+
+842
+00:29:09,280 --> 00:29:10,500
+into the seventh aspect
+
+843
+00:29:10,500 --> 00:29:11,540
+of this taxonomy.
+
+844
+00:29:11,860 --> 00:29:12,660
+It's presented more
+
+845
+00:29:12,660 --> 00:29:13,260
+as a theorem
+
+846
+00:29:13,260 --> 00:29:14,500
+than a distinct class
+
+847
+00:29:14,500 --> 00:29:14,880
+of notes,
+
+848
+00:29:15,100 --> 00:29:16,100
+but it completely
+
+849
+00:29:16,100 --> 00:29:17,320
+shattered my perspective.
+
+850
+00:29:17,740 --> 00:29:18,940
+The ephemerality inversion.
+
+851
+00:29:19,560 --> 00:29:21,160
+Theorem 13.5.
+
+852
+00:29:21,160 --> 00:29:23,320
+It is a profound realization
+
+853
+00:29:23,320 --> 00:29:25,380
+about how we evaluate history.
+
+854
+00:29:26,060 --> 00:29:26,520
+Traditionally,
+
+855
+00:29:26,900 --> 00:29:27,700
+in archaeology,
+
+856
+00:29:27,920 --> 00:29:28,440
+in literature,
+
+857
+00:29:28,740 --> 00:29:29,480
+in history,
+
+858
+00:29:29,480 --> 00:29:31,860
+we inherently value notes
+
+859
+00:29:31,860 --> 00:29:32,540
+that survive
+
+860
+00:29:32,540 --> 00:29:33,500
+the test of time.
+
+861
+00:29:34,000 --> 00:29:35,040
+Ancient Roman manuscripts,
+
+862
+00:29:35,820 --> 00:29:37,120
+undelivered medieval letters,
+
+863
+00:29:37,740 --> 00:29:38,720
+the Dead Sea Scrolls.
+
+864
+00:29:38,760 --> 00:29:40,480
+We view their physical survival
+
+865
+00:29:40,480 --> 00:29:41,480
+across millennia
+
+866
+00:29:41,480 --> 00:29:42,840
+as the ultimate triumph
+
+867
+00:29:42,840 --> 00:29:43,900
+of information.
+
+868
+00:29:44,380 --> 00:29:45,600
+But the sphere pop theory
+
+869
+00:29:45,600 --> 00:29:46,460
+of continuations
+
+870
+00:29:46,460 --> 00:29:47,920
+argues the exact opposite.
+
+871
+00:29:48,420 --> 00:29:49,420
+It argues that
+
+872
+00:29:49,420 --> 00:29:50,440
+if a note's continuation
+
+873
+00:29:50,440 --> 00:29:51,620
+is fully completed,
+
+874
+00:29:52,060 --> 00:29:53,260
+its physical destruction
+
+875
+00:29:53,260 --> 00:29:54,560
+actually represents
+
+876
+00:29:54,560 --> 00:29:55,640
+optimal success.
+
+877
+00:29:55,820 --> 00:29:57,480
+Think back to the grocery list
+
+878
+00:29:57,480 --> 00:29:58,000
+we discussed
+
+879
+00:29:58,000 --> 00:29:58,740
+at the very beginning.
+
+880
+00:29:59,220 --> 00:29:59,940
+You write the list
+
+881
+00:29:59,940 --> 00:30:00,600
+on your fridge.
+
+882
+00:30:00,920 --> 00:30:01,840
+You drive to the store.
+
+883
+00:30:02,320 --> 00:30:03,380
+You walk down the aisles.
+
+884
+00:30:03,520 --> 00:30:04,280
+You put the milk,
+
+885
+00:30:04,480 --> 00:30:05,240
+eggs, and bread
+
+886
+00:30:05,240 --> 00:30:05,840
+in your cart.
+
+887
+00:30:06,260 --> 00:30:06,780
+You pay.
+
+888
+00:30:07,220 --> 00:30:08,200
+And as you walk out
+
+889
+00:30:08,200 --> 00:30:09,180
+the automatic doors
+
+890
+00:30:09,180 --> 00:30:10,040
+of the supermarket,
+
+891
+00:30:10,360 --> 00:30:11,860
+you take that piece of paper
+
+892
+00:30:11,860 --> 00:30:12,580
+and you throw it
+
+893
+00:30:12,580 --> 00:30:13,320
+in the trash can.
+
+894
+00:30:13,540 --> 00:30:14,680
+The destruction of that list
+
+895
+00:30:14,680 --> 00:30:15,200
+does not mean
+
+896
+00:30:15,200 --> 00:30:15,960
+the note failed.
+
+897
+00:30:16,480 --> 00:30:17,800
+It means the note succeeded
+
+898
+00:30:17,800 --> 00:30:19,140
+with absolute perfection.
+
+899
+00:30:19,400 --> 00:30:20,660
+Its continuation volume,
+
+900
+00:30:20,920 --> 00:30:22,220
+the future it was pointing toward,
+
+901
+00:30:22,460 --> 00:30:23,180
+dropped to zero
+
+902
+00:30:23,180 --> 00:30:23,960
+because that future
+
+903
+00:30:23,960 --> 00:30:24,580
+was realized.
+
+904
+00:30:25,000 --> 00:30:26,260
+It exhausted its purpose.
+
+905
+00:30:26,260 --> 00:30:27,660
+So the ephemerality inversion
+
+906
+00:30:27,660 --> 00:30:29,020
+states that the ancient notes
+
+907
+00:30:29,020 --> 00:30:30,300
+we celebrate in museums,
+
+908
+00:30:30,680 --> 00:30:31,980
+the detailed blueprints
+
+909
+00:30:31,980 --> 00:30:32,720
+for castles
+
+910
+00:30:32,720 --> 00:30:33,800
+that were never built,
+
+911
+00:30:34,400 --> 00:30:36,180
+the agonizing drafts
+
+912
+00:30:36,180 --> 00:30:36,880
+of novels
+
+913
+00:30:36,880 --> 00:30:37,980
+that were never published,
+
+914
+00:30:38,340 --> 00:30:39,320
+the desperate letters
+
+915
+00:30:39,320 --> 00:30:40,060
+that never reached
+
+916
+00:30:40,060 --> 00:30:40,660
+their recipient.
+
+917
+00:30:40,900 --> 00:30:42,440
+They only survived physically
+
+918
+00:30:42,440 --> 00:30:44,060
+because their intended futures
+
+919
+00:30:44,060 --> 00:30:45,120
+were never realized.
+
+920
+00:30:45,460 --> 00:30:45,840
+Wow.
+
+921
+00:30:46,020 --> 00:30:47,260
+They are, in fact,
+
+922
+00:30:47,420 --> 00:30:49,220
+monuments to trajectory failure.
+
+923
+00:30:49,540 --> 00:30:50,640
+They are physical evidence
+
+924
+00:30:50,640 --> 00:30:52,080
+of unrealized potential.
+
+925
+00:30:52,500 --> 00:30:53,880
+The truly successful notes
+
+926
+00:30:53,880 --> 00:30:54,480
+of antiquity,
+
+927
+00:30:54,480 --> 00:30:56,160
+the ones that perfectly facilitated
+
+928
+00:30:56,160 --> 00:30:57,540
+their intended continuations,
+
+929
+00:30:58,100 --> 00:30:59,840
+left absolutely no trace
+
+930
+00:30:59,840 --> 00:31:01,220
+in the archaeological record.
+
+931
+00:31:01,320 --> 00:31:01,560
+Right.
+
+932
+00:31:01,580 --> 00:31:02,620
+Because they were executed,
+
+933
+00:31:03,040 --> 00:31:04,360
+their futures were realized,
+
+934
+00:31:04,500 --> 00:31:05,400
+and they were discarded
+
+935
+00:31:05,400 --> 00:31:06,920
+as the creators moved forward.
+
+936
+00:31:07,080 --> 00:31:08,580
+That reframes every museum
+
+937
+00:31:08,580 --> 00:31:10,100
+I have ever walked into.
+
+938
+00:31:10,360 --> 00:31:11,320
+The exhibits are just
+
+939
+00:31:11,320 --> 00:31:11,900
+a graveyard
+
+940
+00:31:11,900 --> 00:31:13,060
+of interrupted futures.
+
+941
+00:31:13,060 --> 00:31:14,640
+It is a sobering lens
+
+942
+00:31:14,640 --> 00:31:15,580
+through which to view
+
+943
+00:31:15,580 --> 00:31:16,500
+human artifacts.
+
+944
+00:31:17,280 --> 00:31:18,060
+Let's pivot back
+
+945
+00:31:18,060 --> 00:31:19,580
+to the machine side
+
+946
+00:31:19,580 --> 00:31:20,320
+of this architecture,
+
+947
+00:31:20,700 --> 00:31:21,840
+moving into section 5
+
+948
+00:31:21,840 --> 00:31:22,460
+of the outline,
+
+949
+00:31:22,980 --> 00:31:23,860
+operational semantics
+
+950
+00:31:23,860 --> 00:31:25,060
+and the observation limit.
+
+951
+00:31:25,160 --> 00:31:25,740
+Okay, let's get back
+
+952
+00:31:25,740 --> 00:31:26,200
+to the computer.
+
+953
+00:31:26,500 --> 00:31:27,740
+Because we have this beautiful,
+
+954
+00:31:27,960 --> 00:31:28,920
+pristine theory
+
+955
+00:31:28,920 --> 00:31:30,280
+of an ever-growing history
+
+956
+00:31:30,280 --> 00:31:30,920
+of operators.
+
+957
+00:31:31,440 --> 00:31:32,580
+But as a programmer,
+
+958
+00:31:33,160 --> 00:31:35,220
+I have to push back hard here.
+
+959
+00:31:35,300 --> 00:31:36,360
+I was waiting for this.
+
+960
+00:31:36,580 --> 00:31:37,760
+If SpherePop claims
+
+961
+00:31:37,760 --> 00:31:39,440
+to fundamentally abolish state,
+
+962
+00:31:39,440 --> 00:31:40,820
+but ultimately
+
+963
+00:31:40,820 --> 00:31:41,760
+it has to output
+
+964
+00:31:41,760 --> 00:31:42,760
+a collapsed value
+
+965
+00:31:42,760 --> 00:31:43,520
+for me to look at
+
+966
+00:31:43,520 --> 00:31:44,000
+on a monitor,
+
+967
+00:31:44,320 --> 00:31:45,560
+isn't that deeply hypocritical?
+
+968
+00:31:45,680 --> 00:31:46,180
+Go on.
+
+969
+00:31:46,480 --> 00:31:47,680
+If I write a SpherePop program
+
+970
+00:31:47,680 --> 00:31:48,840
+to add 2 and 2
+
+971
+00:31:48,840 --> 00:31:50,100
+and the screen prints
+
+972
+00:31:50,100 --> 00:31:50,780
+the number 4,
+
+973
+00:31:50,960 --> 00:31:52,100
+isn't 4 just a state?
+
+974
+00:31:52,580 --> 00:31:53,240
+Aren't we just hiding
+
+975
+00:31:53,240 --> 00:31:54,940
+the exact same state illusion
+
+976
+00:31:54,940 --> 00:31:56,040
+behind a curtain
+
+977
+00:31:56,040 --> 00:31:57,260
+of complex math?
+
+978
+00:31:57,540 --> 00:31:58,720
+Plexian anticipated
+
+979
+00:31:58,720 --> 00:32:00,080
+this exact pushback.
+
+980
+00:32:00,340 --> 00:32:00,940
+In the text,
+
+981
+00:32:01,120 --> 00:32:02,560
+it is explicitly referred to
+
+982
+00:32:02,560 --> 00:32:04,280
+as the reviewer's challenge.
+
+983
+00:32:04,560 --> 00:32:05,420
+So I'm not the only one.
+
+984
+00:32:05,620 --> 00:32:06,140
+Not at all.
+
+985
+00:32:06,560 --> 00:32:07,480
+It is the most obvious
+
+986
+00:32:07,480 --> 00:32:08,640
+and necessary critique
+
+987
+00:32:08,640 --> 00:32:09,420
+of the entire page.
+
+988
+00:32:09,440 --> 00:32:11,760
+If the output looks like state,
+
+989
+00:32:11,880 --> 00:32:12,580
+acts like state,
+
+990
+00:32:12,680 --> 00:32:14,120
+and is consumed like state,
+
+991
+00:32:14,220 --> 00:32:15,100
+isn't it just state?
+
+992
+00:32:15,240 --> 00:32:15,480
+Right.
+
+993
+00:32:15,580 --> 00:32:16,980
+You can't claim to abolish something
+
+994
+00:32:16,980 --> 00:32:18,040
+and then hand it to me
+
+995
+00:32:18,040 --> 00:32:19,420
+as the final product.
+
+996
+00:32:19,540 --> 00:32:20,400
+But the author answers
+
+997
+00:32:20,400 --> 00:32:21,060
+this challenge
+
+998
+00:32:21,060 --> 00:32:22,820
+with theorem 17.2,
+
+999
+00:32:23,240 --> 00:32:24,860
+the no direct observation theorem.
+
+1000
+00:32:25,740 --> 00:32:26,560
+This theorem proves
+
+1001
+00:32:26,560 --> 00:32:27,400
+that any system
+
+1002
+00:32:27,400 --> 00:32:28,640
+that must output information
+
+1003
+00:32:28,640 --> 00:32:30,560
+into a finite observable space
+
+1004
+00:32:30,560 --> 00:32:32,600
+must generate a state illusion.
+
+1005
+00:32:33,140 --> 00:32:34,500
+It's not a bad engineering choice.
+
+1006
+00:32:34,920 --> 00:32:35,280
+No.
+
+1007
+00:32:35,420 --> 00:32:36,660
+It is an inescapable
+
+1008
+00:32:36,660 --> 00:32:38,460
+mathematical cardinality constraint.
+
+1009
+00:32:38,460 --> 00:32:40,320
+Break down the cardinality constraint for me.
+
+1010
+00:32:40,400 --> 00:32:41,060
+What does that mean
+
+1011
+00:32:41,060 --> 00:32:41,820
+in plain English?
+
+1012
+00:32:42,140 --> 00:32:42,740
+It comes down
+
+1013
+00:32:42,740 --> 00:32:43,920
+to the pigeonhole principle
+
+1014
+00:32:43,920 --> 00:32:44,660
+in mathematics.
+
+1015
+00:32:44,980 --> 00:32:46,020
+If you have 10 pigeons
+
+1016
+00:32:46,020 --> 00:32:47,000
+and 9 holes,
+
+1017
+00:32:47,160 --> 00:32:48,120
+at least 2 pigeons
+
+1018
+00:32:48,120 --> 00:32:48,980
+must share a hole.
+
+1019
+00:32:49,240 --> 00:32:49,540
+Okay.
+
+1020
+00:32:49,820 --> 00:32:50,240
+Simple enough.
+
+1021
+00:32:50,580 --> 00:32:52,500
+The space of all possible histories
+
+1022
+00:32:52,500 --> 00:32:53,820
+in a sphere pot program
+
+1023
+00:32:53,820 --> 00:32:55,400
+is infinitely large.
+
+1024
+00:32:56,040 --> 00:32:57,560
+Every microscopic operation
+
+1025
+00:32:57,560 --> 00:32:58,520
+branches the tree
+
+1026
+00:32:58,520 --> 00:32:59,440
+of history further.
+
+1027
+00:32:59,880 --> 00:33:00,700
+But the space
+
+1028
+00:33:00,700 --> 00:33:01,720
+on your computer screen,
+
+1029
+00:33:01,840 --> 00:33:02,600
+the grid of pixels,
+
+1030
+00:33:02,860 --> 00:33:04,080
+the finite memory buffer
+
+1031
+00:33:04,080 --> 00:33:05,660
+allocated to display a result
+
+1032
+00:33:05,660 --> 00:33:07,020
+is strictly limited.
+
+1033
+00:33:07,260 --> 00:33:08,460
+So you simply cannot map
+
+1034
+00:33:08,460 --> 00:33:09,380
+an infinite number
+
+1035
+00:33:09,380 --> 00:33:10,340
+of unique histories
+
+1036
+00:33:10,340 --> 00:33:11,980
+onto a finite number
+
+1037
+00:33:11,980 --> 00:33:12,860
+of display pixels
+
+1038
+00:33:12,860 --> 00:33:13,940
+without mapping
+
+1039
+00:33:13,940 --> 00:33:15,140
+multiple different histories
+
+1040
+00:33:15,140 --> 00:33:17,520
+to the exact same visual output.
+
+1041
+00:33:17,640 --> 00:33:17,960
+Exactly.
+
+1042
+00:33:18,100 --> 00:33:19,040
+So if history A
+
+1043
+00:33:19,040 --> 00:33:20,440
+adds 2 plus 2
+
+1044
+00:33:20,440 --> 00:33:21,160
+to get 4
+
+1045
+00:33:21,160 --> 00:33:22,440
+and history B
+
+1046
+00:33:22,440 --> 00:33:23,700
+subtracts 1 from 5
+
+1047
+00:33:23,700 --> 00:33:24,380
+to get 4,
+
+1048
+00:33:24,560 --> 00:33:25,640
+your finite screen
+
+1049
+00:33:25,640 --> 00:33:26,960
+just shows the pixel pattern
+
+1050
+00:33:26,960 --> 00:33:27,480
+for 4.
+
+1051
+00:33:27,920 --> 00:33:29,840
+It physically cannot display
+
+1052
+00:33:29,840 --> 00:33:30,460
+the infinite,
+
+1053
+00:33:30,860 --> 00:33:31,840
+invisible nuance
+
+1054
+00:33:31,840 --> 00:33:32,820
+of the trajectory
+
+1055
+00:33:32,820 --> 00:33:33,760
+that arrived at 4.
+
+1056
+00:33:33,760 --> 00:33:34,880
+The output medium
+
+1057
+00:33:34,880 --> 00:33:35,920
+forces a collapse.
+
+1058
+00:33:36,280 --> 00:33:36,540
+Therefore,
+
+1059
+00:33:36,860 --> 00:33:38,000
+the crucial distinction
+
+1060
+00:33:38,000 --> 00:33:38,980
+Flyxion introduces
+
+1061
+00:33:38,980 --> 00:33:39,720
+is the difference
+
+1062
+00:33:39,720 --> 00:33:40,620
+between state erasure
+
+1063
+00:33:40,620 --> 00:33:41,860
+and state illusion.
+
+1064
+00:33:42,360 --> 00:33:42,620
+Yes.
+
+1065
+00:33:42,920 --> 00:33:43,700
+And this is key.
+
+1066
+00:33:44,200 --> 00:33:45,860
+Traditional computer architectures
+
+1067
+00:33:45,860 --> 00:33:46,940
+like the von Neumann
+
+1068
+00:33:46,940 --> 00:33:48,160
+architecture we use today
+
+1069
+00:33:48,160 --> 00:33:49,900
+suffer from state erasure.
+
+1070
+00:33:50,280 --> 00:33:51,200
+They compute the 4,
+
+1071
+00:33:51,400 --> 00:33:52,380
+they write it to memory,
+
+1072
+00:33:52,600 --> 00:33:53,660
+and they permanently
+
+1073
+00:33:53,660 --> 00:33:54,820
+physically delete
+
+1074
+00:33:54,820 --> 00:33:56,500
+the history of the 2 plus 2
+
+1075
+00:33:56,500 --> 00:33:57,700
+or the 5 minus 1.
+
+1076
+00:33:57,840 --> 00:33:58,760
+But sphere pop
+
+1077
+00:33:58,760 --> 00:34:00,840
+eliminates state erasure.
+
+1078
+00:34:01,220 --> 00:34:02,280
+The underlying history
+
+1079
+00:34:02,280 --> 00:34:03,680
+is always perfectly preserved
+
+1080
+00:34:03,680 --> 00:34:05,180
+and mathematically accessible
+
+1081
+00:34:05,180 --> 00:34:06,300
+within the deep system.
+
+1082
+00:34:06,780 --> 00:34:07,860
+But sphere pop cannot
+
+1083
+00:34:07,860 --> 00:34:09,700
+eliminate the state illusion
+
+1084
+00:34:09,700 --> 00:34:11,280
+because for a human being
+
+1085
+00:34:11,280 --> 00:34:12,640
+to actually look at the result,
+
+1086
+00:34:13,000 --> 00:34:14,020
+we still have to look through
+
+1087
+00:34:14,020 --> 00:34:15,700
+a finite, degenerate lens.
+
+1088
+00:34:16,300 --> 00:34:17,540
+We are forced to use
+
+1089
+00:34:17,540 --> 00:34:18,600
+the collapse operator.
+
+1090
+00:34:18,760 --> 00:34:19,880
+So an observable state
+
+1091
+00:34:19,880 --> 00:34:20,980
+isn't a physical thing
+
+1092
+00:34:20,980 --> 00:34:21,880
+sitting on a hard drive.
+
+1093
+00:34:22,260 --> 00:34:23,980
+State is just an equivalence class.
+
+1094
+00:34:24,220 --> 00:34:25,260
+It's a temporary filter
+
+1095
+00:34:25,260 --> 00:34:26,560
+applied over the history.
+
+1096
+00:34:26,880 --> 00:34:27,960
+And the source details
+
+1097
+00:34:27,960 --> 00:34:29,580
+four canonical collapse rules,
+
+1098
+00:34:29,780 --> 00:34:30,640
+four different lenses
+
+1099
+00:34:30,640 --> 00:34:31,380
+that you can choose
+
+1100
+00:34:31,380 --> 00:34:31,920
+to look through.
+
+1101
+00:34:31,920 --> 00:34:32,820
+The system allows
+
+1102
+00:34:32,820 --> 00:34:33,320
+a programmer
+
+1103
+00:34:33,320 --> 00:34:34,560
+to explicitly choose
+
+1104
+00:34:34,560 --> 00:34:35,240
+how the history
+
+1105
+00:34:35,240 --> 00:34:35,900
+has collapsed
+
+1106
+00:34:35,900 --> 00:34:36,780
+for observation.
+
+1107
+00:34:37,580 --> 00:34:38,640
+The four primary lenses
+
+1108
+00:34:38,640 --> 00:34:39,480
+are identity,
+
+1109
+00:34:39,980 --> 00:34:40,500
+last write,
+
+1110
+00:34:40,900 --> 00:34:41,300
+accumulate,
+
+1111
+00:34:41,740 --> 00:34:42,340
+and projection.
+
+1112
+00:34:42,740 --> 00:34:43,620
+Let's ground these.
+
+1113
+00:34:44,160 --> 00:34:44,820
+Imagine I have
+
+1114
+00:34:44,820 --> 00:34:46,020
+a bank account ledger.
+
+1115
+00:34:46,260 --> 00:34:47,060
+I deposit $10,
+
+1116
+00:34:47,520 --> 00:34:48,400
+I withdraw $5,
+
+1117
+00:34:48,800 --> 00:34:49,620
+I deposit $20.
+
+1118
+00:34:50,440 --> 00:34:52,020
+How do these four lenses
+
+1119
+00:34:52,020 --> 00:34:53,280
+change what I see?
+
+1120
+00:34:53,600 --> 00:34:54,140
+Let's start
+
+1121
+00:34:54,140 --> 00:34:55,100
+with the identity rule.
+
+1122
+00:34:55,740 --> 00:34:56,740
+It is the finest,
+
+1123
+00:34:56,960 --> 00:34:58,160
+most transparent lens.
+
+1124
+00:34:58,640 --> 00:34:59,420
+It simply says,
+
+1125
+00:34:59,740 --> 00:35:00,780
+show me everything.
+
+1126
+00:35:00,780 --> 00:35:01,800
+If you apply
+
+1127
+00:35:01,800 --> 00:35:02,820
+the identity collapse
+
+1128
+00:35:02,820 --> 00:35:03,740
+to your bank account,
+
+1129
+00:35:04,180 --> 00:35:05,040
+the output is
+
+1130
+00:35:05,040 --> 00:35:05,540
+the raw,
+
+1131
+00:35:05,700 --> 00:35:06,800
+unadulterated history.
+
+1132
+00:35:07,300 --> 00:35:08,400
+The exact sequence
+
+1133
+00:35:08,400 --> 00:35:09,720
+of the $10 deposit,
+
+1134
+00:35:10,000 --> 00:35:11,180
+the $5 withdrawal,
+
+1135
+00:35:11,400 --> 00:35:12,740
+and the $20 deposit,
+
+1136
+00:35:13,100 --> 00:35:14,840
+with all their timestamps
+
+1137
+00:35:14,840 --> 00:35:16,560
+and cryptographic proofs attached.
+
+1138
+00:35:16,800 --> 00:35:17,960
+Which is great for an audit,
+
+1139
+00:35:18,200 --> 00:35:19,940
+but probably way too overwhelming
+
+1140
+00:35:19,940 --> 00:35:20,680
+for just checking
+
+1141
+00:35:20,680 --> 00:35:21,780
+my balance at an ATM.
+
+1142
+00:35:22,020 --> 00:35:22,920
+Exactly the problem.
+
+1143
+00:35:23,300 --> 00:35:24,080
+The second lens
+
+1144
+00:35:24,080 --> 00:35:25,120
+is the last write rule.
+
+1145
+00:35:25,560 --> 00:35:27,060
+This mimics the traditional state
+
+1146
+00:35:27,060 --> 00:35:27,760
+we are used to
+
+1147
+00:35:27,760 --> 00:35:28,900
+in everyday programming.
+
+1148
+00:35:28,900 --> 00:35:30,660
+It forcefully collapses
+
+1149
+00:35:30,660 --> 00:35:31,420
+the history down
+
+1150
+00:35:31,420 --> 00:35:32,440
+to only the most recent
+
+1151
+00:35:32,440 --> 00:35:33,000
+pop event
+
+1152
+00:35:33,000 --> 00:35:34,000
+for a given symbol.
+
+1153
+00:35:34,400 --> 00:35:35,740
+So if a variable changed
+
+1154
+00:35:35,740 --> 00:35:37,160
+from 1 to 2 to 3,
+
+1155
+00:35:37,580 --> 00:35:38,740
+the last write lens
+
+1156
+00:35:38,740 --> 00:35:39,920
+only shows you the 3.
+
+1157
+00:35:40,280 --> 00:35:41,740
+It hides the journey entirely.
+
+1158
+00:35:42,000 --> 00:35:42,920
+But the crucial difference
+
+1159
+00:35:42,920 --> 00:35:43,640
+is that the journey
+
+1160
+00:35:43,640 --> 00:35:45,060
+is still safely hidden underneath,
+
+1161
+00:35:45,400 --> 00:35:45,620
+right?
+
+1162
+00:35:45,900 --> 00:35:47,180
+The system hasn't deleted
+
+1163
+00:35:47,180 --> 00:35:48,040
+the 1 and the 2,
+
+1164
+00:35:48,120 --> 00:35:48,720
+you've just chosen
+
+1165
+00:35:48,720 --> 00:35:49,500
+to filter them
+
+1166
+00:35:49,500 --> 00:35:50,420
+out of your current view.
+
+1167
+00:35:50,660 --> 00:35:52,080
+That is the defining distinction.
+
+1168
+00:35:52,580 --> 00:35:53,560
+The third lens
+
+1169
+00:35:53,560 --> 00:35:54,740
+is the accumulate rule.
+
+1170
+00:35:55,220 --> 00:35:56,280
+This maps a symbol
+
+1171
+00:35:56,280 --> 00:35:57,880
+to a mathematical reduction
+
+1172
+00:35:57,880 --> 00:35:58,860
+of its events.
+
+1173
+00:35:59,100 --> 00:36:00,340
+In your bank account example,
+
+1174
+00:36:00,560 --> 00:36:01,560
+the accumulate lens
+
+1175
+00:36:01,560 --> 00:36:02,720
+would take the plus 10,
+
+1176
+00:36:02,880 --> 00:36:03,580
+the minus 5,
+
+1177
+00:36:03,600 --> 00:36:04,360
+and the plus 20,
+
+1178
+00:36:04,760 --> 00:36:06,040
+run a summation function,
+
+1179
+00:36:06,500 --> 00:36:07,860
+and output the final balance
+
+1180
+00:36:07,860 --> 00:36:08,440
+of $25.
+
+1181
+00:36:08,880 --> 00:36:09,760
+And the fourth lens,
+
+1182
+00:36:10,180 --> 00:36:11,080
+the projection rule.
+
+1183
+00:36:11,280 --> 00:36:12,200
+The projection lens
+
+1184
+00:36:12,200 --> 00:36:13,200
+filters the history
+
+1185
+00:36:13,200 --> 00:36:14,700
+based on specific metadata
+
+1186
+00:36:14,700 --> 00:36:15,600
+or tags.
+
+1187
+00:36:16,060 --> 00:36:17,120
+It might only show events
+
+1188
+00:36:17,120 --> 00:36:17,580
+that match
+
+1189
+00:36:17,580 --> 00:36:19,200
+a specific security clearance
+
+1190
+00:36:19,200 --> 00:36:20,640
+or events generated
+
+1191
+00:36:20,640 --> 00:36:21,800
+by a specific user.
+
+1192
+00:36:22,000 --> 00:36:23,040
+The grand takeaway here
+
+1193
+00:36:23,040 --> 00:36:23,700
+is that state
+
+1194
+00:36:23,700 --> 00:36:25,360
+is never a fundamental reality.
+
+1195
+00:36:26,200 --> 00:36:27,220
+State depends entirely
+
+1196
+00:36:27,220 --> 00:36:27,900
+on which of these
+
+1197
+00:36:27,900 --> 00:36:28,820
+mathematical lenses
+
+1198
+00:36:28,820 --> 00:36:30,220
+you choose to bolt
+
+1199
+00:36:30,220 --> 00:36:30,880
+onto the front
+
+1200
+00:36:30,880 --> 00:36:31,500
+of your history.
+
+1201
+00:36:31,740 --> 00:36:32,960
+Beautifully summarized.
+
+1202
+00:36:33,100 --> 00:36:34,140
+Okay, this brings up
+
+1203
+00:36:34,140 --> 00:36:35,440
+a massive structural question
+
+1204
+00:36:35,440 --> 00:36:36,620
+moving into section 6
+
+1205
+00:36:36,620 --> 00:36:37,280
+on type theory.
+
+1206
+00:36:37,860 --> 00:36:39,340
+If state is just a lens
+
+1207
+00:36:39,340 --> 00:36:40,440
+and underneath it
+
+1208
+00:36:40,440 --> 00:36:41,800
+is this massive chaotic
+
+1209
+00:36:41,800 --> 00:36:42,700
+ocean of history,
+
+1210
+00:36:43,320 --> 00:36:44,200
+how do we ensure
+
+1211
+00:36:44,200 --> 00:36:45,040
+that these collapses
+
+1212
+00:36:45,040 --> 00:36:46,040
+don't just output
+
+1213
+00:36:46,040 --> 00:36:46,920
+total garbage?
+
+1214
+00:36:47,260 --> 00:36:48,160
+To maintain order,
+
+1215
+00:36:48,280 --> 00:36:49,320
+the system needs rules.
+
+1216
+00:36:50,140 --> 00:36:51,580
+But types in SpherePop,
+
+1217
+00:36:51,580 --> 00:36:52,360
+the way the system
+
+1218
+00:36:52,360 --> 00:36:53,340
+categorizes data
+
+1219
+00:36:53,340 --> 00:36:54,920
+are fundamentally different
+
+1220
+00:36:54,920 --> 00:36:56,160
+from types in normal languages
+
+1221
+00:36:56,160 --> 00:36:57,560
+like Python or Java.
+
+1222
+00:36:58,040 --> 00:36:58,920
+In traditional languages,
+
+1223
+00:36:59,120 --> 00:37:00,620
+a type like an integer,
+
+1224
+00:37:01,120 --> 00:37:02,460
+a boolean, or a string
+
+1225
+00:37:02,460 --> 00:37:03,700
+is just a definition
+
+1226
+00:37:03,700 --> 00:37:05,640
+of a set of admissible values.
+
+1227
+00:37:06,280 --> 00:37:07,860
+If you declare a variable
+
+1228
+00:37:07,860 --> 00:37:08,540
+as an integer,
+
+1229
+00:37:09,140 --> 00:37:10,220
+the compiler ensures
+
+1230
+00:37:10,220 --> 00:37:11,500
+it holds a 1
+
+1231
+00:37:11,500 --> 00:37:12,960
+or a 5 or 100
+
+1232
+00:37:12,960 --> 00:37:14,700
+but not the word apple.
+
+1233
+00:37:14,820 --> 00:37:16,400
+That is a value set type system.
+
+1234
+00:37:16,500 --> 00:37:17,640
+But in a history primary
+
+1235
+00:37:17,640 --> 00:37:19,240
+architecture like SpherePop,
+
+1236
+00:37:19,240 --> 00:37:21,100
+merely verifying
+
+1237
+00:37:21,100 --> 00:37:22,140
+the final value
+
+1238
+00:37:22,140 --> 00:37:23,600
+is completely insufficient.
+
+1239
+00:37:24,300 --> 00:37:25,060
+Why is it insufficient?
+
+1240
+00:37:25,220 --> 00:37:26,060
+I mean, if it's a number,
+
+1241
+00:37:26,240 --> 00:37:26,700
+it's a number.
+
+1242
+00:37:26,820 --> 00:37:28,600
+Because a value in SpherePop
+
+1243
+00:37:28,600 --> 00:37:30,360
+does not exist in a vacuum.
+
+1244
+00:37:30,640 --> 00:37:31,940
+It is the terminal point
+
+1245
+00:37:31,940 --> 00:37:33,540
+of a specific path
+
+1246
+00:37:33,540 --> 00:37:34,300
+through history.
+
+1247
+00:37:34,900 --> 00:37:36,260
+So a type in SpherePop
+
+1248
+00:37:36,260 --> 00:37:37,460
+is not just a label,
+
+1249
+00:37:37,780 --> 00:37:39,820
+it is an admissibility certificate.
+
+1250
+00:37:40,060 --> 00:37:40,980
+An admissibility certificate?
+
+1251
+00:37:41,000 --> 00:37:42,200
+A value of type T
+
+1252
+00:37:42,200 --> 00:37:45,260
+is a formal cryptographic proof
+
+1253
+00:37:45,260 --> 00:37:46,720
+that the historical path
+
+1254
+00:37:46,720 --> 00:37:47,580
+taken to arrive
+
+1255
+00:37:47,580 --> 00:37:48,840
+at this specific value
+
+1256
+00:37:48,840 --> 00:37:50,040
+did not violate
+
+1257
+00:37:50,040 --> 00:37:51,280
+any system constraints
+
+1258
+00:37:51,280 --> 00:37:51,940
+along the way.
+
+1259
+00:37:52,240 --> 00:37:53,300
+The type certifies
+
+1260
+00:37:53,300 --> 00:37:54,740
+the legitimacy of the journey,
+
+1261
+00:37:54,960 --> 00:37:55,880
+not just the shape
+
+1262
+00:37:55,880 --> 00:37:56,700
+of the destination.
+
+1263
+00:37:56,940 --> 00:37:57,440
+Let me see if I can
+
+1264
+00:37:57,440 --> 00:37:58,000
+translate that.
+
+1265
+00:37:58,280 --> 00:37:58,900
+If I have a variable
+
+1266
+00:37:58,900 --> 00:37:59,860
+in a traditional program
+
+1267
+00:37:59,860 --> 00:38:01,320
+that represents a password file,
+
+1268
+00:38:01,440 --> 00:38:02,140
+the type just says
+
+1269
+00:38:02,140 --> 00:38:03,260
+this is a string of text.
+
+1270
+00:38:03,600 --> 00:38:04,740
+But in SpherePop,
+
+1271
+00:38:05,220 --> 00:38:06,340
+the type doesn't just say
+
+1272
+00:38:06,340 --> 00:38:07,220
+this is text.
+
+1273
+00:38:07,380 --> 00:38:09,220
+The type is a historical passport.
+
+1274
+00:38:09,780 --> 00:38:11,220
+It says this is text
+
+1275
+00:38:11,220 --> 00:38:13,020
+and here is the mathematical proof
+
+1276
+00:38:13,020 --> 00:38:14,900
+that you had administrator permissions
+
+1277
+00:38:14,900 --> 00:38:15,900
+when you asked for it.
+
+1278
+00:38:15,900 --> 00:38:16,800
+Here's the proof
+
+1279
+00:38:16,800 --> 00:38:17,960
+the file actually existed
+
+1280
+00:38:17,960 --> 00:38:18,640
+on the drive
+
+1281
+00:38:18,640 --> 00:38:19,780
+and here's the proof
+
+1282
+00:38:19,780 --> 00:38:20,760
+that the read operation
+
+1283
+00:38:20,760 --> 00:38:22,180
+completed without corruption.
+
+1284
+00:38:22,920 --> 00:38:24,440
+That is a brilliant translation.
+
+1285
+00:38:25,200 --> 00:38:26,200
+The type is a passport
+
+1286
+00:38:26,200 --> 00:38:27,920
+covered in verified stamps.
+
+1287
+00:38:28,420 --> 00:38:29,980
+And this heavy reliance
+
+1288
+00:38:29,980 --> 00:38:31,020
+on historical proof
+
+1289
+00:38:31,020 --> 00:38:32,240
+leads to one of the most
+
+1290
+00:38:32,240 --> 00:38:33,420
+fascinating tangents
+
+1291
+00:38:33,420 --> 00:38:34,340
+in the monograph.
+
+1292
+00:38:34,540 --> 00:38:35,400
+Oh, about the interpreter.
+
+1293
+00:38:35,680 --> 00:38:36,120
+Yes.
+
+1294
+00:38:36,580 --> 00:38:37,360
+The author details
+
+1295
+00:38:37,360 --> 00:38:38,480
+a specific conflict
+
+1296
+00:38:38,480 --> 00:38:39,140
+they encountered
+
+1297
+00:38:39,140 --> 00:38:39,940
+while building
+
+1298
+00:38:39,940 --> 00:38:41,060
+the SpherePop interpreter,
+
+1299
+00:38:41,620 --> 00:38:42,400
+a conflict between
+
+1300
+00:38:42,400 --> 00:38:43,360
+the interpreter engine
+
+1301
+00:38:43,360 --> 00:38:44,300
+and the type checker
+
+1302
+00:38:44,300 --> 00:38:45,800
+regarding free variables.
+
+1303
+00:38:46,140 --> 00:38:47,100
+Yeah, I flagged that section.
+
+1304
+00:38:47,200 --> 00:38:47,700
+It sounded like
+
+1305
+00:38:47,700 --> 00:38:48,980
+they ran into a nasty bug
+
+1306
+00:38:48,980 --> 00:38:49,780
+and ended up turning it
+
+1307
+00:38:49,780 --> 00:38:50,580
+into a profound
+
+1308
+00:38:50,580 --> 00:38:51,620
+philosophical feature.
+
+1309
+00:38:52,080 --> 00:38:53,380
+What exactly was the conflict?
+
+1310
+00:38:53,680 --> 00:38:54,320
+It comes down
+
+1311
+00:38:54,320 --> 00:38:56,480
+to a deep epistemological choice
+
+1312
+00:38:56,480 --> 00:38:57,340
+regarding open
+
+1313
+00:38:57,340 --> 00:38:58,540
+versus closed worlds.
+
+1314
+00:38:58,940 --> 00:38:59,940
+When the type checker
+
+1315
+00:38:59,940 --> 00:39:00,940
+is scanning the code
+
+1316
+00:39:00,940 --> 00:39:01,860
+and it encounters
+
+1317
+00:39:01,860 --> 00:39:03,060
+a variable or a symbol
+
+1318
+00:39:03,060 --> 00:39:03,820
+that has never been
+
+1319
+00:39:03,820 --> 00:39:04,600
+declared before,
+
+1320
+00:39:04,720 --> 00:39:05,780
+a free variable,
+
+1321
+00:39:06,000 --> 00:39:06,700
+what should it do?
+
+1322
+00:39:07,000 --> 00:39:08,180
+Well, in my experience,
+
+1323
+00:39:08,460 --> 00:39:09,660
+the compiler immediately
+
+1324
+00:39:09,660 --> 00:39:10,620
+throws a red error
+
+1325
+00:39:10,620 --> 00:39:11,340
+and stops,
+
+1326
+00:39:12,000 --> 00:39:13,080
+variable undefined.
+
+1327
+00:39:13,420 --> 00:39:14,740
+That reaction is based
+
+1328
+00:39:14,740 --> 00:39:16,220
+on a closed world assumption.
+
+1329
+00:39:16,960 --> 00:39:18,320
+A closed world assumes
+
+1330
+00:39:18,320 --> 00:39:19,060
+that the compiler
+
+1331
+00:39:19,060 --> 00:39:20,160
+possesses complete,
+
+1332
+00:39:20,420 --> 00:39:21,120
+total knowledge
+
+1333
+00:39:21,120 --> 00:39:21,700
+of the universe.
+
+1334
+00:39:22,540 --> 00:39:23,540
+If the system
+
+1335
+00:39:23,540 --> 00:39:24,640
+doesn't know about something,
+
+1336
+00:39:24,960 --> 00:39:26,180
+it concludes that the thing
+
+1337
+00:39:26,180 --> 00:39:27,980
+fundamentally does not exist.
+
+1338
+00:39:28,680 --> 00:39:30,460
+Therefore, referencing it
+
+1339
+00:39:30,460 --> 00:39:31,300
+is an illegal,
+
+1340
+00:39:31,560 --> 00:39:32,720
+inadmissible act.
+
+1341
+00:39:32,980 --> 00:39:34,260
+But an open world context
+
+1342
+00:39:34,260 --> 00:39:34,900
+is different.
+
+1343
+00:39:35,120 --> 00:39:36,440
+An open world context
+
+1344
+00:39:36,440 --> 00:39:38,080
+assumes partial knowledge.
+
+1345
+00:39:38,480 --> 00:39:39,620
+It acknowledges that
+
+1346
+00:39:39,620 --> 00:39:40,620
+the system is embedded
+
+1347
+00:39:40,620 --> 00:39:41,420
+in a larger,
+
+1348
+00:39:41,620 --> 00:39:42,880
+unpredictable universe.
+
+1349
+00:39:43,500 --> 00:39:44,940
+Under an open world assumption,
+
+1350
+00:39:45,420 --> 00:39:46,680
+the absence of a declaration
+
+1351
+00:39:46,680 --> 00:39:47,260
+doesn't mean
+
+1352
+00:39:47,260 --> 00:39:48,160
+this doesn't exist.
+
+1353
+00:39:48,540 --> 00:39:49,180
+It just means
+
+1354
+00:39:49,180 --> 00:39:50,920
+this is an undecided possibility.
+
+1355
+00:39:51,240 --> 00:39:51,900
+Let me try to build
+
+1356
+00:39:51,900 --> 00:39:52,880
+an analogy for this.
+
+1357
+00:39:53,140 --> 00:39:53,740
+It's the difference
+
+1358
+00:39:53,740 --> 00:39:54,500
+between ordering
+
+1359
+00:39:54,500 --> 00:39:55,420
+in a strict restaurant
+
+1360
+00:39:55,420 --> 00:39:56,180
+versus hosting
+
+1361
+00:39:56,180 --> 00:39:57,200
+a neighborhood potluck.
+
+1362
+00:39:57,400 --> 00:39:58,280
+Oh, I like this.
+
+1363
+00:39:58,420 --> 00:39:59,420
+If I am at a restaurant
+
+1364
+00:39:59,420 --> 00:40:00,500
+with a closed world menu
+
+1365
+00:40:00,500 --> 00:40:01,760
+and I try to order a taco,
+
+1366
+00:40:01,980 --> 00:40:02,620
+but tacos aren't
+
+1367
+00:40:02,620 --> 00:40:03,500
+on the printed menu,
+
+1368
+00:40:04,120 --> 00:40:04,820
+the waiter says,
+
+1369
+00:40:05,000 --> 00:40:06,560
+error, item, undefined.
+
+1370
+00:40:06,660 --> 00:40:07,800
+You cannot order that.
+
+1371
+00:40:07,800 --> 00:40:08,800
+The menu is
+
+1372
+00:40:08,800 --> 00:40:09,820
+the entire universe.
+
+1373
+00:40:10,320 --> 00:40:11,360
+But if I am hosting
+
+1374
+00:40:11,360 --> 00:40:12,700
+an open world potluck
+
+1375
+00:40:12,700 --> 00:40:14,400
+and someone walks in
+
+1376
+00:40:14,400 --> 00:40:15,120
+carrying a dish
+
+1377
+00:40:15,120 --> 00:40:16,140
+I've never seen before,
+
+1378
+00:40:16,380 --> 00:40:17,420
+I don't throw an error
+
+1379
+00:40:17,420 --> 00:40:18,220
+and kick them out.
+
+1380
+00:40:18,720 --> 00:40:20,000
+The absence of the dish
+
+1381
+00:40:20,000 --> 00:40:21,040
+from my initial plan
+
+1382
+00:40:21,040 --> 00:40:22,360
+just means my knowledge
+
+1383
+00:40:22,360 --> 00:40:23,120
+was incomplete.
+
+1384
+00:40:23,980 --> 00:40:25,200
+I accept the new dish
+
+1385
+00:40:25,200 --> 00:40:27,060
+as an undecided possibility
+
+1386
+00:40:27,060 --> 00:40:27,980
+entering the system.
+
+1387
+00:40:28,260 --> 00:40:28,960
+That captures
+
+1388
+00:40:28,960 --> 00:40:30,220
+the epistemological divide
+
+1389
+00:40:30,220 --> 00:40:30,760
+perfectly.
+
+1390
+00:40:31,300 --> 00:40:31,880
+Sphere Pop
+
+1391
+00:40:31,880 --> 00:40:33,020
+forces the programmer
+
+1392
+00:40:33,020 --> 00:40:34,560
+to explicitly declare
+
+1393
+00:40:34,560 --> 00:40:35,760
+which world boundary
+
+1394
+00:40:35,760 --> 00:40:36,480
+is in force.
+
+1395
+00:40:36,480 --> 00:40:37,500
+You have to tell
+
+1396
+00:40:37,500 --> 00:40:38,020
+the compiler
+
+1397
+00:40:38,020 --> 00:40:39,020
+whether it is operating
+
+1398
+00:40:39,020 --> 00:40:39,860
+in a closed,
+
+1399
+00:40:40,040 --> 00:40:41,220
+strictly controlled restaurant
+
+1400
+00:40:41,220 --> 00:40:42,480
+or an open,
+
+1401
+00:40:42,640 --> 00:40:43,720
+dynamic potluck.
+
+1402
+00:40:43,960 --> 00:40:44,680
+And this fundamentally
+
+1403
+00:40:44,680 --> 00:40:46,000
+ties into how the system
+
+1404
+00:40:46,000 --> 00:40:47,420
+handles errors natively
+
+1405
+00:40:47,420 --> 00:40:48,520
+through a mechanism
+
+1406
+00:40:48,520 --> 00:40:50,020
+called proof-carrying refusal.
+
+1407
+00:40:50,240 --> 00:40:51,220
+We talked about refusal
+
+1408
+00:40:51,220 --> 00:40:52,780
+earlier as documenting
+
+1409
+00:40:52,780 --> 00:40:54,260
+a tiger behind a door.
+
+1410
+00:40:54,820 --> 00:40:55,640
+How does proof-carrying
+
+1411
+00:40:55,640 --> 00:40:56,440
+refusal work
+
+1412
+00:40:56,440 --> 00:40:58,340
+when code actually breaks?
+
+1413
+00:40:58,620 --> 00:40:59,740
+In a standard program
+
+1414
+00:40:59,740 --> 00:41:01,240
+when a fatal error occurs,
+
+1415
+00:41:01,400 --> 00:41:02,940
+say, trying to divide by zero,
+
+1416
+00:41:03,320 --> 00:41:04,560
+the program either crashes
+
+1417
+00:41:04,560 --> 00:41:06,480
+silently or it throws an exception
+
+1418
+00:41:06,480 --> 00:41:07,720
+that unwinds and destroys
+
+1419
+00:41:07,720 --> 00:41:08,540
+the stacked race.
+
+1420
+00:41:08,960 --> 00:41:09,560
+In Sphere Pop,
+
+1421
+00:41:09,860 --> 00:41:10,740
+the inadmissibility
+
+1422
+00:41:10,740 --> 00:41:11,560
+is carried forward
+
+1423
+00:41:11,560 --> 00:41:12,260
+into the future
+
+1424
+00:41:12,260 --> 00:41:13,420
+as a formal proof.
+
+1425
+00:41:13,940 --> 00:41:15,000
+When the error occurs,
+
+1426
+00:41:15,120 --> 00:41:15,640
+it is recorded
+
+1427
+00:41:15,640 --> 00:41:16,740
+as a refuse event.
+
+1428
+00:41:17,200 --> 00:41:17,940
+But this event
+
+1429
+00:41:17,940 --> 00:41:18,780
+isn't a crash.
+
+1430
+00:41:19,040 --> 00:41:19,760
+The error itself
+
+1431
+00:41:19,760 --> 00:41:21,320
+becomes a first-class piece
+
+1432
+00:41:21,320 --> 00:41:22,740
+of type-level information.
+
+1433
+00:41:23,280 --> 00:41:24,540
+It carries the cryptographic
+
+1434
+00:41:24,540 --> 00:41:26,160
+evidence of its own failure.
+
+1435
+00:41:26,640 --> 00:41:27,900
+So the system doesn't stop.
+
+1436
+00:41:28,440 --> 00:41:29,180
+It just holds up
+
+1437
+00:41:29,180 --> 00:41:30,240
+a mathematical certificate
+
+1438
+00:41:30,240 --> 00:41:30,820
+that says,
+
+1439
+00:41:31,260 --> 00:41:32,160
+I tried to do this
+
+1440
+00:41:32,160 --> 00:41:33,240
+and here's exactly
+
+1441
+00:41:33,240 --> 00:41:33,900
+why it broke,
+
+1442
+00:41:34,300 --> 00:41:35,320
+but what if I want
+
+1443
+00:41:35,320 --> 00:41:36,080
+to write code
+
+1444
+00:41:36,080 --> 00:41:37,080
+to fix that error?
+
+1445
+00:41:37,700 --> 00:41:38,600
+Handling an error
+
+1446
+00:41:38,600 --> 00:41:39,520
+in this architecture
+
+1447
+00:41:39,520 --> 00:41:40,640
+requires you to generate
+
+1448
+00:41:40,640 --> 00:41:41,760
+a recovery certificate.
+
+1449
+00:41:42,220 --> 00:41:43,000
+It is essentially
+
+1450
+00:41:43,000 --> 00:41:44,460
+the computational equivalent
+
+1451
+00:41:44,460 --> 00:41:45,640
+of a repair note
+
+1452
+00:41:45,640 --> 00:41:46,360
+from the taxonomy
+
+1453
+00:41:46,360 --> 00:41:47,000
+we discussed.
+
+1454
+00:41:47,260 --> 00:41:48,140
+A recovery certificate
+
+1455
+00:41:48,140 --> 00:41:49,480
+is a mathematical proof
+
+1456
+00:41:49,480 --> 00:41:50,820
+that formally transforms
+
+1457
+00:41:50,820 --> 00:41:52,860
+the documented inadmissibility,
+
+1458
+00:41:53,080 --> 00:41:53,900
+the error state,
+
+1459
+00:41:54,340 --> 00:41:55,120
+into a valid
+
+1460
+00:41:55,120 --> 00:41:56,400
+admissible continuation.
+
+1461
+00:41:57,000 --> 00:41:58,240
+You aren't just using
+
+1462
+00:41:58,240 --> 00:41:59,220
+a try-catch block
+
+1463
+00:41:59,220 --> 00:42:00,100
+to sweep the crash
+
+1464
+00:42:00,100 --> 00:42:00,660
+under the rug.
+
+1465
+00:42:00,820 --> 00:42:01,440
+You are appending
+
+1466
+00:42:01,440 --> 00:42:02,560
+a certified patch
+
+1467
+00:42:02,560 --> 00:42:04,080
+to the permanent history log
+
+1468
+00:42:04,080 --> 00:42:05,800
+showing exactly what broke
+
+1469
+00:42:05,800 --> 00:42:07,340
+and mathematically proving
+
+1470
+00:42:07,340 --> 00:42:08,240
+how your new code
+
+1471
+00:42:08,240 --> 00:42:09,840
+safely bypasses the failure.
+
+1472
+00:42:10,240 --> 00:42:11,840
+This sounds incredibly robust,
+
+1473
+00:42:12,280 --> 00:42:12,920
+but it brings up
+
+1474
+00:42:12,920 --> 00:42:13,980
+an absolutely massive
+
+1475
+00:42:13,980 --> 00:42:14,960
+practical problem,
+
+1476
+00:42:15,320 --> 00:42:16,020
+which leads us
+
+1477
+00:42:16,020 --> 00:42:16,920
+to Section 7,
+
+1478
+00:42:17,460 --> 00:42:18,240
+Garbage Collection
+
+1479
+00:42:18,240 --> 00:42:19,580
+and Compiler Correctness.
+
+1480
+00:42:19,680 --> 00:42:20,660
+The elephant in the room.
+
+1481
+00:42:20,820 --> 00:42:22,240
+If histories never die
+
+1482
+00:42:22,240 --> 00:42:23,940
+and every single
+
+1483
+00:42:23,940 --> 00:42:25,020
+variable assignment,
+
+1484
+00:42:25,200 --> 00:42:26,440
+every branch taken,
+
+1485
+00:42:26,800 --> 00:42:27,940
+every condition checked,
+
+1486
+00:42:27,940 --> 00:42:29,660
+and every error encountered
+
+1487
+00:42:29,660 --> 00:42:31,280
+is kept as a permanent,
+
+1488
+00:42:31,660 --> 00:42:33,340
+cryptographically certified record,
+
+1489
+00:42:33,900 --> 00:42:34,140
+I mean,
+
+1490
+00:42:34,200 --> 00:42:34,760
+the listener's probably
+
+1491
+00:42:34,760 --> 00:42:35,620
+screaming right now,
+
+1492
+00:42:35,860 --> 00:42:37,040
+how does a computer
+
+1493
+00:42:37,040 --> 00:42:37,740
+running this
+
+1494
+00:42:37,740 --> 00:42:39,040
+not run out of RAM
+
+1495
+00:42:39,040 --> 00:42:39,820
+in five seconds?
+
+1496
+00:42:39,820 --> 00:42:41,800
+The memory explosion problem
+
+1497
+00:42:41,800 --> 00:42:42,740
+is the crucible
+
+1498
+00:42:42,740 --> 00:42:44,740
+for trajectory-based computation.
+
+1499
+00:42:45,460 --> 00:42:46,780
+Traditional garbage collection,
+
+1500
+00:42:47,040 --> 00:42:47,680
+or GC,
+
+1501
+00:42:48,020 --> 00:42:49,200
+is relatively simple.
+
+1502
+00:42:49,340 --> 00:42:50,160
+The runtime engine
+
+1503
+00:42:50,160 --> 00:42:51,000
+scans the memory,
+
+1504
+00:42:51,440 --> 00:42:52,600
+looks for data objects
+
+1505
+00:42:52,600 --> 00:42:53,280
+that the program
+
+1506
+00:42:53,280 --> 00:42:54,420
+is no longer pointing to,
+
+1507
+00:42:54,720 --> 00:42:55,760
+and simply deletes them
+
+1508
+00:42:55,760 --> 00:42:56,640
+to free up space.
+
+1509
+00:42:56,640 --> 00:42:57,980
+Because if nothing is looking at it,
+
+1510
+00:42:58,020 --> 00:42:59,040
+it doesn't exist anymore.
+
+1511
+00:42:59,240 --> 00:42:59,960
+But in SpherePop,
+
+1512
+00:43:00,300 --> 00:43:01,920
+GC is completely redefined
+
+1513
+00:43:01,920 --> 00:43:04,080
+as admissibility-guided collapse.
+
+1514
+00:43:04,280 --> 00:43:04,480
+Yeah.
+
+1515
+00:43:04,700 --> 00:43:05,640
+You cannot simply
+
+1516
+00:43:05,640 --> 00:43:06,780
+delete historical events
+
+1517
+00:43:06,780 --> 00:43:08,620
+just because no current variable
+
+1518
+00:43:08,620 --> 00:43:09,860
+is directly pointing to them.
+
+1519
+00:43:09,900 --> 00:43:11,600
+Because that deep history
+
+1520
+00:43:11,600 --> 00:43:12,880
+might contain
+
+1521
+00:43:12,880 --> 00:43:14,300
+the exact admissibility
+
+1522
+00:43:14,300 --> 00:43:15,320
+certificates required
+
+1523
+00:43:15,320 --> 00:43:16,000
+to prove that
+
+1524
+00:43:16,000 --> 00:43:16,860
+a future collapse
+
+1525
+00:43:16,860 --> 00:43:17,880
+operation is valid.
+
+1526
+00:43:18,320 --> 00:43:19,180
+If you delete
+
+1527
+00:43:19,180 --> 00:43:19,600
+the history
+
+1528
+00:43:19,600 --> 00:43:20,700
+of the passport stamps,
+
+1529
+00:43:20,960 --> 00:43:22,160
+you can no longer prove
+
+1530
+00:43:22,160 --> 00:43:23,180
+the passport is real
+
+1531
+00:43:23,180 --> 00:43:24,020
+when you hit the border.
+
+1532
+00:43:24,020 --> 00:43:25,140
+Because the type checker
+
+1533
+00:43:25,140 --> 00:43:26,480
+relies on the entire journey
+
+1534
+00:43:26,480 --> 00:43:27,240
+to prove safety,
+
+1535
+00:43:27,380 --> 00:43:28,600
+so how do you delete anything?
+
+1536
+00:43:29,180 --> 00:43:30,460
+GC in SpherePop
+
+1537
+00:43:30,460 --> 00:43:31,760
+is the delicate art
+
+1538
+00:43:31,760 --> 00:43:32,460
+of collapsing
+
+1539
+00:43:32,460 --> 00:43:33,740
+dead segments of history
+
+1540
+00:43:33,740 --> 00:43:34,540
+to save space,
+
+1541
+00:43:34,740 --> 00:43:36,360
+while rigidly preserving
+
+1542
+00:43:36,360 --> 00:43:37,500
+the structural certificates
+
+1543
+00:43:37,500 --> 00:43:38,720
+required to satisfy
+
+1544
+00:43:38,720 --> 00:43:40,100
+future type checks.
+
+1545
+00:43:40,560 --> 00:43:41,860
+The monograph outlines
+
+1546
+00:43:41,860 --> 00:43:43,720
+three specific GC strategies
+
+1547
+00:43:43,720 --> 00:43:44,520
+that trade off
+
+1548
+00:43:44,520 --> 00:43:45,580
+between memory efficiency
+
+1549
+00:43:45,580 --> 00:43:47,200
+and historical fidelity.
+
+1550
+00:43:47,580 --> 00:43:48,380
+The three are
+
+1551
+00:43:48,380 --> 00:43:48,900
+MarkScan,
+
+1552
+00:43:49,040 --> 00:43:49,380
+Quotient,
+
+1553
+00:43:49,440 --> 00:43:50,400
+and Certificate only.
+
+1554
+00:43:50,800 --> 00:43:51,780
+Break these down for us.
+
+1555
+00:43:52,000 --> 00:43:53,560
+MarkScan is the most conservative,
+
+1556
+00:43:53,560 --> 00:43:54,720
+and the most expensive.
+
+1557
+00:43:55,140 --> 00:43:56,100
+It traverses the entire
+
+1558
+00:43:56,100 --> 00:43:56,760
+history tree
+
+1559
+00:43:56,760 --> 00:43:57,920
+and preserves absolutely
+
+1560
+00:43:57,920 --> 00:43:58,840
+everything that is
+
+1561
+00:43:58,840 --> 00:43:59,720
+mathematically linked
+
+1562
+00:43:59,720 --> 00:44:00,660
+to a potential future.
+
+1563
+00:44:00,940 --> 00:44:02,300
+It maintains perfect fidelity,
+
+1564
+00:44:02,640 --> 00:44:03,220
+but it consumes
+
+1565
+00:44:03,220 --> 00:44:04,340
+vast amounts of memory.
+
+1566
+00:44:04,540 --> 00:44:05,340
+And Quotient GC.
+
+1567
+00:44:05,820 --> 00:44:06,540
+Quotient GC,
+
+1568
+00:44:06,680 --> 00:44:07,220
+on the other hand,
+
+1569
+00:44:07,240 --> 00:44:07,840
+is the closest
+
+1570
+00:44:07,840 --> 00:44:08,780
+to what we do today.
+
+1571
+00:44:09,340 --> 00:44:10,640
+It forcefully collapses
+
+1572
+00:44:10,640 --> 00:44:11,600
+sections of history
+
+1573
+00:44:11,600 --> 00:44:12,340
+down to just
+
+1574
+00:44:12,340 --> 00:44:13,620
+their last known state.
+
+1575
+00:44:14,100 --> 00:44:15,720
+It saves massive amounts
+
+1576
+00:44:15,720 --> 00:44:16,160
+of memory,
+
+1577
+00:44:16,520 --> 00:44:17,280
+but it permanently
+
+1578
+00:44:17,280 --> 00:44:18,420
+destroys your ability
+
+1579
+00:44:18,420 --> 00:44:19,720
+to rewind and replay
+
+1580
+00:44:19,720 --> 00:44:21,380
+that specific section
+
+1581
+00:44:21,380 --> 00:44:22,100
+of the trajectory.
+
+1582
+00:44:22,100 --> 00:44:23,660
+So Quotient GC
+
+1583
+00:44:23,660 --> 00:44:24,920
+is admitting defeat
+
+1584
+00:44:24,920 --> 00:44:25,660
+and returning
+
+1585
+00:44:25,660 --> 00:44:26,580
+to the state illusion
+
+1586
+00:44:26,580 --> 00:44:27,560
+to save RAM.
+
+1587
+00:44:28,040 --> 00:44:29,000
+What about the third one,
+
+1588
+00:44:29,220 --> 00:44:29,960
+Certificate Only?
+
+1589
+00:44:30,520 --> 00:44:31,760
+Certificate Only GC
+
+1590
+00:44:31,760 --> 00:44:32,860
+is the uniquely
+
+1591
+00:44:32,860 --> 00:44:34,320
+sphere-pop approach.
+
+1592
+00:44:34,880 --> 00:44:35,980
+It analyzes
+
+1593
+00:44:35,980 --> 00:44:37,180
+a historical trajectory
+
+1594
+00:44:37,180 --> 00:44:38,380
+and deletes
+
+1595
+00:44:38,380 --> 00:44:39,940
+the actual raw values
+
+1596
+00:44:39,940 --> 00:44:40,920
+and the pop events,
+
+1597
+00:44:41,100 --> 00:44:42,420
+the heavy data payloads,
+
+1598
+00:44:42,460 --> 00:44:43,320
+to save memory.
+
+1599
+00:44:43,720 --> 00:44:45,060
+But it rigidly extracts
+
+1600
+00:44:45,060 --> 00:44:46,700
+and keeps all the refuse proofs
+
+1601
+00:44:46,700 --> 00:44:47,500
+and the type certificates.
+
+1602
+00:44:47,860 --> 00:44:48,560
+It throws away
+
+1603
+00:44:48,560 --> 00:44:49,480
+the beta you don't need,
+
+1604
+00:44:49,560 --> 00:44:49,920
+but it keeps
+
+1605
+00:44:49,920 --> 00:44:51,000
+the mathematical skeleton
+
+1606
+00:44:51,000 --> 00:44:52,100
+that guarantees the data
+
+1607
+00:44:52,100 --> 00:44:53,220
+was processed legally.
+
+1608
+00:44:53,500 --> 00:44:54,260
+That is fascinating.
+
+1609
+00:44:54,380 --> 00:44:55,060
+It's like throwing away
+
+1610
+00:44:55,060 --> 00:44:55,800
+the heavy textbook
+
+1611
+00:44:55,800 --> 00:44:56,960
+but keeping the index
+
+1612
+00:44:56,960 --> 00:44:58,020
+in the table of contents
+
+1613
+00:44:58,020 --> 00:44:59,180
+so you still know
+
+1614
+00:44:59,180 --> 00:44:59,680
+the structure
+
+1615
+00:44:59,680 --> 00:45:00,380
+of what was there.
+
+1616
+00:45:00,500 --> 00:45:01,660
+And this intense focus
+
+1617
+00:45:01,660 --> 00:45:02,400
+on preserving
+
+1618
+00:45:02,400 --> 00:45:03,600
+the structure of history
+
+1619
+00:45:03,600 --> 00:45:05,040
+completely changes
+
+1620
+00:45:05,040 --> 00:45:05,700
+the definition
+
+1621
+00:45:05,700 --> 00:45:06,860
+of a correct compiler.
+
+1622
+00:45:07,340 --> 00:45:08,000
+The source has
+
+1623
+00:45:08,000 --> 00:45:08,680
+a whole section
+
+1624
+00:45:08,680 --> 00:45:10,440
+contrasting compiler correctness
+
+1625
+00:45:10,440 --> 00:45:11,500
+in traditional languages
+
+1626
+00:45:11,500 --> 00:45:12,920
+versus sphere-pop.
+
+1627
+00:45:13,200 --> 00:45:13,560
+Yes.
+
+1628
+00:45:14,080 --> 00:45:15,420
+In traditional compilation,
+
+1629
+00:45:15,900 --> 00:45:16,680
+the goal standard
+
+1630
+00:45:16,680 --> 00:45:18,280
+is output equivalence.
+
+1631
+00:45:18,280 --> 00:45:20,640
+If you write a program in C
+
+1632
+00:45:20,640 --> 00:45:21,480
+that calculates
+
+1633
+00:45:21,480 --> 00:45:22,540
+a complex algorithm
+
+1634
+00:45:22,540 --> 00:45:24,020
+and outputs the number 42
+
+1635
+00:45:24,020 --> 00:45:25,240
+and you run it
+
+1636
+00:45:25,240 --> 00:45:25,920
+through a compiler,
+
+1637
+00:45:26,380 --> 00:45:27,400
+the compiler's job
+
+1638
+00:45:27,400 --> 00:45:28,760
+is to generate machine code.
+
+1639
+00:45:29,280 --> 00:45:30,620
+As long as that machine code
+
+1640
+00:45:30,620 --> 00:45:32,280
+also outputs the number 42
+
+1641
+00:45:32,280 --> 00:45:33,540
+under the same conditions,
+
+1642
+00:45:34,080 --> 00:45:35,260
+the compiler is considered
+
+1643
+00:45:35,260 --> 00:45:36,440
+mathematically correct.
+
+1644
+00:45:36,860 --> 00:45:37,820
+It doesn't matter
+
+1645
+00:45:37,820 --> 00:45:38,480
+if the compiler
+
+1646
+00:45:38,480 --> 00:45:39,600
+rearranged the loops,
+
+1647
+00:45:39,920 --> 00:45:41,200
+deleted unused variables,
+
+1648
+00:45:41,480 --> 00:45:42,500
+or took a completely
+
+1649
+00:45:42,500 --> 00:45:43,220
+different path
+
+1650
+00:45:43,220 --> 00:45:43,800
+under the hood
+
+1651
+00:45:43,800 --> 00:45:44,860
+to optimize speed.
+
+1652
+00:45:45,120 --> 00:45:46,240
+As long as the destination
+
+1653
+00:45:46,240 --> 00:45:47,040
+is the same,
+
+1654
+00:45:47,320 --> 00:45:48,140
+it is correct.
+
+1655
+00:45:48,280 --> 00:45:49,460
+But in sphere-pop,
+
+1656
+00:45:49,840 --> 00:45:50,360
+the compiler
+
+1657
+00:45:50,360 --> 00:45:51,100
+doesn't output
+
+1658
+00:45:51,100 --> 00:45:52,140
+raw machine code.
+
+1659
+00:45:52,460 --> 00:45:53,300
+It outputs an event
+
+1660
+00:45:53,300 --> 00:45:54,600
+intermediate representation,
+
+1661
+00:45:55,060 --> 00:45:55,700
+an event IR,
+
+1662
+00:45:56,440 --> 00:45:57,200
+and the author states
+
+1663
+00:45:57,200 --> 00:45:58,040
+it must achieve
+
+1664
+00:45:58,040 --> 00:45:59,180
+history equivalence.
+
+1665
+00:45:59,300 --> 00:46:00,580
+This is a radical shift.
+
+1666
+00:46:00,820 --> 00:46:01,340
+In sphere-pop,
+
+1667
+00:46:01,500 --> 00:46:02,100
+two programs
+
+1668
+00:46:02,100 --> 00:46:02,520
+that arrive
+
+1669
+00:46:02,520 --> 00:46:03,900
+at the exact same answer
+
+1670
+00:46:03,900 --> 00:46:04,620
+are fundamentally
+
+1671
+00:46:04,620 --> 00:46:05,380
+not equivalent
+
+1672
+00:46:05,380 --> 00:46:06,040
+if they took
+
+1673
+00:46:06,040 --> 00:46:07,240
+different historical paths
+
+1674
+00:46:07,240 --> 00:46:07,780
+to get there.
+
+1675
+00:46:08,060 --> 00:46:09,300
+Let's really emphasize this.
+
+1676
+00:46:09,640 --> 00:46:10,560
+If I write code
+
+1677
+00:46:10,560 --> 00:46:11,480
+that takes path A
+
+1678
+00:46:11,480 --> 00:46:12,840
+to output the number 5,
+
+1679
+00:46:13,200 --> 00:46:13,880
+and the compiler
+
+1680
+00:46:13,880 --> 00:46:14,860
+thinks it's being clever
+
+1681
+00:46:14,860 --> 00:46:16,520
+and optimizes the execution
+
+1682
+00:46:16,520 --> 00:46:17,860
+to take a faster path B
+
+1683
+00:46:17,860 --> 00:46:19,100
+to output the number 5,
+
+1684
+00:46:19,460 --> 00:46:20,420
+the compiler is broken.
+
+1685
+00:46:20,740 --> 00:46:21,840
+The compiler is broken
+
+1686
+00:46:21,840 --> 00:46:23,280
+because it altered the history.
+
+1687
+00:46:24,040 --> 00:46:24,380
+Remember,
+
+1688
+00:46:24,820 --> 00:46:25,480
+in sphere-pop,
+
+1689
+00:46:25,720 --> 00:46:27,300
+types are historical certificates.
+
+1690
+00:46:27,960 --> 00:46:29,320
+If the compiler silently
+
+1691
+00:46:29,320 --> 00:46:30,380
+changes path A
+
+1692
+00:46:30,380 --> 00:46:31,120
+to path B,
+
+1693
+00:46:31,580 --> 00:46:32,540
+the compiled code
+
+1694
+00:46:32,540 --> 00:46:33,040
+might output
+
+1695
+00:46:33,040 --> 00:46:34,260
+the correct number today,
+
+1696
+00:46:34,520 --> 00:46:36,200
+but it might fatally fail
+
+1697
+00:46:36,200 --> 00:46:37,380
+a type check tomorrow
+
+1698
+00:46:37,380 --> 00:46:38,720
+when a future operation
+
+1699
+00:46:38,720 --> 00:46:40,260
+relies on the specific,
+
+1700
+00:46:40,720 --> 00:46:41,560
+certified events
+
+1701
+00:46:41,560 --> 00:46:42,140
+that were supposed
+
+1702
+00:46:42,140 --> 00:46:43,400
+to happen on path A.
+
+1703
+00:46:43,400 --> 00:46:44,160
+The path
+
+1704
+00:46:44,160 --> 00:46:45,060
+is the program.
+
+1705
+00:46:45,880 --> 00:46:46,700
+Output equivalence
+
+1706
+00:46:46,700 --> 00:46:47,460
+is a strictly
+
+1707
+00:46:47,460 --> 00:46:48,620
+weaker criterion
+
+1708
+00:46:48,620 --> 00:46:49,820
+that is completely
+
+1709
+00:46:49,820 --> 00:46:51,080
+insufficient for a framework
+
+1710
+00:46:51,080 --> 00:46:51,760
+where history
+
+1711
+00:46:51,760 --> 00:46:53,220
+is the primary substance.
+
+1712
+00:46:53,440 --> 00:46:53,560
+Okay,
+
+1713
+00:46:53,660 --> 00:46:54,140
+we have to wade
+
+1714
+00:46:54,140 --> 00:46:55,480
+into the really deep math now.
+
+1715
+00:46:55,640 --> 00:46:56,180
+Section 8,
+
+1716
+00:46:56,640 --> 00:46:57,340
+the deep math,
+
+1717
+00:46:57,620 --> 00:46:58,760
+calculus of constructions,
+
+1718
+00:46:58,900 --> 00:46:59,600
+and BNF.
+
+1719
+00:47:00,000 --> 00:47:00,720
+To mathematically
+
+1720
+00:47:00,720 --> 00:47:01,940
+bind this entire
+
+1721
+00:47:01,940 --> 00:47:02,800
+universe together,
+
+1722
+00:47:03,180 --> 00:47:04,220
+the types of certificates,
+
+1723
+00:47:04,420 --> 00:47:05,140
+the incident history,
+
+1724
+00:47:05,500 --> 00:47:06,800
+the precise collapse rules,
+
+1725
+00:47:06,920 --> 00:47:08,240
+the careful garbage collection,
+
+1726
+00:47:08,740 --> 00:47:09,900
+Flyxion couldn't just use
+
+1727
+00:47:09,900 --> 00:47:11,220
+standard algebraic logic.
+
+1728
+00:47:11,220 --> 00:47:12,120
+They had to adopt
+
+1729
+00:47:12,120 --> 00:47:13,800
+specific foundational systems,
+
+1730
+00:47:14,060 --> 00:47:15,460
+specifically something called
+
+1731
+00:47:15,460 --> 00:47:17,000
+the calculus of constructions,
+
+1732
+00:47:17,180 --> 00:47:17,720
+or COSI.
+
+1733
+00:47:18,120 --> 00:47:19,140
+We touched on the edges
+
+1734
+00:47:19,140 --> 00:47:19,920
+of this earlier
+
+1735
+00:47:19,920 --> 00:47:20,860
+when you asked
+
+1736
+00:47:20,860 --> 00:47:22,600
+why simple type systems fail.
+
+1737
+00:47:23,600 --> 00:47:24,900
+The calculus of constructions
+
+1738
+00:47:24,900 --> 00:47:26,120
+is a highly advanced
+
+1739
+00:47:26,120 --> 00:47:27,140
+formal system
+
+1740
+00:47:27,140 --> 00:47:28,020
+in pipe theory
+
+1741
+00:47:28,020 --> 00:47:29,200
+that allows for
+
+1742
+00:47:29,200 --> 00:47:30,020
+dependent types.
+
+1743
+00:47:30,420 --> 00:47:31,420
+It allows types
+
+1744
+00:47:31,420 --> 00:47:32,900
+to dynamically depend
+
+1745
+00:47:32,900 --> 00:47:34,460
+on runtime values.
+
+1746
+00:47:34,920 --> 00:47:35,400
+I want to use
+
+1747
+00:47:35,400 --> 00:47:36,600
+that file reading example
+
+1748
+00:47:36,600 --> 00:47:37,760
+again to make this concrete.
+
+1749
+00:47:37,920 --> 00:47:38,160
+Perfect.
+
+1750
+00:47:38,400 --> 00:47:39,260
+If you write a function
+
+1751
+00:47:39,260 --> 00:47:40,460
+to read a file in Java,
+
+1752
+00:47:40,460 --> 00:47:42,060
+a simple type system
+
+1753
+00:47:42,060 --> 00:47:42,920
+says the output
+
+1754
+00:47:42,920 --> 00:47:43,480
+of that function
+
+1755
+00:47:43,480 --> 00:47:44,100
+is a string.
+
+1756
+00:47:44,480 --> 00:47:45,080
+It just tells you
+
+1757
+00:47:45,080 --> 00:47:45,860
+the shape of the data.
+
+1758
+00:47:46,260 --> 00:47:47,200
+The compiler doesn't know
+
+1759
+00:47:47,200 --> 00:47:48,280
+which specific file
+
+1760
+00:47:48,280 --> 00:47:49,400
+produced the string.
+
+1761
+00:47:49,740 --> 00:47:50,340
+In the calculus
+
+1762
+00:47:50,340 --> 00:47:51,340
+of constructions,
+
+1763
+00:47:51,620 --> 00:47:52,460
+the type of the output
+
+1764
+00:47:52,460 --> 00:47:53,560
+can actually encapsulate
+
+1765
+00:47:53,560 --> 00:47:55,040
+the specific runtime value
+
+1766
+00:47:55,040 --> 00:47:55,880
+that generated it.
+
+1767
+00:47:56,420 --> 00:47:57,620
+The type isn't just string.
+
+1768
+00:47:58,000 --> 00:47:59,340
+The type is file contents
+
+1769
+00:47:59,340 --> 00:48:00,900
+with a specific path attached.
+
+1770
+00:48:01,560 --> 00:48:03,060
+The type dynamically morphs
+
+1771
+00:48:03,060 --> 00:48:03,980
+depending on the specific
+
+1772
+00:48:03,980 --> 00:48:05,140
+file path you feed it.
+
+1773
+00:48:05,260 --> 00:48:06,660
+That feels incredibly powerful.
+
+1774
+00:48:07,060 --> 00:48:07,780
+The type system
+
+1775
+00:48:07,780 --> 00:48:09,480
+is aware of the actual data
+
+1776
+00:48:09,480 --> 00:48:10,600
+flowing through the program.
+
+1777
+00:48:11,000 --> 00:48:11,360
+It is.
+
+1778
+00:48:11,640 --> 00:48:11,940
+Furthermore,
+
+1779
+00:48:12,300 --> 00:48:13,280
+Kurian allows terms
+
+1780
+00:48:13,280 --> 00:48:14,340
+to function as types,
+
+1781
+00:48:14,820 --> 00:48:15,560
+blurring the line
+
+1782
+00:48:15,560 --> 00:48:16,780
+between data and structure.
+
+1783
+00:48:17,420 --> 00:48:18,580
+To prevent the mathematics
+
+1784
+00:48:18,580 --> 00:48:19,300
+from collapsing
+
+1785
+00:48:19,300 --> 00:48:20,360
+into paradoxes,
+
+1786
+00:48:20,560 --> 00:48:21,440
+like Russell's paradox,
+
+1787
+00:48:22,000 --> 00:48:23,160
+where a set contains
+
+1788
+00:48:23,160 --> 00:48:24,200
+all sets that don't
+
+1789
+00:48:24,200 --> 00:48:25,000
+contain themselves,
+
+1790
+00:48:25,500 --> 00:48:26,200
+Kurki employs
+
+1791
+00:48:26,200 --> 00:48:28,020
+a strict universe hierarchy.
+
+1792
+00:48:28,260 --> 00:48:29,120
+I always think of
+
+1793
+00:48:29,120 --> 00:48:30,080
+Russell's paradox
+
+1794
+00:48:30,080 --> 00:48:31,200
+as a snake eating
+
+1795
+00:48:31,200 --> 00:48:32,000
+its own tail
+
+1796
+00:48:32,000 --> 00:48:33,360
+until the universe implodes.
+
+1797
+00:48:33,460 --> 00:48:33,800
+Exactly.
+
+1798
+00:48:34,220 --> 00:48:35,060
+To stop the snake
+
+1799
+00:48:35,060 --> 00:48:35,980
+from eating itself,
+
+1800
+00:48:36,080 --> 00:48:37,300
+Kurki separates logic
+
+1801
+00:48:37,300 --> 00:48:37,980
+into layers.
+
+1802
+00:48:38,560 --> 00:48:40,340
+Type 0, type 1, type 2
+
+1803
+00:48:40,340 --> 00:48:41,600
+ascending infinitely.
+
+1804
+00:48:42,120 --> 00:48:42,880
+A type at level 1
+
+1805
+00:48:42,880 --> 00:48:44,000
+can only describe things
+
+1806
+00:48:44,000 --> 00:48:44,580
+at level 0.
+
+1807
+00:48:45,160 --> 00:48:45,820
+This hierarchy
+
+1808
+00:48:45,820 --> 00:48:46,860
+acts as a mathematical
+
+1809
+00:48:46,860 --> 00:48:48,020
+scaffolding to ensure
+
+1810
+00:48:48,020 --> 00:48:49,240
+the system remains sound
+
+1811
+00:48:49,240 --> 00:48:50,620
+and doesn't swallow itself
+
+1812
+00:48:50,620 --> 00:48:51,520
+in a recursive loop
+
+1813
+00:48:51,520 --> 00:48:52,160
+of definitions.
+
+1814
+00:48:52,600 --> 00:48:53,000
+But then,
+
+1815
+00:48:53,100 --> 00:48:54,040
+right after diving
+
+1816
+00:48:54,040 --> 00:48:55,640
+into this massive type theory,
+
+1817
+00:48:55,840 --> 00:48:56,460
+the author goes on
+
+1818
+00:48:56,460 --> 00:48:57,160
+this huge tangent
+
+1819
+00:48:57,160 --> 00:48:58,200
+about BNF grammar.
+
+1820
+00:48:58,400 --> 00:48:59,320
+Back is now form.
+
+1821
+00:48:59,600 --> 00:49:00,940
+It feels almost out of place.
+
+1822
+00:49:01,240 --> 00:49:02,620
+He compares BNF notation
+
+1823
+00:49:02,620 --> 00:49:04,040
+to physical circuit diagrams
+
+1824
+00:49:04,040 --> 00:49:05,440
+and standard programming code
+
+1825
+00:49:05,440 --> 00:49:06,600
+and claims BNF
+
+1826
+00:49:06,600 --> 00:49:07,640
+is vastly superior.
+
+1827
+00:49:08,040 --> 00:49:09,300
+Why does syntax notation
+
+1828
+00:49:09,300 --> 00:49:10,120
+matter this much
+
+1829
+00:49:10,120 --> 00:49:10,720
+to the architecture?
+
+1830
+00:49:11,000 --> 00:49:12,280
+It circles back beautifully
+
+1831
+00:49:12,280 --> 00:49:13,400
+to the note taxonomy
+
+1832
+00:49:13,400 --> 00:49:14,280
+we discussed earlier.
+
+1833
+00:49:14,800 --> 00:49:15,720
+Freckney views BNF
+
+1834
+00:49:15,720 --> 00:49:16,620
+not just as syntax
+
+1835
+00:49:16,620 --> 00:49:17,840
+but as the ultimate
+
+1836
+00:49:17,840 --> 00:49:19,140
+generative refusal note.
+
+1837
+00:49:19,380 --> 00:49:20,240
+How does grammar
+
+1838
+00:49:20,240 --> 00:49:21,460
+act as a refusal note?
+
+1839
+00:49:21,900 --> 00:49:22,740
+A BNF grammar
+
+1840
+00:49:22,740 --> 00:49:23,920
+is a set of rules
+
+1841
+00:49:23,920 --> 00:49:24,760
+that specifies
+
+1842
+00:49:24,760 --> 00:49:26,040
+exactly what strings
+
+1843
+00:49:26,040 --> 00:49:26,560
+of characters
+
+1844
+00:49:26,560 --> 00:49:27,880
+are mathematically valid
+
+1845
+00:49:27,880 --> 00:49:28,800
+in a given language
+
+1846
+00:49:28,800 --> 00:49:30,100
+and by definition,
+
+1847
+00:49:30,620 --> 00:49:31,920
+it rigorously refuses
+
+1848
+00:49:31,920 --> 00:49:33,200
+all other combinations.
+
+1849
+00:49:33,520 --> 00:49:34,960
+It is pure specification.
+
+1850
+00:49:34,960 --> 00:49:36,640
+A physical circuit diagram
+
+1851
+00:49:36,640 --> 00:49:37,800
+is severely limited
+
+1852
+00:49:37,800 --> 00:49:38,900
+because it is
+
+1853
+00:49:38,900 --> 00:49:40,180
+inextricably tied
+
+1854
+00:49:40,180 --> 00:49:41,480
+to the physical topology
+
+1855
+00:49:41,480 --> 00:49:42,580
+of copper wires
+
+1856
+00:49:42,580 --> 00:49:43,520
+and silicon gates.
+
+1857
+00:49:43,780 --> 00:49:44,520
+A C program
+
+1858
+00:49:44,520 --> 00:49:45,800
+is tied to the quirks
+
+1859
+00:49:45,800 --> 00:49:47,020
+of a specific compiler
+
+1860
+00:49:47,020 --> 00:49:47,580
+architecture
+
+1861
+00:49:47,580 --> 00:49:49,380
+and the CPU instruction set
+
+1862
+00:49:49,380 --> 00:49:51,040
+but BNF operates
+
+1863
+00:49:51,040 --> 00:49:52,280
+at a level of abstraction
+
+1864
+00:49:52,280 --> 00:49:53,460
+completely unmoored
+
+1865
+00:49:53,460 --> 00:49:54,060
+from hardware.
+
+1866
+00:49:54,260 --> 00:49:55,560
+It's the pure idea
+
+1867
+00:49:55,560 --> 00:49:56,120
+of the language.
+
+1868
+00:49:56,220 --> 00:49:56,540
+Yes.
+
+1869
+00:49:56,880 --> 00:49:57,820
+It is human readable,
+
+1870
+00:49:58,240 --> 00:49:59,380
+it is machine parsable,
+
+1871
+00:49:59,660 --> 00:50:00,400
+and it serves
+
+1872
+00:50:00,400 --> 00:50:01,940
+as a mathematical firewall
+
+1873
+00:50:01,940 --> 00:50:03,580
+against implementation bias.
+
+1874
+00:50:03,580 --> 00:50:04,740
+When you write
+
+1875
+00:50:04,740 --> 00:50:05,560
+a system's rules
+
+1876
+00:50:05,560 --> 00:50:06,120
+in BNF,
+
+1877
+00:50:06,280 --> 00:50:06,820
+you are creating
+
+1878
+00:50:06,820 --> 00:50:07,740
+a generative artifact
+
+1879
+00:50:07,740 --> 00:50:08,640
+that opens up
+
+1880
+00:50:08,640 --> 00:50:09,380
+new possibilities,
+
+1881
+00:50:09,880 --> 00:50:10,460
+you can generate
+
+1882
+00:50:10,460 --> 00:50:11,840
+infinite valid programs
+
+1883
+00:50:11,840 --> 00:50:13,000
+while simultaneously
+
+1884
+00:50:13,000 --> 00:50:14,620
+erecting an impenetrable
+
+1885
+00:50:14,620 --> 00:50:15,580
+wall of refusal
+
+1886
+00:50:15,580 --> 00:50:17,180
+against invalid structures.
+
+1887
+00:50:17,520 --> 00:50:18,240
+And as if that
+
+1888
+00:50:18,240 --> 00:50:19,080
+wasn't deep enough,
+
+1889
+00:50:19,380 --> 00:50:20,080
+the source drops
+
+1890
+00:50:20,080 --> 00:50:21,440
+some incredibly dense
+
+1891
+00:50:21,440 --> 00:50:22,600
+highlights from part 7
+
+1892
+00:50:22,600 --> 00:50:23,300
+of the monograph,
+
+1893
+00:50:23,860 --> 00:50:24,800
+specifically pointing
+
+1894
+00:50:24,800 --> 00:50:25,560
+to unifications
+
+1895
+00:50:25,560 --> 00:50:26,900
+involving sheaf semantics
+
+1896
+00:50:26,900 --> 00:50:28,760
+and active geodesic inference.
+
+1897
+00:50:29,140 --> 00:50:29,660
+I want to focus
+
+1898
+00:50:29,660 --> 00:50:30,280
+on that last one.
+
+1899
+00:50:30,740 --> 00:50:31,520
+What in the world
+
+1900
+00:50:31,520 --> 00:50:33,400
+is active geodesic inference?
+
+1901
+00:50:33,880 --> 00:50:34,680
+This is the moment
+
+1902
+00:50:34,680 --> 00:50:35,220
+in the paper
+
+1903
+00:50:35,220 --> 00:50:36,000
+where affliction
+
+1904
+00:50:36,000 --> 00:50:37,440
+stretches the architecture
+
+1905
+00:50:37,440 --> 00:50:38,880
+beyond computer science
+
+1906
+00:50:38,880 --> 00:50:40,940
+and into theoretical physics
+
+1907
+00:50:40,940 --> 00:50:42,240
+and artificial intelligence.
+
+1908
+00:50:42,840 --> 00:50:43,860
+The author proposes
+
+1909
+00:50:43,860 --> 00:50:44,920
+a new definition
+
+1910
+00:50:44,920 --> 00:50:46,400
+of intelligence itself.
+
+1911
+00:50:46,960 --> 00:50:47,840
+In this framework,
+
+1912
+00:50:48,040 --> 00:50:49,460
+intelligence is not defined
+
+1913
+00:50:49,460 --> 00:50:50,120
+as the ability
+
+1914
+00:50:50,120 --> 00:50:51,960
+to compute the correct answer
+
+1915
+00:50:51,960 --> 00:50:53,400
+to a static problem.
+
+1916
+00:50:54,020 --> 00:50:55,060
+Intelligence is defined
+
+1917
+00:50:55,060 --> 00:50:55,980
+as the capacity
+
+1918
+00:50:55,980 --> 00:50:57,200
+of an active system
+
+1919
+00:50:57,200 --> 00:50:58,140
+to maintain
+
+1920
+00:50:58,140 --> 00:50:59,700
+low action trajectories
+
+1921
+00:50:59,700 --> 00:51:01,260
+through possibility space.
+
+1922
+00:51:01,260 --> 00:51:02,440
+Let's unpack that carefully.
+
+1923
+00:51:02,620 --> 00:51:03,940
+Low action trajectories.
+
+1924
+00:51:04,320 --> 00:51:05,140
+Imagine a hiker
+
+1925
+00:51:05,140 --> 00:51:06,060
+attempting to cross
+
+1926
+00:51:06,060 --> 00:51:07,320
+a massive treacherous
+
+1927
+00:51:07,320 --> 00:51:08,060
+mountain range.
+
+1928
+00:51:08,520 --> 00:51:09,620
+An unintelligent system
+
+1929
+00:51:09,620 --> 00:51:10,500
+just calculates
+
+1930
+00:51:10,500 --> 00:51:11,640
+a straight line vector
+
+1931
+00:51:11,640 --> 00:51:12,480
+to the destination
+
+1932
+00:51:12,480 --> 00:51:14,000
+and starts walking
+
+1933
+00:51:14,000 --> 00:51:14,580
+mindlessly,
+
+1934
+00:51:14,780 --> 00:51:16,020
+expending massive amounts
+
+1935
+00:51:16,020 --> 00:51:16,500
+of energy,
+
+1936
+00:51:16,700 --> 00:51:18,200
+climbing over sheer cliffs
+
+1937
+00:51:18,200 --> 00:51:19,340
+and wading through
+
+1938
+00:51:19,340 --> 00:51:20,100
+deep swamps.
+
+1939
+00:51:20,420 --> 00:51:21,180
+It has a goal
+
+1940
+00:51:21,180 --> 00:51:22,020
+but no awareness
+
+1941
+00:51:22,020 --> 00:51:22,620
+of the terrain.
+
+1942
+00:51:22,680 --> 00:51:23,200
+Exactly.
+
+1943
+00:51:23,620 --> 00:51:24,680
+An intelligent system,
+
+1944
+00:51:24,800 --> 00:51:25,660
+the experienced hiker,
+
+1945
+00:51:25,840 --> 00:51:27,200
+actively reads the terrain.
+
+1946
+00:51:27,500 --> 00:51:28,420
+They look for the passes,
+
+1947
+00:51:28,700 --> 00:51:29,680
+they follow the contours
+
+1948
+00:51:29,680 --> 00:51:30,280
+of the valleys,
+
+1949
+00:51:30,280 --> 00:51:31,040
+they avoid the
+
+1950
+00:51:31,040 --> 00:51:32,060
+high friction obstacles,
+
+1951
+00:51:32,060 --> 00:51:33,320
+they find the path
+
+1952
+00:51:33,320 --> 00:51:34,280
+of least resistance.
+
+1953
+00:51:34,820 --> 00:51:35,280
+In physics,
+
+1954
+00:51:35,840 --> 00:51:37,240
+this path of least resistance
+
+1955
+00:51:37,240 --> 00:51:38,500
+through a curved space
+
+1956
+00:51:38,500 --> 00:51:39,880
+is called a geodesic.
+
+1957
+00:51:40,120 --> 00:51:41,760
+So active geodesic inference
+
+1958
+00:51:41,760 --> 00:51:43,420
+means an intelligent system
+
+1959
+00:51:43,420 --> 00:51:44,700
+is actively predicting
+
+1960
+00:51:44,700 --> 00:51:45,340
+and shaping
+
+1961
+00:51:45,340 --> 00:51:46,320
+its own future
+
+1962
+00:51:46,320 --> 00:51:47,660
+configuration space.
+
+1963
+00:51:47,900 --> 00:51:48,940
+It uses notes,
+
+1964
+00:51:49,080 --> 00:51:49,980
+it uses memory,
+
+1965
+00:51:50,400 --> 00:51:51,840
+it uses the refuse operator
+
+1966
+00:51:51,840 --> 00:51:53,180
+to document the cliffs
+
+1967
+00:51:53,180 --> 00:51:53,760
+and swamps,
+
+1968
+00:51:54,200 --> 00:51:55,520
+specifically to avoid
+
+1969
+00:51:55,520 --> 00:51:56,340
+high cost,
+
+1970
+00:51:56,580 --> 00:51:57,600
+inadmissible paths.
+
+1971
+00:51:57,600 --> 00:51:59,280
+It stays on a safe,
+
+1972
+00:51:59,720 --> 00:52:00,720
+low energy trajectory
+
+1973
+00:52:00,720 --> 00:52:02,320
+through the absolute chaos
+
+1974
+00:52:02,320 --> 00:52:03,760
+of infinite possibility.
+
+1975
+00:52:04,160 --> 00:52:04,460
+Wow.
+
+1976
+00:52:04,700 --> 00:52:06,300
+That completely redefines
+
+1977
+00:52:06,300 --> 00:52:07,060
+what learning is.
+
+1978
+00:52:07,360 --> 00:52:09,000
+Learning isn't memorizing facts.
+
+1979
+00:52:09,220 --> 00:52:09,920
+Learning is building
+
+1980
+00:52:09,920 --> 00:52:11,020
+a map of refusal
+
+1981
+00:52:11,020 --> 00:52:12,000
+so you stop walking
+
+1982
+00:52:12,000 --> 00:52:12,680
+into walls.
+
+1983
+00:52:13,160 --> 00:52:13,760
+And that brings
+
+1984
+00:52:13,760 --> 00:52:14,980
+this entire deep dive
+
+1985
+00:52:14,980 --> 00:52:16,140
+to its final sweeping
+
+1986
+00:52:16,140 --> 00:52:17,560
+conclusion in section nine.
+
+1987
+00:52:18,020 --> 00:52:19,040
+Civilization is note
+
+1988
+00:52:19,040 --> 00:52:19,680
+infrastructure.
+
+1989
+00:52:19,980 --> 00:52:21,140
+We zoom out from code,
+
+1990
+00:52:21,500 --> 00:52:22,580
+from category theory,
+
+1991
+00:52:22,800 --> 00:52:23,940
+from artificial intelligence,
+
+1992
+00:52:23,940 --> 00:52:25,040
+all the way to the
+
+1993
+00:52:25,040 --> 00:52:26,060
+macroscopic scale
+
+1994
+00:52:26,060 --> 00:52:26,820
+of human history.
+
+1995
+00:52:26,820 --> 00:52:27,920
+The author introduces
+
+1996
+00:52:27,920 --> 00:52:28,840
+a concept termed
+
+1997
+00:52:28,840 --> 00:52:30,620
+the MEM-8 cognitive substrate.
+
+1998
+00:52:31,520 --> 00:52:32,360
+It is the culminating
+
+1999
+00:52:32,360 --> 00:52:33,400
+thesis of the monograph.
+
+2000
+00:52:34,100 --> 00:52:35,420
+It posits that the human brain
+
+2001
+00:52:35,420 --> 00:52:36,460
+at its biological core
+
+2002
+00:52:36,460 --> 00:52:37,340
+is not a database.
+
+2003
+00:52:37,560 --> 00:52:38,200
+It is not a warehouse
+
+2004
+00:52:38,200 --> 00:52:39,320
+with boxes on shelves.
+
+2005
+00:52:39,440 --> 00:52:40,680
+The brain is an event structure.
+
+2006
+00:52:40,980 --> 00:52:42,420
+So a spiral-bound notebook,
+
+2007
+00:52:42,840 --> 00:52:44,180
+a digital Git repository,
+
+2008
+00:52:44,880 --> 00:52:46,400
+and human biological memory
+
+2009
+00:52:46,400 --> 00:52:48,240
+are all just miniature instances
+
+2010
+00:52:48,240 --> 00:52:49,480
+of the exact same
+
+2011
+00:52:49,480 --> 00:52:51,160
+trajectory-preserving architecture.
+
+2012
+00:52:51,420 --> 00:52:52,620
+They are all substrates
+
+2013
+00:52:52,620 --> 00:52:54,300
+designed to capture continuations.
+
+2014
+00:52:54,940 --> 00:52:55,700
+The brain stores
+
+2015
+00:52:55,700 --> 00:52:56,860
+infrastructure trajectories,
+
+2016
+00:52:57,180 --> 00:52:58,740
+sequences of sensory events,
+
+2017
+00:52:59,140 --> 00:53:00,180
+emotions, decisions,
+
+2018
+00:53:00,780 --> 00:53:01,800
+organized specifically
+
+2019
+00:53:01,800 --> 00:53:02,600
+to make future
+
+2020
+00:53:02,600 --> 00:53:03,860
+reconstruction possible.
+
+2021
+00:53:04,180 --> 00:53:05,500
+And this unified theory
+
+2022
+00:53:05,500 --> 00:53:07,220
+leads to the most chilling part
+
+2023
+00:53:07,220 --> 00:53:08,580
+of the entire monograph,
+
+2024
+00:53:08,940 --> 00:53:10,740
+theorem 21.3,
+
+2025
+00:53:11,120 --> 00:53:12,220
+which Flyxion calls
+
+2026
+00:53:12,220 --> 00:53:13,740
+the Civilizational Collapse
+
+2027
+00:53:13,740 --> 00:53:14,260
+theorem.
+
+2028
+00:53:14,480 --> 00:53:15,880
+I read the theorem three times.
+
+2029
+00:53:16,380 --> 00:53:17,420
+What does it actually state
+
+2030
+00:53:17,420 --> 00:53:19,160
+about the fragility of society?
+
+2031
+00:53:19,480 --> 00:53:20,180
+The theorem states
+
+2032
+00:53:20,180 --> 00:53:20,880
+that a civilization
+
+2033
+00:53:20,880 --> 00:53:22,200
+that loses its underlying
+
+2034
+00:53:22,200 --> 00:53:23,080
+node infrastructure
+
+2035
+00:53:23,080 --> 00:53:24,260
+does not automatically
+
+2036
+00:53:24,260 --> 00:53:25,040
+become ignorant.
+
+2037
+00:53:25,620 --> 00:53:26,380
+It does not necessarily
+
+2038
+00:53:26,380 --> 00:53:27,940
+lose its accumulated facts
+
+2039
+00:53:27,940 --> 00:53:28,520
+or its data.
+
+2040
+00:53:28,920 --> 00:53:30,320
+It simply loses its ability
+
+2041
+00:53:30,320 --> 00:53:31,440
+to reach its own knowledge.
+
+2042
+00:53:31,660 --> 00:53:32,580
+That is terrifying.
+
+2043
+00:53:32,760 --> 00:53:34,340
+It's the library analogy again,
+
+2044
+00:53:34,440 --> 00:53:35,680
+but on a planetary scale.
+
+2045
+00:53:36,180 --> 00:53:37,020
+The scientific sacks
+
+2046
+00:53:37,020 --> 00:53:37,560
+are still there.
+
+2047
+00:53:37,640 --> 00:53:38,280
+The books are still
+
+2048
+00:53:38,280 --> 00:53:39,100
+sitting on the shelves.
+
+2049
+00:53:39,240 --> 00:53:40,500
+But the Civilizational
+
+2050
+00:53:40,500 --> 00:53:41,200
+card catalog
+
+2051
+00:53:41,200 --> 00:53:42,340
+has burned to ash.
+
+2052
+00:53:42,340 --> 00:53:43,840
+The underlying truths
+
+2053
+00:53:43,840 --> 00:53:44,900
+of physics, art,
+
+2054
+00:53:45,000 --> 00:53:45,440
+and medicine
+
+2055
+00:53:45,440 --> 00:53:47,160
+remain completely unchanged,
+
+2056
+00:53:47,640 --> 00:53:48,440
+but the collective
+
+2057
+00:53:48,440 --> 00:53:49,680
+reachability plummets.
+
+2058
+00:53:50,480 --> 00:53:51,920
+The cost of reconstructing
+
+2059
+00:53:51,920 --> 00:53:52,340
+the knowledge
+
+2060
+00:53:52,340 --> 00:53:53,420
+from first principles
+
+2061
+00:53:53,420 --> 00:53:55,680
+becomes so impossibly high
+
+2062
+00:53:55,680 --> 00:53:57,060
+that the civilization
+
+2063
+00:53:57,060 --> 00:53:58,240
+effectively collapses,
+
+2064
+00:53:58,800 --> 00:53:59,820
+even while surrounded
+
+2065
+00:53:59,820 --> 00:54:01,500
+by its own unreadable data.
+
+2066
+00:54:02,120 --> 00:54:03,280
+When you look at the progression
+
+2067
+00:54:03,280 --> 00:54:04,380
+of human technology
+
+2068
+00:54:04,380 --> 00:54:05,120
+through the lens
+
+2069
+00:54:05,120 --> 00:54:05,740
+of this theorem,
+
+2070
+00:54:06,280 --> 00:54:06,980
+everything makes
+
+2071
+00:54:06,980 --> 00:54:08,460
+a terrifying amount of sense.
+
+2072
+00:54:08,760 --> 00:54:10,780
+The evolution from oral speech
+
+2073
+00:54:10,780 --> 00:54:12,220
+to written language
+
+2074
+00:54:12,220 --> 00:54:13,460
+to the printing press
+
+2075
+00:54:13,460 --> 00:54:14,100
+to the internet
+
+2076
+00:54:14,100 --> 00:54:15,760
+to digital version control.
+
+2077
+00:54:16,380 --> 00:54:17,280
+It isn't just a story
+
+2078
+00:54:17,280 --> 00:54:18,560
+of humanity inventing ways
+
+2079
+00:54:18,560 --> 00:54:19,620
+to communicate faster.
+
+2080
+00:54:20,060 --> 00:54:21,400
+It is a story of humanity
+
+2081
+00:54:21,400 --> 00:54:22,600
+desperately expanding
+
+2082
+00:54:22,600 --> 00:54:23,900
+its reachability horizon
+
+2083
+00:54:23,900 --> 00:54:25,840
+to prevent trajectory failure.
+
+2084
+00:54:26,700 --> 00:54:27,320
+Oral storytelling
+
+2085
+00:54:27,320 --> 00:54:28,060
+prevents the deaths
+
+2086
+00:54:28,060 --> 00:54:28,860
+of a single witness.
+
+2087
+00:54:29,400 --> 00:54:30,000
+The printing press
+
+2088
+00:54:30,000 --> 00:54:30,800
+prevents the destruction
+
+2089
+00:54:30,800 --> 00:54:32,080
+of an individual manuscript.
+
+2090
+00:54:32,760 --> 00:54:33,980
+Git prevents the loss
+
+2091
+00:54:33,980 --> 00:54:34,920
+of a software trajectory.
+
+2092
+00:54:35,520 --> 00:54:36,260
+We are just building
+
+2093
+00:54:36,260 --> 00:54:37,240
+larger and larger
+
+2094
+00:54:37,240 --> 00:54:38,560
+anti-collapse artifacts,
+
+2095
+00:54:39,140 --> 00:54:39,960
+trying to stay ahead
+
+2096
+00:54:39,960 --> 00:54:40,520
+of the entropy
+
+2097
+00:54:40,520 --> 00:54:41,400
+that wants to erase
+
+2098
+00:54:41,400 --> 00:54:41,940
+our history.
+
+2099
+00:54:42,320 --> 00:54:43,360
+We are continually
+
+2100
+00:54:43,360 --> 00:54:44,620
+constructing scaffolding
+
+2101
+00:54:44,620 --> 00:54:45,260
+to guarantee
+
+2102
+00:54:45,260 --> 00:54:46,800
+our own future reachability.
+
+2103
+00:54:47,540 --> 00:54:48,480
+The note infrastructure
+
+2104
+00:54:48,480 --> 00:54:49,760
+is the only thing
+
+2105
+00:54:49,760 --> 00:54:50,400
+standing between
+
+2106
+00:54:50,400 --> 00:54:51,600
+a functioning society
+
+2107
+00:54:51,600 --> 00:54:53,880
+and the abyss of amnesia.
+
+2108
+00:54:54,140 --> 00:54:55,100
+This has been an actually
+
+2109
+00:54:55,100 --> 00:54:56,500
+massive intellectual journey.
+
+2110
+00:54:56,980 --> 00:54:58,040
+We started by realizing
+
+2111
+00:54:58,040 --> 00:54:58,780
+that your simple
+
+2112
+00:54:58,780 --> 00:54:59,920
+crumpled grocery list
+
+2113
+00:54:59,920 --> 00:55:02,020
+is actually a time machine
+
+2114
+00:55:02,020 --> 00:55:03,240
+projecting into the future.
+
+2115
+00:55:03,240 --> 00:55:04,220
+We walked through
+
+2116
+00:55:04,220 --> 00:55:05,400
+the mathematical proofs
+
+2117
+00:55:05,400 --> 00:55:06,260
+showing that our comforting
+
+2118
+00:55:06,260 --> 00:55:07,060
+present state
+
+2119
+00:55:07,060 --> 00:55:08,360
+is just an illusion
+
+2120
+00:55:08,360 --> 00:55:09,700
+hiding a vast ocean
+
+2121
+00:55:09,700 --> 00:55:10,320
+of history.
+
+2122
+00:55:10,520 --> 00:55:11,900
+We explored the mechanics
+
+2123
+00:55:11,900 --> 00:55:13,280
+of building a computer language
+
+2124
+00:55:13,280 --> 00:55:14,400
+purely out of choices
+
+2125
+00:55:14,400 --> 00:55:15,160
+and refusals,
+
+2126
+00:55:15,560 --> 00:55:16,520
+completely abandoning
+
+2127
+00:55:16,520 --> 00:55:17,680
+the concept of a variable.
+
+2128
+00:55:18,160 --> 00:55:19,180
+And we redefined
+
+2129
+00:55:19,180 --> 00:55:20,500
+both artificial intelligence
+
+2130
+00:55:20,500 --> 00:55:22,320
+and civilizational memory
+
+2131
+00:55:22,320 --> 00:55:23,300
+in the process.
+
+2132
+00:55:23,440 --> 00:55:24,120
+The convergence
+
+2133
+00:55:24,120 --> 00:55:25,060
+the author promised
+
+2134
+00:55:25,060 --> 00:55:25,620
+at the beginning
+
+2135
+00:55:25,620 --> 00:55:26,260
+holds true.
+
+2136
+00:55:27,040 --> 00:55:27,940
+A note is an
+
+2137
+00:55:27,940 --> 00:55:29,160
+externalized continuation.
+
+2138
+00:55:29,880 --> 00:55:30,940
+A history is an
+
+2139
+00:55:30,940 --> 00:55:31,940
+internalized note.
+
+2140
+00:55:32,480 --> 00:55:33,040
+The boundaries
+
+2141
+00:55:33,040 --> 00:55:34,260
+between human cognition
+
+2142
+00:55:34,260 --> 00:55:35,720
+and computational architecture
+
+2143
+00:55:35,720 --> 00:55:36,280
+dissolve.
+
+2144
+00:55:36,760 --> 00:55:37,340
+Which brings me
+
+2145
+00:55:37,340 --> 00:55:38,160
+to a final thought
+
+2146
+00:55:38,160 --> 00:55:38,480
+for you,
+
+2147
+00:55:38,540 --> 00:55:38,920
+the listener.
+
+2148
+00:55:39,700 --> 00:55:40,400
+As we wrap up
+
+2149
+00:55:40,400 --> 00:55:41,180
+this exploration,
+
+2150
+00:55:41,640 --> 00:55:42,300
+I want you to think
+
+2151
+00:55:42,300 --> 00:55:43,040
+about the digital
+
+2152
+00:55:43,040 --> 00:55:44,160
+hoards on your phone
+
+2153
+00:55:44,160 --> 00:55:44,740
+right now.
+
+2154
+00:55:45,380 --> 00:55:45,900
+Think about your
+
+2155
+00:55:45,900 --> 00:55:46,620
+browser window
+
+2156
+00:55:46,620 --> 00:55:48,220
+with 80 open tabs.
+
+2157
+00:55:48,920 --> 00:55:49,420
+Think about your
+
+2158
+00:55:49,420 --> 00:55:50,380
+Read It Later app
+
+2159
+00:55:50,380 --> 00:55:51,680
+overflowing with articles
+
+2160
+00:55:51,680 --> 00:55:53,160
+you've saved for three years.
+
+2161
+00:55:53,820 --> 00:55:54,460
+Think about your
+
+2162
+00:55:54,460 --> 00:55:55,200
+unstructured,
+
+2163
+00:55:55,460 --> 00:55:56,400
+messy, chaotic
+
+2164
+00:55:56,400 --> 00:55:57,200
+notes app.
+
+2165
+00:55:57,420 --> 00:55:58,120
+Ask yourself,
+
+2166
+00:55:58,240 --> 00:55:58,940
+are you actually
+
+2167
+00:55:58,940 --> 00:55:59,800
+building true
+
+2168
+00:55:59,800 --> 00:56:01,160
+anti-collapse artifacts
+
+2169
+00:56:01,160 --> 00:56:02,460
+that are mathematically
+
+2170
+00:56:02,460 --> 00:56:03,680
+guaranteed to secure
+
+2171
+00:56:03,680 --> 00:56:04,600
+your future reachability?
+
+2172
+00:56:04,600 --> 00:56:05,760
+Or are you just
+
+2173
+00:56:05,760 --> 00:56:06,940
+hoarding degenerate state?
+
+2174
+00:56:07,280 --> 00:56:07,780
+If a system's
+
+2175
+00:56:07,780 --> 00:56:08,380
+true intelligence
+
+2176
+00:56:08,380 --> 00:56:09,180
+is defined by
+
+2177
+00:56:09,180 --> 00:56:09,920
+its ability to
+
+2178
+00:56:09,920 --> 00:56:10,840
+maintain a low
+
+2179
+00:56:10,840 --> 00:56:11,740
+action trajectory
+
+2180
+00:56:11,740 --> 00:56:13,120
+through possibility space,
+
+2181
+00:56:13,420 --> 00:56:14,520
+how intelligent is
+
+2182
+00:56:14,520 --> 00:56:15,340
+your personal note
+
+2183
+00:56:15,340 --> 00:56:16,500
+infrastructure right now?
+
+2184
+00:56:16,860 --> 00:56:17,520
+It is a question
+
+2185
+00:56:17,520 --> 00:56:18,280
+that demands a
+
+2186
+00:56:18,280 --> 00:56:19,540
+hard, honest look
+
+2187
+00:56:19,540 --> 00:56:20,260
+at what we are
+
+2188
+00:56:20,260 --> 00:56:21,160
+actually preserving
+
+2189
+00:56:21,160 --> 00:56:21,900
+and what we are
+
+2190
+00:56:21,900 --> 00:56:23,060
+inadvertently allowing
+
+2191
+00:56:23,060 --> 00:56:23,720
+to collapse.
+
+2192
+00:56:24,000 --> 00:56:24,780
+We started today
+
+2193
+00:56:24,780 --> 00:56:25,380
+by talking about
+
+2194
+00:56:25,380 --> 00:56:26,440
+that comforting illusion
+
+2195
+00:56:26,440 --> 00:56:27,380
+of the organized
+
+2196
+00:56:27,380 --> 00:56:27,800
+warehouse.
+
+2197
+00:56:28,300 --> 00:56:29,140
+We like the idea
+
+2198
+00:56:29,140 --> 00:56:29,880
+that our memories,
+
+2199
+00:56:30,260 --> 00:56:30,680
+our data,
+
+2200
+00:56:30,820 --> 00:56:31,400
+and our lives
+
+2201
+00:56:31,400 --> 00:56:32,460
+are just neat
+
+2202
+00:56:32,460 --> 00:56:33,060
+little boxes
+
+2203
+00:56:33,060 --> 00:56:33,960
+sitting statically
+
+2204
+00:56:33,960 --> 00:56:34,540
+on a shelf.
+
+2205
+00:56:35,180 --> 00:56:35,780
+But as the
+
+2206
+00:56:35,780 --> 00:56:36,700
+sphere pop architecture
+
+2207
+00:56:36,700 --> 00:56:37,820
+shows us so visibly,
+
+2208
+00:56:38,200 --> 00:56:38,880
+there is no shelf.
+
+2209
+00:56:39,460 --> 00:56:40,680
+There is no static present.
+
+2210
+00:56:41,320 --> 00:56:42,000
+There are only
+
+2211
+00:56:42,000 --> 00:56:43,100
+the historical paths
+
+2212
+00:56:43,100 --> 00:56:44,000
+we took to get here
+
+2213
+00:56:44,000 --> 00:56:45,000
+and the fragile
+
+2214
+00:56:45,000 --> 00:56:46,020
+continuations we are
+
+2215
+00:56:46,020 --> 00:56:46,780
+desperately trying
+
+2216
+00:56:46,780 --> 00:56:47,340
+to keep open
+
+2217
+00:56:47,340 --> 00:56:47,940
+for tomorrow.
+
+2218
+00:56:48,600 --> 00:56:49,200
+Keep exploring
+
+2219
+00:56:49,200 --> 00:56:50,180
+those deep structures
+
+2220
+00:56:50,180 --> 00:56:51,320
+beneath everyday life.
+
+2221
+00:56:51,740 --> 00:56:52,500
+We'll see you next time.
+

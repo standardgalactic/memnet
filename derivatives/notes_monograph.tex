@@ -1,0 +1,1315 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+\usepackage{geometry}
+\geometry{margin=1.25in}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{}{0em}{}
+\usepackage{parskip}
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{\textbf{Notes as Anti-Collapse}\\[0.5em]
+\large\textit{A Spherepop Theory of Externalized Continuations}}
+\author{Flyxion\\[0.3em]\small Independent Researcher}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+\noindent
+The standard theory of notes treats them as passive records: artifacts that
+preserve information about past events against the fallibility of biological
+memory. This monograph argues that the passive theory is structurally inverted.
+Notes are not primarily retrospective; they are mechanisms for preserving access
+to continuations---trajectories through possibility space that would otherwise
+become fragile, expensive, or unreachable. Developed within the Spherepop
+framework, which treats histories as primary and states as their compressed
+residues, notes emerge as the physical realization of the four fundamental
+operations: Pop, Refuse, Collapse, and Bind. A taxonomy of seven note classes is
+developed---Capture, Prospective, Repair, Coordination, Refusal, Generative, and
+the unexpected seventh class, Collapse Notes---each characterized by its dominant
+Spherepop operator. The ephemerality of a note is shown to be a mark of success
+rather than failure. Connections are drawn to the MEM\textbar8 architecture, Repair
+Theory, the admissibility framework, and the reachability geometry of semantic
+space. The monograph concludes by arguing that civilization is best understood not
+as an accumulation of knowledge but as a distributed system for preserving
+continuations across generations: a gigantic, layered, partially redundant
+note infrastructure whose collapse does not make a civilization ignorant but makes
+it unable to reach its own knowledge.
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+%%% ============================================================
+\section{The Passive Theory and Its Failure}
+%%% ============================================================
+
+There is a theory of notes so pervasive that it almost never receives explicit
+statement. On this theory, a note is a device for compensating the limitations of
+biological memory. Something happens---a meeting is scheduled, a formula is
+derived, a perception is formed---and because the mind cannot reliably retain it,
+the note is made. The note is therefore a prosthetic memory: it externalizes
+information onto a more durable substrate, where it may be retrieved when
+biological recall fails.
+
+This is the passive theory of notes. It places the note in a retrospective
+relation to time. The note exists because something happened in the past that is
+worth preserving. The value of a note, on this account, is proportional to the
+fidelity with which it reproduces a prior state: a good note accurately records
+what occurred; a poor note distorts it; an ephemeral note is a low-value note
+because it preserves little and does not endure.
+
+The passive theory is not entirely wrong. Many notes are made for the reason it
+describes. But as a general account of what notes are and why they matter, it
+fails---and it fails in a direction that reveals something important about the
+structure of cognition, language, and civilization.
+
+The failure becomes apparent the moment one examines not celebrated notes but
+common ones. A grocery list does not record anything that happened. The items on
+the list do not yet exist in the form the list anticipates: they have not been
+purchased, assembled, or carried home. The list records a future act. A blueprint
+describes a building not yet constructed. Source code records computations not yet
+run. A theorem records consequences not yet derived. A calendar records
+commitments not yet honored. A playlist records a future act of listening. A
+bookmark records a future act of reading. A follow list on a social network records
+a future flow of information not yet received.
+
+None of these are memories. All of them are notes.
+
+The passive theory cannot accommodate this class of cases without becoming
+incoherent. It might be extended to say that a note records an intention rather
+than an event, but this extension merely postpones the difficulty. The deeper
+problem is that the passive theory places every note in a backward-looking
+relationship to time. Even when the recorded content is an intention, the note is
+still conceived as a trace of a prior mental event. The orientation is always
+retrospective.
+
+This gets the phenomenology of note-taking almost exactly wrong. When one makes a
+to-do list, one is not primarily recording a past intention; one is constructing a
+future. The note is not oriented toward what was; it is oriented toward what has
+not yet occurred and what might not occur without the note's assistance.
+
+A more adequate theory begins from a different primitive.
+
+%%% ============================================================
+\section{Continuations and the Reachability Frame}
+%%% ============================================================
+
+The key distinction comes from theoretical computer science: the difference between
+a \emph{state} and a \emph{continuation}.
+
+A state is a snapshot of a system at a moment in time. It is a summary, a
+compression, a projection. A continuation is what comes next---the future execution
+enabled by a present configuration, the program of further development that a
+state makes possible. Most theories of information focus on states. A database
+stores states. A photograph is described as capturing a state. A memory is treated
+as the retention of a past state.
+
+But what makes any stored state useful is not the state itself. It is the
+continuation that state makes accessible.
+
+Consider a Git commit. The commit is not valuable because it stores bytes. It is
+valuable because it preserves a path through development space---a specific
+trajectory through the possibility space of a codebase that would otherwise require
+expensive reconstruction. The commit does not merely record what happened to a
+file; it records where the project can go from a given point, and how it can return
+there from any future position. The stored state is instrumentally useful only
+because it is a node in a navigable graph of continuations.
+
+The same analysis extends across the note family. A mathematical proof is not
+valuable because it stores symbols. It is valuable because it preserves a path
+through inference space---a sequence of steps, each admissible given the preceding
+steps, that transforms premises into conclusions, and that any competent reasoner
+can traverse, extend, branch from, or identify errors within. The proof is a
+compressed reconstruction path. A photograph preserves access to a perceptual
+trajectory that would otherwise disappear: the image makes re-entry possible, one
+can return to what the light looked like at a specific place and time, can study
+details that escaped notice in the original act of perception, can share a
+perceptual position across time and distance. A map does not record what happened;
+it records what can be done: which routes are traversable, which locations are
+accessible from which others. A song's notation or recording preserves access to a
+sonic trajectory---a sequence of organized sound events that can be re-entered,
+re-experienced, and extended.
+
+This motivates the central definition of the present work.
+
+\begin{definition}[Note]
+Let $\mathcal{C}$ denote a space of continuations and let $A$ be an agent. A
+\emph{note} is any artifact $N$ such that there exists a continuation
+$c \in \mathcal{C}$ for which
+\[
+P_A(c, t \mid N) > P_A(c, t),
+\]
+where $P_A(c, t)$ denotes the probability that agent $A$ can successfully
+reconstruct or traverse continuation $c$ at future time $t$.
+\end{definition}
+
+This definition is deliberately broad. It immediately includes bookmarks, maps,
+photographs, source code, language itself, and libraries, without privileging any
+particular medium. What unifies them is the functional condition: a note increases
+the reachability of at least one continuation.
+
+The medium is entirely irrelevant to the definition. The note may be textual,
+visual, auditory, symbolic, computational, social, or physical. What matters is
+that it maintains the traversability of a trajectory that would otherwise become
+inaccessible.
+
+\begin{definition}[Continuation Volume]
+The \emph{continuation volume} of a note $N$, written $V_C(N)$, is the cardinality
+of the set of continuations $c$ for which $N$ increases reachability:
+\[
+V_C(N) = \bigl|\{c \in \mathcal{C} : P_A(c, t \mid N) > P_A(c, t)\}\bigr|.
+\]
+\end{definition}
+
+Notes differ dramatically in continuation volume. A grocery list has a continuation
+volume of approximately one: it increases the reachability of a single procurement
+trajectory, and almost nothing else. A mathematical proof of a fundamental theorem
+may have an enormous continuation volume, enabling derivations, generalizations,
+applications, and extensions across many future contexts. A programming language
+has a continuation volume that is in some sense uncountable, since it creates
+access to all programs expressible within it.
+
+\begin{definition}[Reachability Leverage]
+The \emph{reachability leverage} of a note $N$, written $\Lambda(N)$, is the ratio
+of future reconstruction cost avoided to the cost of note creation:
+\[
+\Lambda(N) = \frac{\sum_{c} \bigl[C_r(c) - C_r(c \mid N)\bigr]}{C_{\text{create}}(N)},
+\]
+where $C_r(c)$ is the cost of reconstructing continuation $c$ from first
+principles and $C_r(c \mid N)$ is the reconstruction cost given access to $N$.
+\end{definition}
+
+Reachability leverage varies over many orders of magnitude. A ten-second bookmark
+may save hours of future search: high leverage. A one-line equation may preserve
+centuries of accumulated derivation: extraordinarily high leverage. A commit
+message written in thirty seconds may save days of future debugging: very high
+leverage. Leverage analysis predicts which notes are most worth making and
+preserving, quite apart from their fidelity to past states.
+
+%%% ============================================================
+\section{Notes in the Spherepop Framework}
+%%% ============================================================
+
+The Spherepop framework holds that histories are primary and states are their
+compressed residues. A state $s$ is a projection
+\[
+\sigma : \mathcal{H} \to S
+\]
+that collapses many histories $h \in \mathcal{H}$ into a single observable state,
+producing what the framework calls the state illusion: the appearance that the
+present configuration is self-sufficient, when it is in fact the endpoint of a
+history whose fibers have been discarded.
+
+The four fundamental Spherepop operations are Pop, Refuse, Collapse, and Bind.
+\emph{Pop} creates a continuation---it steps forward from a present state into a
+new trajectory. \emph{Refuse} resists collapse---it preserves distinctions that
+the projection $\sigma$ would otherwise destroy. \emph{Collapse} applies
+$\sigma$---it compresses a history into a state, deliberately discarding detail.
+\emph{Bind} couples multiple trajectory systems---it creates dependencies between
+continuations that were previously independent.
+
+Notes, viewed through this framework, emerge as the physical realization of all
+four operations. A note can preserve a history (Refuse), create a new trajectory
+(Pop), compress a history into a navigable summary (Collapse), or couple multiple
+agents to a shared trajectory (Bind).
+
+\begin{proposition}[Notes as Anti-Collapse Artifacts]
+Let $\sigma : \mathcal{H} \to S$ be a history-to-state projection. A note $N$
+is an \emph{anti-collapse artifact} if it preserves selected fibers of $\mathcal{H}$
+such that a future agent can partially reconstruct elements of $\mathcal{H}$ rather
+than being restricted to $S$.
+\end{proposition}
+
+\begin{proof}
+By Definition 2.1, $N$ increases the reachability of at least one continuation
+$c$. Any continuation $c$ that is recoverable from $N$ but not from $S$ alone
+corresponds to a fiber of $\mathcal{H}$ that $\sigma$ has collapsed but that $N$
+has preserved. The existence of such a continuation establishes that $N$ resists
+the projection, preserving partial access to $\mathcal{H}$ against the state
+illusion.
+\end{proof}
+
+This is the precise sense in which notes are anti-collapse artifacts. They do not
+prevent all collapse---they cannot and should not---but they preserve selected
+fibers of history that would otherwise be irretrievably lost to the projection.
+
+The relationship between notes and Spherepop operators is not one-to-one.
+Most notes mix operators. But each class of note has a dominant operation, and
+this dominant operation provides the basis for a natural taxonomy. That taxonomy
+is the subject of the following chapters.
+
+%%% ============================================================
+\section{Capture Notes: The Refuse Operation}
+%%% ============================================================
+
+The most familiar class of notes are those that preserve an existing trajectory
+against imminent collapse. Photographs, audio recordings, journals, logs, field
+notes, and measurements all belong to this class. What unites them is their
+temporal orientation: they are made because a trajectory is about to disappear,
+and their purpose is to preserve enough structure that a future agent may re-enter
+it.
+
+In Spherepop terms, capture notes are primarily Refuse operations. The world
+naturally tends toward collapse. Distinctions disappear. Details are forgotten.
+Experiences become summaries. States erase their own histories. The capture note
+performs a local refusal against this tendency. It says, in effect: \emph{do not
+let this distinction disappear}. It preserves enough of the fiber of history that
+re-entry remains possible.
+
+\begin{definition}[Capture Note]
+A \emph{capture note} is a note whose primary function is to preserve a
+continuation that exists at the time of note creation but is expected to become
+inaccessible.
+\end{definition}
+
+A photograph captures a perceptual history. At the moment of exposure, a specific
+configuration of light exists at a specific location. Without the photograph, this
+configuration disappears: it cannot be recovered from the state of the world at
+any future time, because states do not preserve their own perceptual histories.
+With the photograph, the perceptual trajectory becomes re-enterable. The image is
+not a replica of an experience; it is a node in a perceptual graph, a preserved
+point of re-entry into a trajectory through visual space.
+
+An audio recording captures a sonic history. The recording does not merely store
+sound; it preserves access to a temporal sequence of auditory events that can be
+re-entered at any point, traversed at different speeds, analyzed spectrally, or
+compared against other recordings. The value of the recording is not the storage
+of vibrations but the accessibility of the auditory trajectory.
+
+A journal or laboratory notebook captures a cognitive or procedural history. The
+journal entry does not merely store thoughts; it preserves the inferential
+connections between them, the sequence in which conclusions were reached, the
+doubts that accompanied them, and the observations that motivated them. A future
+reader---including the author's future self---can re-enter the cognitive trajectory
+at any point. This is why the laboratory notebook has a different epistemic status
+from the published paper: the paper presents conclusions, compressing the history
+of their derivation, while the notebook preserves the history itself.
+
+\begin{proposition}[Capture Notes and Refuse]
+A capture note $N$ performs a Refuse operation with respect to the projection
+$\sigma : \mathcal{H} \to S$ if and only if there exists a history fiber
+$h \in \sigma^{-1}(S)$ such that $P_A(c_h, t \mid N) > P_A(c_h, t)$,
+where $c_h$ is the continuation associated with history $h$.
+\end{proposition}
+
+The capturing operation introduces an interesting asymmetry between the moment of
+note creation and the moment of use. At creation, the note-maker has access to the
+trajectory and makes a representation of it. At use, the note-reader has access
+only to the representation and must reconstruct enough of the trajectory to
+continue from it. The quality of a capture note is therefore not merely its
+fidelity to the original but its adequacy as a reconstruction substrate.
+
+This has consequences for how capture notes should be evaluated. A photograph that
+captures the correct person but not the context in which they appear may be a poor
+capture note even at high resolution, if the lost context is what matters for
+future reconstruction. A field note that captures the measurements but not the
+experimental conditions under which they were taken may fail to preserve the
+continuation it was intended to preserve, even if every number is accurate.
+
+The adequacy of a capture note depends on what future continuations are
+anticipated. A note-maker who knows what the note will be used for can tailor it
+precisely to the continuations that must remain reachable. A note-maker who does
+not know what it will be used for must preserve more fiber, at greater cost, to
+ensure that the relevant continuations are available to an unknown future agent.
+This is the fundamental design problem of archival practice.
+
+%%% ============================================================
+\section{Prospective Notes: The Bind Operation}
+%%% ============================================================
+
+Prospective notes are the class that the passive theory cannot accommodate at all.
+They include to-do lists, calendars, blueprints, roadmaps, plans, and agendas.
+What distinguishes them is that they do not preserve past trajectories; they
+create access to future ones.
+
+A calendar entry is not a record of something that happened. It is a commitment
+that something shall happen, and more precisely, that the trajectory from the
+present to that future event shall remain reachable. Without the calendar entry,
+the future event may not be attended because the continuation from present intention
+to future action has been broken by the ordinary operations of memory, distraction,
+and competing demands. With the entry, the continuation is stabilized: a future
+self will encounter the note at the right moment and will be able to re-enter the
+trajectory from intention to execution.
+
+\begin{definition}[Prospective Note]
+A \emph{prospective note} is a note whose primary function is to preserve access
+to a continuation that does not yet exist at the time of note creation but is
+anticipated.
+\end{definition}
+
+In Spherepop terms, prospective notes are primarily Bind operations. They bind a
+future continuation to a present intention, creating a coupling across time. A
+calendar binds future action to present scheduling. A blueprint binds future
+construction to present design. A roadmap binds future development to a present
+strategic commitment. The note creates a temporal dependency: the future
+trajectory is not merely possible but linked to the present through the
+note's mediation.
+
+\begin{proposition}[Prospective Notes and Temporal Binding]
+A prospective note $N$ performs a Bind operation between present agent state
+$A_t$ and future continuation $c_{t'}$ if and only if
+$P_A(c_{t'}, t' \mid N, A_t) > P_A(c_{t'}, t' \mid A_t)$,
+where $t' > t$ and the conditioning on $A_t$ indicates that the agent's present
+state is available in both cases.
+\end{proposition}
+
+The blueprint is an especially rich case. A blueprint does not merely record an
+intention to construct a building; it specifies, in a form that can be handed to
+agents who were not present at the original design, the precise sequence of
+operations required to realize the design. The blueprint is a compressed
+construction continuation: it encodes not just the desired outcome but the
+admissible paths to that outcome. A contractor who has never spoken to the
+architect can follow the blueprint and traverse a trajectory that the architect
+defined months or years earlier.
+
+This reveals a dimension of prospective notes that the passive theory overlooks
+entirely: they can transfer continuations between agents. A to-do list written
+by one person can be executed by another. A recipe written in one century can be
+followed in another. A musical score written by a composer who died before it was
+performed can be realized by musicians who never knew the composer. The prospective
+note decouples the definition of a continuation from its execution, and can
+transmit that continuation across arbitrary gaps of time, geography, and
+personnel.
+
+Source code occupies a remarkable position in this taxonomy. It is simultaneously
+a prospective note and a generative artifact. Source code records computations not
+yet run: it is prospective in its orientation, specifying future operations rather
+than recording past ones. But it is also executable: unlike a blueprint, which
+requires human agents to interpret and realize its specifications, source code can
+be traversed by a machine. The program is a continuation that can execute itself.
+A compiler or interpreter transforms the prospective note into an active Pop
+operation.
+
+The to-do list illustrates the simplest case of temporal binding. Its entire
+function is to maintain the reachability of a set of tasks across the interval
+between their identification and their completion. Without the list, the tasks
+remain possible in principle but become inaccessible in practice as competing
+demands displace them from working memory. With the list, the tasks are bound to
+the future: a future self will encounter them, can re-enter their associated
+continuations, and can execute them or reschedule them. The list does not do the
+work; it preserves the reachability of the work.
+
+%%% ============================================================
+\section{Repair Notes: Refuse and Pop Combined}
+%%% ============================================================
+
+Repair notes exist because reconstruction is expensive. They include documentation,
+troubleshooting guides, commit messages, lab notebooks, error logs, and post-mortem
+reports. Their purpose is to preserve the path required to recover from
+interruption---to make re-entry possible after a trajectory has been broken.
+
+\begin{definition}[Repair Note]
+A \emph{repair note} is a note whose primary function is to reduce the cost of
+reconstructing a continuation after it has been or is anticipated to be
+interrupted.
+\end{definition}
+
+Repair notes sit directly at the intersection of Refuse and Pop. The Refuse
+component preserves the history of a trajectory against collapse---the documentation
+refuses the loss of procedural or operational history. The Pop component enables
+re-entry: when needed, the repair note provides the means to pop back into the
+interrupted trajectory from an arbitrary failure state.
+
+\begin{definition}[Reconstruction Cost]
+Let $C_r(c)$ denote the cost of reconstructing continuation $c$ from first
+principles, without any note. Let $C_r(c \mid N)$ denote the reconstruction cost
+given access to note $N$. The \emph{repair value} of $N$ with respect to $c$ is
+\[
+R_v(N, c) = C_r(c) - C_r(c \mid N).
+\]
+\end{definition}
+
+\begin{theorem}[Notes as Pre-emptive Repair]
+Every note $N$ with positive repair value $R_v(N, c) > 0$ for some continuation
+$c$ constitutes a pre-emptive repair: it reduces expected reconstruction cost
+prior to any failure occurring.
+\end{theorem}
+
+\begin{proof}
+By definition, $R_v(N, c) > 0$ implies $C_r(c \mid N) < C_r(c)$. Since the note
+exists before any failure occurs, the cost reduction is in force from the moment
+of note creation. The note therefore functions as a repair mechanism that precedes
+the event it repairs for. A reactive repair responds to loss that has already
+occurred; the note, by contrast, installs the means of repair in advance of any
+interruption. Pre-emptive repair is structurally distinct from reactive repair:
+the former reduces expected cost regardless of whether failure occurs, while the
+latter responds to realized failure.
+\end{proof}
+
+The commit message is the canonical repair note in software development. A commit
+message written in thirty seconds may save days of future debugging by recording
+not merely what changed but why it changed---the reasoning that motivated the
+modification, the alternatives that were considered and rejected, the specific
+failure mode that the change was intended to address. Without this message, a
+future developer who encounters the code change must reconstruct the reasoning from
+the code itself, from surrounding context, from version history, or from memory---
+all expensive, all lossy, all incomplete. With the message, the reasoning is
+directly accessible. The repair note allows the future developer to pop back into
+the inferential trajectory that produced the change.
+
+A troubleshooting guide is a repair note for a class of failure states. It says:
+if you arrive at this configuration, the continuation from here to a functional
+state runs through these steps. Each entry in the guide is a stored pop
+operator: given a failure state, it provides the path back to a functioning
+trajectory. The guide is not valuable because it records past experiences of
+failure; it is valuable because it makes future recovery cheaper.
+
+The lab notebook occupies a complex position. As a capture note, it records
+observations and measurements. As a repair note, it records the operational
+procedures, instrument settings, and experimental conditions that allow the
+experiment to be reproduced---not merely described, but re-entered. A lab notebook
+that records results but not methods is a poor repair note, because the missing
+methods are precisely what is needed to reconstruct the trajectory from the
+beginning. A lab notebook that records methods in detail reduces the reconstruction
+cost of the experiment to approximately zero: a future researcher can pop back into
+the trajectory at any point, reproducing the conditions and continuing from where
+the original investigation stopped.
+
+%%% ============================================================
+\section{Coordination Notes: Binding Multiple Agents}
+%%% ============================================================
+
+Coordination notes are distinguished not by their content but by the number of
+agents they bind. Laws, standards, protocols, contracts, specifications,
+interfaces, and conventions are all coordination notes. Their purpose is to
+synchronize the trajectories of multiple agents who would otherwise evolve
+independently.
+
+\begin{definition}[Coordination Note]
+A \emph{coordination note} is a note whose primary function is to bind the
+continuations of two or more agents, creating coupled trajectories from what
+would otherwise be independent evolutions.
+\end{definition}
+
+A network protocol is a coordination note. Without the protocol, two software
+systems may be technically capable of exchanging information but have no means
+of doing so: their continuations are independent. The protocol defines a shared
+trajectory space---a set of message formats, sequencing rules, and error
+conditions---within which both systems can operate simultaneously. With the
+protocol, the systems are bound: each one's behavior is a continuation that
+depends on the other's.
+
+\begin{proposition}[Coordination and Collective Reachability]
+Let $A_1, \ldots, A_n$ be agents with independent continuation spaces
+$\mathcal{C}_1, \ldots, \mathcal{C}_n$. A coordination note $N$ increases
+collective reachability if
+\[
+\bigl|\mathcal{C}(A_1, \ldots, A_n \mid N)\bigr|
+>
+\bigl|\mathcal{C}_1\bigr| + \cdots + \bigl|\mathcal{C}_n\bigr|,
+\]
+where $\mathcal{C}(A_1, \ldots, A_n \mid N)$ denotes the joint continuation
+space available to the agents under the coordination note.
+\end{proposition}
+
+The proposition captures the supraadditive character of coordination. When agents
+are bound by a coordination note, their joint trajectory space can exceed the sum
+of their individual spaces because the combination of coordinated agents can
+traverse paths that no individual agent could reach alone. A contract between a
+manufacturer and a supplier creates joint trajectories---products that neither
+party could produce independently---that are reachable only because the
+coordination note has coupled their operations.
+
+A legal system is a civilizational-scale coordination note. Laws define the
+trajectory spaces within which agents may operate, specify which continuations are
+admissible and which are not, and couple the behaviors of millions of agents who
+have never met. The legal system is not merely a set of prohibitions; it is a
+coordination infrastructure that makes large-scale cooperation possible by defining
+a shared space of admissible trajectories. A society that loses its legal
+infrastructure does not merely become lawless; it loses the coordination structure
+that coupled its agents' trajectories, and those trajectories immediately begin
+to diverge.
+
+The bibliography at the end of a scientific paper is a coordination note about the
+inferential community. It records the prior works whose continuations the present
+paper extends, cites, or builds upon. The citation graph that emerges across a
+scientific literature is a large-scale bind structure: each paper is coupled to the
+papers it cites and to the papers that cite it, forming a network of inferential
+dependencies. A paper that is uncitable---because it is unpublished, or behind an
+access wall, or written in a language the community cannot read---is a paper whose
+continuation has been severed from the network. Its internal inferential
+continuations may be intact, but its place in the collective trajectory space has
+been destroyed.
+
+The deepest coordination notes are natural languages. A language is not merely a
+communication system; it is a coordination note that defines the trajectory space
+within which an entire community can interact. To share a language is to share
+access to a set of semantic, syntactic, and pragmatic continuations. Words are
+coordination notes that bind speakers to shared inferential trajectories: when two
+speakers share the word for a concept, they share access to the same node in
+semantic space and can traverse the same downstream paths from it. The death of a
+language is therefore not merely the loss of a communication medium; it is the
+collapse of a coordination infrastructure that coupled the semantic trajectories
+of its speakers.
+
+%%% ============================================================
+\section{Refusal Notes: The Refuse Operation in Pure Form}
+%%% ============================================================
+
+Refusal notes are the closest thing the taxonomy has to a pure Refuse operation.
+Mathematical proofs, cryptographic checksums, archival copies, legal records, and
+formal specifications all belong to this class. Their purpose is defensive: not to
+generate new trajectories or bind existing ones, but to prevent the destruction of
+distinctions that already exist.
+
+\begin{definition}[Refusal Note]
+A \emph{refusal note} is a note whose primary function is to prevent the collapse
+of an existing distinction, independently of whether the preserved distinction is
+expected to be used.
+\end{definition}
+
+The mathematical proof is the clearest instance. A proof does not merely claim that
+a theorem is true; it preserves the path through inference space that demonstrates
+why it must be true, in a form that any sufficiently trained reasoner can traverse.
+The proof refuses the collapse of a mathematical result into mere assertion. Without
+the proof, the theorem can only be believed; with the proof, it can be known---not
+because proof and belief differ in certainty, but because the proof preserves the
+inferential trajectory that connects the theorem to its premises. Future
+mathematicians can re-enter the derivation, verify each step, weaken assumptions,
+generalize results, or identify the precise locus of errors.
+
+\begin{proposition}[Proofs as Refusal Notes]
+A mathematical proof $P$ of theorem $T$ is a refusal note that preserves the
+inferential continuation from premises $\Gamma$ to conclusion $T$:
+\[
+P_A(c_{\Gamma \vdash T}, t \mid P) > P_A(c_{\Gamma \vdash T}, t)
+\]
+for any agent $A$ with sufficient background knowledge, at any future time $t$.
+\end{proposition}
+
+The proof does not merely increase reachability at the moment of creation; it
+preserves the inferential trajectory indefinitely. A theorem proved in the third
+century remains provable in the twenty-first by any agent who possesses the
+relevant background knowledge. The proof is a refusal note of indefinite
+temporal scope.
+
+A cryptographic checksum is a refusal note in a different domain. The checksum
+preserves the distinction between an intact file and a corrupted one. Without the
+checksum, a corrupted file may be indistinguishable from the original; with the
+checksum, the corruption is detectable. The checksum does not preserve the contents
+of the file directly; it preserves the ability to distinguish the correct state of
+the file from incorrect states. It is a note about the boundary of a distinction
+rather than about the content within that boundary.
+
+Archival copies preserve the reachability of documents that might otherwise be
+destroyed by physical decay, technological obsolescence, or institutional
+disruption. An archive does not generate new continuations; it preserves existing
+ones against time. The archival impulse is therefore a Refuse impulse at
+civilizational scale: the recognition that distinctions are fragile and require
+active preservation if they are to remain reachable across the intervals of time
+that separate their creation from their use.
+
+The most important consequence of the refusal category is the light it sheds on
+the relationship between preservation and use. Refusal notes do not require
+use in order to have value. A proof that is never consulted still preserves an
+inferential trajectory. An archive that is never accessed still preserves documents
+against physical decay. A backup that is never restored still ensures that
+restoration remains possible. The value of a refusal note is not actualized use
+but preserved potential.
+
+This has institutional implications. An archive is valuable even when no one is
+consulting it, because its value lies in the maintenance of reachability, not in
+current traffic. A library that is evaluated only by circulation statistics is
+being evaluated by the wrong criterion: what matters is not how many books are
+checked out but how many trajectories remain accessible to future agents who might
+need them. The low-circulation monograph in a research library is not a failure;
+it is a refusal note for an inferential trajectory that may be needed by exactly
+one researcher in exactly one future context, and that would be irrecoverable if
+the note were destroyed.
+
+%%% ============================================================
+\section{Generative Notes: The Pop Operation}
+%%% ============================================================
+
+Generative notes are the most powerful class in the taxonomy. They include
+scientific theories, maps, programming languages, mathematical formalisms,
+ontologies, and grammars. What distinguishes them from all other note classes is
+that they do not merely preserve or transmit existing continuations; they create
+trajectories that did not previously exist.
+
+\begin{definition}[Generative Note]
+A \emph{generative note} is a note that creates access to continuations that were
+not reachable before the note's creation, independently of whether those
+continuations were previously known or anticipated.
+\end{definition}
+
+In Spherepop terms, generative notes are primarily Pop operations. They step
+forward from the present state of knowledge or capability into a new trajectory
+space. A good theory is not merely a record of what is known; it is a continuation
+factory---a compressed structure from which new knowledge can be derived
+indefinitely.
+
+\begin{proposition}[Generative Notes and Novel Reachability]
+A generative note $N$ satisfies
+\[
+\exists\, c \in \mathcal{C} : P_A(c, t \mid N) > 0 \text{ and } P_A(c, t) = 0,
+\]
+for some agent $A$ and time $t$. That is, $N$ creates access to continuations
+that were previously unreachable.
+\end{proposition}
+
+A map is a generative note. It does not merely record the territory that already
+exists; it creates navigational possibilities that were not previously accessible.
+Before a coastline is charted, the routes along it are either inaccessible or
+must be discovered at great expense by direct exploration. After charting, every
+agent with access to the map can traverse any route on it without independent
+exploration. The map generates navigational continuations from stored spatial
+structure.
+
+A mathematical formalism is a generative note of exceptional power. When Leibniz
+and Newton developed the calculus, they did not merely record a set of techniques;
+they created a notation and a set of rules that made an enormous class of
+previously inaccessible problems tractable. Every theorem proved in calculus
+since the seventeenth century has been a continuation generated by that original
+formalism. The notation itself is a generative note: the integral sign $\int$ and
+the derivative $d/dx$ are compressed pop operators that make entire domains of
+inference accessible to any agent who can read them.
+
+A programming language is a generative note of a special kind: one that is
+mechanically executable. The language defines not just a space of possible
+programs but a machine for traversing that space. Every program expressible in
+the language is a continuation that the language makes accessible. Unlike a
+mathematical formalism, which requires a human reasoner to traverse its
+continuations, a programming language can delegate traversal to a computer. The
+language is a generative note that creates an automated pop operator.
+
+\begin{corollary}[Generative Notes and Continuation Volume]
+For a generative note $N$,
+\[
+V_C(N) \gg V_C(N')
+\]
+for any capture, prospective, repair, or coordination note $N'$ of comparable
+length, because $N$ creates continuations that did not previously exist while
+the other classes only preserve or bind existing ones.
+\end{corollary}
+
+Scientific theories occupy the apex of the generative hierarchy. A theory such as
+Newtonian mechanics or Darwinian evolution does not merely organize existing
+observations; it creates an inferential landscape within which an indefinite number
+of future observations can be interpreted, new experiments can be designed, and
+new predictions can be derived. The theory is a compressed reconstruction path
+for the entire domain it covers: any agent with sufficient background knowledge
+can enter the theory, traverse its implications, and generate new continuations
+from it indefinitely.
+
+Ontologies are generative notes that create conceptual spaces. An ontology defines
+the entities, relations, and categories within a domain, and in doing so defines
+what can be thought within that domain. Before an ontology exists, many
+distinctions are ineffable: they can be experienced but not articulated, sensed
+but not communicated. After an ontology is created, those distinctions become
+reachable---nameable, combinable, transmissible. The creation of an ontology is
+therefore a Pop operation at the level of thought itself: it opens trajectories
+through conceptual space that were previously inaccessible.
+
+%%% ============================================================
+\section{Collapse Notes: The Hidden Class}
+%%% ============================================================
+
+The seventh class of notes is not predicted by any theory of notes as
+preservation, and its existence is only visible through the Spherepop framework.
+Collapse notes are artifacts whose purpose is not to preserve continuations but to
+deliberately destroy detail---to compress histories into navigable states.
+
+\begin{definition}[Collapse Note]
+A \emph{collapse note} is an artifact that performs a deliberate projection
+$\sigma_N : \mathcal{H} \to S_N$, compressing a history or artifact into a more
+compact representation at the cost of detail, in order to make the representation
+navigable.
+\end{definition}
+
+Examples are ubiquitous: file names, titles, abstracts, indexes, summaries,
+taxonomies, classifications, labels, and keywords are all collapse notes. A file
+name is a collapse of a document. A title is a collapse of a book. A citation is
+a collapse of a paper. An abstract is a collapse of an argument. A taxonomy is a
+collapse of a domain.
+
+The paradox of collapse notes is that they appear to be the opposite of notes---
+they destroy information rather than preserving it---yet they are indispensable to
+the function of every other note class. Without collapse notes, the output of
+generative, capture, and repair notes becomes unnavigable. An archive without a
+catalogue is an archive whose contents are unreachable not because they have been
+destroyed but because there is no path from need to document. An index is a
+collapse note about a book: it destroys the sequential structure of the text and
+replaces it with an alphabetically ordered compression, making the book's content
+navigable by topic rather than by reading order.
+
+\begin{theorem}[Necessity of Collapse Notes]
+For any sufficiently large collection of notes $\mathcal{N}$, there exists a
+threshold $|\mathcal{N}| > K$ above which the reachability of individual notes
+in $\mathcal{N}$ decreases in the absence of collapse notes over $\mathcal{N}$.
+\end{theorem}
+
+\begin{proof}
+Search cost through an unstructured collection grows at least linearly with
+collection size. For $|\mathcal{N}| > K$, exhaustive search becomes too expensive
+for practical use. A collapse note---index, catalogue, taxonomy---reduces search
+cost by imposing structure on the collection, making individual notes reachable
+at sublinear cost. Without such structure, notes become inaccessible not through
+destruction but through navigational failure. Hence collapse notes are necessary
+for the preservation of reachability in large collections.
+\end{proof}
+
+The theorem explains a phenomenon that the passive theory cannot: why the growth
+of note collections eventually requires the development of meta-notes---notes about
+notes. Libraries require catalogues. Catalogues require classification systems.
+Classification systems require ontologies. The stack of collapse notes that
+organizes any large archive is not overhead; it is the navigational infrastructure
+that makes the archive's contents reachable at all.
+
+The most fundamental collapse notes are linguistic. A word is a collapse note: it
+compresses a complex of experience, association, inference, and usage into a
+single retrievable token. The word does not preserve the history of the experiences
+it compresses; it collapses them into a navigable unit that can be combined with
+other units to traverse semantic space. The cost of this compression is the loss
+of whatever individual experiences were not preserved in the word's semantic
+content. The benefit is the vast increase in semantic navigability that shared
+vocabulary affords: speakers with common vocabulary can traverse shared semantic
+trajectories far more efficiently than speakers who must describe each concept
+from experiential primitives.
+
+A noun is therefore a collapse note about a process. The passive theory of notes
+would not recognize this as a note at all: nouns do not preserve information about
+specific past events. But the continuation theory recognizes them immediately as
+the most pervasive and powerful class of collapse notes that civilization has
+developed, enabling the compression of unlimited historical complexity into
+navigable semantic tokens.
+
+%%% ============================================================
+\section{The Ephemerality Inversion}
+%%% ============================================================
+
+With the taxonomy in place, the ephemerality question can be addressed precisely.
+The passive theory uses persistence as a criterion of note value: a note that
+survives is more valuable than one that disappears, because survival indicates
+successful preservation of the past state. The continuation theory predicts the
+opposite.
+
+\begin{definition}[Continuation Completion]
+A continuation $c$ is \emph{complete} with respect to note $N$ at time $t$ if
+the trajectory encoded by $N$ has been successfully traversed: the agent has
+arrived at the terminal state of $c$ and no further traversal is required.
+\end{definition}
+
+\begin{theorem}[Ephemerality Inversion]
+Let $N$ be a note encoding a single continuation $c$. If $c$ has been completed,
+then the destruction of $N$ does not reduce the reachability of any remaining
+continuation. Therefore, the ephemerality of $N$ after the completion of $c$
+implies neither loss nor failure.
+\end{theorem}
+
+\begin{proof}
+By assumption, $c$ is the sole continuation for which $N$ increases reachability.
+After completion of $c$, no continuation remains for which $P_A(c', t \mid N)
+> P_A(c', t)$ for any $c' \neq c$. Therefore $V_C(N) = 0$ at time $t$.
+Since continuation volume is zero, the destruction of $N$ reduces reachability
+by zero. The note has fulfilled its function, and its destruction represents
+the completion of a successful operation, not a loss.
+\end{proof}
+
+The grocery list that is discarded at the supermarket exit has not failed. It has
+succeeded completely. The continuation it encoded---the trajectory from home to
+supermarket to provisioned kitchen---has been traversed. The note's continuation
+volume has been reduced to zero by the execution of its purpose. Its
+disappearance is the correct outcome of a successful note, not a mark of
+low quality.
+
+The theorem generates a classification of possible note fates that inverts the
+passive theory's ranking.
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Fate & Passive Theory Ranking & Continuation Theory Ranking \\
+\midrule
+Executed and discarded & Low & Optimal \\
+Preserved and re-entered & Medium & Valuable \\
+Preserved, never re-entered & High & Unrealized potential \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The passive theory ranks preservation as inherently good, so the note that
+survives longest is ranked highest. The continuation theory ranks the completion
+of function as good: the note that is used and discarded has realized its value
+fully, the note that is used and preserved continues to offer value, and the note
+that is preserved but never used has stored value that was never realized.
+
+This has consequences for how archivists, librarians, and information managers
+should evaluate their collections. A collection of notes with high usage and high
+discard rates is performing well: continuations are being executed. A collection
+with high preservation and low usage may be failing: it has stored potential that
+is not being actualized. The relevant question is not how many notes survive but
+how many continuations remain reachable and are being traversed.
+
+The historical record tends to preserve notes whose continuations were not
+completed. The unfinished symphony survives because it was never finished. The
+ancient letter survives because the correspondence it initiated was interrupted.
+The architectural blueprint of a demolished building may outlast the building
+itself. The most celebrated survivors of antiquity---incomplete manuscripts,
+undelivered letters, abandoned plans---are celebrated in part because their
+incompleteness makes their original continuations visible. The completed notes,
+the sent letters, the finished and demolished buildings, have left no trace
+precisely because they succeeded.
+
+%%% ============================================================
+\section{Why LaTeX Preserves More}
+%%% ============================================================
+
+The continuation volume framework resolves a question that matters for anyone who
+has switched from prose writing to mathematical writing and noticed that the
+experience is different in a way that is difficult to articulate. The difference
+is not aesthetic, and it is not about typographical quality---though the typography
+is genuinely better. The difference is that different note substrates preserve
+different classes of continuation.
+
+\begin{proposition}[Substrate-Specific Continuation Classes]
+Different note substrates preserve fundamentally different classes of continuation:
+\begin{itemize}
+\item A plain prose document preserves linguistic continuations.
+\item A musical score preserves performance continuations.
+\item Source code preserves computational continuations.
+\item A \LaTeX\ document preserves mathematical and inferential continuations.
+\item A Git repository preserves developmental continuations.
+\item A map preserves navigational continuations.
+\end{itemize}
+For each substrate, continuations of the preserved class are accessible to agents
+with appropriate reading competencies; continuations of other classes are not
+preserved in their full form.
+\end{proposition}
+
+A plain text paraphrase of a theorem preserves approximately zero inferential
+continuations from the theorem. It allows a reader to know that a certain result
+holds but not to verify it, extend it, apply it, or identify its assumptions. The
+paraphrase has collapsed the theorem into a bare assertion, discarding the proof
+and all the inferential structure that gives the theorem its technical content.
+
+A \LaTeX\ document containing the theorem and its proof preserves the full
+inferential trajectory. A reader can enter the proof at any step, verify the
+inference, identify the lemmas being used, trace the assumptions backward to their
+sources, and extend the argument to new cases. The proof is a stored path through
+inference space: it does not merely assert the destination but records the route,
+in a form that can be traversed by any agent with sufficient background knowledge.
+
+\begin{proposition}[LaTeX and Continuation Volume]
+For a theorem $T$ with proof $P$ and prose paraphrase $D$ of comparable length,
+\[
+V_C(P) \gg V_C(D),
+\]
+because $P$ preserves the inferential continuations from premises to conclusion
+while $D$ preserves only the linguistic continuation of the assertion.
+\end{proposition}
+
+The claim extends beyond theorems. A \LaTeX\ monograph that contains equations,
+commutative diagrams, defined environments, and cross-referenced propositions
+preserves a richer continuation space than a prose document of the same length,
+because the formal environments are nodes in a navigable inferential graph. Each
+defined term is a node. Each theorem is a path. Each proof is a traversal of that
+path, recorded in a form that can be replayed.
+
+The reachability leverage of a mathematical monograph is correspondingly higher
+than that of a prose essay. The monograph compresses an extensive inferential
+landscape into a few hundred pages: thousands of person-years of mathematical
+development, in a form that any competent reader can traverse in hours. This is
+the deep reason why mathematical literature accumulates differently from prose
+literature: each mathematical result, once proved and published, is available as a
+continuation for all future mathematical work, without diminution, without requiring
+re-derivation, accessible to anyone who can read the notation. The mathematical
+literature is a gigantic generative and refusal note structure, and \LaTeX\ is
+the substrate that has made its continuations most accessible.
+
+%%% ============================================================
+\section{Connection to MEM\textbar8}
+%%% ============================================================
+
+The MEM\textbar8 architecture treats memory not as isolated symbol storage but as
+structured pattern access, where retrieval depends on preserving relationships,
+locality, and accessibility. The storage layer is a cognitive substrate rather than
+a passive database, with locality elevated to a principle of cognitive coherence.
+
+Viewed through the note taxonomy, MEM\textbar8 is an architecture for managing the
+full range of note classes within a single cognitive system. Each layer of
+MEM\textbar8 corresponds to a different note class operating at a different
+temporal and spatial scale.
+
+\begin{proposition}[Notes and MEM\textbar8 Layers]
+The note taxonomy maps onto MEM\textbar8 architecture as follows. Capture notes
+correspond to the episodic layer: they preserve specific events in their temporal
+and contextual specificity, enabling later reconstruction of the associated
+trajectories. Repair notes correspond to the procedural layer: they record
+operational sequences that reduce reconstruction cost when skills or routines are
+interrupted. Coordination notes correspond to the semantic layer: shared
+conceptual structures that couple individual cognitive trajectories to community
+norms. Collapse notes correspond to the indexical layer: compressed access
+structures that make the contents of other layers navigable. Generative notes
+correspond to the theoretical layer: frameworks that create new inferential
+trajectories from stored patterns.
+\end{proposition}
+
+The MEM\textbar8 principle that memory is event-structured rather than symbol-
+structured aligns precisely with the continuation theory of notes. A memory is not
+a stored state; it is a stored path---a trajectory through event space that can be
+re-entered and traversed. The retrieval process is not lookup but reconstruction:
+the agent does not retrieve a stored item from a fixed address but reconstructs a
+trajectory from available cues, following the path back through the event structure
+to the desired content.
+
+This event-structured view of memory implies that forgetting is not the loss of
+stored symbols but the collapse of trajectories. What is forgotten is not a datum
+but a path: the sequence of connections through event space that made a particular
+memory reachable. Notes, on this view, are external trajectory preservers: they
+maintain paths through event space that the internal event-structure has lost or
+is at risk of losing.
+
+A notebook is a miniature MEM\textbar8. A Git repository is a miniature
+MEM\textbar8. An archive is a miniature MEM\textbar8. Each stores not symbols but
+structured trajectories, organized in a way that makes reconstruction possible.
+The difference between a good archive and a poor one is not primarily the quantity
+of material stored but the quality of the access structure: how well the collapse
+notes and coordination notes that organize the collection preserve the
+reachability of the trajectories within it.
+
+%%% ============================================================
+\section{Connection to Repair Theory}
+%%% ============================================================
+
+Repair Theory holds that repair is the restoration of access to a trajectory that
+has been interrupted. A broken tool is one whose operational continuations have
+been disrupted; to repair it is to restore the trajectory from intention to
+execution. A corrupted file is one whose informational continuations have been
+lost; to recover it is to restore a path through the space of derivable states.
+
+Notes are pre-emptive repairs, as established in Theorem 6.2. But the connection
+runs deeper. Repair Theory implies a classification of failure modes that maps
+directly onto the note taxonomy.
+
+Each note class is a pre-emptive response to a specific class of anticipated
+failure. Capture notes are pre-emptive repairs for perceptual and experiential
+collapse: the photograph is made in anticipation of the failure of biological
+visual memory. Prospective notes are pre-emptive repairs for intention-execution
+gaps: the calendar entry is made in anticipation of the failure to maintain
+continuity between a scheduled intention and a future moment of execution. Repair
+notes proper are pre-emptive repairs for procedural interruption. Coordination
+notes are pre-emptive repairs for coordination failure: the protocol is established
+in anticipation of the failure that would occur if agents evolved their behaviors
+independently. Refusal notes are pre-emptive repairs for distinction collapse.
+Generative notes are pre-emptive repairs of a different kind: they create
+trajectory spaces in anticipation of future needs that may not yet be articulable.
+
+\begin{theorem}[Note Taxonomy as Failure Taxonomy]
+The seven classes of notes in the taxonomy correspond bijectively to seven classes
+of anticipated trajectory failure: experiential collapse, intention-execution gap,
+procedural interruption, coordination failure, distinction collapse, navigational
+failure, and inferential poverty.
+\end{theorem}
+
+The theorem implies that the presence of a particular note class in a community
+or institution is evidence of the particular failure modes that community
+anticipates. A community that develops extensive archival practices anticipates
+distinction collapse. A community that develops extensive documentation practices
+anticipates procedural interruption. A community that develops extensive legal
+systems anticipates coordination failure.
+
+The civilization question becomes, in this framework, a question about which
+failure modes a civilization is equipped to anticipate and address. A civilization
+with a rich note infrastructure is one that has identified the failure modes most
+threatening to its trajectory spaces and has developed specific note technologies
+to address each of them. The gaps in a civilization's note infrastructure---the
+failure modes it has not anticipated---are the loci of its most catastrophic
+vulnerabilities.
+
+%%% ============================================================
+\section{Civilization as a Note System}
+%%% ============================================================
+
+The argument of the preceding chapters converges on a claim about civilization.
+The standard narrative describes civilization as the accumulation of knowledge:
+civilizations advance by discovering more, learning more, and recording more. The
+continuation theory suggests a different description: civilization is the
+construction and maintenance of a distributed note infrastructure for preserving
+trajectories across time.
+
+\begin{definition}[Civilizational Note Infrastructure]
+Let civilization $Z$ possess note infrastructure $\mathcal{N} = \{N_1, \ldots, N_k\}$.
+Define collective reachability as
+\[
+R(Z) = \bigcup_{i=1}^{k} \mathcal{C}(N_i),
+\]
+where $\mathcal{C}(N_i)$ is the set of continuations preserved or enabled by $N_i$.
+\end{definition}
+
+\begin{theorem}[Civilizational Collapse]
+The destruction of note infrastructure $\mathcal{N}$ decreases collective
+reachability even when the underlying facts, truths, or states that the notes
+describe remain unchanged:
+\[
+R(Z \setminus \mathcal{N}) < R(Z).
+\]
+\end{theorem}
+
+\begin{proof}
+By Definition 13.1, $R(Z)$ includes all continuations preserved by elements of
+$\mathcal{N}$. If $\mathcal{N}$ is destroyed, no element of $\mathcal{N}$
+contributes to collective reachability. Since some continuations are accessible
+only through $\mathcal{N}$---that is, $\mathcal{C}(N_i) \not\subseteq R(Z
+\setminus \mathcal{N})$ for some $i$---it follows that $R(Z \setminus \mathcal{N})
+< R(Z)$. The facts or truths themselves are not destroyed, but the paths that
+made them accessible are. A civilization that cannot reach its truths is
+functionally indistinguishable from one that does not possess them.
+\end{proof}
+
+The theorem formalizes an observation that is easy to state but hard to fully
+absorb: a civilization that loses its note infrastructure does not become ignorant.
+It becomes unable to reach its own knowledge. The tragedy of lost languages, burned
+libraries, undocumented codebases, broken hyperlinks, dead file formats, and
+uncatalogued archives is not that information ceased to exist. It is that
+continuations ceased to be reachable.
+
+The progression of note technologies through history is intelligible as a sequence
+of expansions in civilizational reachability. Speech allowed continuations to
+survive the duration of a conversation. Stories allowed them to survive a lifetime.
+Writing allowed them to survive centuries. Printing allowed them to survive across
+populations that share no living memory. Digital storage allowed them to survive
+replication at essentially zero marginal cost. Version control allowed them to
+survive modification, preserving access not just to what a document is now but to
+what it was at every prior point and how it got here. The internet allows
+continuations to survive distribution across arbitrary geography.
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Technology & Reachability Horizon & Dominant Note Classes \\
+\midrule
+Speech & Minutes to hours & Coordination, Capture \\
+Story & Decades & Capture, Generative \\
+Writing & Centuries & All classes \\
+Printing & Populations & Coordination, Refusal \\
+Digital storage & Replication & All classes, at scale \\
+Version control & Modification history & Repair, Capture \\
+Network & Distribution & Coordination, Generative \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Each note technology expands the reachability horizon of civilizational
+continuations by addressing a specific class of failure that the preceding
+technology could not prevent. Writing prevents the death of witnesses. Printing
+prevents the destruction of individual copies. Digital storage prevents the cost
+barriers to copying. Version control prevents the loss of developmental history
+through modification. Each technology is a response to the failure modes that the
+preceding technology left unaddressed.
+
+Libraries are not repositories of knowledge in the passive sense. They are
+repositories of continuations---systems for preserving the traversability of
+trajectories across the interval between a document's creation and a reader's
+need. The catalogue is a collapse note about the collection: it preserves access
+to the notes themselves by encoding their location within the system. An
+uncatalogued archive is an archive whose outer reachability structure has failed,
+even if the inner notes remain physically intact.
+
+Scientific journals are note repositories that have developed quality-control
+mechanisms for the notes they store. Peer review is not primarily a system for
+certifying truth; it is a system for verifying that the continuations a paper
+encodes are genuine---that the steps are admissible, that the derivations hold,
+that the experiments can be reproduced. A paper that fails peer review has not
+recorded the wrong past; it has published broken continuations, paths that claim
+to reach destinations they do not in fact reach.
+
+%%% ============================================================
+\section{The Admissibility Connection}
+%%% ============================================================
+
+The admissibility framework holds that a trajectory is admissible relative to a
+set of constraints if it satisfies those constraints at every point of its
+execution. The intersection of notes with admissibility theory is deep: notes do
+not merely preserve continuations, they preserve \emph{admissible} continuations,
+and the failure of a note may consist not in the destruction of a continuation but
+in the collapse of its admissibility structure.
+
+A proof is a refusal note for an inferential trajectory. But it is more
+specifically a refusal note for the admissibility of that trajectory: it preserves
+not just the conclusion but the evidence that each step in the derivation is
+admissible---that the inference rules used are valid, that the assumptions invoked
+are available, that the quantifiers are properly scoped. A proof that omits a step
+is a proof with a gap in its admissibility record: the trajectory may still be
+traversable by an expert who can fill the gap, but the note has failed to preserve
+the admissibility verification for future agents who cannot.
+
+\begin{proposition}[Notes and Admissibility Preservation]
+A note $N$ preserves an admissible continuation $c$ relative to constraint set
+$\Omega$ if and only if $N$ encodes sufficient information to verify the
+admissibility of $c$ with respect to $\Omega$ at each step, independently of
+any information not contained in $N$.
+\end{proposition}
+
+This proposition reveals a dimension of note quality that goes beyond fidelity or
+continuation volume. A note may increase the reachability of a continuation while
+failing to preserve its admissibility structure. A traveller's account of a route
+may enable future travellers to attempt the route while failing to record which
+segments are only traversable in dry weather: the continuation is preserved but
+its admissibility conditions are not. The note has preserved the trajectory while
+losing the admissibility geometry.
+
+The xylomorphic criterion from the admissibility framework---the condition that a
+trajectory must satisfy $\lambda < 1$ to avoid divergence---implies a class of
+notes that might be called admissibility certificates. An admissibility certificate
+is a note that preserves not the trajectory itself but the evidence of its
+admissibility: a test result, a formal verification, a peer review report. The
+certificate decouples the question of whether a trajectory can be traversed from
+the question of whether it is safe or valid to traverse it.
+
+Version control systems maintain admissibility certificates in a distributed form.
+The commit history is not merely a record of developmental states; it is a record
+of the decisions made at each point, the tests that passed, the reviews that were
+conducted. This admissibility record is what makes the history navigable not just
+for reconstruction but for evaluation: a future developer can not only return to
+any prior state but assess the conditions under which that state was considered
+admissible.
+
+%%% ============================================================
+\section{Conclusion: The Algebra of Continuations}
+%%% ============================================================
+
+The argument of this monograph can be compressed into a small number of
+propositions.
+
+Notes are not passive records of the past. They are anti-collapse artifacts:
+mechanisms that preserve selected fibers of history against the projection that
+reduces histories to states. A note is any artifact that increases the reachability
+of at least one continuation that would otherwise become inaccessible.
+
+The standard evaluation criterion for notes---persistence---is the wrong criterion.
+The correct criterion is continuation realization. A note that is used and discarded
+has realized its value fully. A note that is preserved indefinitely but never
+consulted has stored value that was never actualized. The ephemerality of a note
+is a mark of success when the continuation it encoded has been executed.
+
+The Spherepop framework reveals that notes are the physical realization of the four
+fundamental operations. Refuse gives capture notes and refusal notes. Pop gives
+generative notes. Bind gives prospective notes and coordination notes. And Collapse
+gives the seventh and most counterintuitive class: collapse notes, the artifacts
+whose purpose is controlled forgetting---the file name, the title, the index, the
+taxonomy---without which the output of all other note classes becomes unnavigable.
+
+The civilization that loses its note infrastructure does not become ignorant. It
+becomes unable to reach its own knowledge. The historical record of civilizational
+collapse, cultural loss, and technological forgetting is, at the level of mechanism,
+a record of note infrastructure failure: the collapse of the trajectories that made
+knowledge accessible, rather than the destruction of knowledge itself.
+
+And the history of civilizational progress is, at the same level of mechanism,
+a history of expanding note technologies. Each major development---writing,
+printing, the scientific journal, the archive, the digital repository, version
+control---is the construction of a new class of note infrastructure that addresses
+a failure mode the preceding infrastructure could not prevent. The work of
+civilization is largely the work of extending the reachability horizon of a
+species across time.
+
+\medskip
+
+Spherepop is the algebra of continuations. Notes are the physical realization of
+that algebra. And civilization is the attempt, always incomplete, always under
+threat, to build a note infrastructure adequate to the continuation needs of the
+species that requires it.
+
+\newpage
+
+\begin{thebibliography}{99}
+
+\bibitem{spherepop}
+Flyxion. \emph{Spherepop: A Calculus of Collapse and Continuation}. Monograph.
+Independent Researcher.
+
+\bibitem{programs_as_histories}
+Flyxion. \emph{Programs as Histories: The State Illusion and Its Consequences}.
+Monograph. Independent Researcher.
+
+\bibitem{mem8}
+Flyxion. \emph{MEM\textbar8: Memory as Event Structure}. Monograph. Independent
+Researcher.
+
+\bibitem{repair_theory}
+Flyxion. \emph{Repair as a Fundamental Category}. Monograph. Independent
+Researcher.
+
+\bibitem{reachability}
+Flyxion. \emph{From Preservation to Reachability: Semantic Continuity in an Age
+of Drift}. Monograph. Independent Researcher.
+
+\bibitem{admissibility}
+Flyxion. \emph{The Admissibility Field}. Monograph. Independent Researcher.
+
+\bibitem{strachey}
+Strachey, C. Fundamental concepts in programming languages. \emph{Higher-Order
+and Symbolic Computation} 13 (2000): 11--49. Originally delivered 1967.
+
+\bibitem{felleisen}
+Felleisen, M. and Friedman, D.~P. A calculus for assignments in higher-order
+languages. \emph{Proceedings of the 14th ACM SIGACT-SIGPLAN Symposium on
+Principles of Programming Languages}, 1987.
+
+\bibitem{hutchins}
+Hutchins, E. \emph{Cognition in the Wild}. MIT Press, 1995.
+
+\bibitem{clark}
+Clark, A. and Chalmers, D. The extended mind. \emph{Analysis} 58, no.~1 (1998):
+7--19.
+
+\bibitem{goody}
+Goody, J. \emph{The Domestication of the Savage Mind}. Cambridge University
+Press, 1977.
+
+\bibitem{ong}
+Ong, W.~J. \emph{Orality and Literacy: The Technologizing of the Word}. Methuen,
+1982.
+
+\bibitem{eisenstein}
+Eisenstein, E.~L. \emph{The Printing Press as an Agent of Change}. Cambridge
+University Press, 1980.
+
+\bibitem{borgman}
+Borgman, C.~L. \emph{Scholarship in the Digital Age: Information, Infrastructure,
+and the Internet}. MIT Press, 2007.
+
+\bibitem{atkinson}
+Atkinson, R.~C. and Shiffrin, R.~M. Human memory: A proposed system and its
+control processes. \emph{The Psychology of Learning and Motivation} 2 (1968):
+89--195.
+
+\bibitem{tulving}
+Tulving, E. Episodic and semantic memory. In E. Tulving and W. Donaldson (eds.),
+\emph{Organization of Memory}. Academic Press, 1972.
+
+\end{thebibliography}
+
+\end{document}

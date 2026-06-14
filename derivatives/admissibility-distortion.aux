@@ -1,0 +1,102 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{mayne2000model}
+\citation{bertsekas2012dynamic}
+\citation{holtz2006sensorless}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Motivating scenario: BLDC motor drive}{1}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Paper organisation}{1}{subsection.1.2}\protected@file@percent }
+\citation{boldea2010electric}
+\citation{kalman1960general}
+\citation{tomlin2003computational}
+\citation{parrilo2000structured}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces BLDC FOC drive with learned encoder $\bm  {\varphi }$ and fault classifier. Dashed line: high-frequency probing injection for ITSC detection. If the encoder collapses the healthy and ITSC states (identical passive observations), the fault classifier operates on a zero-information projection.}}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:bldc}{{1}{2}{BLDC FOC drive with learned encoder $\bvphi $ and fault classifier. Dashed line: high-frequency probing injection for ITSC detection. If the encoder collapses the healthy and ITSC states (identical passive observations), the fault classifier operates on a zero-information projection}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Plant Model and Reachability Geometry}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}General mechatronic state-space model}{2}{subsection.2.1}\protected@file@percent }
+\newlabel{eq:plant}{{1}{2}{General mechatronic state-space model}{equation.2.1}{}}
+\newlabel{eq:dq}{{2}{2}{General mechatronic state-space model}{equation.2.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Policy class and reachability sets}{2}{subsection.2.2}\protected@file@percent }
+\newlabel{def:reach}{{1}{2}{Reachability Set}{definition.1}{}}
+\newlabel{eq:gramian}{{4}{2}{Policy class and reachability sets}{equation.2.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Admissibility Distortion}{2}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Admissibility equivalence}{2}{subsection.3.1}\protected@file@percent }
+\newlabel{def:admissibility}{{2}{2}{Admissibility Equivalence}{definition.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Distortion measure}{2}{subsection.3.2}\protected@file@percent }
+\newlabel{def:distortion}{{3}{2}{Admissibility Distortion}{definition.3}{}}
+\newlabel{eq:DA}{{5}{2}{Admissibility Distortion}{equation.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Collapse--severity decomposition}{2}{subsection.3.3}\protected@file@percent }
+\newlabel{prop:decomp}{{1}{2}{Decomposition}{proposition.1}{}}
+\newlabel{eq:decomp}{{6}{2}{Decomposition}{equation.3.6}{}}
+\citation{cover2006elements}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Monotonicity under compression}{3}{subsection.3.4}\protected@file@percent }
+\newlabel{thm:mono}{{1}{3}{Monotonicity}{theorem.1}{}}
+\newlabel{eq:cost_id}{{7}{3}{Compression Cost Identity}{equation.3.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Observational--Interventional Separation}{3}{section.4}\protected@file@percent }
+\newlabel{sec:oist}{{4}{3}{Observational--Interventional Separation}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Definitions}{3}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Main theorem}{3}{subsection.4.2}\protected@file@percent }
+\newlabel{thm:oist}{{2}{3}{OIST}{theorem.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Reachability sets in the $(i_d, \omega _r)$ plane for healthy ($x^h$, blue) and ITSC-faulty ($x^f$, red) BLDC states under field-weakening intervention. The fault opens reachability above $\omega _r^{\text  {crit}}$ (dashed); this region is inaccessible from $x^h$ but reachable from $x^f$. An encoder that collapses $x^h \equiv x^f$ destroys this distinction.}}{3}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:reach}{{2}{3}{Reachability sets in the $(i_d, \omega _r)$ plane for healthy ($x^h$, blue) and ITSC-faulty ($x^f$, red) BLDC states under field-weakening intervention. The fault opens reachability above $\omega _r^{\text {crit}}$ (dashed); this region is inaccessible from $x^h$ but reachable from $x^f$. An encoder that collapses $x^h \equiv x^f$ destroys this distinction}{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Engineering Corollaries}{3}{section.5}\protected@file@percent }
+\newlabel{sec:corollaries}{{5}{3}{Engineering Corollaries}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Fault classifier information ceiling}{3}{subsection.5.1}\protected@file@percent }
+\newlabel{thm:dpi}{{3}{3}{Irrecoverable Information Loss}{theorem.3}{}}
+\newlabel{eq:dpi}{{8}{3}{Irrecoverable Information Loss}{equation.5.8}{}}
+\newlabel{cor:bayes}{{2}{3}{Bayes-Risk Floor on Fault Detection}{corollary.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Constructive impossibility at a single latent point}{3}{subsection.5.2}\protected@file@percent }
+\citation{tomlin2003computational}
+\citation{isermann2006fault}
+\citation{holtz2006sensorless}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Lipschitz stability of distortion}{4}{subsection.5.3}\protected@file@percent }
+\newlabel{prop:lip}{{2}{4}{Lipschitz Bound}{proposition.2}{}}
+\newlabel{eq:lip}{{9}{4}{Lipschitz Bound}{equation.5.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}HIL Reachability Auditing Procedure}{4}{section.6}\protected@file@percent }
+\newlabel{sec:hil}{{6}{4}{HIL Reachability Auditing Procedure}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Witnessed-disagreement indicator}{4}{subsection.6.1}\protected@file@percent }
+\newlabel{eq:witness}{{10}{4}{Witnessed-disagreement indicator}{equation.6.10}{}}
+\newlabel{thm:witness}{{4}{4}{One-Sided Witness Property}{theorem.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Probe policy design}{4}{subsection.6.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces HIL admissibility auditing flowchart. Collapsed state pairs $(x_1, x_2)$ identified by the encoder are subjected to probe policies $\pi _i \in \Pi _k$ on the physical plant or simulator. Divergent responses witness $D_{A}(\bm  {\varphi })> 0$ definitively.}}{4}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:hil}{{3}{4}{HIL admissibility auditing flowchart. Collapsed state pairs $(x_1, x_2)$ identified by the encoder are subjected to probe policies $\pi _i \in \Pi _k$ on the physical plant or simulator. Divergent responses witness $\DA > 0$ definitively}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces $d$-axis current response to \SI {500}{\hertz } probing injection: healthy (blue solid) vs.\ ITSC-faulty (red dashed) BLDC. The divergence of $\Delta i_d^{\max } = 1.8$\,A witnesses admissibility distortion in the predictively trained encoder.}}{4}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:bldc_probe}{{4}{4}{$d$-axis current response to \SI {500}{\hertz } probing injection: healthy (blue solid) vs.\ ITSC-faulty (red dashed) BLDC. The divergence of $\Delta i_d^{\max } = 1.8$\,A witnesses admissibility distortion in the predictively trained encoder}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Application Case Studies}{4}{section.7}\protected@file@percent }
+\newlabel{sec:apps}{{7}{4}{Application Case Studies}{section.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Case 1: BLDC motor ITSC fault isolation}{4}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Case 2: Structural health monitoring with piezoelectric arrays}{4}{subsection.7.2}\protected@file@percent }
+\citation{worden2007nonlinear}
+\citation{ferns2004metrics}
+\citation{zhang2021learning}
+\citation{parrilo2000structured}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Case 3: Induction motor flux observer admissibility}{5}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{5}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Relation to existing encoder design practice}{5}{subsection.8.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Summary of HIL audit results across three case studies. $\varepsilon _{\text  {pre}}$: fault-detection error before encoder correction. $\varepsilon _{\text  {post}}$: after encoder correction.}}{5}{table.caption.5}\protected@file@percent }
+\newlabel{tab:results}{{1}{5}{Summary of HIL audit results across three case studies. $\varepsilon _{\text {pre}}$: fault-detection error before encoder correction. $\varepsilon _{\text {post}}$: after encoder correction}{table.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Relation to bisimulation metrics}{5}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Computational complexity}{5}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{5}{section.9}\protected@file@percent }
+\citation{mayne2000model}
+\bibcite{bertsekas2012dynamic}{{1}{2012}{{Bertsekas}}{{}}}
+\bibcite{boldea2010electric}{{2}{2010}{{Boldea \& Nasar}}{{}}}
+\bibcite{cover2006elements}{{3}{2006}{{Cover \& Thomas}}{{}}}
+\bibcite{ferns2004metrics}{{4}{2004}{{Ferns et al.}}{{}}}
+\bibcite{holtz2006sensorless}{{5}{2006}{{Holtz}}{{}}}
+\bibcite{isermann2006fault}{{6}{2006}{{Isermann}}{{}}}
+\bibcite{kalman1960general}{{7}{1960}{{Kalman}}{{}}}
+\bibcite{mayne2000model}{{8}{2000}{{Mayne et al.}}{{}}}
+\bibcite{parrilo2000structured}{{9}{2000}{{Parrilo}}{{}}}
+\bibcite{tomlin2003computational}{{10}{2003}{{Tomlin et al.}}{{}}}
+\bibcite{worden2007nonlinear}{{11}{2007}{{Worden \& Tomlinson}}{{}}}
+\bibcite{zhang2021learning}{{12}{2021}{{Zhang et al.}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Within-Horizon Reachability Convention}{6}{appendix.A}\protected@file@percent }
+\newlabel{app:within}{{A}{6}{Within-Horizon Reachability Convention}{appendix.A}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Proof that $\sim _I = \sim _{\!A}$}{6}{appendix.B}\protected@file@percent }
+\newlabel{app:id}{{B}{6}{Proof that $\sim _I = \simA $}{appendix.B}{}}
+\newlabel{prop:id_proof}{{B}{6}{Proof that $\sim _I = \simA $}{appendix.B}{}}
+\gdef \@abspage@last{6}

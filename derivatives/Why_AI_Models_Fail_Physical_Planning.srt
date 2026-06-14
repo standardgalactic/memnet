@@ -1,0 +1,2524 @@
+1
+00:00:00,000 --> 00:00:02,480
+Imagine, uh, imagine you break your arm.
+
+2
+00:00:02,680 --> 00:00:02,960
+Okay.
+
+3
+00:00:03,140 --> 00:00:07,700
+You go to the hospital, you know, they put you in the machine and the x-ray comes back
+
+4
+00:00:07,700 --> 00:00:09,680
+showing that jagged white line.
+
+5
+00:00:09,860 --> 00:00:10,080
+Right.
+
+6
+00:00:10,200 --> 00:00:10,680
+The fracture.
+
+7
+00:00:10,980 --> 00:00:11,340
+Exactly.
+
+8
+00:00:11,540 --> 00:00:14,860
+The doctor points to it and you know exactly what's wrong.
+
+9
+00:00:14,960 --> 00:00:20,020
+It's clean, it's visible, and it gives you this, I don't know, this profound sense of
+
+10
+00:00:20,020 --> 00:00:23,700
+security because the tool is showing you reality.
+
+11
+00:00:24,060 --> 00:00:25,120
+It's an objective truth.
+
+12
+00:00:25,240 --> 00:00:25,960
+Yeah, exactly.
+
+13
+00:00:25,960 --> 00:00:32,920
+But what if that x-ray machine was programmed like deep in its code to just quietly erase
+
+14
+00:00:32,920 --> 00:00:36,220
+any visual anomaly it didn't already understand?
+
+15
+00:00:36,540 --> 00:00:36,960
+Oh, wow.
+
+16
+00:00:37,060 --> 00:00:37,260
+Right.
+
+17
+00:00:37,420 --> 00:00:43,040
+What if it compressed the image to save memory and in doing so it looked at a hairline fracture,
+
+18
+00:00:43,620 --> 00:00:48,040
+categorized it as a normal bone shadow, and just, well, just smoothed it out.
+
+19
+00:00:48,160 --> 00:00:48,660
+You'd never know.
+
+20
+00:00:48,700 --> 00:00:52,280
+You'd be sent home with a broken arm, completely confident you were fine because the machine
+
+21
+00:00:52,280 --> 00:00:53,900
+gave you a picture perfect illusion.
+
+22
+00:00:53,900 --> 00:00:57,400
+And, I mean, the danger there isn't that the machine is broken.
+
+23
+00:00:57,800 --> 00:01:03,200
+The danger is that the machine is functioning exactly as designed, but its design is fundamentally
+
+24
+00:01:03,200 --> 00:01:04,680
+misaligned with reality.
+
+25
+00:01:04,940 --> 00:01:07,040
+It's optimizing for a smooth picture?
+
+26
+00:01:07,460 --> 00:01:08,500
+Yes, exactly.
+
+27
+00:01:08,920 --> 00:01:10,560
+Not a structurally sound bone.
+
+28
+00:01:10,820 --> 00:01:16,640
+And today we are looking at a terrifying mathematical proof which suggests that the artificial intelligence
+
+29
+00:01:16,640 --> 00:01:22,060
+systems that we are currently trusting to, you know, drive our cars, manage our power grids,
+
+30
+00:01:22,100 --> 00:01:26,920
+and operate robotics, they are functioning exactly like that flawed x-ray machine.
+
+31
+00:01:27,420 --> 00:01:28,580
+Welcome to the deep dive.
+
+32
+00:01:28,940 --> 00:01:29,560
+Thanks for having me.
+
+33
+00:01:29,560 --> 00:01:30,980
+Okay, let's unpack this.
+
+34
+00:01:30,980 --> 00:01:38,840
+We are looking at a really dense, highly provocative academic paper today by an independent researcher
+
+35
+00:01:38,840 --> 00:01:39,840
+known as Flyxion.
+
+36
+00:01:40,500 --> 00:01:46,080
+It's titled, Against Latent Fundamentalism, Admissibility Distortion, and the Missing Criterion
+
+37
+00:01:46,080 --> 00:01:47,940
+in Representation Learning for Planning.
+
+38
+00:01:48,180 --> 00:01:49,820
+Yeah, that title is definitely a mouthful.
+
+39
+00:01:50,240 --> 00:01:56,340
+But the concept of latent fundamentalism is arguably the most important ideological battle happening
+
+40
+00:01:56,340 --> 00:01:57,420
+in computer science right now.
+
+41
+00:01:57,420 --> 00:01:58,320
+It really is.
+
+42
+00:01:58,360 --> 00:02:02,400
+And for you, the listener, whether you're interested in self-driving cars or AI safety
+
+43
+00:02:02,400 --> 00:02:07,300
+guard rails or just how humans and machines understand the world, this paper uncovers a
+
+44
+00:02:07,300 --> 00:02:08,260
+massive blind spot.
+
+45
+00:02:08,260 --> 00:02:13,100
+A blind spot that no amount of extra data or computing power can easily fix.
+
+46
+00:02:14,040 --> 00:02:19,860
+Latent fundamentalism is basically the tech industry's religious belief that if you take
+
+47
+00:02:19,860 --> 00:02:25,580
+enough raw data from the real world video, text, audio, and compress it down into a dense
+
+48
+00:02:25,580 --> 00:02:31,160
+mathematical representation called a latent space, the AI will just automatically figure
+
+49
+00:02:31,160 --> 00:02:33,040
+out how the physical universe works.
+
+50
+00:02:33,460 --> 00:02:33,940
+Right.
+
+51
+00:02:34,020 --> 00:02:37,980
+And I want to pause right there for the listener because we hear the term latent space thrown
+
+52
+00:02:37,980 --> 00:02:38,640
+around a lot.
+
+53
+00:02:38,880 --> 00:02:42,040
+What actually is a latent space in the context of this paper?
+
+54
+00:02:42,300 --> 00:02:45,000
+Let's ground this before we talk about why it's failing.
+
+55
+00:02:45,360 --> 00:02:45,480
+Sure.
+
+56
+00:02:45,820 --> 00:02:50,460
+Think of a latent space as a highly compressed, multidimensional map of concepts.
+
+57
+00:02:50,460 --> 00:02:55,980
+When you feed millions of photographs into an AI, the system doesn't store those photos
+
+58
+00:02:55,980 --> 00:02:57,200
+like a physical photo album.
+
+59
+00:02:57,280 --> 00:02:58,980
+It doesn't have the hard drive space for that.
+
+60
+00:02:59,060 --> 00:02:59,500
+Exactly.
+
+61
+00:02:59,920 --> 00:03:04,180
+It strips them down to their most essential mathematical features and plots them as coordinates.
+
+62
+00:03:04,840 --> 00:03:09,040
+So a picture of a golden retriever and a picture of a Labrador end up placed very close
+
+63
+00:03:09,040 --> 00:03:10,580
+to each other in this coordinate system.
+
+64
+00:03:10,660 --> 00:03:12,780
+Because mathematically, they are similar.
+
+65
+00:03:13,100 --> 00:03:13,360
+Right.
+
+66
+00:03:13,360 --> 00:03:18,920
+While a picture of a dump truck is placed super far away, the AI uses this compressed
+
+67
+00:03:18,920 --> 00:03:23,480
+map, this latent space, to navigate and generate new things.
+
+68
+00:03:23,640 --> 00:03:28,320
+And the fundamentalist part is the assumption that because this map is so good at organizing
+
+69
+00:03:28,320 --> 00:03:32,340
+data, it must also be, you know, a perfect map for taking physical action.
+
+70
+00:03:32,340 --> 00:03:36,400
+Which is where the author of this paper draws a very hard line.
+
+71
+00:03:37,000 --> 00:03:43,040
+What's fascinating here is that the paper mathematically proves that training an AI to compress data
+
+72
+00:03:43,040 --> 00:03:48,700
+or training to predict the next frame of a video completely ignores the single most
+
+73
+00:03:48,700 --> 00:03:51,480
+vital element of interacting with the physical world.
+
+74
+00:03:51,660 --> 00:03:52,660
+And what is that element?
+
+75
+00:03:52,920 --> 00:03:54,860
+It ignores the concept of reachability.
+
+76
+00:03:55,600 --> 00:03:59,420
+That's the understanding of which future states are actually physically possible to
+
+77
+00:03:59,420 --> 00:04:01,140
+reach based on the actions you take.
+
+78
+00:04:01,200 --> 00:04:04,260
+Boy, let me push back on that immediately because I think a lot of people listening are going to
+
+79
+00:04:04,260 --> 00:04:05,880
+have the exact same reaction I did.
+
+80
+00:04:05,920 --> 00:04:06,320
+No for it.
+
+81
+00:04:06,320 --> 00:04:11,920
+I just used a large language model to plan a highly detailed seven-day vacation to Tokyo.
+
+82
+00:04:11,920 --> 00:04:13,320
+Yeah, it was great.
+
+83
+00:04:13,420 --> 00:04:14,740
+It gave me hotel recommendations.
+
+84
+00:04:14,980 --> 00:04:17,880
+It told me exactly which train lines to take at what times.
+
+85
+00:04:18,020 --> 00:04:19,240
+It factored in my budget.
+
+86
+00:04:19,340 --> 00:04:20,820
+I mean, it planned perfectly.
+
+87
+00:04:21,100 --> 00:04:26,100
+So how can this paper claim that modern AI lacks the ability to understand reachability
+
+88
+00:04:26,100 --> 00:04:26,660
+and planning?
+
+89
+00:04:27,060 --> 00:04:29,500
+That right there is the illusion of observation.
+
+90
+00:04:29,800 --> 00:04:31,240
+The illusion of observation.
+
+91
+00:04:31,520 --> 00:04:31,760
+Yes.
+
+92
+00:04:32,420 --> 00:04:38,820
+When an AI generates a beautiful itinerary for your Tokyo trip, it is not actually evaluating
+
+93
+00:04:38,820 --> 00:04:43,580
+the physical consequences of moving a human body through a Japanese subway system.
+
+94
+00:04:43,760 --> 00:04:44,000
+Okay.
+
+95
+00:04:44,100 --> 00:04:45,080
+So what is it doing then?
+
+96
+00:04:45,660 --> 00:04:48,860
+It is performing a staggering feat of text prediction.
+
+97
+00:04:49,280 --> 00:04:54,120
+It has ingested millions of travel blogs and train schedules, and it is calculating the most
+
+98
+00:04:54,120 --> 00:04:57,500
+statistically probable sequence of words to follow your prompt.
+
+99
+00:04:57,740 --> 00:04:58,240
+Oh, wow.
+
+100
+00:04:58,780 --> 00:05:02,760
+It is essentially mimicking the text of a plan based on historical data.
+
+101
+00:05:02,760 --> 00:05:06,900
+So it is observing what a plan looks like, not simulating the physics of the plan itself.
+
+102
+00:05:06,980 --> 00:05:07,420
+Exactly.
+
+103
+00:05:07,760 --> 00:05:10,780
+To illustrate the difference, we actually have to go all the way back to 1943.
+
+104
+00:05:11,040 --> 00:05:11,480
+1943.
+
+105
+00:05:11,940 --> 00:05:13,400
+That is way before neural networks.
+
+106
+00:05:13,860 --> 00:05:14,520
+Long before.
+
+107
+00:05:15,260 --> 00:05:17,900
+A psychologist and philosopher named K.J.W.
+
+108
+00:05:18,000 --> 00:05:20,920
+Craik wrote a book called The Nature of Explanation.
+
+109
+00:05:22,120 --> 00:05:28,180
+Craik proposed that for an organism or a machine to truly be intelligent, it must carry a small-scale
+
+110
+00:05:28,180 --> 00:05:32,320
+model of external reality and its own possible actions within its head.
+
+111
+00:05:32,900 --> 00:05:35,320
+The paper highlights that specific phrase, right?
+
+112
+00:05:35,420 --> 00:05:36,740
+Its own possible actions.
+
+113
+00:05:36,960 --> 00:05:41,000
+Yes, because Craik understood that a true world model isn't a static photograph.
+
+114
+00:05:41,500 --> 00:05:42,520
+It's an active laboratory.
+
+115
+00:05:43,400 --> 00:05:48,800
+The organism uses this mental map to try out various alternatives, evaluate the consequences,
+
+116
+00:05:49,220 --> 00:05:50,800
+and then decide what to do in reality.
+
+117
+00:05:50,900 --> 00:05:53,160
+So you have to be able to test things out in your head first.
+
+118
+00:05:53,320 --> 00:05:53,580
+Right.
+
+119
+00:05:54,040 --> 00:05:55,680
+The critical mechanism is intervention.
+
+120
+00:05:55,680 --> 00:06:00,840
+You have to be able to ask your mental model, if I take action A, what is the exact physical
+
+121
+00:06:00,840 --> 00:06:02,120
+state of the world I will reach?
+
+122
+00:06:02,460 --> 00:06:08,080
+Okay, so if I can use an analogy, the AI that planned my Tokyo trip is like a tourist who has
+
+123
+00:06:08,080 --> 00:06:13,340
+spent 10 years memorizing a massive slideshow of street view images of a city.
+
+124
+00:06:13,500 --> 00:06:14,660
+That's a good way to look at it.
+
+125
+00:06:14,980 --> 00:06:20,180
+They can predict with flawless accuracy what the next picture in the sequence is going to
+
+126
+00:06:20,180 --> 00:06:20,400
+be.
+
+127
+00:06:20,820 --> 00:06:25,560
+If you show them a photo of an intersection, they can paint you a perfect picture of what
+
+128
+00:06:25,560 --> 00:06:27,320
+the crosswalk looks like from the other side.
+
+129
+00:06:27,620 --> 00:06:28,780
+That's predictive accuracy.
+
+130
+00:06:29,000 --> 00:06:29,180
+Right.
+
+131
+00:06:29,860 --> 00:06:34,880
+But if you drop that tourist into a real car in that real intersection, say, drive me to
+
+132
+00:06:34,880 --> 00:06:36,540
+the hospital, they freeze.
+
+133
+00:06:37,160 --> 00:06:37,980
+Completely freeze.
+
+134
+00:06:38,100 --> 00:06:42,420
+They have no idea which streets are one way, which doors are locked, or what physically
+
+135
+00:06:42,420 --> 00:06:45,120
+happens to the car if they jerk the steering wheel to the left.
+
+136
+00:06:45,340 --> 00:06:49,680
+Because the tourist has a map of appearances, not a map of consequences.
+
+137
+00:06:49,680 --> 00:06:55,700
+And what is so deeply unsettling about the paper's mathematical proof is the assertion that you
+
+138
+00:06:55,700 --> 00:06:58,860
+cannot fix this by just giving the tourist more photos.
+
+139
+00:06:59,080 --> 00:06:59,480
+Wait, really?
+
+140
+00:06:59,980 --> 00:07:01,120
+More data doesn't help.
+
+141
+00:07:01,340 --> 00:07:01,560
+No.
+
+142
+00:07:01,920 --> 00:07:07,180
+No amount of passive observational data will ever spontaneously generate a map of physical
+
+143
+00:07:07,180 --> 00:07:07,780
+consequences.
+
+144
+00:07:08,040 --> 00:07:10,140
+And this isn't just a philosophical debate either.
+
+145
+00:07:10,420 --> 00:07:16,000
+The paper grounds this in a very rigorous mathematical concept called the Observational-Interventional
+
+146
+00:07:16,000 --> 00:07:17,060
+Separation Theorem.
+
+147
+00:07:17,280 --> 00:07:18,780
+Yes, the math here is foundational.
+
+148
+00:07:18,780 --> 00:07:22,960
+This is where we get to the invisible crack in the beam, which is my favorite part of the
+
+149
+00:07:22,960 --> 00:07:23,220
+paper.
+
+150
+00:07:23,660 --> 00:07:29,560
+Walk us through how the math proves that observation and intervention are completely disconnected.
+
+151
+00:07:30,200 --> 00:07:34,420
+Let's use the paper's canonical example because it makes the math incredibly visceral.
+
+152
+00:07:34,960 --> 00:07:40,600
+Imagine you are inspecting a building and you are looking at a wooden load-bearing beam.
+
+153
+00:07:40,700 --> 00:07:41,780
+Okay, got in my head.
+
+154
+00:07:41,900 --> 00:07:43,700
+It's structurally sound.
+
+155
+00:07:44,360 --> 00:07:47,020
+Now imagine a second beam right next to it.
+
+156
+00:07:47,020 --> 00:07:52,660
+It is made of the same wood, painted the same color, but it has a deep microscopic internal
+
+157
+00:07:52,660 --> 00:07:56,000
+crack that compromises its structural integrity.
+
+158
+00:07:56,340 --> 00:07:56,960
+Okay, two beams.
+
+159
+00:07:57,300 --> 00:07:57,920
+One is safe.
+
+160
+00:07:58,280 --> 00:08:00,140
+One is a disaster waiting to happen.
+
+161
+00:08:00,540 --> 00:08:04,960
+Under the mathematics of passive observation, these two beams are mathematically identical.
+
+162
+00:08:05,220 --> 00:08:05,700
+Identical.
+
+163
+00:08:05,840 --> 00:08:06,260
+Identical.
+
+164
+00:08:06,260 --> 00:08:12,360
+If you only train an AI system to process passive data, taking millions of photographs, scanning
+
+165
+00:08:12,360 --> 00:08:17,020
+the surface temperature, measuring the ambient light, the intact beam and the cracked beam
+
+166
+00:08:17,020 --> 00:08:19,560
+will produce the exact same data distributions.
+
+167
+00:08:19,740 --> 00:08:21,560
+Because the crack is completely internal.
+
+168
+00:08:21,940 --> 00:08:22,220
+Right.
+
+169
+00:08:22,760 --> 00:08:28,660
+The probability of the AI observing any given data point is identical for both states.
+
+170
+00:08:28,860 --> 00:08:29,080
+Yeah.
+
+171
+00:08:29,080 --> 00:08:32,440
+In statistical terms, they are observationally equivalent.
+
+172
+00:08:33,000 --> 00:08:37,660
+See, the instinct of every software engineer in Silicon Valley right now is that the solution
+
+173
+00:08:37,660 --> 00:08:39,180
+to this is just better sensors.
+
+174
+00:08:39,480 --> 00:08:40,060
+Oh, absolutely.
+
+175
+00:08:40,340 --> 00:08:44,400
+They'd say, if the AI can't see the crack, it means we don't have enough data.
+
+176
+00:08:44,800 --> 00:08:51,060
+We just need to feed the model ultrasonic scans or x-rays or submillimeter laser topography.
+
+177
+00:08:51,680 --> 00:08:54,480
+Eventually, the algorithm spots the anomaly, right?
+
+178
+00:08:54,480 --> 00:08:57,860
+That assumes the problem is empirical, a lack of data.
+
+179
+00:08:58,380 --> 00:09:01,840
+What's fascinating here is that the paper proves the problem is structural.
+
+180
+00:09:02,520 --> 00:09:06,760
+The theorem operates under the premise that even if your sensors are perfect, if the system
+
+181
+00:09:06,760 --> 00:09:11,780
+is trained purely to minimize predictive error on passive data, it will actively learn to
+
+182
+00:09:11,780 --> 00:09:16,500
+ignore anomalies that don't help it predict the broad general patterns of the data set.
+
+183
+00:09:16,560 --> 00:09:19,420
+It literally trains itself to look away from the weird stuff.
+
+184
+00:09:19,520 --> 00:09:19,800
+Yes.
+
+185
+00:09:19,800 --> 00:09:25,080
+But beyond that, let's tie this to the mathematician Judea Pearl and his work on causal inference,
+
+186
+00:09:25,520 --> 00:09:27,240
+specifically something called ducalculus.
+
+187
+00:09:27,700 --> 00:09:29,960
+Judea Pearl is a giant in this field.
+
+188
+00:09:30,320 --> 00:09:32,300
+How does his work apply to the cracked beam?
+
+189
+00:09:32,840 --> 00:09:38,160
+Pearl revolutionized how we think about cause and effect in statistics by pointing out a massive
+
+190
+00:09:38,160 --> 00:09:38,840
+blind spot.
+
+191
+00:09:39,300 --> 00:09:44,940
+He showed that computing the probability of seeing data given a state of the world is a fundamentally
+
+192
+00:09:44,940 --> 00:09:50,320
+different mathematical operation from computing the probability of a state of the world given
+
+193
+00:09:50,320 --> 00:09:51,020
+an intervention.
+
+194
+00:09:51,220 --> 00:09:52,780
+An intervention being an action, right?
+
+195
+00:09:52,840 --> 00:09:53,100
+Yes.
+
+196
+00:09:53,680 --> 00:09:55,460
+An intervention is an action.
+
+197
+00:09:55,600 --> 00:09:57,260
+It is doing something.
+
+198
+00:09:57,660 --> 00:10:01,560
+In ducalculus, you aren't just observing the barometer dropping on the wall.
+
+199
+00:10:01,600 --> 00:10:01,860
+Right.
+
+200
+00:10:01,860 --> 00:10:07,520
+You are physically forcing the barometer needle down with your finger to see if that action
+
+201
+00:10:07,520 --> 00:10:09,040
+causes it to rain outside.
+
+202
+00:10:09,460 --> 00:10:10,580
+Spoiler alert for the listener.
+
+203
+00:10:11,160 --> 00:10:12,560
+It does not cause it to rain.
+
+204
+00:10:12,560 --> 00:10:13,580
+Obviously not.
+
+205
+00:10:14,320 --> 00:10:19,380
+But to a purely observational AI, the dropping needle and the rain are perfectly correlated.
+
+206
+00:10:19,560 --> 00:10:21,480
+They are mathematically bound together.
+
+207
+00:10:21,920 --> 00:10:25,460
+Reality only reveals the difference between the two when you apply an intervention.
+
+208
+00:10:25,720 --> 00:10:29,560
+So going back to the wooden beams, reality only reveals the difference between the safe
+
+209
+00:10:29,560 --> 00:10:32,560
+beam and the cracked beam when you apply physical stress.
+
+210
+00:10:32,940 --> 00:10:33,460
+Exactly.
+
+211
+00:10:34,020 --> 00:10:36,620
+When you stress it beyond the threshold of the crack.
+
+212
+00:10:36,780 --> 00:10:37,040
+Right.
+
+213
+00:10:37,040 --> 00:10:42,960
+If you intervene by stacking 1,000 pounds of bricks on both, the cracked beam reaches a
+
+214
+00:10:42,960 --> 00:10:43,540
+failure state.
+
+215
+00:10:43,640 --> 00:10:45,120
+It splinters and collapses.
+
+216
+00:10:45,500 --> 00:10:47,780
+And the intact beam holds.
+
+217
+00:10:48,100 --> 00:10:48,380
+Yes.
+
+218
+00:10:48,700 --> 00:10:52,300
+So under an intervention, they have entirely different reachable futures.
+
+219
+00:10:52,580 --> 00:10:54,400
+One future involves a standing building.
+
+220
+00:10:54,900 --> 00:10:56,520
+The other involves a pile of rubble.
+
+221
+00:10:56,520 --> 00:11:02,020
+But because an AI trained purely on internet text or passive video scraping has no mechanism
+
+222
+00:11:02,020 --> 00:11:07,760
+to perform interventions in its latent space, it suffers from what the paper calls a frequentist
+
+223
+00:11:07,760 --> 00:11:08,740
+inversion problem.
+
+224
+00:11:08,860 --> 00:11:09,260
+That's right.
+
+225
+00:11:09,380 --> 00:11:14,840
+It compresses the two beams into the same category, safe wooden beam, because that makes the data
+
+226
+00:11:14,840 --> 00:11:16,560
+easier to store and predict.
+
+227
+00:11:16,560 --> 00:11:22,560
+It has achieved observational equivalence while completely destroying interventional equivalence.
+
+228
+00:11:22,640 --> 00:11:24,840
+This is a massive ceiling for the AI industry.
+
+229
+00:11:25,340 --> 00:11:30,220
+We are trying to build physical robots and self-driving cars by essentially giving them brains
+
+230
+00:11:30,220 --> 00:11:31,820
+that have only ever watched TV.
+
+231
+00:11:32,000 --> 00:11:33,480
+That is a terrifying thought.
+
+232
+00:11:33,620 --> 00:11:37,820
+They can predict the next frame of the TV show, but they don't understand the physics of the studio.
+
+233
+00:11:38,160 --> 00:11:40,520
+Which brings us to the core thesis of the paper.
+
+234
+00:11:40,520 --> 00:11:47,420
+If observational equivalence is the wrong metric for building these latent spaces, what is the
+
+235
+00:11:47,420 --> 00:11:48,020
+right metric?
+
+236
+00:11:48,300 --> 00:11:49,520
+What is the missing criterion?
+
+237
+00:11:49,980 --> 00:11:53,300
+The author introduces a concept called admissibility equivalence.
+
+238
+00:11:53,640 --> 00:11:55,260
+Here's where it gets really interesting.
+
+239
+00:11:56,020 --> 00:11:56,580
+Admissibility.
+
+240
+00:11:57,020 --> 00:11:58,340
+This is the heart of the paper.
+
+241
+00:11:58,500 --> 00:12:01,120
+Let's unpack how a system actually achieves this.
+
+242
+00:12:01,240 --> 00:12:03,140
+The definition is brutally strict.
+
+243
+00:12:03,140 --> 00:12:09,020
+For two states in the real world to be considered equivalent inside the AI's mathematical map,
+
+244
+00:12:09,500 --> 00:12:12,380
+their reachability sets must be perfectly identical.
+
+245
+00:12:12,700 --> 00:12:16,820
+A reachability set being the total menu of future states you can physically reach from
+
+246
+00:12:16,820 --> 00:12:17,580
+your current position.
+
+247
+00:12:17,860 --> 00:12:18,720
+Exactly that.
+
+248
+00:12:19,060 --> 00:12:23,040
+Imagine every possible consequence of every possible action you can take.
+
+249
+00:12:23,360 --> 00:12:28,700
+If state A and state B allow you to reach the exact same future outcomes, they are admissibility
+
+250
+00:12:28,700 --> 00:12:29,120
+equivalent.
+
+251
+00:12:29,440 --> 00:12:32,140
+So the AI is allowed to compress them into a single concept.
+
+252
+00:12:32,140 --> 00:12:36,300
+Yes, because treating them as the same thing will never result in a planning error.
+
+253
+00:12:37,120 --> 00:12:41,860
+But if there is even one future state you can reach from state A that is physically blocked
+
+254
+00:12:41,860 --> 00:12:44,620
+off from state B, they are fundamentally different.
+
+255
+00:12:44,960 --> 00:12:50,080
+And when the AI's compression algorithm gets too aggressive and smashes state A and state
+
+256
+00:12:50,080 --> 00:12:55,740
+B together anyway, just to save memory, that is what the paper calls admissibility distortion.
+
+257
+00:12:56,140 --> 00:12:59,500
+The latent space collapses a crucial physical distinction.
+
+258
+00:12:59,500 --> 00:13:04,820
+The AI essentially says, these look similar enough, I'm going to store them as the same
+
+259
+00:13:04,820 --> 00:13:08,600
+coordinate, but reality dictates they lead to completely divergent futures.
+
+260
+00:13:08,840 --> 00:13:11,760
+The best way I can visualize this is through video games.
+
+261
+00:13:11,940 --> 00:13:13,100
+Oh, I love this analogy.
+
+262
+00:13:13,440 --> 00:13:16,800
+Think about a massive, sprawling open world game.
+
+263
+00:13:17,240 --> 00:13:21,580
+The computer has to render this incredible 3D environment, but down in the corner of your
+
+264
+00:13:21,580 --> 00:13:25,740
+screen, there is a tiny 2D minimap to help you navigate.
+
+265
+00:13:25,900 --> 00:13:26,620
+Right, the lower radar.
+
+266
+00:13:26,620 --> 00:13:31,040
+Yeah, that minimap is a highly compressed latent space.
+
+267
+00:13:31,300 --> 00:13:34,820
+It takes billions of polygons and boils them down to a few colored pixels.
+
+268
+00:13:35,320 --> 00:13:38,860
+The minimap is discarding data to prioritize ease of use.
+
+269
+00:13:39,000 --> 00:13:39,320
+Right.
+
+270
+00:13:39,740 --> 00:13:42,560
+Now imagine your character is walking through a dark cavern.
+
+271
+00:13:42,800 --> 00:13:45,280
+On your left is a solid, safe stone pathway.
+
+272
+00:13:45,800 --> 00:13:50,480
+On your right is a pit of instant death lava, but it happens to be covered by a thin layer
+
+273
+00:13:50,480 --> 00:13:51,700
+of dark gray ash.
+
+274
+00:13:51,780 --> 00:13:52,820
+Okay, I see where this is going.
+
+275
+00:13:52,820 --> 00:13:57,700
+If the compression algorithm generating your minimap only cares about visual similarity,
+
+276
+00:13:58,300 --> 00:14:03,420
+it's going to look at the dark stone path and the dark ash over the lava, declare them
+
+277
+00:14:03,420 --> 00:14:09,740
+observationally equivalent, and render them both as the exact same gray pixel on your minimap.
+
+278
+00:14:10,000 --> 00:14:12,380
+The algorithm has successfully compressed the data.
+
+279
+00:14:13,100 --> 00:14:18,280
+But the player using that map to plan their next step is going to step onto that gray pixel
+
+280
+00:14:18,280 --> 00:14:19,960
+and immediately die.
+
+281
+00:14:19,960 --> 00:14:26,260
+That fatal merge, the blending of a safe future and a lethal future into a single representation
+
+282
+00:14:26,260 --> 00:14:28,580
+is admissibility distortion.
+
+283
+00:14:28,800 --> 00:14:32,940
+The representation threw away the only variable that actually mattered for survival.
+
+284
+00:14:33,440 --> 00:14:37,560
+And there's an incredibly profound nuance to this that the paper highlights.
+
+285
+00:14:37,740 --> 00:14:38,160
+What's that?
+
+286
+00:14:38,260 --> 00:14:41,200
+Admissibility is strictly reliquid to the agent's capabilities.
+
+287
+00:14:41,340 --> 00:14:44,240
+The mathematical term for this is the policy class.
+
+288
+00:14:44,360 --> 00:14:48,900
+The policy class, meaning the menu of actions the agent is actually capable of performing.
+
+289
+00:14:48,900 --> 00:14:53,800
+Let's expand on that, because it explains why AI systems can suddenly break when they receive
+
+290
+00:14:53,800 --> 00:14:54,740
+software updates.
+
+291
+00:14:55,480 --> 00:14:57,320
+Suppose you have a simple cleaning robot.
+
+292
+00:14:58,020 --> 00:15:01,900
+It is in a room with a heavy locked wooden door and a solid brick wall.
+
+293
+00:15:02,280 --> 00:15:03,420
+The robot does not have a key.
+
+294
+00:15:04,220 --> 00:15:05,420
+And it does not have hands.
+
+295
+00:15:05,960 --> 00:15:07,120
+So it's policy class.
+
+296
+00:15:07,200 --> 00:15:08,120
+It's menu of actions.
+
+297
+00:15:08,120 --> 00:15:11,020
+It's basically just roll forward, roll backward, turn.
+
+298
+00:15:11,020 --> 00:15:11,860
+Precisely.
+
+299
+00:15:12,280 --> 00:15:17,320
+To this specific robot, the state of facing the locked door and the state of facing the
+
+300
+00:15:17,320 --> 00:15:20,160
+brick wall are admissibility equivalent.
+
+301
+00:15:20,680 --> 00:15:20,900
+Why?
+
+302
+00:15:21,320 --> 00:15:25,980
+Because from both states, the hallway on the other side is completely unreachable.
+
+303
+00:15:26,200 --> 00:15:26,480
+Right.
+
+304
+00:15:26,760 --> 00:15:30,160
+No action the robot can take will get it through the door or the wall.
+
+305
+00:15:30,840 --> 00:15:36,460
+Therefore, the robot's latent space safely compresses both the door and the wall into a single
+
+306
+00:15:36,460 --> 00:15:37,060
+concept.
+
+307
+00:15:37,620 --> 00:15:38,600
+Impassable barrier.
+
+308
+00:15:38,600 --> 00:15:41,500
+The VAP is totally accurate for its capabilities.
+
+309
+00:15:41,920 --> 00:15:44,940
+But then the engineers at the robotics company push an over-the-air update.
+
+310
+00:15:45,320 --> 00:15:49,120
+They install a robotic arm on the cleaner, and they give it a digital skeleton key.
+
+311
+00:15:49,420 --> 00:15:51,280
+The capabilities have radically expanded.
+
+312
+00:15:51,920 --> 00:15:53,780
+The policy class is entirely different.
+
+313
+00:15:54,200 --> 00:15:58,540
+Now, if the robot uses the key on the door, the hallway becomes a reachable future.
+
+314
+00:15:58,720 --> 00:16:02,460
+But the hallway remains completely unreachable from the solid brick wall.
+
+315
+00:16:02,600 --> 00:16:03,040
+Exactly.
+
+316
+00:16:03,220 --> 00:16:04,780
+The reachability sets have diverged.
+
+317
+00:16:04,780 --> 00:16:11,020
+But if the foundational AI running the robot hasn't updated its latent map-like, if it
+
+318
+00:16:11,020 --> 00:16:16,700
+is still compressing the door and the wall into that single concept of impassable barrier,
+
+319
+00:16:17,220 --> 00:16:19,540
+it will never attempt to open the door.
+
+320
+00:16:19,880 --> 00:16:22,400
+It will literally be blind to its own potential.
+
+321
+00:16:22,400 --> 00:16:28,260
+It suffers from admissibility distortion, not because the world changed, but because its
+
+322
+00:16:28,260 --> 00:16:30,100
+own relationship to the world changed.
+
+323
+00:16:30,240 --> 00:16:35,220
+So what is safe to compress today might become a catastrophic blind spot tomorrow if your
+
+324
+00:16:35,220 --> 00:16:36,260
+capabilities evolve.
+
+325
+00:16:36,320 --> 00:16:36,760
+Exactly.
+
+326
+00:16:37,220 --> 00:16:41,780
+The paper points out that the only way to mitigate this is something called Lipschitz stability,
+
+327
+00:16:41,780 --> 00:16:47,040
+which essentially forces the AI to only merge states that are geometrically right next to
+
+328
+00:16:47,040 --> 00:16:48,300
+each other in the physical world.
+
+329
+00:16:48,560 --> 00:16:51,420
+But even then, the mathematical risk of distortion is ever-present.
+
+330
+00:16:51,640 --> 00:16:55,760
+Which sets up the middle section of this paper, which is frankly a bit of a horror story
+
+331
+00:16:55,760 --> 00:16:57,760
+for modern AI engineering.
+
+332
+00:16:58,280 --> 00:17:03,540
+The author outlines three specific mathematical guarantees that current AI systems will fail.
+
+333
+00:17:03,800 --> 00:17:05,980
+They call them the three fatal gaps.
+
+334
+00:17:06,160 --> 00:17:07,360
+Yeah, these gaps are brutal.
+
+335
+00:17:07,680 --> 00:17:11,120
+Let's walk through these, starting with what the paper calls the predictive gap.
+
+336
+00:17:11,120 --> 00:17:16,060
+The predictive gap formalizes the failure of systems that try to guess the future.
+
+337
+00:17:17,060 --> 00:17:23,360
+A lot of cutting-edge reinforcement learning uses predictive coding, meaning they train the
+
+338
+00:17:23,360 --> 00:17:27,980
+AI to predict what its sensors are going to register 10 seconds from now.
+
+339
+00:17:28,060 --> 00:17:31,520
+Like trying to predict the next slide in the tourist's slideshow.
+
+340
+00:17:31,680 --> 00:17:31,940
+Right.
+
+341
+00:17:32,320 --> 00:17:37,660
+But the paper proves that encoding future observations still traps you in the observational gap.
+
+342
+00:17:37,660 --> 00:17:42,920
+Because predicting what a cracked beam will look like right before you step on it doesn't
+
+343
+00:17:42,920 --> 00:17:46,380
+give you the conceptual understanding that stepping on it is what caused it to break in
+
+344
+00:17:46,380 --> 00:17:47,060
+the first place.
+
+345
+00:17:47,480 --> 00:17:49,060
+It completely lacks the causal link.
+
+346
+00:17:49,260 --> 00:17:51,320
+The second gap is the compression gap.
+
+347
+00:17:51,440 --> 00:17:53,560
+We've touched on this with the minimap analogy.
+
+348
+00:17:54,120 --> 00:18:00,920
+But the mathematical reality of minimizing description length, which is what every major AI model does
+
+349
+00:18:00,920 --> 00:18:06,740
+to save compute power, is that it will ruthlessly discard admissibility-relevant structure if that
+
+350
+00:18:06,740 --> 00:18:09,080
+structure isn't highly correlated with the training reward.
+
+351
+00:18:09,320 --> 00:18:10,880
+How does that actually work mechanically?
+
+352
+00:18:11,020 --> 00:18:14,960
+I mean, when a neural network compresses data, how does it decide what to keep and what to
+
+353
+00:18:14,960 --> 00:18:15,460
+throw away?
+
+354
+00:18:15,720 --> 00:18:17,700
+It uses dimensionality reduction.
+
+355
+00:18:18,780 --> 00:18:22,820
+Imagine you feed an AI a high-resolution image with a million pixels.
+
+356
+00:18:23,020 --> 00:18:23,280
+Okay.
+
+357
+00:18:23,280 --> 00:18:28,600
+The computer cannot process a million pixels for every single frame of a video in real time.
+
+358
+00:18:28,780 --> 00:18:29,460
+It would just crash.
+
+359
+00:18:29,860 --> 00:18:32,100
+So it forces the data through a bottleneck.
+
+360
+00:18:32,540 --> 00:18:36,020
+It says, represent this image using only 1,000 numbers.
+
+361
+00:18:36,200 --> 00:18:37,640
+That is a massive compression.
+
+362
+00:18:37,980 --> 00:18:38,440
+It is.
+
+363
+00:18:38,640 --> 00:18:41,480
+To do that, the algorithm has to group similar pixels together.
+
+364
+00:18:41,860 --> 00:18:42,820
+It averages them out.
+
+365
+00:18:42,980 --> 00:18:47,500
+If the AI is being rewarded purely for making the image look generally accurate to a human
+
+366
+00:18:47,500 --> 00:18:49,840
+eye, it will group dark shapes together.
+
+367
+00:18:49,840 --> 00:18:56,820
+So a shadow cast by a bridge and a deep, tire-destroying pothole might both be categorized as just dark
+
+368
+00:18:56,820 --> 00:18:57,400
+asphalt.
+
+369
+00:18:57,780 --> 00:18:58,220
+Exactly.
+
+370
+00:18:58,540 --> 00:19:01,440
+The depth data of the pothole is physically overwritten.
+
+371
+00:19:01,580 --> 00:19:02,360
+It's not just hidden.
+
+372
+00:19:02,480 --> 00:19:05,180
+It's literally deleted from the system's working memory.
+
+373
+00:19:05,300 --> 00:19:05,560
+Yes.
+
+374
+00:19:05,860 --> 00:19:09,580
+And that leads directly to the third and honestly most dangerous gap.
+
+375
+00:19:09,860 --> 00:19:10,040
+Yeah.
+
+376
+00:19:10,180 --> 00:19:11,500
+The safety admissibility gap.
+
+377
+00:19:11,620 --> 00:19:11,840
+Ugh.
+
+378
+00:19:12,020 --> 00:19:16,580
+This completely dismantles the way the autonomous driving industry and the AI safety industry
+
+379
+00:19:16,580 --> 00:19:17,460
+operate today.
+
+380
+00:19:17,680 --> 00:19:18,720
+This part blew my mind.
+
+381
+00:19:18,720 --> 00:19:24,200
+Right now, the standard operating procedure for building safe AI is to build a massive,
+
+382
+00:19:24,700 --> 00:19:30,080
+highly compressed foundational model and then build a separate safety classifier or a guard
+
+383
+00:19:30,080 --> 00:19:31,980
+rail algorithm that sits on top of it.
+
+384
+00:19:32,040 --> 00:19:33,080
+That is the industry standard.
+
+385
+00:19:33,240 --> 00:19:33,400
+Right.
+
+386
+00:19:33,580 --> 00:19:38,600
+The foundational model processes the world, hands the data to the guard rail, and the guard
+
+387
+00:19:38,600 --> 00:19:40,360
+rail says, hold on, that's dangerous.
+
+388
+00:19:40,500 --> 00:19:41,140
+Don't do that.
+
+389
+00:19:41,140 --> 00:19:47,400
+But the paper proves mathematically that if the foundational model's latent space suffers
+
+390
+00:19:47,400 --> 00:19:53,160
+from admissibility distortion, if it collapses the safe state and the dangerous state into
+
+391
+00:19:53,160 --> 00:19:58,560
+the same internal coordinate, no downstream safety classifier can ever tell them apart.
+
+392
+00:19:58,560 --> 00:20:01,960
+So sticking with the self-driving car, the car's camera sees the road.
+
+393
+00:20:02,300 --> 00:20:05,280
+The foundational vision model processes a shadow and a pothole.
+
+394
+00:20:05,780 --> 00:20:10,400
+Because of the compression gap, it blends them into the same mathematical representation.
+
+395
+00:20:10,660 --> 00:20:10,760
+Right.
+
+396
+00:20:10,800 --> 00:20:12,620
+They both just become dark road.
+
+397
+00:20:12,720 --> 00:20:16,460
+It hands that compressed data to the braking system's safety classifier.
+
+398
+00:20:16,600 --> 00:20:19,180
+The safety classifier gets the data and says, what?
+
+399
+00:20:19,180 --> 00:20:20,300
+It says nothing useful.
+
+400
+00:20:20,700 --> 00:20:25,280
+If we connect this to the bigger picture, the author uses a concept called the Bayes risk
+
+401
+00:20:25,280 --> 00:20:27,140
+floor to prove this mathematically.
+
+402
+00:20:27,340 --> 00:20:28,660
+The Bayes risk floor.
+
+403
+00:20:28,820 --> 00:20:29,080
+Yes.
+
+404
+00:20:29,520 --> 00:20:34,960
+If the mutual information between the true physical safety status of the road and the compressed
+
+405
+00:20:34,960 --> 00:20:41,740
+projection the AI handed over is zero, the safety classifier's error rate floor approaches
+
+406
+00:20:41,740 --> 00:20:42,640
+random guessing.
+
+407
+00:20:42,780 --> 00:20:43,360
+Random guessing.
+
+408
+00:20:43,460 --> 00:20:44,320
+Like a coin toss.
+
+409
+00:20:44,600 --> 00:20:47,100
+It will literally hit an error rate of 0.5.
+
+410
+00:20:47,100 --> 00:20:52,560
+It does not matter if you spend $10 billion developing the most sophisticated, multi-layered
+
+411
+00:20:52,560 --> 00:20:54,340
+safety classifier in human history.
+
+412
+00:20:54,580 --> 00:20:54,760
+Wow.
+
+413
+00:20:54,980 --> 00:20:57,340
+It doesn't matter how much compute you throw at the guardrail.
+
+414
+00:20:57,840 --> 00:21:02,180
+The data it needs to make the decision was destroyed at the compression bottleneck.
+
+415
+00:21:02,480 --> 00:21:05,320
+The paper terms this the irrecoverable quotient collapse.
+
+416
+00:21:05,960 --> 00:21:07,260
+The information is gone forever.
+
+417
+00:21:07,380 --> 00:21:10,940
+If the foundational map is distorted, the guardrail is permanently blind.
+
+418
+00:21:11,140 --> 00:21:12,940
+It literally cannot see the danger.
+
+419
+00:21:13,280 --> 00:21:15,900
+Which means safety cannot be a patch.
+
+420
+00:21:15,900 --> 00:21:19,940
+It cannot be an afterthought bolted onto the end of a predictive model.
+
+421
+00:21:20,500 --> 00:21:26,640
+The preservation of reachability, the preservation of what actions lead to fatal states must be
+
+422
+00:21:26,640 --> 00:21:30,740
+mathematically baked into the foundational architecture of the model from day one.
+
+423
+00:21:30,940 --> 00:21:33,360
+But that raises a massive logistical question.
+
+424
+00:21:33,460 --> 00:21:33,980
+Oh, absolutely.
+
+425
+00:21:33,980 --> 00:21:40,980
+If this distortion happens inside the black box of the latent space, like if the AI is quietly
+
+426
+00:21:40,980 --> 00:21:46,340
+erasing the potholes and the cracks in the beams to save memory, how do engineers even
+
+427
+00:21:46,340 --> 00:21:47,100
+know it's happening?
+
+428
+00:21:47,320 --> 00:21:49,620
+How do you test for a blind spot you can't see?
+
+429
+00:21:49,800 --> 00:21:51,300
+That is the million dollar question.
+
+430
+00:21:51,460 --> 00:21:54,180
+And it takes us into the diagnostic methodology of the paper.
+
+431
+00:21:54,540 --> 00:21:56,220
+How do we audit these black boxes?
+
+432
+00:21:56,440 --> 00:21:56,560
+Right.
+
+433
+00:21:56,560 --> 00:22:00,120
+The author introduces a framework called the collapse separation decomposition.
+
+434
+00:22:01,060 --> 00:22:04,640
+It suggests that admissibility distortion doesn't just happen one way.
+
+435
+00:22:04,900 --> 00:22:07,340
+It fractures into two distinct failure modes.
+
+436
+00:22:07,940 --> 00:22:10,100
+The first is broad compressive failure.
+
+437
+00:22:10,300 --> 00:22:11,260
+Broad compressive failure.
+
+438
+00:22:11,380 --> 00:22:12,240
+Break that down for us.
+
+439
+00:22:12,500 --> 00:22:17,280
+This happens when the AI's compression algorithm is highly aggressive, resulting in a very high
+
+440
+00:22:17,280 --> 00:22:18,720
+frequency of state collapses.
+
+441
+00:22:19,220 --> 00:22:23,080
+It's merging a lot of different physical realities into single coordinates.
+
+442
+00:22:23,080 --> 00:22:25,380
+OK, so it's distorting a lot of things.
+
+443
+00:22:25,540 --> 00:22:25,700
+Yes.
+
+444
+00:22:26,420 --> 00:22:30,960
+However, the differences in the reachable futures of those merged states are minor.
+
+445
+00:22:31,520 --> 00:22:33,420
+They don't drastically alter the plan.
+
+446
+00:22:33,820 --> 00:22:39,400
+To use a text analogy, it's like a spellcheck program that has been poorly coded to constantly
+
+447
+00:22:39,400 --> 00:22:43,960
+change the American spelling of the word color to the British spelling color with a U.
+
+448
+00:22:44,080 --> 00:22:44,780
+That's a great example.
+
+449
+00:22:45,100 --> 00:22:47,520
+The system is technically corrupting the original data.
+
+450
+00:22:47,720 --> 00:22:50,420
+It's doing it constantly, thousands of times a document.
+
+451
+00:22:50,420 --> 00:22:55,520
+But the reachable future, which in this case is the reader's comprehension of the sentence,
+
+452
+00:22:56,120 --> 00:22:57,760
+is essentially unaffected.
+
+453
+00:22:58,260 --> 00:23:00,160
+The meaning survives the compression.
+
+454
+00:23:00,720 --> 00:23:03,700
+It's a high frequency but low consequence failure.
+
+455
+00:23:03,960 --> 00:23:05,600
+That is an excellent way to frame it.
+
+456
+00:23:06,180 --> 00:23:10,980
+Broad compressive failure makes a system slightly inefficient or annoying, but it isn't deadly.
+
+457
+00:23:11,260 --> 00:23:16,960
+The existential threat to AI planning lies in the second failure mode, the catastrophic blind
+
+458
+00:23:16,960 --> 00:23:17,660
+spot failure.
+
+459
+00:23:17,660 --> 00:23:19,740
+And I imagine this is the exact opposite.
+
+460
+00:23:20,020 --> 00:23:22,720
+Low frequency, massive consequence.
+
+461
+00:23:23,080 --> 00:23:23,400
+Precisely.
+
+462
+00:23:24,040 --> 00:23:29,580
+In a catastrophic blind spot failure, the AI might have a beautifully detailed, highly accurate
+
+463
+00:23:29,580 --> 00:23:33,280
+latent space 99.9% of the time.
+
+464
+00:23:33,760 --> 00:23:40,680
+But buried in the math is a single rare collapse where it merges two states that have vastly fatally
+
+465
+00:23:40,680 --> 00:23:41,480
+different futures.
+
+466
+00:23:41,480 --> 00:23:44,000
+This is the invisible crack in the beam.
+
+467
+00:23:44,700 --> 00:23:49,120
+Or, to stick with the word processor analogy, this is the spellcheck program humming along
+
+468
+00:23:49,120 --> 00:23:55,880
+perfectly for 100 pages and then silently auto-correcting the word now to the word not in the final sentence
+
+469
+00:23:55,880 --> 00:23:57,360
+of a binding legal contract.
+
+470
+00:23:57,460 --> 00:23:57,880
+Exactly.
+
+471
+00:23:58,120 --> 00:23:59,120
+It only happens once.
+
+472
+00:23:59,280 --> 00:24:00,600
+The frequency is almost zero.
+
+473
+00:24:00,600 --> 00:24:04,460
+But the consequence of that intervention destroys the entire agreement.
+
+474
+00:24:04,960 --> 00:24:08,700
+The problem with catastrophic blind spots is that they are mathematically designed to
+
+475
+00:24:08,700 --> 00:24:10,000
+evade standard testing.
+
+476
+00:24:10,760 --> 00:24:13,560
+In the tech industry, we rely heavily on operational testing.
+
+477
+00:24:14,060 --> 00:24:18,400
+Autonomous vehicle companies brag about driving millions of miles on real roads without an accident.
+
+478
+00:24:18,740 --> 00:24:20,820
+We have billions of miles of safe driving data.
+
+479
+00:24:20,960 --> 00:24:23,760
+But operational testing is just driving around on sunny Tuesdays.
+
+480
+00:24:23,980 --> 00:24:26,520
+It only tests the broad compressive functioning of the model.
+
+481
+00:24:26,520 --> 00:24:31,860
+So, data testing catches the common bugs but completely misses the obscure edge cases.
+
+482
+00:24:32,000 --> 00:24:32,340
+Exactly.
+
+483
+00:24:32,800 --> 00:24:38,000
+Safety-critical failures hide in the low-frequency, high-consequence regions of the latent space.
+
+484
+00:24:38,600 --> 00:24:40,140
+They are structural distortions.
+
+485
+00:24:40,880 --> 00:24:47,160
+To find them, the paper proposes a mathematical auditing process called a trajectory sampling lower bound.
+
+486
+00:24:47,620 --> 00:24:48,520
+How does that work?
+
+487
+00:24:48,800 --> 00:24:54,420
+Instead of just letting the AI drive around normally, you have to sample highly diverse adversarial policies.
+
+488
+00:24:54,420 --> 00:24:57,900
+You actively force the system into unusual interventions.
+
+489
+00:24:58,840 --> 00:25:00,520
+And here's the chilling part.
+
+490
+00:25:01,500 --> 00:25:03,020
+The asymmetry of evidence.
+
+491
+00:25:03,240 --> 00:25:04,320
+What does that mean in practice?
+
+492
+00:25:04,740 --> 00:25:11,060
+It means that if your adversarial testing finds even one collapsed pair of states whose reachability sets disagree,
+
+493
+00:25:11,760 --> 00:25:15,880
+if you find one instance where the AI thinks a shadow and a pothole are the same thing,
+
+494
+00:25:16,320 --> 00:25:19,940
+you have definitively proven the system suffers from admissibility distortion.
+
+495
+00:25:20,360 --> 00:25:22,180
+You have a mathematical guarantee of failure.
+
+496
+00:25:22,320 --> 00:25:23,600
+But the inverse isn't true.
+
+497
+00:25:23,600 --> 00:25:24,000
+No.
+
+498
+00:25:24,500 --> 00:25:29,900
+If you run 10 million tests and you don't find a catastrophic blind spot, you have not proven the system is safe.
+
+499
+00:25:29,960 --> 00:25:31,100
+You just haven't looked hard enough.
+
+500
+00:25:31,420 --> 00:25:31,720
+Right.
+
+501
+00:25:32,260 --> 00:25:38,940
+You've only proven that your specific testing parameters weren't diverse enough to locate the structural flaw.
+
+502
+00:25:39,580 --> 00:25:44,500
+The absence of an observed failure does not equal the presence of structural safety.
+
+503
+00:25:44,500 --> 00:25:48,240
+That is a terrifying reality for anyone trying to regulate AI.
+
+504
+00:25:48,860 --> 00:25:53,140
+We are building these incredibly complex systems, employing them into the physical world.
+
+505
+00:25:53,140 --> 00:25:58,820
+And the math tells us that passing every test we can think of still doesn't guarantee they won't suddenly,
+
+506
+00:25:59,320 --> 00:26:04,800
+catastrophically fail when they encounter an edge case, their latent space compressed out of existence.
+
+507
+00:26:04,800 --> 00:26:08,960
+It formalizes the intuition that we cannot test our way out of bad architecture.
+
+508
+00:26:09,520 --> 00:26:15,060
+If the fundamental geometry of the model's understanding is flawed, the edge case will eventually find you.
+
+509
+00:26:15,260 --> 00:26:19,520
+Which brings us to perhaps the most fascinating and unexpected turn in this paper.
+
+510
+00:26:19,660 --> 00:26:20,780
+The philosophical shift.
+
+511
+00:26:20,780 --> 00:26:21,100
+Yeah.
+
+512
+00:26:21,460 --> 00:26:27,280
+We've spent this time deep in the engineering trenches talking about neural networks, latent spaces, and autonomous vehicles.
+
+513
+00:26:27,740 --> 00:26:34,680
+But the author scales these mathematical proofs up into a profound philosophical argument about the nature of consciousness itself.
+
+514
+00:26:35,040 --> 00:26:37,060
+It really is a massive leap.
+
+515
+00:26:37,560 --> 00:26:40,760
+The paper introduces a metric called admissibility depth.
+
+516
+00:26:41,320 --> 00:26:44,940
+This bridges the gap between machine learning and cognitive science.
+
+517
+00:26:45,380 --> 00:26:49,680
+Admissibility depth measures the horizon hierarchy of a system's understanding.
+
+518
+00:26:49,680 --> 00:26:50,900
+The horizon hierarchy.
+
+519
+00:26:51,040 --> 00:26:52,460
+Let's define the horizon first.
+
+520
+00:26:52,620 --> 00:26:56,440
+That's how far into the future the system is capable of calculating, right?
+
+521
+00:26:56,560 --> 00:26:56,840
+Yes.
+
+522
+00:26:57,420 --> 00:26:58,480
+Think of a game of chess.
+
+523
+00:26:59,500 --> 00:27:05,820
+If an AI only has an admissibility depth of one movement, meaning it only looks one move ahead,
+
+524
+00:27:06,340 --> 00:27:10,160
+two different board configurations might look entirely observationally equivalent.
+
+525
+00:27:10,360 --> 00:27:12,440
+Moving upon might look safe in both scenarios.
+
+526
+00:27:12,520 --> 00:27:12,700
+Right.
+
+527
+00:27:12,700 --> 00:27:19,660
+But if you expand that horizon to a depth of 10 steps, the reachability sets of those two board states diverge wildly.
+
+528
+00:27:20,180 --> 00:27:21,580
+One leads to a structural advantage.
+
+529
+00:27:21,920 --> 00:27:23,540
+The other leads to a forced checkmate.
+
+530
+00:27:23,780 --> 00:27:30,800
+So a system with a shallow horizon is fundamentally blind to long-term consequences, even if its short-term predictions are perfectly accurate.
+
+531
+00:27:30,960 --> 00:27:41,140
+And the paper connects this requirement for deep reachability to a theoretical computer science model called the conscious Turing machine, or CTM, proposed by Lenore and Manuel Blum.
+
+532
+00:27:41,140 --> 00:27:42,780
+The conscious Turing machine?
+
+533
+00:27:42,880 --> 00:27:43,820
+That sounds wild.
+
+534
+00:27:44,180 --> 00:27:49,660
+The CTM is an attempt to mathematically model the architecture of subjective experience.
+
+535
+00:27:50,120 --> 00:27:55,940
+The idea that we can build a machine that actually experiences reality rather than just processing it.
+
+536
+00:27:56,060 --> 00:28:01,960
+The Blums propose that for a machine to have subjective experience, it must have an internal language.
+
+537
+00:28:01,960 --> 00:28:10,520
+They call it brain-ish, which is a highly compressed gist to the world that the machine broadcasts across all its internal processors.
+
+538
+00:28:10,940 --> 00:28:13,860
+It's how the visual center talks to the motor control center.
+
+539
+00:28:14,020 --> 00:28:18,900
+The paper argues that if this brain-ish language suffers from admissibility distortion,
+
+540
+00:28:19,240 --> 00:28:26,000
+if the internal broadcast collapses the distinction between the safe path and the lava pit, the machine loses its agency.
+
+541
+00:28:26,000 --> 00:28:33,460
+Exactly. Without a low-distortion map of reachable futures, the conscious Turing machine cannot make meaningful choices.
+
+542
+00:28:33,880 --> 00:28:35,320
+It cannot evaluate consequences.
+
+543
+00:28:35,820 --> 00:28:39,740
+The paper aligns this with Michael Graziano's attention schema theory from neuroscience.
+
+544
+00:28:40,220 --> 00:28:41,440
+What does Graziano argue?
+
+545
+00:28:41,700 --> 00:28:44,340
+He argues that consciousness evolved as a control mechanism.
+
+546
+00:28:44,840 --> 00:28:51,080
+A brain has to track its own attention and its own reachable futures to reliably guide a physical body through a dangerous world.
+
+547
+00:28:51,080 --> 00:28:56,420
+So you have to know what you are capable of doing, not just what is passively happening around you.
+
+548
+00:28:56,940 --> 00:28:58,700
+The implication here is staggering.
+
+549
+00:28:59,340 --> 00:29:05,840
+It suggests that what we call true understanding, or perhaps even the foundational architecture of consciousness itself,
+
+550
+00:29:06,440 --> 00:29:10,700
+isn't some mystical emergent property of having enough compute power.
+
+551
+00:29:10,840 --> 00:29:11,080
+Right.
+
+552
+00:29:11,180 --> 00:29:13,840
+It might be a strict mathematical requirement.
+
+553
+00:29:13,840 --> 00:29:22,200
+Consciousness might just be the subjective experience of minimizing admissibility distortion across a massive horizon of time.
+
+554
+00:29:22,200 --> 00:29:23,680
+Without that, you don't have a mind.
+
+555
+00:29:24,160 --> 00:29:27,360
+You just have a very convincing, highly compressed parrot.
+
+556
+00:29:27,880 --> 00:29:32,280
+A machine that can predict the next word in a sentence with perfect grammatical precision,
+
+557
+00:29:32,760 --> 00:29:38,040
+but possesses zero understanding of what those words physically do in the real world.
+
+558
+00:29:38,040 --> 00:29:43,740
+Which echoes a brilliant point the author makes by referencing Henri Poincaré, the great French mathematician.
+
+559
+00:29:44,380 --> 00:29:45,440
+So what does this all mean?
+
+560
+00:29:45,720 --> 00:29:50,760
+The paper mentions Poincaré's difference between verifying a proof and understanding it.
+
+561
+00:29:50,860 --> 00:29:51,900
+How does that map to this?
+
+562
+00:29:52,160 --> 00:29:53,500
+This raises an important question.
+
+563
+00:29:54,440 --> 00:29:59,680
+Poincaré argued that verifying a proof is a local, step-by-step observational process.
+
+564
+00:30:00,180 --> 00:30:05,600
+You look at equation A, you apply a rule, and you verify that it logically leads to equation B.
+
+565
+00:30:05,600 --> 00:30:07,940
+A computer can verify a proof rapidly.
+
+566
+00:30:08,200 --> 00:30:08,620
+Exactly.
+
+567
+00:30:09,200 --> 00:30:12,680
+But understanding the proof is an interventional, holistic process.
+
+568
+00:30:13,220 --> 00:30:18,340
+It requires grasping the entire reachability geometry of the mathematical space.
+
+569
+00:30:18,500 --> 00:30:20,960
+It's not just knowing that A leads to B.
+
+570
+00:30:21,140 --> 00:30:27,300
+It's knowing why A leads to B, and understanding why choosing path C would have led to a dead end.
+
+571
+00:30:27,660 --> 00:30:28,240
+Precisely.
+
+572
+00:30:29,060 --> 00:30:31,900
+It is possessing the mental map of the entire terrain.
+
+573
+00:30:31,900 --> 00:30:41,160
+If an AI only operates on observational equivalents, if it is just minimizing predictive error frame by frame, it is essentially just verifying reality.
+
+574
+00:30:41,280 --> 00:30:44,280
+It is checking the math of the universe one second at a time.
+
+575
+00:30:44,420 --> 00:30:50,480
+But it lacks the interventional grasp, the admissibility depth to ever truly understand the world it is operating within.
+
+576
+00:30:50,600 --> 00:30:52,520
+That is a staggering paradigm shift.
+
+577
+00:30:52,680 --> 00:31:00,100
+It means the entire current trajectory of scaling up large language models with more passive text data isn't just hitting a point of diminishing returns.
+
+578
+00:31:00,260 --> 00:31:01,200
+No, it's worse than that.
+
+579
+00:31:01,200 --> 00:31:05,820
+It is mathematically incapable of crossing the threshold into true understanding.
+
+580
+00:31:06,640 --> 00:31:09,220
+The architecture itself is the ceiling.
+
+581
+00:31:09,400 --> 00:31:11,220
+That is the core warning of the paper.
+
+582
+00:31:11,220 --> 00:31:14,440
+Let's hit a breath and look at the vast terrain we've covered today.
+
+583
+00:31:15,360 --> 00:31:21,900
+We started in 1943 with Craig's dream of organisms building small-scale models of possible actions.
+
+584
+00:31:22,080 --> 00:31:23,160
+We covered a lot of ground.
+
+585
+00:31:23,300 --> 00:31:24,140
+We really did.
+
+586
+00:31:24,140 --> 00:31:36,700
+We dug into the heavy, uncompromising math of the observational-interventional separation theorem, proving via Judea-Pearl's causal logic that observing a cracked beam will never teach you that it's going to break.
+
+587
+00:31:36,760 --> 00:31:36,980
+Right.
+
+588
+00:31:36,980 --> 00:31:46,440
+We saw how the industry's obsession with data compression literally deletes the physical realities required for safety, rendering downstream guardrails permanently blind.
+
+589
+00:31:46,680 --> 00:31:55,080
+And finally, we saw how the geometric shape of true understanding requires us to map out reachable futures, not just predict probable observations.
+
+590
+00:31:55,080 --> 00:32:01,700
+It forces us to re-evaluate what we are actually asking these machines to do when we hand them the keys to our physical world.
+
+591
+00:32:01,700 --> 00:32:03,520
+But the paper doesn't stop there.
+
+592
+00:32:04,220 --> 00:32:13,960
+In the final pages, tucked away in Appendix E, the author introduces a concept that stretches this entire framework beyond artificial intelligence and directly into the human experience.
+
+593
+00:32:14,200 --> 00:32:14,480
+Yes.
+
+594
+00:32:14,860 --> 00:32:15,760
+Meta-admissibility.
+
+595
+00:32:16,180 --> 00:32:18,960
+This deals with dynamic state spaces, right?
+
+596
+00:32:19,060 --> 00:32:20,280
+The mathematics of evolution.
+
+597
+00:32:20,660 --> 00:32:21,100
+Exactly.
+
+598
+00:32:21,520 --> 00:32:29,460
+We talked earlier about the cleaning robot that suddenly gets an arm and a key, its capabilities expanded, and its old map of the world became dangerously distorted.
+
+599
+00:32:29,700 --> 00:32:29,960
+Right.
+
+600
+00:32:29,960 --> 00:32:39,160
+But what happens when an agent, whether that's an AI or a biological human being, fundamentally and continuously evolves over the course of a lifetime?
+
+601
+00:32:39,660 --> 00:32:42,540
+What happens when we add entirely new dimensions to our world?
+
+602
+00:32:42,540 --> 00:32:53,360
+The paper suggests that for an identity to remain coherent across massive developmental transitions, its internal transformations must preserve fundamental reachability distinctions.
+
+603
+00:32:53,700 --> 00:32:57,660
+The map has to update dynamically without losing the core structure of consequence.
+
+604
+00:32:57,660 --> 00:33:00,440
+Think about a human child learning to walk.
+
+605
+00:33:00,920 --> 00:33:04,660
+Before they can walk, the living room is mapped in a very specific way.
+
+606
+00:33:05,140 --> 00:33:07,120
+The coffee table is a solid barrier.
+
+607
+00:33:07,620 --> 00:33:09,560
+It is observationally an obstacle.
+
+608
+00:33:09,960 --> 00:33:11,620
+Just like the brick wall for the robot.
+
+609
+00:33:11,880 --> 00:33:12,120
+Yes.
+
+610
+00:33:12,540 --> 00:33:20,260
+But the moment that child learns to pull themselves up on their own two feet, their policy class, their capabilities, radically expands.
+
+611
+00:33:20,260 --> 00:33:23,940
+The geometry of their world permanently changes.
+
+612
+00:33:24,440 --> 00:33:27,200
+Suddenly, the coffee table isn't a barrier anymore.
+
+613
+00:33:27,320 --> 00:33:28,260
+It's a handhold.
+
+614
+00:33:28,680 --> 00:33:30,740
+It is a tool for reaching the couch.
+
+615
+00:33:31,200 --> 00:33:33,320
+The reachability set of the room has transformed.
+
+616
+00:33:34,000 --> 00:33:40,620
+The child has to completely rewrite their internal latent space to account for this new reality.
+
+617
+00:33:40,620 --> 00:33:47,620
+But, and this is the key of metadmissibility, as they rewrite the map, they must preserve the fundamental truths of consequence.
+
+618
+00:33:48,480 --> 00:33:56,700
+The child must learn that the coffee table is a handhold, while simultaneously preserving the understanding that the sharp corner of the table is still a danger.
+
+619
+00:33:57,000 --> 00:33:57,560
+Exactly.
+
+620
+00:33:58,120 --> 00:34:05,420
+If the internal rewrite collapses the concept of handhold and sharp corner into one indistinguishable representation, the child gets hurt.
+
+621
+00:34:05,420 --> 00:34:14,160
+So, metadmissibility is the mathematical version of maintaining your core structural integrity, while your physical and intellectual capabilities radically expand.
+
+622
+00:34:14,320 --> 00:34:16,800
+It is how intelligence survives its own growth.
+
+623
+00:34:16,920 --> 00:34:19,840
+So, I want to leave you, the listener, with this thought.
+
+624
+00:34:20,220 --> 00:34:28,680
+We spend our entire lives acquiring new skills, taking new jobs, moving to new cities, and essentially changing the coordinate system of our own reality.
+
+625
+00:34:28,800 --> 00:34:29,800
+It's a constant evolution.
+
+626
+00:34:29,800 --> 00:34:46,300
+As you learn, grow, and open doors that were previously locked to you, what are the fundamental truths, the core reachability distinctions, that you must meticulously preserve to ensure that, across all those transformations, you are still essentially you?
+
+627
+00:34:46,600 --> 00:34:47,860
+That is the ultimate question.
+
+628
+00:34:48,100 --> 00:34:57,440
+When the x-ray machine of our own self-perception is constantly rewriting the image, what is the underlying structure of consequence we rely on to keep us grounded in reality?
+
+629
+00:34:57,440 --> 00:35:10,540
+This paper gives us a rigorous mathematical lens, not just for fixing the foundational flaws of artificial intelligence, but for understanding how any true intelligence manages to navigate the perilous, ever-changing geometry of the world.
+
+630
+00:35:10,960 --> 00:35:12,700
+Thank you for joining us on this deep dive.
+
+631
+00:35:13,100 --> 00:35:16,980
+Keep exploring, keep testing the boundaries, and never mistake the map for the territory.
+

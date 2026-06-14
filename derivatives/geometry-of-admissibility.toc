@@ -1,0 +1,31 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {section}{\numberline {2}Foundations: Admissibility Structures}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}State spaces and reachability}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}The admissibility equivalence relation}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Admissible representations and distortion}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}The admissibility quotient}{5}{subsection.2.4}%
+\contentsline {section}{\numberline {3}The Category of Admissibility Structures}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Objects and morphisms}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Admissible representations as morphisms: a precise statement}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}The universal property of the admissibility quotient}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}The morphism defect as a measure of non-initiality}{9}{subsection.3.4}%
+\contentsline {section}{\numberline {4}The Quotient Lattice and Compression Morphisms}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}The lattice of quotients}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Compression as upward movement}{10}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}The compression--admissibility tradeoff as a functor}{11}{subsection.4.3}%
+\contentsline {section}{\numberline {5}The Reachability Sheaf}{12}{section.5}%
+\contentsline {subsection}{\numberline {5.1}The Alexandrov topology on $\mathcal {X}$}{12}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}The reachability presheaf and sheaf}{13}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}The observation presheaf}{14}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}The gluing failure and the Observational--Interventional Separation}{14}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Cohomological Perspectives}{15}{section.6}%
+\contentsline {subsection}{\numberline {6.1}The \v {C}ech complex}{16}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}The central conjecture}{16}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Temporal Functors and Meta-Admissibility}{17}{section.7}%
+\contentsline {subsection}{\numberline {7.1}The temporal base category}{17}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Temporal admissibility functors}{17}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Meta-admissibility as a functor condition}{18}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Natural transformations between developmental trajectories}{19}{subsection.7.4}%
+\contentsline {section}{\numberline {8}The Admissibility Programme as a Geometric Object}{19}{section.8}%
+\contentsline {section}{\numberline {9}Open Problems}{20}{section.9}%
+\contentsline {section}{\numberline {10}Conclusion}{21}{section.10}%

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reachable History</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;width:100%;height:100%;overflow:hidden;
+  background:#000;color:#7cff7c;font-family:monospace;
+  touch-action:manipulation;
+}
+
+body{
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;cursor:pointer;
+}
+
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:500;
+  background:repeating-linear-gradient(to bottom,
+    rgba(255,255,255,.025) 0px,
+    rgba(255,255,255,.025) 1px,
+    transparent 2px,
+    transparent 6px);
+  opacity:.10;
+}
+
+.title{
+  position:fixed;top:16px;width:94vw;text-align:center;
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:#88ddaa;text-shadow:0 0 8px #00aa55;z-index:100;
+}
+
+.selector{
+  position:fixed;top:46px;display:flex;gap:6px;flex-wrap:wrap;
+  justify-content:center;width:96vw;z-index:120;cursor:default;
+}
+
+.selector button{
+  background:#000a04;border:1px solid rgba(0,200,80,.38);
+  color:#55cc88;padding:5px 8px;font-family:monospace;
+  font-size:9px;letter-spacing:.07em;cursor:pointer;
+  transition:background .2s,color .2s;
+}
+
+.selector button.active{
+  background:#001f0d;color:#ccffdd;
+  box-shadow:0 0 6px #00aa44 inset;
+}
+
+.status{
+  position:fixed;top:92px;opacity:.32;font-size:9px;
+  letter-spacing:.16em;color:#55aa77;z-index:120;
+}
+
+canvas{
+  width:min(400px,78vw);height:min(400px,78vw);
+  border-radius:50%;border:1px solid rgba(0,200,80,.22);
+  background:#000;
+  box-shadow:0 0 40px rgba(0,180,80,.06) inset,
+             0 0 12px rgba(0,160,60,.22);
+  z-index:40;
+}
+
+.subs{
+  position:fixed;bottom:20px;width:min(660px,90vw);
+  min-height:2.4em;padding:8px 14px;text-align:center;
+  font-size:13px;line-height:1.5;color:#88ccaa;
+  text-shadow:0 0 5px #005533;background:rgba(0,12,6,.42);
+  border:1px solid rgba(0,180,80,.15);border-radius:4px;
+  pointer-events:none;z-index:80;
+  font-style:italic;letter-spacing:.02em;
+}
+
+@media(max-width:700px){
+  .title{top:12px;font-size:10px}
+  .selector{top:40px;gap:4px}
+  .selector button{font-size:7px;padding:4px 6px}
+  .status{top:90px;font-size:8px}
+  canvas{width:min(340px,76vw);height:min(340px,76vw)}
+  .subs{bottom:14px;font-size:11px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="title" id="title">Reachable History</div>
+<div class="selector" id="selector"></div>
+<div class="status">touch · click to play or pause</div>
+<canvas id="viz"></canvas>
+<div id="subs" class="subs"></div>
+
+<audio id="audio" preload="auto"></audio>
+
+<script>
+const tracks = [
+  {
+    file:"History_is_more_real_than_state.mp3",
+    vtt:"History_is_more_real_than_state.vtt",
+    label:"History",
+    title:"History Is More Real Than State",
+    mode:"history"
+  },
+  {
+    file:"The_mathematical_blind_spot_in_AI_safety.mp3",
+    vtt:"The_mathematical_blind_spot_in_AI_safety.vtt",
+    label:"Blind Spot",
+    title:"The Mathematical Blind Spot in AI Safety",
+    mode:"blindspot"
+  },
+  {
+    file:"Notes_are_continuations_not_memories.mp3",
+    vtt:"Notes_are_continuations_not_memories.vtt",
+    label:"Notes",
+    title:"Notes Are Continuations Not Memories",
+    mode:"notes"
+  },
+  {
+    file:"Why_AI_Models_Fail_Physical_Planning.mp3",
+    vtt:"Why_AI_Models_Fail_Physical_Planning.vtt",
+    label:"Planning",
+    title:"Why AI Models Fail Physical Planning",
+    mode:"planning"
+  },
+  {
+    file:"Spherepop_and_the_Mathematical_Illusion_of_State.mp3",
+    vtt:"Spherepop_and_the_Mathematical_Illusion_of_State.vtt",
+    label:"Spherepop",
+    title:"Spherepop and the Mathematical Illusion of State",
+    mode:"spherepop"
+  },
+  {
+    file:"Why_predictive_AI_misses_reachable_futures.mp3",
+    vtt:"Why_predictive_AI_misses_reachable_futures.vtt",
+    label:"Predictive",
+    title:"Why Predictive AI Misses Reachable Futures",
+    mode:"predictive"
+  },
+  {
+    file:"The_Geometry_of_Admissible_Data_Compression.mp3",
+    vtt:"The_Geometry_of_Admissible_Data_Compression.vtt",
+    label:"Compression",
+    title:"The Geometry of Admissible Data Compression",
+    mode:"compression"
+  },
+  {
+    file:"Why_robots_fail_despite_perfect_prediction.mp3",
+    vtt:"Why_robots_fail_despite_perfect_prediction.vtt",
+    label:"Robots",
+    title:"Why Robots Fail Despite Perfect Prediction",
+    mode:"robots"
+  }
+];
+
+let trackIndex = 0;
+let mode = tracks[0].mode;
+
+const audio    = document.getElementById("audio");
+const subs     = document.getElementById("subs");
+const titleEl  = document.getElementById("title");
+const selector = document.getElementById("selector");
+
+let audioCtx, analyser, freqData, timeData;
+
+function initAudio(){
+  if(audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  analyser.smoothingTimeConstant = .90;
+  freqData = new Uint8Array(analyser.frequencyBinCount);
+  timeData = new Uint8Array(analyser.fftSize);
+  const src = audioCtx.createMediaElementSource(audio);
+  src.connect(analyser);
+  analyser.connect(audioCtx.destination);
+}
+
+function buildSelector(){
+  selector.innerHTML = "";
+  tracks.forEach((t,i)=>{
+    const btn = document.createElement("button");
+    btn.textContent = t.label;
+    btn.onclick = async e=>{
+      e.stopPropagation();
+      initAudio();
+      if(audioCtx.state==="suspended") await audioCtx.resume();
+      await loadTrack(i,true);
+    };
+    selector.appendChild(btn);
+  });
+}
+
+function updateButtons(){
+  [...selector.querySelectorAll("button")]
+    .forEach((b,i)=>b.classList.toggle("active",i===trackIndex));
+}
+
+async function loadTrack(i,autoplay=true){
+  trackIndex = ((i%tracks.length)+tracks.length)%tracks.length;
+  const t = tracks[trackIndex];
+  mode = t.mode;
+  titleEl.textContent = t.title;
+  audio.src = t.file;
+  audio.load();
+  updateButtons();
+  await loadVTT(t.vtt);
+  if(autoplay){ try{ await audio.play(); }catch(e){} }
+}
+
+audio.addEventListener("ended",()=>loadTrack(trackIndex+1,true));
+
+document.body.onclick = async ()=>{
+  initAudio();
+  if(audioCtx.state==="suspended") await audioCtx.resume();
+  if(audio.paused) await audio.play();
+  else audio.pause();
+};
+
+/* subtitles */
+
+let cues = [];
+
+async function loadVTT(url){
+  cues = [];
+  subs.textContent = "";
+  try{
+    const res = await fetch(url);
+    if(!res.ok){ console.warn("Missing VTT:",url); return; }
+    cues = parseVTT(await res.text());
+  }catch(e){ console.warn("VTT:",e); }
+}
+
+function parseVTT(text){
+  const out = [];
+  for(const block of text.replace(/\r/g,"").split(/\n{2,}/)){
+    const lines = block.trim().split("\n");
+    const ts = lines.find(l=>l.includes("-->"));
+    if(!ts) continue;
+    const ti = lines.indexOf(ts);
+    const [s,e] = ts.split("-->").map(x=>x.trim());
+    out.push({start:parseTime(s),end:parseTime(e),text:lines.slice(ti+1).join(" ")});
+  }
+  return out;
+}
+
+function parseTime(t){
+  t = t.split(" ")[0].replace(",",".");
+  const p = t.split(":");
+  if(p.length===3) return (+p[0])*3600+(+p[1])*60+parseFloat(p[2]);
+  return (+p[0])*60+parseFloat(p[1]);
+}
+
+audio.ontimeupdate = ()=>{
+  const t = audio.currentTime;
+  const c = cues.find(c=>t>=c.start&&t<c.end+.2);
+  subs.textContent = c ? c.text : "";
+};
+
+/* canvas */
+
+const canvas = document.getElementById("viz");
+const ctx    = canvas.getContext("2d");
+const W=480, H=480, cx=W/2, cy=H/2, R=W*.39;
+canvas.width=W; canvas.height=H;
+
+let frame=0, bass=0, mid=0, high=0;
+
+function updateEnergy(){
+  if(!analyser) return;
+  analyser.getByteFrequencyData(freqData);
+  let b=0,m=0,h=0;
+  for(let i=0;i<40;i++) b+=freqData[i];
+  for(let i=40;i<180;i++) m+=freqData[i];
+  for(let i=180;i<freqData.length;i++) h+=freqData[i];
+  bass+=(b/(40*255)-bass)*.07;
+  mid +=(m/(140*255)-mid )*.05;
+  high+=(h/((freqData.length-180)*255)-high)*.04;
+}
+
+function clearPortal(){
+  ctx.fillStyle="rgba(0,3,1,.11)";
+  ctx.fillRect(0,0,W,H);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,R);
+  g.addColorStop(0,"rgba(0,18,8,.32)");
+  g.addColorStop(.65,"rgba(0,6,2,.52)");
+  g.addColorStop(1,"rgba(0,0,0,.98)");
+  ctx.fillStyle=g;
+  ctx.fillRect(0,0,W,H);
+  ctx.restore();
+
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.strokeStyle="rgba(80,200,120,.18)";
+  ctx.lineWidth=1.5;
+  ctx.shadowBlur=8;
+  ctx.shadowColor="#004422";
+  ctx.stroke();
+  ctx.shadowBlur=0;
+}
+
+/* shared substrate */
+
+function drawFieldLines(alpha=.025){
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+  for(let i=0;i<28;i++){
+    const a = i/28*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(a)*R*.08, cy+Math.sin(a)*R*.08);
+    ctx.lineTo(cx+Math.cos(a)*R*.88, cy+Math.sin(a)*R*.88);
+    ctx.strokeStyle=`rgba(80,160,100,${alpha+high*.015})`;
+    ctx.lineWidth=1;
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+/* wave trace */
+
+function drawWaveTrace(lagBase){
+  if(!analyser) return;
+  analyser.getByteTimeDomainData(timeData);
+  const lag=Math.floor(timeData.length*(lagBase+mid*.06));
+  ctx.beginPath();
+  for(let i=0;i<timeData.length;i+=3){
+    const a=(timeData[i]-128)/128;
+    const b=(timeData[(i+lag)%timeData.length]-128)/128;
+    const x=cx+a*R*.50+Math.sin(frame*.007)*8;
+    const y=cy+b*R*.42+Math.cos(frame*.005)*6;
+    if(i===0) ctx.moveTo(x,y);
+    else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle="rgba(100,220,160,.46)";
+  ctx.lineWidth=3;
+  ctx.lineCap="round";
+  ctx.shadowBlur=8;
+  ctx.shadowColor="#00aa55";
+  ctx.stroke();
+  ctx.shadowBlur=0;
+}
+
+/* ── 1. History is more real than state ──
+   A long trajectory trail — history glows, the present is just
+   the leading edge. The past has more structure than any snapshot. */
+
+const historyPts = [];
+
+function drawHistory(){
+  drawFieldLines(.02);
+
+  // record trajectory
+  const p = frame*.011;
+  const x = cx+Math.sin(p*1.3)*R*.58;
+  const y = cy+Math.sin(p*.7)*R*.48;
+  historyPts.push({x,y,age:0});
+  historyPts.forEach(p=>p.age++);
+  while(historyPts.length>420) historyPts.shift();
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  historyPts.forEach(p=>{
+    const t=p.age/420;
+    // older points glow warmer and persist — history is structure
+    const alpha = t<.15 ? .9-t*2 : Math.max(0,.32-t*.28);
+    const size  = t<.05 ? 4+bass*3 : 1.8;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,size,0,Math.PI*2);
+    // recent=bright green, older=dim teal, ancient=barely visible
+    if(t<.1){
+      ctx.fillStyle=`rgba(210,255,220,${alpha})`;
+      ctx.shadowBlur=t<.04?10:0;
+      ctx.shadowColor="#00ff88";
+    } else {
+      ctx.fillStyle=`rgba(80,180,120,${alpha})`;
+      ctx.shadowBlur=0;
+    }
+    ctx.fill();
+    ctx.shadowBlur=0;
+  });
+
+  ctx.restore();
+  drawWaveTrace(.13);
+}
+
+/* ── 2. Mathematical blind spot in AI safety ──
+   A field full of trajectories — but one region is simply
+   invisible: the blind spot. Things pass through it
+   and emerge changed, unseen. */
+
+function drawBlindspot(){
+  drawFieldLines(.03);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  // visible trajectories orbiting the blind spot
+  for(let i=0;i<18;i++){
+    const phase = frame*.006 + i*.35;
+    const orb   = R*(.28+( i%3)*.14);
+    ctx.beginPath();
+    for(let t=0;t<80;t++){
+      const a = phase + t*.08;
+      const x = cx+Math.cos(a)*orb;
+      const y = cy+Math.sin(a)*orb;
+      // fade out as trajectory enters the blind region
+      const inBlind = Math.abs(Math.cos(a+frame*.003)) < .28
+                   && Math.abs(Math.sin(a)) < .55;
+      if(inBlind){ ctx.stroke(); ctx.beginPath(); continue; }
+      if(t===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=`rgba(160,255,190,${.08+mid*.06})`;
+    ctx.lineWidth=2;
+    ctx.stroke();
+  }
+
+  // the blind spot itself — visible only as absence
+  ctx.save();
+  ctx.beginPath();
+  // vertical band through center
+  ctx.rect(cx-R*.28, cy-R*.88, R*.56, R*1.76);
+  ctx.clip();
+  ctx.fillStyle="rgba(0,0,0,.55)";
+  ctx.fillRect(0,0,W,H);
+  ctx.restore();
+
+  // blind spot border — faint, barely marked
+  ctx.beginPath();
+  ctx.rect(cx-R*.28, cy-R*.88, R*.56, R*1.76);
+  ctx.strokeStyle="rgba(180,80,80,.18)";
+  ctx.lineWidth=1;
+  ctx.stroke();
+
+  ctx.restore();
+  drawWaveTrace(.16);
+}
+
+/* ── 3. Notes are continuations not memories ──
+   A melody line that never stops — each note is the next
+   step of the path, not a retrieved object.
+   The line is continuous; rests are bends, not breaks. */
+
+function drawNotes(){
+  drawFieldLines(.02);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  // the continuous melodic path — one unbroken curve
+  const segments = 3;
+  for(let s=0;s<segments;s++){
+    ctx.beginPath();
+    const offset = s/segments * Math.PI*2;
+    for(let t=0;t<=200;t++){
+      const p = frame*.009 + t*.032 + offset;
+      const r = R*(.30+Math.sin(p*.6+s)*.22);
+      const x = cx+Math.cos(p)*r;
+      const y = cy+Math.sin(p*.8)*r;
+      if(t===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=`rgba(180,255,200,${.12+s*.06+mid*.08})`;
+    ctx.lineWidth=s===0?3.5:2;
+    ctx.lineCap="round";
+    ctx.stroke();
+  }
+
+  // note heads — points along the path, not separate objects
+  for(let n=0;n<12;n++){
+    const p = frame*.009 + n*.52;
+    const r = R*(.30+Math.sin(p*.6)*.22);
+    const x = cx+Math.cos(p)*r;
+    const y = cy+Math.sin(p*.8)*r;
+    ctx.beginPath();
+    ctx.arc(x,y,4+bass*3,0,Math.PI*2);
+    ctx.fillStyle="rgba(220,255,215,.80)";
+    ctx.shadowBlur=8;
+    ctx.shadowColor="#00ff88";
+    ctx.fill();
+    ctx.shadowBlur=0;
+  }
+
+  ctx.restore();
+  drawWaveTrace(.11);
+}
+
+/* ── 4. Why AI Models Fail Physical Planning ──
+   A plan (straight bright path) versus the actual
+   physical constraint surface it ignores.
+   The plan looks complete; the surface shows why it fails. */
+
+function drawPlanning(){
+  drawFieldLines(.025);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  // constraint surface — the physical reality the planner ignores
+  for(let k=0;k<10;k++){
+    ctx.beginPath();
+    for(let a=0;a<=Math.PI*2+.05;a+=.05){
+      const bump = Math.sin(a*4+k*.8+frame*.003)*(4+high*10)
+                 + Math.sin(a*7-k+frame*.005)*3;
+      const r = R*(.15+k*.07)+bump;
+      const x = cx+Math.cos(a)*r;
+      const y = cy+Math.sin(a)*r;
+      if(a===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=`rgba(100,200,140,${.02+k*.008+mid*.02})`;
+    ctx.lineWidth=1.2;
+    ctx.stroke();
+  }
+
+  // the AI plan — straight, confident, ignoring the surface
+  const planAngle = Math.sin(frame*.004)*Math.PI*.4;
+  ctx.beginPath();
+  ctx.moveTo(cx+Math.cos(planAngle+Math.PI)*R*.72,
+             cy+Math.sin(planAngle+Math.PI)*R*.72);
+  ctx.lineTo(cx+Math.cos(planAngle)*R*.72,
+             cy+Math.sin(planAngle)*R*.72);
+  ctx.strokeStyle=`rgba(240,255,200,${.7+mid*.2})`;
+  ctx.lineWidth=4;
+  ctx.lineCap="round";
+  ctx.shadowBlur=12;
+  ctx.shadowColor="#ffffaa";
+  ctx.stroke();
+  ctx.shadowBlur=0;
+
+  // failure point — where plan meets surface and breaks
+  const fx=cx+Math.cos(planAngle)*R*(.25+bass*.1);
+  const fy=cy+Math.sin(planAngle)*R*(.25+bass*.1);
+  ctx.beginPath();
+  ctx.arc(fx,fy,8+bass*8,0,Math.PI*2);
+  ctx.strokeStyle=`rgba(255,120,100,${.5+bass*.4})`;
+  ctx.lineWidth=2.5;
+  ctx.shadowBlur=14;
+  ctx.shadowColor="#ff4422";
+  ctx.stroke();
+  ctx.shadowBlur=0;
+
+  ctx.restore();
+  drawWaveTrace(.18);
+}
+
+/* ── 5. Spherepop and the Illusion of State ──
+   Nested spheres that pop — each pop reveals the sphere
+   was never a state, just a process boundary.
+   After popping, a new sphere forms from the residue. */
+
+const spheres = Array.from({length:6},(_,i)=>({
+  r: .12+i*.10,
+  phase: i*1.1,
+  popping: false,
+  popFrame: 0
+}));
+
+function drawSpherepop(){
+  drawFieldLines(.02);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  spheres.forEach((s,i)=>{
+    // trigger a pop occasionally
+    if(!s.popping && frame%120===i*17%120){
+      s.popping=true; s.popFrame=0;
+    }
+    if(s.popping) s.popFrame++;
+    if(s.popFrame>55){ s.popping=false; s.phase+=.7; }
+
+    const wobble = Math.sin(frame*.012+s.phase)*(3+mid*8);
+    const baseR  = R*s.r;
+
+    if(s.popping){
+      // pop: sphere expands and fragments
+      const t = s.popFrame/55;
+      ctx.beginPath();
+      ctx.arc(cx,cy,baseR*(1+t*.8)+wobble,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(220,255,210,${Math.max(0,.8-t)})`;
+      ctx.lineWidth=2-t;
+      ctx.stroke();
+      // fragments
+      for(let f=0;f<8;f++){
+        const fa=f/8*Math.PI*2+t*3;
+        const fr=baseR*(1+t*1.2);
+        ctx.beginPath();
+        ctx.arc(cx+Math.cos(fa)*fr,cy+Math.sin(fa)*fr,
+                3*(1-t),0,Math.PI*2);
+        ctx.fillStyle=`rgba(180,255,200,${(1-t)*.6})`;
+        ctx.fill();
+      }
+    } else {
+      ctx.beginPath();
+      ctx.arc(cx,cy,baseR+wobble,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(140,240,180,${.06+i*.03})`;
+      ctx.lineWidth=1.5;
+      ctx.stroke();
+    }
+  });
+
+  ctx.restore();
+  drawWaveTrace(.14);
+}
+
+/* ── 6. Why Predictive AI Misses Reachable Futures ──
+   Prediction: one bright line.
+   Reachability: a wide volume of branches.
+   The branches are what matters; the line is an illusion of precision. */
+
+function drawPredictive(){
+  drawFieldLines(.025);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  // reachable futures — wide branching volume
+  for(let i=0;i<56;i++){
+    const a      = i/56*Math.PI*2;
+    const reach  = Math.max(0,Math.sin(frame*.006+i*.41));
+    const length = R*.16+reach*R*.62;
+    const bend   = Math.sin(frame*.004+i*.7)*R*.10;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.quadraticCurveTo(
+      cx+Math.cos(a+.3)*length*.5+bend,
+      cy+Math.sin(a-.2)*length*.5,
+      cx+Math.cos(a)*length,
+      cy+Math.sin(a)*length
+    );
+    ctx.strokeStyle=`rgba(100,200,140,${.04+reach*.09+mid*.04})`;
+    ctx.lineWidth=2.5;
+    ctx.lineCap="round";
+    ctx.stroke();
+  }
+
+  // the prediction — single overconfident line
+  const predA = frame*.008;
+  ctx.beginPath();
+  ctx.moveTo(cx,cy);
+  ctx.lineTo(cx+Math.cos(predA)*R*.78, cy+Math.sin(predA)*R*.78);
+  ctx.strokeStyle=`rgba(255,255,200,${.80+mid*.15})`;
+  ctx.lineWidth=5;
+  ctx.lineCap="round";
+  ctx.shadowBlur=14;
+  ctx.shadowColor="#ffffaa";
+  ctx.stroke();
+  ctx.shadowBlur=0;
+
+  // present origin
+  ctx.beginPath();
+  ctx.arc(cx,cy,7+bass*6,0,Math.PI*2);
+  ctx.fillStyle="rgba(220,255,220,.90)";
+  ctx.shadowBlur=12;
+  ctx.shadowColor="#00ff88";
+  ctx.fill();
+  ctx.shadowBlur=0;
+
+  ctx.restore();
+  drawWaveTrace(.12);
+}
+
+/* ── 7. Geometry of Admissible Data Compression ──
+   A manifold that folds — regions of high information
+   compress toward attractors, others expand.
+   Admissibility is shown as which folds are allowed. */
+
+function drawCompression(){
+  drawFieldLines(.02);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  // folding manifold rings
+  for(let k=0;k<14;k++){
+    ctx.beginPath();
+    for(let a=0;a<=Math.PI*2+.04;a+=.04){
+      // admissible folds — not all directions compress equally
+      const fold = Math.sin(a*3+frame*.005+k*.6)
+                 * Math.max(0,Math.sin(a*2-frame*.003))
+                 * (6+high*14);
+      const r = R*(.10+k*.055)+fold;
+      const x = cx+Math.cos(a)*r;
+      const y = cy+Math.sin(a)*r;
+      if(a===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+    // inner rings brighter — high compression = more information density
+    const brightness = 1-k/14;
+    ctx.strokeStyle=`rgba(${100+brightness*120|0},255,${160+brightness*80|0},${.015+k*.009+mid*.02})`;
+    ctx.lineWidth=1.5;
+    ctx.stroke();
+  }
+
+  // attractors — compression targets
+  for(let i=0;i<5;i++){
+    const a = i/5*Math.PI*2+frame*.003;
+    const r = R*(.30+Math.sin(frame*.007+i)*.08);
+    const x = cx+Math.cos(a)*r;
+    const y = cy+Math.sin(a)*r;
+    ctx.beginPath();
+    ctx.arc(x,y,5+bass*4,0,Math.PI*2);
+    ctx.fillStyle="rgba(200,255,210,.75)";
+    ctx.shadowBlur=8;
+    ctx.shadowColor="#00ff88";
+    ctx.fill();
+    ctx.shadowBlur=0;
+  }
+
+  ctx.restore();
+  drawWaveTrace(.15);
+}
+
+/* ── 8. Why Robots Fail Despite Perfect Prediction ──
+   Robot body: a rigid planned path.
+   World surface: textured, resisting.
+   The robot's model is exact; the contact is where it breaks. */
+
+function drawRobots(){
+  drawFieldLines(.025);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  // world surface — textured resistance field
+  for(let k=0;k<9;k++){
+    ctx.beginPath();
+    for(let a=0;a<=Math.PI*2+.05;a+=.05){
+      const texture = Math.sin(a*6+k*.9+frame*.002)*(3+mid*7)
+                    + Math.sin(a*11-frame*.004)*2;
+      const r=R*(.18+k*.075)+texture;
+      const x=cx+Math.cos(a)*r;
+      const y=cy+Math.sin(a)*r;
+      if(a===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=`rgba(80,180,110,${.02+k*.01})`;
+    ctx.lineWidth=1.2;
+    ctx.stroke();
+  }
+
+  // robot planned trajectory — clean, geometric, wrong
+  const ra = frame*.005;
+  ctx.beginPath();
+  ctx.moveTo(cx+Math.cos(ra+Math.PI)*R*.68, cy+Math.sin(ra+Math.PI)*R*.68);
+  for(let t=1;t<=20;t++){
+    const a2=ra+Math.PI+t/20*Math.PI;
+    ctx.lineTo(cx+Math.cos(a2)*R*.68, cy+Math.sin(a2)*R*.68);
+  }
+  ctx.strokeStyle="rgba(220,255,210,.60)";
+  ctx.lineWidth=3.5;
+  ctx.lineCap="round";
+  ctx.stroke();
+
+  // contact failure points — where plan meets world
+  for(let i=0;i<4;i++){
+    const ca = ra+Math.PI + i/4*Math.PI;
+    const cx2=cx+Math.cos(ca)*R*.68;
+    const cy2=cy+Math.sin(ca)*R*.68;
+    const pulse=(Math.sin(frame*.06+i)+1)*.5;
+    ctx.beginPath();
+    ctx.arc(cx2,cy2,6+pulse*10,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(255,110,90,${.25+pulse*.5})`;
+    ctx.lineWidth=2;
+    ctx.shadowBlur=pulse*12;
+    ctx.shadowColor="#ff3300";
+    ctx.stroke();
+    ctx.shadowBlur=0;
+  }
+
+  ctx.restore();
+  drawWaveTrace(.17);
+}
+
+/* ── main loop ── */
+
+function draw(){
+  frame++;
+  updateEnergy();
+  clearPortal();
+
+  if(mode==="history")     drawHistory();
+  if(mode==="blindspot")   drawBlindspot();
+  if(mode==="notes")       drawNotes();
+  if(mode==="planning")    drawPlanning();
+  if(mode==="spherepop")   drawSpherepop();
+  if(mode==="predictive")  drawPredictive();
+  if(mode==="compression") drawCompression();
+  if(mode==="robots")      drawRobots();
+
+  requestAnimationFrame(draw);
+}
+
+buildSelector();
+loadTrack(0,false);
+draw();
+</script>
+
+</body>
+</html>
