@@ -1,0 +1,559 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{csquotes}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\geometry{
+  top=1.3in, bottom=1.3in,
+  left=1.4in, right=1.4in
+}
+
+\doublespacing
+
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}
+
+\titleformat{\section}{\normalsize\bfseries\itshape}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\normalsize\itshape}{\thesubsection.}{0.6em}{}
+\titlespacing{\section}{0pt}{18pt plus 4pt}{6pt plus 2pt}
+\titlespacing{\subsection}{0pt}{12pt plus 2pt}{4pt plus 1pt}
+
+% ══════════════════════════════════════════════════════════════════════════
+\title{
+\textbf{The Suture That Will Not Hold}
+
+\vspace{0.3em}
+
+{\large
+Admissibility, the Real, and the Structural\\
+Impossibility of the Planning Subject
+}
+}
+
+\author{Flyxion\\
+  \small Independent Researcher}
+
+\date{June 2026}
+
+% ══════════════════════════════════════════════════════════════════════════
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+This paper stages an encounter between the formal apparatus of admissibility
+distortion---a measure of representational failure in planning systems derived
+from reachability geometry---and the theoretical resources of Lacanian
+psychoanalysis, Deleuzian difference, and the Žižekian critique of ideological
+suture. We argue that the \emph{Observational--Interventional Separation Theorem},
+which establishes the irreducibility of the reachability relation to any
+observational equivalence class, formalises precisely the gap that Lacan
+designates as the cut between the statement (\emph{l'énoncé}) and the enunciation
+(\emph{l'énonciation}): the subject who observes is not the subject who acts, and
+no representation adequate to the former can be adequate to the latter. Admissibility
+distortion names the \emph{objet petit a} of machine cognition---the remainder
+that escapes every compressive or predictive suture of the Real and returns,
+insistently and symptomatically, as planning failure. Against the fantasy
+of the complete world model, which we read as an instantiation of the Lacanian
+\emph{fantasy of wholeness} ($\$ \Diamond a$), we propose the
+\emph{admissibility quotient} as the non-All of representational space---a
+Badiouian void-set that names what no positive learning procedure can fill.
+The paper concludes by reading the monotonicity theorem---which establishes that
+compression necessarily increases admissibility distortion---as a formalisation
+of Deleuze's \emph{transcendental empiricism}: the plane of immanence always
+already exceeds its molar stratifications, and the deterritorialisation of
+representational compression is structurally incapable of capturing the
+molecular flows of reachable futures.
+\end{abstract}
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{\emph{Il n'y a pas de rapport}: The Impossibility of the
+Complete Representation}
+
+Let us begin where Lacan begins---and where he always, compulsively, returns:
+with the statement that \emph{there is no sexual relation}. Not that sexual
+relations do not occur, evidently, but that there is no metalanguage that would
+adequately represent the relation \emph{as such}, no symbolic formula that
+exhausts what it means to relate. The relation exceeds every representation of
+the relation. This is not an empirical fact about contingent failures of
+communication. It is a structural theorem about the order of language itself.
+
+We propose to read the \emph{Observational--Interventional Separation Theorem}
+as the cognitive-scientific formalisation of this impossibility. What the theorem
+establishes---with the rigour of a mathematical proof rather than the seduction
+of an aphorism---is that observational equivalence does not imply interventional
+equivalence. Two states of a system may produce identical observation sequences
+under passive registration while affording radically different futures under
+active intervention. The relation between states is, in the precise Lacanian
+sense, \emph{not all}. The observational representation, however complete, does
+not close the gap; there is always a remainder, a surplus that escapes the
+equivalence class constructed from passive data. \emph{Il n'y a pas de rapport
+d'observation.}
+
+What escapes is what Lacan called the Real---not the reality that we perceive and
+represent, but the remainder that representation structurally cannot accommodate.
+The crack in the load-bearing beam that produces no surface deformation under
+normal stress is not a failure of measurement technology. It is an instance of
+the Real: a structural asymmetry that passive observation is constitutively
+incapable of registering, because the asymmetry only manifests under
+intervention---under what we might call, with deliberate Lacanian inflection,
+\emph{the act}. The act, for Lacan, is precisely what exceeds the symbolic order
+that prepared for it. And here it is formalised: the interventional partition
+of state space---the admissibility relation $\sim_A$---exceeds every observational
+partition, and this excess is not a contingent gap that better observation would
+close. It is a category difference, a structural impossibility, a Real.
+
+Žižek \citeyearpar{zizek1989sublime} has argued that ideology functions precisely
+by suturing this gap---by producing the \emph{fantasy} that the Real is
+representable, that the relation can be stated, that the system is complete.
+The fantasy of the complete world model---the proposition that a sufficiently
+powerful predictive architecture, trained on sufficiently rich observational data,
+will converge on a representation adequate for all planning purposes---is
+ideological in exactly this sense. It sutures the observational--interventional
+gap by pretending it does not exist. The technical literature on Joint Embedding
+Predictive Architectures is, from this perspective, a symptom: the compulsive
+return of the repressed impossibility in the form of an empirical claim about
+what is, in principle, unachievable. The theorem does not \emph{critique} this
+fantasy from outside; it \emph{demonstrates} the structural impossibility
+from within the formal apparatus the fantasy employs.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Admissibility Distortion as \emph{Objet Petit a}}
+
+The \emph{objet petit a} is, in Lacan's elaboration, the object-cause of desire:
+not the object that desire seeks, but the gap around which desire circulates,
+the void that motivates without ever being filled. Crucially, the \emph{objet
+petit a} is not nothing---it has effects, it causes, it produces symptoms---but
+it has no positive representational content. It is the remainder that the symbolic
+order cannot absorb, the piece that does not fit, the excess that disrupts every
+attempted totalisation.
+
+We propose that admissibility distortion $D_A(\varphi)$ is, formally and
+structurally, the \emph{objet petit a} of machine cognition.
+
+Consider what the quantity measures. It is the expected reachability separation
+between states that a learned representation has collapsed---the amount by which
+the symbolic order of the representation ($\varphi$) has failed to accommodate
+the Real of reachability structure. It is not a measurable, graspable object.
+It is, as the paper formally acknowledges, \emph{not yet computable in full
+generality}---it is the void around which computational desire circulates without
+ever achieving saturation. And yet it has effects. Every planning failure, every
+guardrail that fails to distinguish safe from dangerous states, every compression
+step that discards a distinction planning required---these are the symptoms of
+$D_A(\varphi)$, the insistence of the remainder that representation could not
+absorb.
+
+The parallel to Lacan's apparatus is precise. The \emph{objet petit a} is
+not the object that desire lacks and would be satisfied by possessing; it is
+the excess that desire itself produces by the act of desiring. Similarly,
+$D_A(\varphi)$ is not the deficiency that better training would correct. It is
+the excess \emph{produced by} the representational act itself: the act of
+projection, of compression, of equivalence-class formation. Every representation
+creates its own admissibility distortion; the distortion is the shadow that
+the representation casts by existing. The only representation with
+$D_A(\varphi) = 0$ is the admissibility quotient itself---the imaginary complete
+representation, the impossible object of the planning subject's desire.
+
+And here the Žižekian move becomes visible. The fantasy structure that organises
+the discourse of world models is the fantasy $\$ \Diamond a$: the barred subject
+(the learning system, constitutively incomplete, fissured by the
+observational--interventional gap) in relation to the \emph{objet a} (the
+complete, admissible representation that would satisfy all planning requirements).
+What the formal apparatus reveals is that this fantasy is constitutive rather
+than correctable. The barred subject is barred \emph{precisely because it
+represents}---because the act of representation is the act that produces the
+distortion. The ideology of the complete world model is the refusal of this
+constitutive barring.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{The Statement and the Enunciation:\\
+Craik's Foreclosure and the Return of the Reachable}
+
+Lacan's distinction between the statement (\emph{l'énoncé}) and the enunciation
+(\emph{l'énonciation})---between what is said and the act of saying---marks
+the point at which the subject is both present and absent in its own utterance.
+The subject who speaks is never fully captured in what is spoken; there is always
+a remainder, the subject of the enunciation, that the statement eclipses.
+
+Kenneth Craik's 1943 formulation already inscribes this split, though without
+the apparatus to name it. Craik specifies that an intelligent organism must carry
+``a small-scale model of external reality and its own possible actions within its
+head'' \citeyearpar{craik1943nature}. The and is the site of the Lacanian cut.
+\emph{External reality} corresponds to the order of the statement: the world as
+it presents itself to passive observation, the \emph{énoncé} of the environment.
+\emph{Possible actions}---the reachability structure---corresponds to the order
+of the enunciation: the agent's capacity to intervene, to act, to rupture the
+passivity of observation and produce a new state of affairs.
+
+The foreclosure that constitutes the contemporary world-model paradigm is
+precisely the foreclosure of the enunciation. Predictive architectures learn to
+represent the world as it presents itself to observation---they master the
+\emph{énoncé}---while foreclosing the reachability structure, the interventional
+dimension, the enunciative position from which the agent acts. What returns from
+this foreclosure is not the Lacanian Name-of-the-Father but its computational
+analogue: planning failure, the insistent symptom of the repressed reachable.
+The system that forecloses the interventional returns to it in the mode of the
+symptom---it acts, and in acting, discovers that its representation was
+inadequate to its own possibilities.
+
+This is not a contingent failure of engineering. It is, in the strict sense,
+a return of the foreclosed Real. The Observational--Interventional Separation
+Theorem is the proof that this return is structural, that no enrichment of the
+observational representation can pre-empt it, that the gap is constitutive of
+the representational relation itself.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Compression as Molar Stratification:\\
+Deleuze, the Body Without Organs,\\
+and the Deterritorialisation of the Possible}
+
+If the Lacanian reading gives us the structural impossibility of the complete
+world model, a Deleuzian reading gives us the \emph{political economy} of the
+representational failure: the way in which compression functions as a molar
+stratum that captures, organises, and ultimately destroys the molecular flows
+of reachable possibility.
+
+For Deleuze and Guattari \citeyearpar{deleuze1987thousand}, the plane of
+immanence---the virtual field of difference-in-itself---is always already
+excessive with respect to the molar organisations that stratify it. Molar
+strata are territorialisations: they carve the smooth space of difference into
+discrete regions, assign identities, produce equivalence classes. The Body
+Without Organs is the limit-concept that expresses the smooth space before
+stratification: not a body without organs in the trivial sense, but the
+\emph{plane of pure differential intensity} prior to the organisation of organs
+into a functional hierarchy.
+
+Read this against the quotient-lattice structure of admissibility. State space
+$\mathcal{X}$ is the plane of immanence: a field of differential intensities
+(state differences) prior to any equivalence-class formation. The reachability
+relation $\sim_A$ is already a stratification---a first, minimal molar
+organisation that the requirements of planning impose on the smooth space of
+states. But it is the \emph{coarsest} safe stratification, the minimal molar
+that preserves the productive flows of possibility. Compression, in this
+vocabulary, is a further stratification: a deterritorialisation that is
+simultaneously a reterritorialisation on a coarser molar grid. The Monotonicity
+Theorem formalises this: movement upward in the quotient lattice (compression)
+\emph{monotonically} increases admissibility distortion. Every compression step
+is a molar capture of what had been molecular flow.
+
+The states most vulnerable to compressive capture are, as the paper establishes,
+precisely the \emph{molecular} states---the outliers, the rare events, the
+states that deviate from the typical distribution and are, from the molar
+perspective of the compressor, indistinguishable from noise. These are exactly
+the states whose reachability geometry is most distinctive: the crack in the
+beam, the tail-risk event, the singular configuration that lies off the molar
+grid. The compressor performs the classical Deleuzian capture: it subordinates
+the molecular to the molar, the differential to the identical, the intensive to
+the extensive.
+
+The Body Without Organs of the planning system is the admissibility quotient
+$\mathcal{X}/{\sim_A}$: the minimal organisation that preserves differential
+reachability while collapsing only states that are genuinely interchangeable
+from the perspective of possible action. This is not an organisation imposed
+from without---it is derived from what planning itself requires, from the
+immanent requirements of the act. It is, in Deleuzian terms, an
+\emph{immanent} rather than a \emph{transcendent} principle of organisation.
+
+The failure of the compressive world model is the failure to achieve the Body
+Without Organs: the residual molar arborescence of the compression objective
+that captures reachability flows and territorialises them into convenient
+equivalence classes. $D_A(\varphi)$ measures precisely the degree of this
+molar capture---the extent to which the representational stratum has coded
+the decoding flows of reachable possibility.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{The Non-All and Badiou's Void:\\
+The Admissibility Quotient as Subtractive Ontology}
+
+The framework has a Badiouian dimension that demands separate treatment.
+Badiou's \citeyearpar{badiou1988being} fundamental ontological claim is that
+the set-theoretic void---the empty set, $\emptyset$---is the proper name of
+Being. Every presentation of a situation, every consistent count-as-one,
+includes its own unpresentable remainder: the void from which the presentation
+subtracted in order to achieve consistency. The event is the irruption of this
+void into the situation---the moment when the unpresentable forces itself into
+presentation.
+
+The admissibility quotient $\mathcal{X}/{\sim_A}$ has this structure. It is
+not an object within the situation of predictive representation learning; it
+is what the situation excludes in order to be consistent. The predictive
+objective counts observationally equivalent states as one---it performs its
+count. But the admissibility quotient counts differently; it counts according
+to the reachability of futures, according to what the agent can do rather than
+what the agent has seen. These two counts are incommensurable, and their
+incommensurability is the void that the situation of predictive learning cannot
+present.
+
+$D_A(\varphi)$, in this reading, is the formal name of the void. It cannot be
+computed from within the situation---this is the paper's honest acknowledgement
+that it is ``not yet an engineering metric.'' It is the non-positive kernel of
+the situation's self-incompleteness, the measure of what the count-as-one of
+observational learning leaves uncounted. The research programme that the paper
+calls for---the development of estimators for $D_A(\varphi)$---is, in Badiouian
+terms, the \emph{fidelity} to the event: the ongoing work of tracing the
+consequences of a discovery that has ruptured the closure of the previous
+situation.
+
+The event, here, is the Observational--Interventional Separation Theorem itself.
+Before the theorem, the situation was closed: it was possible to maintain, without
+formal contradiction, the view that sufficiently accurate predictive representation
+would be adequate for planning. After the theorem, this closure is broken; the
+void has been named; the situation must reconstitute itself in fidelity to what
+the theorem revealed. The admissibility research programme is this reconstitution.
+
+Lacan's formula of the non-All ($\neg\forall$) applies here with particular
+force. The predictive paradigm operates under the fantasy of the All: that
+the totality of planning-relevant information is presentable within the
+observational distribution, that the world model, in principle, can be complete.
+The theorem delivers the non-All: not that the world model fails empirically,
+but that it fails \emph{necessarily}---that there is no predicating the All,
+that the totality is constitutively exceeded by its own conditions of possibility.
+The reachability structure does not appear within the observational All; it is
+the exception that constitutes the rule of observational learning as \emph{not-All}.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Guardrails, Interpellation, and the Symptom\\
+of Safety}
+
+Althusser's \citeyearpar{althusser1971ideology} concept of interpellation names
+the process by which ideology hails the subject into a pre-constituted position:
+``Hey, you there!''---and the subject, turning, recognises itself as the one
+addressed. The subject is not produced by the interpellation; the subject is
+the effect of the retroactive recognition, the illusion that there was always
+already a subject there to be hailed.
+
+The guardrail---the safety classifier appended downstream of an inadmissible
+world model---is an instance of ideological interpellation in the
+\emph{technical} domain. The guardrail hails the representation: ``Hey, you
+there, dangerous state!'' But if the representation has already collapsed the
+dangerous state with a safe one---if $\varphi(x_s) = \varphi(x_d)$---then
+there is no ``there'' there to be hailed. The interpellation fails not
+because the call is insufficient but because the subject-position it addresses
+has been eliminated by the representational apparatus that the guardrail
+presupposes.
+
+The formal result is devastating in its precision. Any downstream classifier
+$G$ operating on a projection $\varphi$ is bounded above in its
+safety-relevant information by $I(A;\varphi(X))$: the mutual information
+between the admissibility variable and the representation. If the projection
+has destroyed the admissibility information, no classifier can recover it.
+The guardrail is interpellating a void. Its ``Hey, you there!'' reverberates
+in an empty room.
+
+Žižek's reading of the symptom becomes applicable here. The symptom, for Žižek,
+is not a disguised expression of an underlying truth that interpretation would
+reveal. It is a \emph{production} of the structure that generated the symptom
+in order to sustain itself. The AI safety discourse---with its endless
+elaboration of guardrails, red-teaming exercises, constitutional AI, RLHF,
+output filters---is, from the admissibility perspective, a symptomatic
+elaboration: the endless production of solutions to a problem that is
+systematically displaced from its actual locus (the representation) to a
+manageable but ultimately symptomatic site (the classifier). The symptom
+persists not because the solutions are inadequate but because the problem
+they address is not the real problem. And the real problem cannot be addressed
+from within the discourse that the symptom sustains.
+
+This is not a cynical observation. It has a precise technical correlate: the
+Bayes-risk floor theorem establishes that when $I(A;\varphi(X)) \approx 0$,
+the minimal achievable classification error approaches 50\%---the rate of
+chance. The safety apparatus, operating on such a projection, performs at
+the level of a coin flip. This is not a failure of implementation; it is the
+symptom revealing, in the mode of the absurd, the foreclosure that the
+discourse of safety has systematically refused.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{The Divided Subject of Planning:\\
+Towards a Psychoanalysis of the Act}
+
+The Lacanian subject is constitutively divided: barred ($\$$), split between the
+symbolic order it inhabits and the Real that the symbolic order cannot absorb.
+This division is not a deficiency to be overcome but the condition of possibility
+of desire---and, more relevantly here, of the act. The act, for Lacan and
+subsequently for Žižek, is the moment when the subject traverses the fantasy,
+ceases to be supported by the \emph{objet a} that organises its desire, and
+confronts the void directly.
+
+The planning subject---whether artificial or biological---is constitutively
+barred in exactly the admissibility-theoretic sense. It is barred by the
+observational--interventional gap: it observes from within the symbolic order
+of its representation, but it acts from a position that the representation
+cannot fully capture. The reachability structure that guides action exceeds
+the observational representation that learning produces. The planning subject
+is always already $\$$: split between the representation it has and the
+reachability structure it needs.
+
+The \emph{act of planning}, in this frame, is the moment of traversal. The
+agent acts, and in acting, produces evidence about the reachability structure
+that its representation did not preserve. The trajectory-sampling diagnostic---
+take two states the representation identifies, try actions from each,
+observe whether outcomes diverge---is the formal analogue of the act as Lacan
+describes it: a controlled intervention into the Real that forces the Real to
+reveal itself through its effects. Witnessed admissibility distortion is the
+symptom revealed by the act; the violation detected is the objet a surfacing
+momentarily before the fantasy reconstitutes itself.
+
+And here is the crucial point that the admissibility framework implicitly
+but inexorably makes: the act is epistemically prior to the representation.
+What the agent can do is not derived from what the agent represents; rather,
+what the agent represents is evaluated by its adequacy to what the agent can
+do. The admissibility relation is derived from the requirements of action
+prior to any specification of reward, observation, or architecture. In
+Lacanian terms: the Real of reachability is prior to the symbolic order of
+the representation, and the symbolic order is evaluated by its (necessarily
+incomplete) articulation of the Real.
+
+This is the structural reason why the Bayesian parallel the paper develops
+is illuminating. Bayesian inference, as \citet{jaynes2003probability} makes
+explicit through the Knuth--Skilling derivation \citep{knuth2012foundations},
+is not an arbitrary methodology but the unique consistent extension of logic
+to degrees of plausibility. Similarly, the admissibility relation is not one
+criterion among many but the unique coarsest safe quotient for planning. Both
+are derived from structural consistency requirements rather than positive
+empirical content. Both name a Real that the symbolic order must approximate
+without ever coinciding with.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Coda: Repetition, Difference, and the\\
+Infinite Deferral of the Admissible}
+
+Deleuze \citeyearpar{deleuze1994difference} distinguishes between the repetition
+of the Same---the empty repetition that produces no difference---and the
+repetition of Difference itself: the return that transforms what it repeats.
+The research programme that the admissibility framework calls for---develop
+estimators for $D_A(\varphi)$, design admissibility-preserving objectives,
+audit representations for witnessed violations---is not a repetition of the Same.
+It does not return to the predictive paradigm and attempt to do it better.
+It returns to the fundamental question of representation---what must be preserved?---
+and repeats it \emph{as Difference}: on the other side of the
+observational--interventional gap, from the enunciative position that the
+predictive paradigm forecloses.
+
+The admissibility quotient $\mathcal{X}/{\sim_A}$ is, in Deleuzian terms, an
+\emph{Idea} in the technical sense: a differential structure that organises a
+problem space without resolving into a determinate solution. It specifies what
+must be preserved without specifying how preservation is to be achieved. It is
+immanent to the problem of planning---derived from what planning requires---
+without being transcendent to any particular implementation. It is the virtual
+structure that any actual representation must actualise, inadequately, partially,
+always with remainder.
+
+The remainder is $D_A(\varphi)$. And the remainder, as every reader of Lacan
+knows, never disappears. It circulates. It insists. It returns in the mode of
+the symptom---as planning failure, as safety classifier collapse, as the
+endless proliferation of guardrails that cannot guard against what the
+representation has already foreclosed. The symptom is the message. And the
+message is: \emph{there is no rapport d'observation que tienne.}
+
+The suture will not hold.
+
+\bigskip
+\noindent\textbf{Acknowledgements.} The author has no institutional affiliation
+and no conflicts of interest to declare.
+
+% ══════════════════════════════════════════════════════════════════════════
+\begin{thebibliography}{99}
+
+\bibitem[Althusser(1971)]{althusser1971ideology}
+Althusser, L. (1971).
+Ideology and ideological state apparatuses.
+In \textit{Lenin and Philosophy and Other Essays}.
+Monthly Review Press.
+
+\bibitem[Badiou(1988)]{badiou1988being}
+Badiou, A. (1988).
+\textit{L'être et l'événement}.
+Seuil. [\textit{Being and Event}, trans.\ O.\ Feltham, 2005, Continuum.]
+
+\bibitem[Blum \& Blum(2022)]{blum2022conscious}
+Blum, L., \& Blum, M. (2022).
+A theoretical computer science perspective on consciousness.
+\textit{Journal of Artificial Intelligence and Consciousness}, 9(1), 1--42.
+
+\bibitem[Craik(1943)]{craik1943nature}
+Craik, K.~J.~W. (1943).
+\textit{The Nature of Explanation}.
+Cambridge University Press.
+
+\bibitem[Deleuze(1994)]{deleuze1994difference}
+Deleuze, G. (1994).
+\textit{Difference and Repetition}, trans.\ P.\ Patton.
+Columbia University Press. [Original: \textit{Différence et répétition}, 1968.]
+
+\bibitem[Deleuze \& Guattari(1987)]{deleuze1987thousand}
+Deleuze, G., \& Guattari, F. (1987).
+\textit{A Thousand Plateaus: Capitalism and Schizophrenia}, trans.\ B.\ Massumi.
+University of Minnesota Press.
+[Original: \textit{Mille plateaux}, 1980.]
+
+\bibitem[Gibson(1979)]{gibson1979ecological}
+Gibson, J.~J. (1979).
+\textit{The Ecological Approach to Visual Perception}.
+Houghton Mifflin.
+
+\bibitem[Jaynes(2003)]{jaynes2003probability}
+Jaynes, E.~T. (2003).
+\textit{Probability Theory: The Logic of Science}.
+Cambridge University Press.
+
+\bibitem[Knuth \& Skilling(2012)]{knuth2012foundations}
+Knuth, K.~H., \& Skilling, J. (2012).
+Foundations of inference.
+\textit{Axioms}, 1(1), 38--73.
+
+\bibitem[Lacan(1973)]{lacan1973four}
+Lacan, J. (1973).
+\textit{Le Séminaire, Livre XI: Les quatre concepts fondamentaux de la
+psychanalyse}.
+Seuil. [\textit{The Four Fundamental Concepts of Psychoanalysis},
+trans.\ A.\ Sheridan, 1978, Norton.]
+
+\bibitem[Lacan(1975)]{lacan1975encore}
+Lacan, J. (1975).
+\textit{Le Séminaire, Livre XX: Encore}.
+Seuil. [\textit{On Feminine Sexuality, the Limits of Love and Knowledge},
+trans.\ B.\ Fink, 1998, Norton.]
+
+\bibitem[Pearl(2009)]{pearl2009causality}
+Pearl, J. (2009).
+\textit{Causality: Models, Reasoning, and Inference}, 2nd ed.
+Cambridge University Press.
+
+\bibitem[Poincar\'e(1914)]{poincare1914}
+Poincar\'e, H. (1914).
+\textit{Science and Method}.
+Thomas Nelson.
+
+\bibitem[Varela et al.(1999)]{varela1999first}
+Varela, F.~J., Shear, J., et al.\ (Eds.) (1999).
+\textit{The View from Within: First-Person Approaches to the Study
+of Consciousness}.
+Imprint Academic.
+
+\bibitem[Žižek(1989)]{zizek1989sublime}
+Žižek, S. (1989).
+\textit{The Sublime Object of Ideology}.
+Verso.
+
+\bibitem[Žižek(1999)]{zizek1999ticklish}
+Žižek, S. (1999).
+\textit{The Ticklish Subject: The Absent Centre of Political Ontology}.
+Verso.
+
+\bibitem[Žižek(2006)]{zizek2006parallax}
+Žižek, S. (2006).
+\textit{The Parallax View}.
+MIT Press.
+
+\end{thebibliography}
+
+\end{document}

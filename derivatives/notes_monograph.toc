@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}The Passive Theory and Its Failure}{3}{section.1}%
+\contentsline {section}{\numberline {2}Continuations and the Reachability Frame}{4}{section.2}%
+\contentsline {section}{\numberline {3}Notes in the Spherepop Framework}{6}{section.3}%
+\contentsline {section}{\numberline {4}Capture Notes: The Refuse Operation}{7}{section.4}%
+\contentsline {section}{\numberline {5}Prospective Notes: The Bind Operation}{9}{section.5}%
+\contentsline {section}{\numberline {6}Repair Notes: Refuse and Pop Combined}{10}{section.6}%
+\contentsline {section}{\numberline {7}Coordination Notes: Binding Multiple Agents}{12}{section.7}%
+\contentsline {section}{\numberline {8}Refusal Notes: The Refuse Operation in Pure Form}{13}{section.8}%
+\contentsline {section}{\numberline {9}Generative Notes: The Pop Operation}{15}{section.9}%
+\contentsline {section}{\numberline {10}Collapse Notes: The Hidden Class}{17}{section.10}%
+\contentsline {section}{\numberline {11}The Ephemerality Inversion}{19}{section.11}%
+\contentsline {section}{\numberline {12}Why LaTeX Preserves More}{20}{section.12}%
+\contentsline {section}{\numberline {13}Connection to MEM\textbar 8}{22}{section.13}%
+\contentsline {section}{\numberline {14}Connection to Repair Theory}{23}{section.14}%
+\contentsline {section}{\numberline {15}Civilization as a Note System}{24}{section.15}%
+\contentsline {section}{\numberline {16}The Admissibility Connection}{26}{section.16}%
+\contentsline {section}{\numberline {17}Conclusion: The Algebra of Continuations}{27}{section.17}%
