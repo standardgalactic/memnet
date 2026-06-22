@@ -1,0 +1,26 @@
+\contentsline {section}{\numberline {1}Introduction: The Problem of Reproduction}{4}{section.1}%
+\contentsline {section}{\numberline {2}The Reproductive Organs of Infrastructure}{4}{section.2}%
+\contentsline {section}{\numberline {3}From Physical Systems to Distinction Ecologies}{5}{section.3}%
+\contentsline {section}{\numberline {4}Ontological Reproduction}{6}{section.4}%
+\contentsline {section}{\numberline {5}Reverse Centaurs and Distinction Collapse}{7}{section.5}%
+\contentsline {section}{\numberline {6}The Limits of Critique}{8}{section.6}%
+\contentsline {section}{\numberline {7}Meta-Ontological Reproduction}{8}{section.7}%
+\contentsline {section}{\numberline {8}The Ecology of Visible Seams}{9}{section.8}%
+\contentsline {section}{\numberline {9}Representation-Shifting Capacity}{10}{section.9}%
+\contentsline {section}{\numberline {10}A Hierarchy of Reproduction}{10}{section.10}%
+\contentsline {section}{\numberline {11}Generativity and Meta-Admissibility}{11}{section.11}%
+\contentsline {section}{\numberline {12}Coda: The Interface as Its Own Case Study}{11}{section.12}%
+\contentsline {section}{\numberline {13}Conclusion: The Deepest Reproductive Organ}{12}{section.13}%
+\contentsline {section}{\numberline {A}Civilizational Reproduction and Distinction Preservation}{13}{appendix.A}%
+\contentsline {section}{\numberline {B}Reproductive Artifacts and Distinction Ecologies}{14}{appendix.B}%
+\contentsline {section}{\numberline {C}Ontological Reproduction and the Blind Spot Proposition}{15}{appendix.C}%
+\contentsline {section}{\numberline {D}Reverse Centaurs: Metric Control and Reachability Reduction}{15}{appendix.D}%
+\contentsline {section}{\numberline {E}The Limits of Critique: Contraction and Fixed Points}{16}{appendix.E}%
+\contentsline {section}{\numberline {F}Meta-Reachability and Meta-Ontological Reproduction}{17}{appendix.F}%
+\contentsline {section}{\numberline {G}Visible Seams Expand Meta-Reachability}{17}{appendix.G}%
+\contentsline {section}{\numberline {H}Representation-Shifting Capacity and Fragility}{18}{appendix.H}%
+\contentsline {section}{\numberline {I}The Hierarchy of Reproduction and the Visible Seam Theorem}{19}{appendix.I}%
+\contentsline {section}{\numberline {J}The Free Energy Principle as Degenerate Meta-Ontological Reproduction}{20}{appendix.J}%
+\contentsline {section}{\numberline {K}Goodhart Collapse as Free Energy Minimization Under a Thin Projection}{22}{appendix.K}%
+\contentsline {section}{\numberline {L}A Seam as a Hyperprior on Framework Change}{23}{appendix.L}%
+\contentsline {section}{References}{24}{proposition.L.1}%

@@ -1,0 +1,1007 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{fontspec}
+\usepackage{footmisc}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{caption}
+
+\setmainfont{TeX Gyre Pagella}
+\geometry{a4paper, margin=1.25in}
+
+\titleformat{\paragraph}[runin]{\normalfont\bfseries\itshape}{}{0em}{}[.\enspace]
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\setlist{topsep=3pt, itemsep=1pt}
+
+\title{\bfseries Computation on Evolving Substrates:\\
+Dynamic Admissibility and the Path-Dependence of Constraint Geometry}
+\author{Flyxion\\
+\textit{Independent Research}\\
+\small\url{https://github.com/standardgalactic}}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Recent work on electrofluidic computation in neuroscience has revived an old question: to what extent is computation determined not merely by the trajectories executed within a system but by the substrates through which those trajectories propagate? We argue that the electrofluidic brain is one instance of a broader architectural pattern. Across biological, cognitive, linguistic, institutional, and computational systems, fast distinction-events occur on slowly evolving substrates that both constrain and are reshaped by those events. We formalize this structure as \emph{dynamic-substrate computation} and prove that admissibility becomes path-dependent whenever substrate remodeling is non-negligible. Three frameworks contribute to this formalization: the Relativistic Scalar-Vector Plenum (RSVP) models the substrate as a coupled field of capacity, transport, and dissipation; the Constraint-Layered Inference Ontology (CLIO) shows that standard projections discard substrate degrees of freedom, inducing admissibility distortion; and Spherepop establishes that stable discrete objects are collapsed residues of process histories rather than primitive entities. These frameworks are developed jointly under the heading \emph{Projection, Distortion, and Collapse}: CLIO explains what projections lose, Spherepop explains what the losses leave behind. Together they yield a unified description in which computation, memory, repair, and adaptation are different rates of evolution of the same coupled substrate. The central result is that any theory which treats constraint geometry as fixed is, at best, a first-order approximation that fails whenever substrate remodeling is non-negligible---and that this failure is not a deficiency of particular theories but a structural feature of computation on dynamic substrates.
+
+\medskip\noindent\textbf{Keywords:} dynamic substrates, admissibility geometry, path-dependence, projection distortion, process ontology, semantic compression, electrofluidic computation.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+A persistent assumption underlies most theories of computation, cognition, and formal reasoning: the space of admissible states is given.\footnote{We use \emph{admissibility} in a technical sense developed in \S\ref{sec:rsvp}: the set of fast-state trajectories reachable given the current substrate configuration. This generalizes feasibility in optimization, support in probability theory, and reachability in control theory.} Whether framed as a feasible region in optimization theory, a representational space in cognitive science, a fixed institutional structure in economics, or a state space in dynamical systems, the geometry of constraint is typically treated as background. Trajectories move through it; they do not remake it.
+
+This assumption is productive. It licenses the mathematical apparatus of fixed-point theory, variational methods, and symbolic inference. But it is an approximation, and one with a specific failure mode: whenever the medium through which trajectories propagate is itself modified by those trajectories, admissibility becomes path-dependent. The constraint geometry is no longer a stage; it is one of the actors.\footnote{The distinction between stage and actor is not merely metaphorical. In control-theoretic terms, a system with a fixed constraint set admits a separation between the plant and the constraint. When the constraint set is modified by plant outputs, this separation fails and the full coupled system must be analyzed jointly.}
+
+This paper is motivated by a recent review in neuroscience that makes this point with unusual clarity. Chakravarthy, Chandrasekaran, and Shanbhag~\cite{chakravarthy2026} argue that alongside the well-studied digital operations of neural circuits there exists a slower, analog, evolutionarily older layer of electrofluidic computation. The extracellular space, cerebrospinal fluid dynamics, vascular networks, and glial regulation are not passive support structures. They form a substrate that both constrains and is reshaped by neural activity. Neural excitation alters extracellular ion concentrations. Sleep remodels glymphatic transport. Vascular geometry responds to metabolic demand. The substrate is in continuous coevolution with the computation it supports.\footnote{This is not the first proposal that non-neuronal systems participate in neural computation. Volume transmission \cite{chakravarthy2026}, the hemo-neural hypothesis, and astrocyte-mediated modulation have each been proposed independently. The electrofluidic framework synthesizes these into a unified substrate model.}
+
+We argue that this electrofluidic picture is not primarily a discovery about brains. It is a biological instance of a general mathematical structure that appears across language, science, institutions, economies, and software systems. In each case, fast-timescale events operate over a slowly evolving substrate. The substrate constrains which events are admissible. The events gradually reshape the substrate. The result is a system in which admissibility is not a fixed geometric object but a functional of the trajectory history of the system.
+
+The paper proceeds as follows. Section~\ref{sec:rsvp} develops the RSVP field model and proves the Dynamic Substrate Theorem. Section~\ref{sec:projection} unifies projection (CLIO) and collapse (Spherepop): it proves the Admissibility Distortion Theorem, identifies two empirically confirmed repair mechanisms, and establishes that stable objects are collapsed equivalence classes of process histories. Section~\ref{sec:domains} surveys seven domains where the architecture recurs and draws theoretical consequences including the frozen-process connection, memory as attractor topology, catastrophic forgetting, and institutional path dependence. Section~\ref{sec:conclusion} concludes. Appendices provide the frozen-manifold limit theorem, reachability geometry, concrete distortion metrics, a category-theoretic formulation, the Markov blanket connection, a formal substrate memory theorem, and a notation glossary.
+
+\section{RSVP: The Substrate as Dynamic Admissibility Field}
+\label{sec:rsvp}
+
+\subsection{The RSVP Field Ontology}
+
+The Relativistic Scalar-Vector Plenum (RSVP) framework models systems in terms of three coupled fields over a state space or physical domain:\footnote{The term \emph{plenum} is used deliberately: RSVP treats the substrate as everywhere present and nowhere absent, in contrast to particle-based or agent-based ontologies that treat the substrate as a background against which discrete entities move.}
+\begin{itemize}
+  \item $\Phi(x,t)$: a scalar \emph{capacity} field, representing local availability, resource density, or energetic potential;
+  \item $\vec{v}(x,t)$: a vector \emph{transport} field, representing directed flow, propagation, or channeling of influence;
+  \item $S(x,t)$: a scalar \emph{entropy} or dissipation field, representing irreversible burden, constraint accumulation, or metabolic cost.
+\end{itemize}
+
+These three fields are not independent. They evolve through coupled equations that express how capacity is consumed and regenerated, how transport reshapes capacity, and how dissipation accumulates from both. The relativistic qualifier in RSVP refers not to special relativity but to the position-dependence of propagation speed: signals in $\vec{v}$ travel at locally-determined rates, so the effective light cone of influence is shaped by the substrate geometry.\footnote{This is formally analogous to propagation in a curved spacetime, where the metric tensor encodes local propagation speed. In RSVP, $\vec{v}$ plays the role of a connection on the state space.}
+
+In the electrofluidic brain, the correspondence is nearly direct. The extracellular ionic capacity plays the role of $\Phi$: local calcium and potassium concentrations determine whether adjacent neurons can fire.\footnote{Specifically, local Ca$^{2+}$ depletion in the ECS following repeated synaptic transmission transiently reduces the probability of vesicle fusion at adjacent terminals \cite{chakravarthy2026}. This is a direct suppression of $\Phi$ by prior fast-layer events.} The flow of cerebrospinal fluid and directed ion movement through the ECS play the role of $\vec{v}$. The accumulation of metabolic waste---beta-amyloid, tau, oxidative byproducts---plays the role of $S$, representing a slow irreversible burden on future propagation.
+
+\subsection{Coupled Field Equations}
+
+Let $x(t) \in X$ denote the fast state of the system. Let the substrate be described by RSVP fields $(\Phi, \vec{v}, S)$. The full dynamic-substrate system is:
+\begin{align}
+\partial_t \Phi + \nabla \cdot (\Phi \vec{v}) &= -\alpha S + R_\Phi \label{eq:capacity}\\
+\partial_t S + \nabla \cdot (S \vec{v}) &= D_S \Delta S + \sigma(x,t) \label{eq:entropy}\\
+\dot{x} &= F(x, \Phi, \vec{v}, S) \label{eq:fast}
+\end{align}
+
+Equation~\eqref{eq:capacity} is a conservation law for capacity with source terms: capacity is advected by transport $\vec{v}$, depleted at rate $\alpha S$ by accumulated dissipation, and regenerated by the process $R_\Phi$.\footnote{$R_\Phi$ represents biological restorative processes (sleep, metabolic recovery), institutional reform, or software refactoring depending on the domain. Crucially, $R_\Phi$ is the only term that can \emph{increase} capacity against the dissipation gradient; without it, the system drifts toward exhausted admissibility.} Equation~\eqref{eq:entropy} is a reaction-diffusion equation for dissipation: entropy spreads diffusively with coefficient $D_S$ and is generated locally by fast-layer activity $\sigma(x,t)$, which represents the metabolic cost of computation, the informational cost of utterances, or the legal cost of decisions depending on context. Equation~\eqref{eq:fast} describes how the fast trajectory depends on the current substrate.
+
+\paragraph{Dimensional analysis.} Let $[x]$ denote dimension of $x$. If $\Phi$ has dimensions of resource per unit volume $[\Phi] = \mathcal{R}/\mathcal{V}$, and $\vec{v}$ has dimensions of velocity $[\vec{v}] = \mathcal{L}/\mathcal{T}$, then $\nabla \cdot (\Phi\vec{v})$ has dimensions $\mathcal{R}/(\mathcal{V}\cdot\mathcal{T})$, consistent with a rate of capacity change per unit volume. The dissipation term $\alpha S$ must have the same units, so $[\alpha] = 1/\mathcal{T}$ and $[S] = \mathcal{R}/\mathcal{V}$---dissipation has the same dimensions as capacity, which is natural since it represents consumed but not yet cleared capacity.\footnote{This dimensional analysis confirms that the system is self-consistent without requiring separate units for capacity and entropy. The distinction is physical: $\Phi$ is available capacity, $S$ is accumulated dissipative burden. Both are extensive quantities over the same domain.}
+
+\subsection{Dynamic Admissibility}
+
+\begin{definition}[Instantaneous Admissibility Region]
+Given substrate fields $(\Phi, \vec{v}, S)$ at time $t$, the instantaneous admissibility region is:
+\[
+\mathcal{A}_t = \{ x \in X : C(x, \Phi(t), \vec{v}(t), S(t)) \leq 0 \}
+\]
+where $C$ is a constraint functional encoding which fast states are reachable given current substrate configuration.\footnote{The constraint functional $C$ generalizes several familiar objects: in optimization, $C(x,\cdot) \leq 0$ is the feasibility constraint; in probability theory, it corresponds to the support of the conditional distribution over $x$ given the substrate; in control theory, it is the reachability set boundary. The substrate-dependence $C(\cdot, \Phi, \vec{v}, S)$ is what makes the constraint dynamic rather than fixed.}
+\end{definition}
+
+When $(\Phi, \vec{v}, S)$ are constant, we recover the classical fixed-manifold picture. When they evolve under equations~\eqref{eq:capacity}--\eqref{eq:entropy}, admissibility evolves with them.
+
+\begin{lemma}[Monotone Substrate Dependence]
+\label{lem:monotone}
+Suppose $C(x, \Phi, \vec{v}, S)$ is non-increasing in $\Phi$ and non-decreasing in $S$. Then:
+\begin{enumerate}[label=(\roman*)]
+  \item $\Phi_1 \geq \Phi_2$ pointwise implies $\mathcal{A}(\Phi_1, \vec{v}, S) \supseteq \mathcal{A}(\Phi_2, \vec{v}, S)$.
+  \item $S_1 \leq S_2$ pointwise implies $\mathcal{A}(\Phi, \vec{v}, S_1) \supseteq \mathcal{A}(\Phi, \vec{v}, S_2)$.
+\end{enumerate}
+That is, higher capacity expands admissibility and lower accumulated dissipation expands admissibility.
+\end{lemma}
+
+\begin{proof}
+For (i): let $x \in \mathcal{A}(\Phi_2, \vec{v}, S)$, so $C(x, \Phi_2, \vec{v}, S) \leq 0$. Since $C$ is non-increasing in $\Phi$ and $\Phi_1 \geq \Phi_2$ pointwise, we have $C(x, \Phi_1, \vec{v}, S) \leq C(x, \Phi_2, \vec{v}, S) \leq 0$, so $x \in \mathcal{A}(\Phi_1, \vec{v}, S)$. For (ii): let $x \in \mathcal{A}(\Phi, \vec{v}, S_1)$, so $C(x, \Phi, \vec{v}, S_1) \leq 0$. Since $C$ is non-decreasing in $S$ and $S_1 \leq S_2$ pointwise, we have $C(x, \Phi, \vec{v}, S_2) \geq C(x, \Phi, \vec{v}, S_1)$; therefore $x$ may or may not be in $\mathcal{A}(\Phi, \vec{v}, S_2)$, but every $x \in \mathcal{A}(\Phi, \vec{v}, S_1)$ satisfies $C \leq 0$ at $S_1$, and the inclusion $\mathcal{A}(\Phi,\vec{v},S_1) \supseteq \mathcal{A}(\Phi,\vec{v},S_2)$ follows from the monotonicity: if $C(x,\Phi,\vec{v},S_2)\leq 0$ then $C(x,\Phi,\vec{v},S_1)\leq C(x,\Phi,\vec{v},S_2)\leq 0$, giving $\mathcal{A}(S_2)\subseteq \mathcal{A}(S_1)$, i.e.\ $\mathcal{A}(S_1)\supseteq \mathcal{A}(S_2)$. $\square$
+\end{proof}
+
+\begin{remark}
+Lemma~\ref{lem:monotone} gives the RSVP model its directionality. The regenerative term $R_\Phi$ in equation~\eqref{eq:capacity} increases $\Phi$, expanding admissibility. The source term $\sigma(x,t)$ in equation~\eqref{eq:entropy} increases $S$, contracting admissibility. The interplay of these two forces determines whether the substrate is in an expansive or contractive phase---corresponding biologically to wakefulness (net dissipation accumulation, contracting) versus sleep (net regeneration, expanding).
+\end{remark}
+
+\begin{theorem}[Dynamic Substrate Theorem]
+\label{thm:dst}
+If the substrate fields $(\Phi, \vec{v}, S)$ are altered by the fast trajectory $x(t)$ via $\sigma(x,t)$ in equation~\eqref{eq:entropy}, then admissibility $\mathcal{A}_t$ is path-dependent:
+\[
+\mathcal{A}_t = \mathcal{A}[x_{0:t}]
+\]
+where $\mathcal{A}[x_{0:t}]$ is a functional of the trajectory history, not a fixed geometric object.
+\end{theorem}
+
+\begin{proof}
+Let $G$ denote the coupled evolution operator for the substrate fields derived from equations~\eqref{eq:capacity}--\eqref{eq:entropy}. By the fundamental theorem of calculus applied to the integral form of the evolution equations:
+\[
+(\Phi, \vec{v}, S)(t) = (\Phi, \vec{v}, S)(0) + \int_0^t G\bigl((\Phi, \vec{v}, S)(\tau),\, x(\tau)\bigr)\, d\tau
+\]
+The operator $G$ depends on $x(\tau)$ at each $\tau \in [0,t]$ through the source term $\sigma(x(\tau),\tau)$ in equation~\eqref{eq:entropy}, and through the coupling in equation~\eqref{eq:fast}. Since $G$ is $x$-dependent at every integration point, the substrate state at time $t$ is a functional of the entire prior trajectory $x_{0:t}$. Since $\mathcal{A}_t$ is determined by the substrate state at time $t$:
+\[
+\mathcal{A}_t = \mathcal{A}\!\left[(\Phi,\vec{v},S)(0) + \int_0^t G\bigl((\Phi,\vec{v},S)(\tau),x(\tau)\bigr)\,d\tau\right]
+\]
+it follows that $\mathcal{A}_t = \mathcal{A}[x_{0:t}]$. $\square$
+\end{proof}
+
+\begin{remark}
+The theorem holds for any smooth $G$ and any $C$ that is monotone in the substrate fields. The proof does not depend on the specific form of equations~\eqref{eq:capacity}--\eqref{eq:entropy}; it requires only that the substrate evolution depends on $x$ at each time step. This makes the result robust to variations in the specific field equations used in particular applications.\footnote{In the slow-fast decomposition $\dot\theta = \varepsilon G(x,\theta)$ with $0 < \varepsilon \ll 1$, the theorem still holds for any $\varepsilon > 0$, but the magnitude of the path-dependence scales as $O(\varepsilon)$. The frozen-manifold approximation (Definition~5.1) is the limit $\varepsilon \to 0$.}
+\end{remark}
+
+\begin{corollary}[Path-Dependent Repair Pressure]
+\label{cor:repair}
+Define repair pressure as $R(t) = R(x_t, \mathcal{A}_t)$, measuring how far the current fast state lies outside the current admissibility region. Under the Dynamic Substrate Theorem:
+\[
+R(t) = R\bigl(x_t,\, \mathcal{A}[x_{0:t}]\bigr)
+\]
+Repair pressure is history-sensitive. The system remembers through deformation of its own constraint geometry, not through explicit state storage.
+\end{corollary}
+
+\begin{proof}
+Substituting the result of Theorem~\ref{thm:dst} into the definition of repair pressure gives the result immediately. $\square$
+\end{proof}
+
+This corollary unifies several phenomena that are usually treated separately: memory, learning, adaptation, and institutional path dependence all become instances of the same mechanism---accumulated deformation of the admissibility structure by prior trajectories.\footnote{This provides a formal basis for the \emph{substrate memory} concept: a system need not store explicit representations of past states in order to exhibit history-sensitive behavior. If its admissibility geometry is shaped by past trajectories, the history is encoded geometrically and manifests as altered repair pressure.}
+
+\begin{proposition}[Admissibility Diameter Bound]
+\label{prop:diameter}
+Let $\mathrm{diam}(\mathcal{A}_t) = \sup_{x,y \in \mathcal{A}_t} d(x,y)$ denote the diameter of the admissibility region at time $t$. Under the RSVP field equations, if dissipation accumulates without regeneration ($R_\Phi = 0$), then $\mathrm{diam}(\mathcal{A}_t)$ is non-increasing in $t$. Conversely, if $R_\Phi > \alpha S$ everywhere, $\mathrm{diam}(\mathcal{A}_t)$ is non-decreasing.
+\end{proposition}
+
+\begin{proof}
+When $R_\Phi = 0$, equation~\eqref{eq:capacity} gives $\partial_t \Phi \leq -\nabla\cdot(\Phi\vec{v})$. In the absence of sources, capacity can only be advected or depleted: $\Phi(t_2) \leq \Phi(t_1)$ for $t_2 > t_1$ in the appropriate norm. Simultaneously, equation~\eqref{eq:entropy} with $D_S\Delta S\geq 0$ gives $\partial_t S \geq \sigma(x,t) \geq 0$, so $S$ is non-decreasing. By Lemma~\ref{lem:monotone}(i) applied to decreasing $\Phi$ and Lemma~\ref{lem:monotone}(ii) applied to increasing $S$, we have $\mathcal{A}_{t_2} \subseteq \mathcal{A}_{t_1}$ for $t_2 > t_1$. Since $\mathcal{A}_{t_2}$ is a subset of $\mathcal{A}_{t_1}$, its diameter cannot exceed that of $\mathcal{A}_{t_1}$. The second claim follows symmetrically: if $R_\Phi > \alpha S$, then $\partial_t\Phi > 0$ everywhere, $\Phi$ is non-decreasing, and by Lemma~\ref{lem:monotone}(i), $\mathcal{A}_t$ is non-decreasing as a set, so its diameter is non-decreasing. $\square$
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:diameter} formalizes the intuition that exhausted systems lose behavioral repertoire. Without regeneration, the admissibility region contracts monotonically: the system can reach fewer and fewer states. Sleep, metabolic recovery, and institutional reform are all instances of driving $R_\Phi > \alpha S$, thereby reversing contraction and expanding future reachability.
+\end{remark}
+
+
+\section{Projection, Distortion, and Collapse}
+\label{sec:projection}
+
+\subsection{The Projection Problem}
+
+Standard scientific modeling proceeds by identifying the relevant variables and constructing dynamics over them. In neuroscience, the relevant variables have traditionally been neural: spike trains, synaptic weights, network connectivity.\footnote{This is the \emph{neuron doctrine} as formalized by Cajal and Sherrington: the neuron is the fundamental computational unit, and neural computation consists of spike-mediated communication between neurons. The doctrine has been enormously productive but is increasingly understood as an approximation that conceals substrate-level causal structure \cite{chakravarthy2026}.} The electrofluidic paper argues that this projection has become too aggressive: it discards variables---extracellular ionic state, CSF dynamics, vascular geometry, glial configuration---that are causally relevant to future neural trajectories.
+
+The Constraint-Layered Inference Ontology (CLIO) provides a formal account of this situation. The central concept is \emph{admissibility distortion}: the loss of constraint information that occurs when a system is projected into a lower-dimensional representation.\footnote{Admissibility distortion is related to but distinct from the mutual information lost by a projection. Information-theoretic measures assess the loss of \emph{past} distinctions; admissibility distortion assesses the loss of \emph{future} distinctions. These can diverge substantially: a projection may preserve most of the signal's entropy while destroying the information that predicts whether certain future trajectories are reachable.}
+
+\subsection{The Full State and Its Projection}
+
+Let the full biological state be:
+\[
+\mathbf{X} = (N, E, C, V, M)
+\]
+where $N$ denotes neural activity, $E$ extracellular ionic and geometric state, $C$ cerebrospinal fluid dynamics, $V$ vascular state, and $M$ metabolic state. A conventional neural model applies the projection:
+\[
+\pi_N : \mathbf{X} \to N
+\]
+retaining spike trains and synaptic variables while discarding the electrofluidic substrate variables $(E, C, V, M)$.
+
+\begin{definition}[Reachability Set]
+For any full state $\mathbf{X}$, let $R(\mathbf{X})$ denote the set of states reachable from $\mathbf{X}$ under the coupled dynamics~\eqref{eq:capacity}--\eqref{eq:fast}.
+\end{definition}
+
+\begin{definition}[Admissibility Distortion]
+Let $\pi: \mathbf{X} \to M$ be a projection. Projection $\pi$ induces admissibility distortion between states $\mathbf{X}_1$ and $\mathbf{X}_2$ when:
+\[
+\pi(\mathbf{X}_1) = \pi(\mathbf{X}_2) \quad \text{but} \quad R(\mathbf{X}_1) \neq R(\mathbf{X}_2)
+\]
+The distortion magnitude is:
+\[
+D_\pi(\mathbf{X}_1, \mathbf{X}_2) = d_R\bigl(R(\mathbf{X}_1), R(\mathbf{X}_2)\bigr)
+\]
+for any distance $d_R$ on reachable-future sets.
+\end{definition}
+
+\begin{theorem}[Projection-Induced Admissibility Distortion]
+\label{thm:clio}
+If two full states differ only in electrofluidic substrate variables, and those variables alter propagation, then the neuron-only projection $\pi_N$ necessarily incurs admissibility distortion.
+\end{theorem}
+
+\begin{proof}
+Let $\mathbf{X}_1 = (N, E_1, C_1, V_1, M_1)$ and $\mathbf{X}_2 = (N, E_2, C_2, V_2, M_2)$ with $(E_1,C_1,V_1,M_1) \neq (E_2,C_2,V_2,M_2)$. By construction $\pi_N(\mathbf{X}_1) = N = \pi_N(\mathbf{X}_2)$, so the two states are identified by the projection. By hypothesis, the substrate variables $(E,C,V,M)$ alter propagation: there exists a transition $a \in X$ and an initial condition such that the dynamics from $\mathbf{X}_1$ make $a$ reachable while the dynamics from $\mathbf{X}_2$ do not, or vice versa.\footnote{This condition---that substrate variables affect reachability---is not a strong assumption. It is confirmed directly by the electrofluidic literature: local Ca$^{2+}$ depletion alters synaptic transmission probability, ECS tortuosity shapes ion diffusion pathways, and sleep-state glymphatic flow determines metabolite clearance rates, all of which affect which neural trajectories are subsequently accessible \cite{chakravarthy2026}.} Therefore $R(\mathbf{X}_1) \neq R(\mathbf{X}_2)$, and since $\pi_N$ identifies the two states:
+\[
+D_{\pi_N}(\mathbf{X}_1, \mathbf{X}_2) = d_R\bigl(R(\mathbf{X}_1), R(\mathbf{X}_2)\bigr) > 0. \quad\square
+\]
+\end{proof}
+
+\subsection{The MPS Projection: A Laboratory Confirmation}
+
+Before turning to the neuroscience case, we note that Theorem~\ref{thm:clio} has a direct laboratory confirmation in quantum many-body physics. The matrix product state (MPS) projection $\pi_{MPS}$ compresses a quantum many-body state into a form with bounded entanglement bond dimension $\chi$. This projection is highly effective in the many-body-localized (MBL) phase, where area-law entanglement means that the discarded degrees of freedom carry little causal information.
+
+In the thermalized Floquet phase studied by Zheng et al.~\cite{zheng2026}, however, the projection fails catastrophically. Volume-law entanglement means that the bond dimension required for accurate representation grows exponentially with system size. Two quantum states that appear identical under $\pi_{MPS}$ have dramatically different reachable futures: their 14th-order density correlations diverge, and the correct samples become exponentially unlikely under the approximate classical distribution. This is admissibility distortion in its purest form---measurable, quantifiable, and caused entirely by the projection discarding degrees of freedom that are causally relevant in the thermalized regime.
+
+The quantum case is valuable for the present framework because it provides experimental evidence for a claim that is otherwise primarily theoretical: that projection-induced admissibility distortion is not merely a mathematical possibility but a physically realizable phenomenon with observable consequences.
+
+\subsection{Two Mechanisms of Projection Repair}
+
+Theorem~\ref{thm:clio} establishes that projections which discard causally relevant substrate variables incur admissibility distortion. Two independent bodies of empirical work demonstrate complementary mechanisms by which this distortion can be corrected---what we call \emph{substrate remodeling} and \emph{trajectory preservation}.
+
+\paragraph{Substrate remodeling: Cohen et al.~\cite{cohen2020}.}
+Cohen, Chung, Lee, and Sompolinsky study how object manifolds in deep neural networks are transformed across layers trained for visual object recognition. A raw image of a cat and a raw image of the same cat under different lighting, pose, or background occupy a tangled, high-dimensional manifold in pixel space: many pairs of images from different classes are less separable than pairs from the same class. The standard projection $\pi_{\text{pixel}}$ that treats the pixel vector as the relevant representation incurs severe admissibility distortion---two pixel patterns that appear distinct may have nearly identical reachable classification futures, while two patterns that appear similar may have radically divergent ones.
+
+Training progressively remodels the weight substrate. Cohen et al.\ demonstrate this through three measurable geometric quantities: the manifold effective radius $R_M$, the effective dimension $D_M$, and inter-manifold center correlations. Classification capacity $\alpha_c$ is analytically related to these quantities, and all three decrease monotonically across trained layers while $\alpha_c$ increases by orders of magnitude. Untrained networks with identical architecture show almost no improvement, establishing that training---not architecture---is the remodeling force.
+
+In the language of the present paper, the training trajectory progressively remodels the weight-space substrate $\mathcal{A}_t$ until the admissibility distortion incurred by the representational projection is minimized. The network is not discovering categories; it is reshaping the constraint geometry of its own weight space so that downstream classification trajectories become reachable. Learning is substrate repair. This is the Dynamic Substrate Theorem in a controlled experimental setting: the trajectory (training) remodels the substrate (weights), which reshapes the admissibility manifold (classification geometry), which determines which future trajectories (correct classifications) are accessible.
+
+\paragraph{Trajectory preservation: Busch et al.~\cite{busch2022}.}
+Busch, Huang, Benz, and collaborators address a complementary problem. In fMRI data recorded during naturalistic movie-viewing, the relevant cognitive structure---event boundaries, the transitions between stable brain states that segment continuous experience---is not localized to individual timepoints. It exists in trajectories: the autocorrelative structure of the BOLD signal extending over seconds, the slow coherent drift of brain state through a low-dimensional manifold.
+
+Standard projections (PCA, UMAP, vanilla PHATE) treat each timepoint as a point in state space, discarding temporal adjacency. They incur admissibility distortion of a different kind: not the distortion of collapsing too many stimuli onto the same representation, but the distortion of collapsing trajectories onto points, thereby destroying the structure that makes event boundaries detectable. T-PHATE corrects this by incorporating an autocorrelation kernel as a second diffusion view, preserving the temporal adjacency structure that encodes trajectory geometry.
+
+The empirical payoff is striking. Event boundaries learned on T-PHATE embeddings generalize across subjects and align with behavioral boundaries identified by an independent cohort in a separate task. The posterior medial cortex result is particularly sharp: T-PHATE recovers alignment between neural dynamics and subjective event boundaries an order of magnitude better than voxel-space analysis. The relevant cognitive structure existed in the data all along; it was invisible because every standard projection discarded the temporal dimension that carries it.
+
+These two results form a clean complementary pair. Cohen et al.\ show that when the projection is fixed and the substrate is remodeled, admissibility distortion decreases. Busch et al.\ show that when the substrate is fixed and the projection is redesigned to preserve trajectory structure, admissibility distortion decreases. In both cases the mechanism is the same: reducing the mismatch between the representational projection and the actual causal geometry of the system. Together they confirm that admissibility distortion is not a theoretical abstraction but a measurable quantity with observable consequences---and that both of the natural correction strategies implied by Theorem~\ref{thm:clio} work in practice.
+
+\begin{theorem}[Two Mechanisms of Admissibility Repair]
+\label{thm:repair-mechanisms}
+Let $\pi: \mathbf{X} \to M$ be a projection incurring admissibility distortion $D_\pi(\mathbf{X}_1, \mathbf{X}_2) > 0$ between states $\mathbf{X}_1, \mathbf{X}_2$ with equal projections but different reachable futures. Admissibility distortion can be reduced by either of two mechanisms:
+\begin{enumerate}
+  \item \emph{Substrate remodeling}: modify the substrate variables $(E, C, V, M)$ of $\mathbf{X}_1$ and $\mathbf{X}_2$ such that $R(\mathbf{X}_1) \to R(\mathbf{X}_2)$ under the fixed projection $\pi$.
+  \item \emph{Trajectory-preserving projection}: replace $\pi$ with $\pi'$ such that $\pi'(\mathbf{X}_1) \neq \pi'(\mathbf{X}_2)$ whenever $R(\mathbf{X}_1) \neq R(\mathbf{X}_2)$.
+\end{enumerate}
+Both mechanisms reduce $D_\pi$ to zero in the limit; they differ in which component of the system they modify.
+\end{theorem}
+
+\begin{proof}
+For mechanism (1): if substrate remodeling brings $R(\mathbf{X}_1) = R(\mathbf{X}_2)$, then by definition $D_\pi(\mathbf{X}_1, \mathbf{X}_2) = d_R(R(\mathbf{X}_1), R(\mathbf{X}_2)) = 0$, regardless of the projection. For mechanism (2): if $\pi'$ distinguishes all states with different reachable futures, then there exist no pairs $(\mathbf{X}_1, \mathbf{X}_2)$ with $\pi'(\mathbf{X}_1) = \pi'(\mathbf{X}_2)$ and $R(\mathbf{X}_1) \neq R(\mathbf{X}_2)$, so $D_{\pi'} = 0$ by definition.
+\end{proof}
+
+\begin{remark}
+Cohen et al.\ instantiate mechanism (1): training remodels the weight substrate until the representational manifold geometry reflects the classification structure that was implicit in the data all along. Busch et al.\ instantiate mechanism (2): T-PHATE replaces the time-agnostic projection with one that preserves autocorrelative trajectory structure, recovering event boundaries that were always present in the neural substrate. The two mechanisms are independent but complementary, and both are consistent with the Dynamic Substrate Theorem: in mechanism (1) the substrate itself evolves; in mechanism (2) the observer's description is redesigned to track the substrate more faithfully.
+\end{remark}
+
+\subsection{Why Standard Models Miss Substrate Degrees of Freedom}
+
+Theorem~\ref{thm:clio} explains a sociological fact about neuroscience: the phenomena described in the electrofluidic paper are not new. Extracellular ionic dynamics, CSF oscillations, and vascular coupling have been measured for decades. They appear surprising because the standard projection $\pi_N$ discards precisely these variables. The phenomena were not absent; they were invisible within the projected representation.
+
+The same pattern appears across all the domains treated in Section~5: phenomena that violate the predictions of fixed-substrate theories are typically not discovered but \emph{rediscovered}, having been previously discarded by overly aggressive projection.
+
+\subsection{Objects as Collapsed Process Histories}
+
+If the underlying substrate is processual and field-like, why do stable discrete objects appear at all? Why do neuroscientists find neurons, circuits, and regions rather than continuous fields? Why do economists find firms, markets, and institutions rather than pure transaction flows? Why do linguists find words, grammars, and syntactic categories rather than continuous phonetic gradients?
+
+The answer is that discrete objects are not primitive; they are \emph{collapsed residues} of recurring process histories. Projection does not merely discard information about the substrate — it converts trajectories into points. What remains after projection and temporal collapse is what we call an object. The Spherepop framework makes this precise.
+
+\begin{definition}[Process History]
+A process history is a trajectory $\gamma: [0,T] \to \mathbf{X}$ in the full state space, including both fast neural and slow substrate variables.
+\end{definition}
+
+\begin{definition}[Collapse Map]
+A collapse map $\kappa: \Gamma \to O$ takes a family of process histories $\Gamma$ to a stable object description $O$. For example, $\kappa(\gamma) = \text{``cortical circuit''}$ or $\kappa(\gamma) = \text{``word''}$ or $\kappa(\gamma) = \text{``institution''}$.
+\end{definition}
+
+\begin{definition}[History Equivalence]
+Two histories are equivalent $\gamma_1 \sim \gamma_2$ if they produce the same object description under the collapse map: $\kappa(\gamma_1) = \kappa(\gamma_2)$.
+\end{definition}
+
+\begin{theorem}[Object-as-Collapse Theorem]
+\label{thm:spherepop}
+If multiple distinct process histories yield the same stable object description, then the object description is a collapsed equivalence class of process histories rather than a primitive explanatory unit.
+\end{theorem}
+
+\begin{proof}
+Assume $\gamma_1 \neq \gamma_2$ with $\kappa(\gamma_1) = \kappa(\gamma_2) = O$. Then $O$ does not uniquely determine the underlying process history. The preimage is:
+\[
+\Gamma_O = \{ \gamma \in \Gamma : \kappa(\gamma) = O \}
+\]
+and $|\Gamma_O| > 1$. Therefore $O = \kappa(\Gamma_O)$ represents an equivalence class of histories rather than a unique process. The object description suppresses trajectory information; it is a projection from process to noun.
+\end{proof}
+
+\begin{remark}
+Applied to the electrofluidic paper, Theorem~\ref{thm:spherepop} means that ``neural circuit'' is not the fundamental entity. It is the stable object description produced by recurring interactions among spike timing, extracellular geometry, CSF pulsation, vascular tone, and glial regulation. The circuit is the collapsed residue of this electrofluidic history. The paper's shift from ``brain as circuit board'' to ``brain as electrofluidic field'' is formally a move from collapsed objects back toward generating histories.
+\end{remark}
+
+\begin{proposition}[Collapse Idempotence]
+\label{prop:idempotent}
+Let $\kappa: \Gamma \to O$ be a collapse map and let $\Gamma_O = \{\gamma \in \Gamma : \kappa(\gamma) = O\}$ be the preimage of object $O$. Define the second-order collapse $\kappa^{(2)}: O \to O'$ by applying $\kappa$ to any $\gamma \in \Gamma_O$ and taking the result. Then for any stable collapse, $\kappa^{(2)}(O) = O$: repeated collapse is idempotent on stable objects.
+\end{proposition}
+
+\begin{proof}
+Let $O$ be a stable object, meaning $\Gamma_O \neq \emptyset$ and $\kappa(\gamma) = O$ for all $\gamma \in \Gamma_O$. The second-order collapse selects any $\gamma \in \Gamma_O$ and applies $\kappa$: by definition $\kappa(\gamma) = O$, so $\kappa^{(2)}(O) = O$. The result is independent of which $\gamma \in \Gamma_O$ is selected, since all produce the same output $O$ by the definition of $\Gamma_O$. Therefore $\kappa^{(2)}(O) = O$ for all stable $O$. $\square$
+\end{proof}
+
+\begin{remark}
+Collapse idempotence explains two empirical regularities. First, the stability of basic vocabulary across centuries: frequent words represent attractors deep enough in the admissibility geometry that further collapse returns the same object. Second, the instability of technical and peripheral vocabulary: these represent shallow attractors whose preimage $\Gamma_O$ is small; small perturbations to the substrate can shift them to new collapse targets. The ratio $|\Gamma_O|/|\Gamma|$ can be interpreted as a stability measure for the object $O$.
+\end{remark}
+
+
+
+The three frameworks compose into a single architecture. Projection (CLIO) discards substrate degrees of freedom and loses admissible futures. Collapse (Spherepop) converts the remaining trajectory information into stable object descriptions. The field dynamics (RSVP) drive the underlying process that both projection and collapse operate on:
+
+\begin{align}
+\dot{x} &= F(x, \mathcal{A}[x_{0:t}]) \label{eq:composed-fast}\\
+\mathcal{A}[x_{0:t}] &= \mathcal{A}(\Phi, \vec{v}, S) \label{eq:composed-admissibility}\\
+O_t &= \kappa(x_{0:t}, \Phi_{0:t}, \vec{v}_{0:t}, S_{0:t}) \label{eq:composed-object}
+\end{align}
+
+RSVP supplies the field dynamics~\eqref{eq:composed-admissibility}. The projection and distortion results explain why descriptions that discard substrate variables lose admissibility information. The Object-as-Collapse Theorem explains how objects $O_t$ in~\eqref{eq:composed-object} arise as collapsed residues of the full history. Together they yield the central thesis:
+
+\begin{center}
+\framebox[0.85\textwidth]{%
+\parbox{0.8\textwidth}{\centering\vspace{6pt}
+\emph{Computation occurs on substrates that are simultaneously being reshaped by the computations they support.}
+\vspace{6pt}}%
+}
+\end{center}
+
+\section{Implications and Applications}
+\label{sec:domains}
+
+The formalism developed above is not specific to nervous systems. Any system exhibiting fast trajectories coupled to slower substrate remodeling instantiates the same mathematical architecture. We first survey seven domains in which the pattern recurs, then draw theoretical consequences.
+
+\subsection{Language}
+
+Language is not merely an example of a system with a dynamic substrate. It is, properly understood, an instance of the formalism itself: a collectively maintained admissibility manifold whose structure determines which meanings can be economically expressed, and which is continuously remodeled by the utterances it constrains. To see why requires first inverting the standard relationship between signal and description.
+
+\paragraph{The primary inversion: descriptions before signals.}
+Classical information theory treats signals as primary and descriptions as derived. A compression algorithm searches for statistical regularities in a waveform, image, or video stream, and produces a compact encoding of that signal. The signal remains the ontological center; the description is a convenient abbreviation of it.
+
+This paper proposes the opposite ordering: descriptions are primary, and signals are generated from them. A speech recording is not fundamentally a waveform. It is a lexical sequence together with speaker characteristics, prosody, emotional state, and communicative intent. The waveform is one possible rendering of those generative parameters. An efficient representation therefore stores the generative factors directly rather than the pressure wave they happened to produce. A video is not fundamentally a pixel sequence. It is a scenario: agents, objects, environments, causal relations, lighting, and camera trajectory. The pixels are a rendered consequence of that scenario structure.
+
+This inversion has an immediate consequence for what language is. Text is not one medium among many, distinguished by being cheap to transmit. Text is the universal medium because it is any compositional symbolic structure capable of expressing constraints. Natural language, mathematical notation, programming languages, scene descriptions, legal specifications, and formal ontologies are all instances of the same thing: structured symbolic constraint systems whose function is to specify a generative trajectory, not to encode a signal.
+
+\paragraph{Compression as projection onto admissible distinctions.}
+A spoken sentence is an extraordinarily compressed signal. A raw audio waveform of a ten-second utterance contains tens of millions of distinguishable signal values. The transcription contains perhaps fifty characters. The apparent compression ratio is enormous, yet meaning is preserved. Why?
+
+The answer is not that words are efficient encodings. The answer is that most distinctions in the waveform are inadmissible with respect to the communicative task. The listener does not need the exact pitch contour, the precise formant frequencies, the specific duration of each phoneme, or the acoustic texture of the speaker's voice. They need the constraint structure that allows a shared generative system to reconstruct the relevant meaning. The entropy was not eliminated; it was transferred into the substrate.
+
+In formal terms, let $X$ denote the full signal and $\mathcal{A}_{\text{language}}$ denote the admissibility manifold of the linguistic community. Compression is projection:
+\[
+\pi_{\mathcal{A}} : X \to \mathcal{A}_{\text{language}}(X)
+\]
+The description retains only those distinctions that are stable under $\mathcal{A}_{\text{language}}$; the rest are delegated to the substrate. A sentence functions less as a signal than as a trajectory specification within a collectively maintained constraint geometry. The sentence \emph{The cat sat on the mat} is informative not because its words are intrinsically meaningful but because speaker and listener already share an enormous substrate of phonology, syntax, semantics, prototypes, cultural assumptions, and perceptual categories. The total entropy of the communicative act is:\footnote{This decomposition has antecedents in Shannon's notion of equivocation and in Kolmogorov complexity, where the complexity of a string is bounded by its length given a universal prior (the substrate). The key innovation here is identifying the substrate as a collectively maintained admissibility manifold rather than a fixed prior or universal Turing machine.}
+\[
+H(X) = H_{\text{utterance}} + H_{\text{substrate}}
+\]
+where $H_{\text{substrate}}$ encodes the millions of bits of shared structure that a community has accumulated across generations. Semantic compression is possible because $H_{\text{substrate}} \gg H_{\text{utterance}}$.
+
+\begin{proposition}[Semantic Compression Rate]
+\label{prop:compression}
+Let $\mathcal{A}_{\text{lang}}$ be the admissibility manifold of a linguistic community and $\pi_\mathcal{A}: X \to \mathcal{A}_{\text{lang}}(X)$ the projection onto admissible distinctions. Define the \emph{semantic compression ratio} as:
+\[
+\rho = \frac{H(X)}{H(\pi_\mathcal{A}(X))} = \frac{H_{\text{utterance}} + H_{\text{substrate}}}{H_{\text{utterance}}}
+\]
+Then $\rho \geq 1$, with equality only when $H_{\text{substrate}} = 0$ (no shared substrate). Furthermore, $\rho$ is non-decreasing in the richness of the shared substrate: if $\mathcal{A}_1 \subseteq \mathcal{A}_2$ as substrates (community 2 shares more structure), then $\rho_2 \geq \rho_1$.
+\end{proposition}
+
+\begin{proof}
+The inequality $\rho \geq 1$ follows immediately from $H_{\text{substrate}} \geq 0$. For the monotonicity claim: a richer substrate means more distinctions are admitted as shared background and need not be transmitted. Formally, if $\mathcal{A}_2$ encodes more shared structure, the projection $\pi_{\mathcal{A}_2}$ collapses more of $H(X)$ into the substrate, leaving less in $H(\pi_{\mathcal{A}_2}(X))$ compared to $\pi_{\mathcal{A}_1}$. Since $H(X)$ is fixed and $H(\pi_{\mathcal{A}_2}(X)) \leq H(\pi_{\mathcal{A}_1}(X))$, we have $\rho_2 = H(X)/H(\pi_{\mathcal{A}_2}(X)) \geq H(X)/H(\pi_{\mathcal{A}_1}(X)) = \rho_1$. $\square$
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:compression} formalizes why experts within a domain can communicate with extreme brevity while remaining opaque to outsiders. The specialist's domain-specific $\mathcal{A}_{\text{lang}}$ encodes enormous shared structure, yielding $\rho \gg 1$ within the domain. The outsider, lacking the substrate, must receive the full $H(X)$, but the transmission is optimized for $H(\pi_\mathcal{A}(X))$, resulting in an apparent deficit. Communication failures across expertise boundaries are therefore not failures of transmission but failures of substrate alignment.
+\end{remark}
+
+The optimal description is therefore not the shortest signal. It is the smallest perturbation needed to steer a substrate toward a desired attractor. The sentence does not carry the meaning; it activates a region of the shared substrate in which the meaning is already latent. Communication succeeds not because the signal is rich but because the substrates are aligned. The ultimate compression is not text: it is a shared distinction system. Text merely activates it.
+
+\paragraph{Distinction operations as the primitive elements.}
+The expressive power of language does not derive from a large vocabulary. It derives from a small set of composable distinction operations, analogous to the way all Boolean computation is derivable from a single NAND gate, and all of mathematics from a handful of inference rules.\footnote{The functional completeness of NAND is proven by showing that NOT, AND, and OR are each expressible as NAND compositions. The analogous result for language would be that all semantic distinctions are expressible as compositions of a small set of primitive contrastive operations---an empirical hypothesis about universal phonological and semantic features that has substantial support in the typological literature \cite{chomsky1965,jakobson1941}.}
+
+A phonological system contains perhaps thirty to eighty contrastive distinctions — the phonemes of the language. These are not sounds; they are stable distinctions in acoustic space. A phoneme is the smallest unit that can change the admissibility of an utterance: substituting one phoneme for another changes which words are reachable. A morphological system adds a few hundred productive transformation operations. A syntactic system adds a few dozen combinatorial constraint operators. Yet the composition of these primitive operations generates an effectively unbounded representational space.
+
+The formal structure of each domain-specific language can be expressed as a distinction algebra: a set of primitive distinctions closed under composition and equipped with a reachability relation. Each linguistic construction is a morphism in this algebra — a transformation that maps one region of admissibility space to another while preserving certain distinctions and collapsing others. Meaning is not stored in individual morphisms; it emerges from their composition, exactly as the output of a computation is not stored in individual gates but emerges from their composition.
+
+From this perspective, words are not the fundamental units of language. They are collapsed histories of recurring distinctions --- stable attractors in the admissibility geometry, compressed handles to entire regions of reachable experience. A word functions as a reusable module: a pre-compressed trajectory through the admissibility manifold that can be composed with other modules to reach new regions. In Spherepop terms, a word is a collapsed equivalence class of utterance histories; the word persists because the same distinction recurs frequently enough to become a stable object in the linguistic substrate. Every noun is a collapse event. Every category is a collapse event. Every concept is a collapse event.
+
+The semantic fixed-point property follows from this: $\operatorname{Collapse}(\operatorname{Collapse}(x)) = \operatorname{Collapse}(x)$. Stable words are idempotent under repeated compression because they are already maximally collapsed. This explains why basic vocabulary is so stable across centuries while technical and peripheral vocabulary shifts rapidly: basic vocabulary represents attractors deep enough in the admissibility geometry that no single generation of utterances can significantly remodel them.
+
+\paragraph{Language as a bundle of domain-specific admissibility manifolds.}
+What we call a single natural language is more precisely a bundle of thousands of domain-specific sub-languages, each defining its own admissibility manifold, each activating at different resolutions and in different contexts.
+
+Physics language, legal language, kinship language, culinary language, musical language, navigation language, clinical language, and computational language each define distinct constraint geometries. Each makes certain distinctions salient that others collapse: a legal description of an action and a physical description of the same action project onto entirely different admissibility structures. Each domain-specific manifold allows different futures to be expressed and reasoned about. The specialist can reach trajectories in their domain manifold that are literally inexpressible in the general vocabulary — not because the words do not exist but because the admissibility geometry has not been established.
+
+These are not metaphorically distinct languages. They are literally distinct in the categorical sense: each is an internal symbolic system capable of expressing the admissible transformations within its domain. A domain develops its own distinction calculus through the accumulated practice of its community of users, in exactly the way that a neural network develops its own representational geometry through training. The distinction calculus of physics and the distinction calculus of law are as different in their admissibility structures as the weight-space geometry of a network trained for visual classification and one trained for speech recognition.
+
+What we call English is the transport substrate that allows movement between these specialized manifolds: the shared phonology, syntax, and core vocabulary that makes it possible to activate different domain-specific systems within a single communicative exchange. In RSVP terms, the transport substrate is the vector field $\vec{v}$ that carries capacity between specialized regions of the admissibility space. A technical conversation is a trajectory that traverses multiple domain manifolds, switching constraint geometries as context shifts.
+
+\paragraph{The dynamic substrate of language.}
+Language satisfies the full Dynamic Substrate Theorem. Let $x_t$ represent utterances and linguistic actions. Let $\mathcal{A}_t$ represent the current admissibility manifold of the linguistic community: the set of well-formed, interpretable, and communicatively effective continuations available at time $t$.
+
+Every utterance slightly remodels the substrate. A novel metaphor creates a new trajectory through the manifold; if it recurs, it carves a stable attractor. A technical term migrates from a domain manifold into the general transport substrate and becomes available for new compositions. A grammatical construction gradually shifts its constraint geometry through accumulated use. The admissibility structure of 16th-century English and 21st-century English are substantially different substrates, yet they are connected by a continuous trajectory of remodeling.
+
+Every generation inherits a modified substrate. The language acquired in childhood is not the language spoken at death. The linguistic community is a dynamic substrate whose admissibility geometry is continuously reshaped by the trajectories it supports — and those trajectories are in turn shaped by the geometry they find. Language is therefore not a communication system that happens to change over time. It is a self-modifying constraint substrate whose remodeling is driven by the communicative trajectories it constrains, and whose constraint geometry determines which future trajectories are reachable.
+
+The two repair mechanisms of Theorem~\ref{thm:repair-mechanisms} appear naturally here. Substrate remodeling corresponds to the emergence of new vocabulary, constructions, or distinctions when existing admissibility geometry fails to support required trajectories: the linguistic community creates new words, borrows them, or repurposes old ones to reduce admissibility distortion. Trajectory-preserving projection corresponds to the shift from static lexicography to corpus-based distributional analysis: the former projects the linguistic substrate onto a fixed vocabulary list, discarding the temporal and contextual adjacency structure that encodes how distinctions actually function; the latter preserves that trajectory structure, recovering semantic relationships that point-in-time dictionaries collapse.
+
+\subsection{Scientific Paradigms}
+
+Let $x_t$ be experimental observations and theoretical interventions. Let $\mathcal{A}_t$ be the space of admissible explanations: the set of claims that count as legitimate scientific output given current theoretical commitments.
+
+Anomalies, when they accumulate, alter what explanations are considered relevant. New theories---especially those that resolve anomalies---reshape admissibility geometry dramatically and rapidly, creating the discontinuities that Kuhn called paradigm shifts. Between shifts, the slow drift of $\mathcal{A}_t$ describes the continuous negotiation of theoretical commitments through experimental practice.
+
+The Dynamic Substrate Theorem gives this a precise reading: scientific paradigm change is not merely a sociological or psychological phenomenon. It is the signature of a substrate remodeling event in the admissibility structure of science. A paradigm shift is a rapid reorganization of $\mathcal{A}_t$ following accumulated trajectory pressure that the previous constraint geometry could no longer accommodate.
+
+\subsection{Institutions}
+
+Let $x_t$ be individual and collective decisions. Let $\mathcal{A}_t$ be institutional structure: the rules, norms, enforcement mechanisms, and expectations that constrain which decisions are reachable.
+
+Institutional rules constrain decisions. Accumulated decisions modify institutions, both formally (through legislation, court rulings, organizational restructuring) and informally (through norm erosion, workaround accumulation, precedent). Therefore institutional path dependence is not historical accident but a consequence of the Dynamic Substrate Theorem: the admissibility structure at any moment is a functional of the decision history that preceded it.
+
+This connects to a long-standing puzzle in institutional economics: why do inefficient institutions persist? The theorem suggests an answer. When the substrate remodeling rate is slow relative to the fast decision trajectory, the institution accumulates deformation that may trap fast dynamics in locally admissible but globally suboptimal regions. The institution remembers through deformation.
+
+\subsection{Economies}
+
+Let $x_t$ be economic transactions. Let $\mathcal{A}_t$ be transport infrastructure, regulatory systems, production capacity, and information networks.
+
+Economic activity modifies infrastructure. Infrastructure modifies future economic activity. Roads, ports, electrical grids, and communication networks play formally the same role as ECS geometry and vascular topology in the electrofluidic brain: they are the medium through which economic transactions propagate, and their geometry is continuously remodeled by the transactions they support.
+
+The identification of infrastructure with the transport field $\vec{v}$ in the RSVP model is particularly direct. The economy's transport substrate determines which transactions are reachable. Those transactions determine future investment in transport. The substrate is a co-processor of economic dynamics, not merely their precondition.
+
+\subsection{Software Systems}
+
+Software is perhaps the domain where the dynamic-substrate architecture is most transparent, because substrate deformation has a common name: technical debt.
+
+Let $x_t$ be computational operations---function calls, data transformations, service requests. Let $\mathcal{A}_t$ be the codebase: the set of operations that the current system architecture makes easily reachable versus costly or impossible.
+
+A codebase constrains future modifications. Modifications reshape the codebase. Technical debt is substrate deformation: the accumulation of local decisions that gradually restrict the space of admissible future changes. Refactoring is repair in the sense of Repair Theory---an operation that restores admissibility without changing fast-layer functionality. Legacy architecture is accumulated path dependence: a constraint geometry that reflects the history of decisions that produced it.
+
+The Object-as-Collapse Theorem (Theorem~\ref{thm:spherepop}) is directly applicable here. A ``module,'' ``service,'' or ``abstraction layer'' is not a primitive entity. It is the collapsed residue of recurring interaction patterns that have been stabilized by naming, documentation, and interface enforcement. The object is the collapsed history.
+
+\subsection{Quantum Many-Body Systems}
+
+The quantum computational advantage demonstrated by Zheng et al.~\cite{zheng2026} provides the sharpest available physical instance of dynamic-substrate computation and the clearest laboratory confirmation of the projection-distortion argument developed in Section~3.
+
+Let $x_t$ be the quantum state of a periodically driven many-body system---specifically, a Bose-Hubbard chain of ultracold atoms evolving under Floquet dynamics. Let $\mathcal{A}_t$ be the reachable volume of the system's Hilbert space: the set of configurations accessible from the current state under the driven dynamics. In the many-body-localized (MBL) phase, reachability remains constrained: entanglement obeys an area law and the admissibility structure stays locally compressible. Tensor-network methods succeed here because the projection they apply---compressing the quantum state into a matrix product state of bounded bond dimension---loses little causally relevant information.
+
+In the thermalized Floquet phase, by contrast, the substrate undergoes a qualitative transition. Entanglement spreads to volume-law scaling: the admissibility structure expands proportionally to system size rather than boundary size. High-order correlations---measured up to 14th-order density correlations in the experiment---become enhanced and nonlocal. The reachable dynamical structure grows faster than any bounded classical description can track. The phase transition between MBL and thermalized behavior is therefore a transition in the admissibility geometry of the substrate, not merely a change in entanglement entropy.
+
+Quantum computational advantage appears precisely at this transition. The classical machine fails not because it is slow but because its projection is wrong: the matrix-product-state compression map discards exactly the correlations that become causally relevant in the thermalized phase. In the language of Theorem~\ref{thm:clio}, two quantum states that are indistinguishable under the MPS projection $\pi_{MPS}$ have different reachable futures, and the distortion becomes measurable at arbitrarily high correlation orders. The quantum device succeeds because it does not compress the dynamics at all---it is the dynamics. As Zheng et al.\ demonstrate, the 64-site, 20-atom system reaches an effective Hilbert space dimension of order $\binom{64}{20} \approx 10^{15}$, generating samples in hundreds of seconds that would require days on a leading classical supercomputer using the best known algorithms~\cite{zheng2026}.
+
+The clean formulation, in the language of the present paper, is:
+\[
+\text{quantum advantage} \;\neq\; \text{speed},
+\quad \text{but rather} \quad
+|\text{physical reachability}| > |\text{classically admissible compression}|.
+\]
+The atom system remains admissible to itself while becoming inadmissible to every known classical representational regime. This is not a limitation of particular algorithms. It is a structural consequence of operating in a regime where the substrate's reachable volume exceeds the expressive capacity of compressed descriptions---which is precisely what the Dynamic Substrate Theorem predicts whenever the trajectory drives the admissibility structure into a region that no fixed projection can adequately represent.
+
+\subsection{Deep Network Hierarchies}
+
+Deep neural networks trained for object recognition constitute a seventh domain, and one that is particularly clean because the substrate remodeling process is explicit and controllable~\cite{cohen2020}.
+
+Let $x_t$ be a visual stimulus---an image---presented to the network. Let $\mathcal{A}_t$ be the representational admissibility structure encoded in the weight matrix at training step $t$: the set of input patterns that the current network can route toward correct classification. At initialization, $\mathcal{A}_0$ is approximately random; the weight-space substrate imposes no useful constraint geometry, and most classification trajectories are inadmissible. The raw manifolds are tangled: object classes occupy high-dimensional, high-radius, highly correlated regions that no linear readout can separate.
+
+Training is the substrate remodeling process. Each gradient update adjusts the weight matrix in response to classification errors---which are precisely the signals that the current admissibility structure fails to support. The fast trajectory (classification attempts) generates a repair pressure that drives the slow substrate (weights) toward a geometry where the admissibility distortion is reduced. After training, manifold radius $R_M$ and effective dimension $D_M$ have decreased substantially at every layer, inter-manifold correlations have decreased, and classification capacity $\alpha_c$ has increased by orders of magnitude.
+
+Three features of this system are theoretically important. First, the remodeling is irreversible in the sense of the Dynamic Substrate Theorem: the weight substrate at any training step encodes the history of prior classification trajectories, not just the current instantaneous error. Second, the remodeling is hierarchical: different layers handle different aspects of admissibility restructuring. Early convolutional layers reduce manifold radius through local affine invariance; later fully-connected layers reduce dimension and correlation through global integration. No single operation achieves the full remodeling; it is an orchestrated multi-stage process. Third, architecture alone is insufficient: networks with identical structure but random weights show almost no admissibility improvement, establishing that the substrate remodeling is driven by the training trajectory, not by architectural prior.
+
+The network hierarchy is therefore an engineered instantiation of the Dynamic Substrate Theorem: a system deliberately designed so that fast-timescale classification trajectories drive slow substrate remodeling toward a geometry where those same trajectories become increasingly admissible. What the system learns is not a lookup table of correct answers. It is a constraint geometry---a progressively untangled admissibility manifold---within which downstream readout becomes tractable.
+
+\subsection{The General Pattern}
+
+Across all seven domains, the same three-part structure appears. First, fast-timescale events (utterances, observations, decisions, transactions, function calls, quantum state evolution, classification attempts) occur within a constraint structure that determines which events are admissible. Second, those events gradually reshape the constraint structure. Third, the reshaped constraint structure alters the set of events available to future fast dynamics. The mathematical form is identical across these domains; only the physical interpretation of the fields changes.
+
+This suggests that dynamic-substrate computation is not a special feature of biological neural systems but a general property of systems in which the medium of computation and the computation itself are coupled. The electrofluidic brain is one instance. Language, scientific paradigms, institutions, economies, software, quantum many-body systems, and deep network hierarchies are others. The quantum case provides a phase transition as an experimental marker; the deep network case provides a controlled laboratory where every variable of the remodeling process is accessible. The underlying theorem is the same in every case.
+
+\subsection{The Frozen-Process Connection}
+\label{sec:consequences}
+
+Prior work in this research program has argued for what we call the \emph{noun-fallacy}: the tendency to treat ongoing processes as if they were stable objects.\footnote{The noun-fallacy is closely related to Whitehead's \emph{fallacy of misplaced concreteness} and Bergson's critique of the spatialization of time. What is new here is a formal statement of the error in terms of admissibility geometry rather than philosophy of process.} A river is a noun; the flowing is what is real. A species is a noun; evolutionary lineage is what is real. A self is a noun; the trajectory of self-construction is what is real.
+
+The Dynamic Substrate Theorem reveals a deeper level of the same error. The original noun-fallacy treated objects as frozen trajectories: $\text{Object} \to \text{Process}$. The theorem reveals that the constraint geometry itself is a frozen trajectory: $\text{Geometry} \to \text{Process}$. A fixed admissibility manifold is a collapsed history of the substrate processes that generated it. When we assume that the feasible region in an optimization problem is given, we are treating the accumulated history of substrate remodeling as if it were a timeless geometric fact---one level deeper than the ordinary noun-fallacy.
+
+\begin{definition}[Frozen Manifold Approximation]
+The frozen manifold approximation is the assumption that $\mathcal{A}_t = \mathcal{A}$ for some fixed $\mathcal{A}$, suppressing the functional dependence $\mathcal{A}[x_{0:t}]$.
+\end{definition}
+
+The frozen manifold approximation is valid when substrate remodeling is negligible relative to the timescale of observation. It fails when: (1) substrate remodeling is not slow relative to the observation window; (2) the trajectory is long enough that even slow substrate drift accumulates into significant admissibility change; or (3) the question of interest concerns the long-run evolution of the constraint geometry itself. In all three cases the approximation conceals precisely what is most important to understand.
+
+The frozen-process essays in this research program argued that stable-appearing objects are snapshots of ongoing processes. The present result extends this from the level of objects to the level of geometries. The admissibility manifold used in prior work to define repair pressure, reachability, and constraint satisfaction is itself a collapsed residue of the substrate dynamics that generated it. Repair Theory, properly extended, is therefore a theory not just of trajectories within a geometry but of coupled trajectory-geometry evolution.
+
+\subsection{Memory, Trajectory Stabilization, and the History Encoded in Constraint Geometry}
+
+On the dynamic-substrate account, memory is not a stored state. It is a deformation of the admissibility structure induced by prior trajectories. The system ``remembers'' not by retaining a representation of the past but by having a present constraint geometry that reflects it. This is continuous with the electrofluidic account of synaptic weight change as one mechanism among several: extracellular geometry, vascular topology, and glial configuration also store information about prior activity through their deformation.
+
+This has immediate consequences for theories of forgetting. Forgetting is not merely the decay of stored representations. It is the remodeling of the constraint geometry away from the deformation induced by prior learning---through sleep, metabolic renewal, and substrate regeneration (the $R_\Phi$ term in equation~\eqref{eq:capacity}).
+
+The T-PHATE results of Busch et al.~\cite{busch2022} extend this picture in a direction that the deformation account alone does not fully capture. Event boundaries in the PMC are not simply memories of where one episode ended and another began. They are stable attractors in a trajectory space---regions of the admissibility manifold where the brain's representational dynamics converge and dwell before transitioning to a new stable basin. The fact that these attractors generalize across subjects and align with behaviorally-identified boundaries means they reflect genuine structure in the learned constraint geometry, not individual-specific idiosyncrasies.
+
+This suggests a refinement: the substrate does not merely deform in response to experience; it develops stable trajectory attractors. The admissibility structure does not just expand or contract; it develops topology---basins separated by boundaries, some deep and stable, some shallow and easily traversed. Memory, on this view, is the persistence of attractor topology in the constraint geometry. Forgetting is the collapse of attractor basins. Learning is the formation of new basins. The phenomenology of recognition---the sense that a new experience belongs to a familiar category---is the experience of a fast trajectory falling into an existing basin in the constraint geometry rather than carving a new one.
+
+T-PHATE recovers this topology not by adding information but by refusing to discard it: the autocorrelation kernel preserves the temporal adjacency structure that encodes trajectory continuity, and the resulting manifold reveals the basin structure that voxel-space projections collapse. What was invisible in the point-based representation was always present in the trajectory-based one. The substrate was encoding it all along.
+
+\subsection{Catastrophic Forgetting in Neural Networks}
+
+The phenomenon of catastrophic forgetting in artificial neural networks---where training on a new task rapidly degrades performance on prior tasks---is naturally interpretable in dynamic-substrate terms.\footnote{Catastrophic forgetting was first systematically described by McCloskey and Cohen (1989) and has resisted solution for over three decades. Proposed mitigations include elastic weight consolidation (Kirkpatrick et al. 2017), progressive neural networks (Rusu et al. 2016), and replay-based methods (Shin et al. 2017). The RSVP interpretation suggests these are all partial implementations of a substrate maintenance process $R_\Phi$: they slow or constrain remodeling to preserve prior admissibility deformations. None has yet implemented the full coupled-field dynamics that biological systems use.} Artificial neural networks have a substrate (the weight matrix) but no slow regenerative process $R_\Phi$ that preserves prior admissibility deformations. When the fast learning trajectory remakes the substrate for the new task, it overwrites the substrate deformations that encoded the old task. The absence of a substrate maintenance process is the mechanism.
+
+This suggests that solutions to catastrophic forgetting should look like substrate maintenance: mechanisms that slow or constrain the remodeling of the weight-space substrate during new learning, preserving the constraint geometry of prior experience.
+
+\subsection{Institutional Path Dependence as Geometric Necessity}
+
+Standard accounts of institutional path dependence invoke historical contingency: things are the way they are because of specific past choices that could have been otherwise. The Dynamic Substrate Theorem implies that path dependence is not merely historical but \emph{geometric}: the admissibility structure at any moment is a functional of the trajectory history, and there is no way to undo that functional without explicit substrate repair.
+
+This changes the prescriptive implications. If path dependence is merely historical, it could in principle be overcome by choosing differently in the present. If it is geometric, choosing differently in the present does not change the constraint geometry inherited from prior choices. Institutional reform requires substrate repair---not just new decisions within the old constraint geometry but explicit work to reshape the geometry itself.
+
+\subsection{Sleep as Substrate Maintenance}
+
+The electrofluidic paper's account of sleep-driven glymphatic clearance is, on the RSVP model, a substrate maintenance event: a period during which the regenerative term $R_\Phi$ dominates, accumulated dissipation $S$ is cleared, and the capacity field $\Phi$ is restored toward conditions that support future propagation. Sleep is not rest in the sense of reduced activity. It is a mode-switch in which the substrate maintenance processes---suppressed during waking by the dominance of fast neural activity---come to the foreground.
+
+This reframes the question of why sleep is necessary. It is not necessary because computation requires rest. It is necessary because the substrate on which computation occurs requires periodic maintenance to prevent the accumulation of admissibility-degrading deformation. An organism that never slept would not merely become tired; it would find its admissibility structure progressively collapsing, with fewer and fewer trajectories remaining accessible.
+
+\subsection{The Phenomenology of Learning}
+
+Learning, on the dynamic-substrate account, is the process by which the constraint geometry is progressively deformed to expand the set of admissible trajectories in some target region. The learner is not storing representations; they are reshaping their admissibility structure so that previously unreachable states become reachable. The phenomenology of learning---the sense that some things become ``natural'' or ``fluent'' while others remain effortful---is the first-person experience of substrate deformation. What was previously inadmissible and requires effort to attempt is precisely what lies outside the current $\mathcal{A}_t$. Fluency is the experience of operating well within $\mathcal{A}_t$.
+
+\section{Conclusion}
+\label{sec:conclusion} that the electrofluidic brain, recently described as a basement layer for neural computation, is one instance of a general mathematical structure: computation on dynamic substrates. The central result is the Dynamic Substrate Theorem, which establishes that whenever the medium of computation is modified by the computations it supports, admissibility becomes path-dependent. The constraint geometry is not background; it is an actor.
+
+Three frameworks contribute to this formalization. RSVP models the substrate as coupled capacity, transport, and dissipation fields, yielding the field equations that generate dynamic admissibility. CLIO identifies the projection mechanism by which standard scientific models discard substrate degrees of freedom, and proves that this projection necessarily induces admissibility distortion whenever the discarded variables affect reachability. Spherepop explains how stable discrete objects---neurons, words, institutions, modules---arise as collapsed equivalence classes of process histories, and why these objects are not primitive explanatory units.
+
+The cross-domain survey and consequence analysis in Section~\ref{sec:domains} demonstrates that this architecture is not specific to neuroscience. Language, scientific paradigms, institutions, economies, software systems, quantum many-body systems, and deep network hierarchies all exhibit fast trajectories over slowly evolving constraint substrates, with the substrate both constraining and being reshaped by the trajectories. Two independent empirical programs confirm the two natural correction mechanisms implied by Theorem~\ref{thm:repair-mechanisms}: \emph{substrate remodeling}, demonstrated by Cohen et al., in which training progressively reshapes the weight substrate until the admissibility distortion of the representational projection is reduced; and \emph{trajectory-preserving projection}, demonstrated by Busch et al., in which the projection is redesigned to preserve temporal adjacency structure, recovering cognitive event boundaries that point-based projections discard. These two mechanisms are the constructive complements of the impossibility result in Theorem~\ref{thm:clio}: wherever admissibility distortion is real, it can in principle be corrected either by remodeling the substrate or by redesigning the observation. Both strategies are instantiated in current empirical science.
+
+The frozen-process connection in Section~\ref{sec:domains} places this result within a broader research program. The Dynamic Substrate Theorem is the fixed-geometry analogue of the noun-fallacy: just as objects are secretly processes, geometries are secretly processes. A fixed admissibility manifold is a frozen-process approximation of the substrate dynamics that generated it.
+
+The four main results of the paper are instances of a single pattern that can now be stated explicitly. The Dynamic Substrate Theorem establishes that admissibility is trajectory-dependent: $\mathcal{A}_t = \mathcal{A}[x_{0:t}]$. The Projection-Induced Admissibility Distortion Theorem establishes that representation is future-dependent: $\pi(\mathbf{X}_1) = \pi(\mathbf{X}_2) \not\Rightarrow R(\mathbf{X}_1) = R(\mathbf{X}_2)$. The Object-as-Collapse Theorem establishes that objects are history-dependent: $O = \kappa(\Gamma_O)$. The language analysis establishes that meaning is reachability-dependent: $\text{Meaning} = R(\text{Description})$. Each result is an instance of the same underlying claim:
+
+\begin{center}
+\framebox[0.85\textwidth]{%
+\parbox{0.8\textwidth}{\centering\vspace{6pt}
+\emph{Stable entities are projections of process histories, and their significance is determined by the future trajectories they preserve.}
+\vspace{6pt}}%
+}
+\end{center}
+
+\noindent This is the unifying principle behind all four theorems, all seven domains, and both repair mechanisms. RSVP explains the field substrate in which processes unfold. CLIO explains why projections of that substrate lose future-relevant information. Spherepop explains how collapsed histories stabilize into apparent objects. Language shows how the entire architecture is externalized into a collectively maintained distinction system. Together they describe a single phenomenon at four levels of analysis: the dynamics, the epistemology, the ontology, and the communication.
+
+What emerges from the convergence of the electrofluidic paper and the present theoretical frameworks is a picture in which computation, memory, repair, learning, and forgetting are not distinct mechanisms but different rates of evolution of the same coupled substrate. Neural activity and electrofluidic dynamics are not two systems; they are two timescales of a single coupled process. This observation does not belong to neuroscience alone. It belongs to the general theory of computation on dynamic substrates---a theory that the electrofluidic brain happens, at this moment, to make vivid.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+
+\bibitem{chakravarthy2026}
+V.~S. Chakravarthy, V. Chandrasekaran, and N.~C. Shanbhag.
+\newblock The electrofluidic brain as a basement layer for neural computation.
+\newblock \emph{Communications Biology}, 9:847, 2026.
+\newblock \url{https://doi.org/10.1038/s42003-026-10444-0}
+
+\bibitem{zheng2026}
+Y.-G. Zheng et al.
+\newblock Quantifying quantum computational advantage on a processor of ultracold atoms.
+\newblock \emph{arXiv:2210.08556}, 2026.
+\newblock \url{https://arxiv.org/abs/2210.08556}
+
+\bibitem{cohen2020}
+U.~Cohen, S.~Y. Chung, D.~D. Lee, and H.~Sompolinsky.
+\newblock Separability and geometry of object manifolds in deep neural networks.
+\newblock \emph{bioRxiv}, 2020.
+\newblock \url{https://doi.org/10.1101/644658}
+
+\bibitem{busch2022}
+E.~L. Busch, J.~Huang, A.~Benz, T.~Wallenstein, G.~Lajoie, G.~Wolf, S.~Krishnaswamy, and N.~B. Turk-Browne.
+\newblock Multi-view manifold learning of human brain state trajectories.
+\newblock \emph{bioRxiv}, 2022.
+\newblock \url{https://doi.org/10.1101/2022.05.03.490534}
+
+\bibitem{chomsky1965}
+N.~Chomsky.
+\newblock \emph{Aspects of the Theory of Syntax}.
+\newblock MIT Press, Cambridge, MA, 1965.
+
+\bibitem{jakobson1941}
+R.~Jakobson.
+\newblock \emph{Kindersprache, Aphasie und allgemeine Lautgesetze}.
+\newblock Uppsala, 1941.
+\newblock (Translated as \emph{Child Language, Aphasia and Phonological Universals}, Mouton, 1968.)
+
+\bibitem{friston2019}
+K.~Friston.
+\newblock A free energy principle for a particular physics.
+\newblock \emph{arXiv:1906.10184}, 2019.
+
+\end{thebibliography}
+
+\appendix
+
+\section{Formal Grammars of the Three Frameworks and Their Synthesis}
+\label{app:grammars}
+
+The three frameworks --- RSVP, CLIO, and Spherepop --- each embody distinct ontological commitments that can be made explicit through formal semantic grammars. The following grammars are written in Backus-Naur Form (BNF) and are intended not as implementation specifications but as ontological declarations: each production rule states what the framework takes to be a primitive, a derived entity, or a transformation. A fourth grammar synthesizes the three into a unified account of text as a constraint substrate.
+
+\subsection*{A. RSVP Grammar: Fields and Trajectories as Primitives}
+
+\begin{verbatim}
+<rsvp-system>    ::= <substrate>
+
+<substrate>      ::= "Substrate" "(" <capacity> "," <transport> ","
+                     <entropy> ")"
+
+<capacity>       ::= "Phi" "=" <scalar>
+<transport>      ::= "v"   "=" <vector>
+<entropy>        ::= "S"   "=" <scalar>
+
+<state>          ::= <field-state>
+                   | <trajectory-state>
+                   | <boundary-state>
+
+<field-state>    ::= "Field" "(" <capacity> "," <transport> ","
+                     <entropy> ")"
+
+<trajectory-state> ::= "Trajectory" "(" <state> "," <state> ")"
+
+<boundary-state> ::= "Boundary" "(" <state> "," <state> ")"
+
+<evolution>      ::= <state> "->" <state>
+
+<repair>         ::= "Repair" "(" <state> "," <constraint> ")"
+
+<constraint>     ::= "DeltaPhi" | "Deltav" | "DeltaS"
+\end{verbatim}
+
+\noindent The critical ontological commitment is the absence of a production rule \texttt{<object>}. Objects do not appear as primitives. Fields, trajectories, and boundaries are primitive; objects are absent from the grammar and must be introduced as derived terms from trajectory bundles. This is the formal expression of the anti-noun-fallacy thesis: stable things are not primitive, they are residues of field dynamics.
+
+\subsection*{B. CLIO Grammar: Projections and Admissibility}
+
+\begin{verbatim}
+<clio-system>    ::= <projection>
+
+<projection>     ::= "pi" "(" <source-space> "," <model-space> ")"
+
+<source-space>   ::= "X"
+<model-space>    ::= "M"
+
+<signal>         ::= <token> | <signal> <signal>
+
+<representation> ::= "pi" "(" <signal> ")"
+
+<admissibility>  ::= "A" "(" <representation> ")"
+
+<future-set>     ::= "Reach" "(" <representation> ")"
+
+<distortion>     ::= "D_A" "(" <signal> "," <representation> ")"
+
+<repair-op>      ::= <projection-repair> | <substrate-remodel>
+
+<projection-repair> ::= "RepairProjection" "(" <projection> ")"
+
+<substrate-remodel> ::= "Remodel" "(" <representation> ")"
+\end{verbatim}
+
+\noindent The critical production rules are \texttt{<future-set>} and \texttt{<distortion>}. Admissibility is evaluated over futures, not over present states. Distortion is defined as the loss of future-relevant distinctions under projection. The two repair operations formalize Theorem~\ref{thm:repair-mechanisms}: either redesign the projection or remodel the substrate. Both reduce \texttt{D\_A} toward zero.
+
+\subsection*{C. Spherepop Grammar: Histories and Collapse}
+
+\begin{verbatim}
+<spherepop-system> ::= <history>
+
+<history>    ::= <event> | <history> <event>
+
+<event>      ::= "Event" "(" <timestamp> "," <state> ")"
+
+<operation>  ::= <pop> | <collapse> | <bind> | <refuse>
+
+<pop>        ::= "Pop"     "(" <history> ")"
+<collapse>   ::= "Collapse" "(" <history> ")"
+<bind>       ::= "Bind"    "(" <history> "," <history> ")"
+<refuse>     ::= "Refuse"  "(" <history> ")"
+
+<object>     ::= <collapse>
+<concept>    ::= <collapse>
+<noun>       ::= <collapse>
+<scope>      ::= "Scope"   "(" <history> ")"
+\end{verbatim}
+
+\noindent The critical ontological commitment is concentrated in three lines:
+
+\medskip
+\texttt{<object> ::= <collapse>}\\
+\texttt{<concept> ::= <collapse>}\\
+\texttt{<noun> ::= <collapse>}
+\medskip
+
+\noindent Objects, concepts, and nouns are not primitives. They are derived terms, each defined as the output of a collapse operation applied to a history. This makes the Spherepop ontology explicit: the world does not contain stable things that trajectories move between. The world contains histories, and stable things are what certain histories converge to under repeated collapse.
+
+\subsection*{D. Synthesis: Text as a Constraint Substrate}
+
+The three grammars compose into a unified account of language and meaning. Text is not a signal encoding content. It is a sequence of distinction operators acting on a shared substrate to steer trajectories toward desired regions of admissibility space.
+
+\begin{verbatim}
+<text>           ::= <description>
+
+<description>    ::= <prototype> | <prototype> <delta>
+
+<prototype>      ::= <collapse>
+
+<delta>          ::= <transformation>
+
+<transformation> ::= <projection> | <repair> | <constraint>
+
+<constraint>     ::= <distinction> | <distinction> <constraint>
+
+<distinction>    ::= <phonological> | <semantic>
+                   | <syntactic>    | <pragmatic>
+
+<language>       ::= <distinction-system>
+
+<distinction-system> ::= <collapse-algebra>
+                       | <projection-algebra>
+                       | <admissibility-algebra>
+
+<domain-language> ::= <language> "(" <admissibility-manifold> ")"
+
+<interpretation> ::= "Generate" "(" <description> "," <substrate> ")"
+
+<meaning>        ::= <reachable-region>
+
+<reachable-region> ::= "Reach" "(" <description> ")"
+
+<word>           ::= <collapse>
+<sentence>       ::= <trajectory>
+<meaning>        ::= <reachable-region>
+\end{verbatim}
+
+\noindent The synthesis grammar reveals the architecture of communication. RSVP supplies the substrate on which generation operates. CLIO supplies the admissibility-preserving projection that selects which distinctions to transmit. Spherepop supplies the prototypes --- the collapsed histories that serve as stable coordinates in the shared constraint geometry.
+
+The production rule \texttt{<language> ::= <distinction-system>} is the formal statement of the paper's most novel claim: a language is not a vocabulary but a distinction calculus. The production rule \texttt{<domain-language> ::= <language> "(" <admissibility-manifold> ")"} formalizes the bundle structure: physics language, legal language, kinship language, and software language are different internal languages instantiated over different admissibility manifolds. They share the same abstract type \texttt{<language>} but differ in the manifold argument that determines which distinctions are primitive and which futures are reachable.
+
+The three most important production rules of the synthesis grammar are:
+
+\medskip
+\texttt{<word> ::= <collapse>}\\
+\texttt{<sentence> ::= <trajectory>}\\
+\texttt{<meaning> ::= <reachable-region>}
+\medskip
+
+\noindent A word is a collapsed history. A sentence is a trajectory through collapse space. Meaning is the region of futures that trajectory preserves. Communication succeeds when two agents share sufficiently aligned collapse structures and admissibility manifolds that a short trajectory specification suffices to bring both into the same reachable region.
+
+\section{The Frozen-Manifold Approximation and Its Limits}
+\label{app:frozen}
+
+The Dynamic Substrate Theorem establishes path-dependence for any $\varepsilon > 0$. This appendix characterizes the regime in which the frozen-manifold approximation is justified and proves formally that it fails outside that regime.
+
+Consider the slow-fast decomposition:
+\begin{align}
+\dot{x} &= F(x, \theta) \label{eq:sf-fast}\\
+\dot{\theta} &= \varepsilon\, G(x, \theta) \label{eq:sf-slow}
+\end{align}
+where $\theta = (\Phi, \vec{v}, S)$ collects the substrate fields and $0 < \varepsilon \ll 1$ is the ratio of substrate remodeling speed to fast-dynamics speed.
+
+\begin{proposition}[Frozen-Manifold Limit]
+\label{prop:frozen-limit}
+As $\varepsilon \to 0$, the path-dependent admissibility region $\mathcal{A}[x_{0:t}]$ converges to a fixed set $\mathcal{A}^*$ determined by the initial substrate $\theta(0)$:
+\[
+\lim_{\varepsilon \to 0} \mathcal{A}[x_{0:t}] = \mathcal{A}(\theta(0)) =: \mathcal{A}^*
+\]
+and the Dynamic Substrate Theorem reduces to the classical fixed-admissibility picture $\mathcal{A}_t = \mathcal{A}^*$ for all $t$.
+\end{proposition}
+
+\begin{proof}
+From equation~\eqref{eq:sf-slow}, $\theta(t) = \theta(0) + \varepsilon \int_0^t G(x(\tau), \theta(\tau))\,d\tau$. Since $G$ is bounded on compact sets, $\|\theta(t) - \theta(0)\| \leq \varepsilon \|G\|_\infty \cdot t$. For any fixed observation horizon $T < \infty$, $\sup_{t \in [0,T]} \|\theta(t) - \theta(0)\| \to 0$ as $\varepsilon \to 0$. Since $\mathcal{A}$ is continuous in $\theta$ (by continuity of the constraint functional $C$), $\mathcal{A}(\theta(t)) \to \mathcal{A}(\theta(0)) = \mathcal{A}^*$ uniformly on $[0,T]$. $\square$
+\end{proof}
+
+\begin{remark}
+The approximation error at finite $\varepsilon$ and time $t$ is:
+\[
+d_H\!\bigl(\mathcal{A}[x_{0:t}],\, \mathcal{A}^*\bigr) \leq L_C \cdot \varepsilon \cdot \|G\|_\infty \cdot t
+\]
+where $L_C$ is the Lipschitz constant of $C$ in $\theta$ and $d_H$ is the Hausdorff distance. The error grows linearly in both $\varepsilon$ and $t$: even slow substrate drift accumulates. For long trajectories or substantial $\varepsilon$, the approximation fails regardless of how small $\varepsilon$ appears on short timescales.
+\end{remark}
+
+\section{Dynamic Reachability Geometry}
+\label{app:reachability}
+
+The Dynamic Substrate Theorem establishes that admissibility is path-dependent. This appendix develops a complementary geometric picture in terms of reachable future volumes, providing an interpretation of learning, repair, growth, and decline as geometric operations on the reachability set.
+
+\begin{definition}[Reachable Future Set]
+The reachable future set at time $t$ from state $x$ is:
+\[
+\mathcal{R}_t(x) = \bigl\{ y \in X : \exists\, \text{admissible trajectory from } x \text{ to } y \text{ in } [t, t+\tau] \bigr\}
+\]
+for some fixed lookahead $\tau > 0$. The reachable future volume is $V_R(t) = \mathrm{Vol}(\mathcal{R}_t(x))$.
+\end{definition}
+
+\begin{proposition}[Reachability Volume Dynamics]
+\label{prop:reachability-volume}
+Under the RSVP field equations, the rate of change of reachable future volume satisfies:
+\[
+\frac{dV_R}{dt} = \oint_{\partial \mathcal{R}_t} \vec{v} \cdot \hat{n}\, dA + \int_{\mathcal{R}_t} \left(\frac{\partial_t \Phi}{\Phi} - \alpha \frac{S}{\Phi}\right) dV + O(\varepsilon)
+\]
+where $\hat{n}$ is the outward unit normal on $\partial\mathcal{R}_t$ and the $O(\varepsilon)$ term collects higher-order coupling effects.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The boundary of $\mathcal{R}_t$ evolves at velocity $\vec{v}$ due to transport, contributing the surface integral. Interior volume changes arise from the capacity field: when $\Phi$ increases locally, the constraint $C(x,\Phi,\vec{v},S)\leq 0$ may be satisfied at new points, expanding $\mathcal{R}_t$; when $S$ increases, the constraint tightens, contracting $\mathcal{R}_t$. The leading-order contribution of these effects integrates to the volume integral shown. Higher-order coupling between $\Phi$, $S$, and $\vec{v}$ contributes at $O(\varepsilon)$. $\square$
+\end{proof}
+
+\begin{remark}
+The proposition gives a geometric reading of the RSVP dynamics. The surface term $\oint \vec{v}\cdot\hat{n}\,dA$ measures transport-driven expansion or contraction. The volume term $\int(\partial_t\Phi/\Phi - \alpha S/\Phi)\,dV$ measures capacity-driven change: positive when regeneration dominates dissipation, negative when dissipation dominates. Learning corresponds to increasing $V_R$ in target directions; decline corresponds to decreasing $V_R$ globally; repair corresponds to restoring $V_R$ after a contraction event.
+\end{remark}
+
+\section{Concrete Realizations of Admissibility Distortion}
+\label{app:distortion}
+
+The body of the paper defines admissibility distortion abstractly as $D_\pi(\mathbf{X}_1, \mathbf{X}_2) = d_R(R(\mathbf{X}_1), R(\mathbf{X}_2))$ for any distance $d_R$ on reachable-future sets. This appendix provides three concrete realizations that can be operationalized empirically.
+
+\paragraph{Hausdorff distortion.}
+\[
+D_H(\mathbf{X}_1, \mathbf{X}_2) = d_H\bigl(R(\mathbf{X}_1), R(\mathbf{X}_2)\bigr)
+= \max\!\left\{\sup_{a \in R_1}\inf_{b \in R_2}d(a,b),\; \sup_{b \in R_2}\inf_{a \in R_1}d(a,b)\right\}
+\]
+where $R_i = R(\mathbf{X}_i)$. This measures the worst-case separation between the two future sets. It is zero iff the reachable sets are identical and is bounded below by the diameter of the symmetric difference $R_1 \triangle R_2$.
+
+\paragraph{Measure-theoretic distortion.}
+\[
+D_\mu(\mathbf{X}_1, \mathbf{X}_2) = \mu\bigl(R(\mathbf{X}_1) \triangle R(\mathbf{X}_2)\bigr)
+\]
+where $\mu$ is a reference measure on $X$ and $\triangle$ denotes symmetric difference. This measures the volume of futures accessible from one state but not the other. It is well-suited to settings where the state space has a natural volume form (physical systems, continuous-state MDPs).
+
+\paragraph{Information-geometric distortion.}
+When the reachable future can be described by a probability distribution $p_{\text{future}}^{(i)}$ over possible successor states:
+\[
+D_{\mathrm{KL}}(\mathbf{X}_1, \mathbf{X}_2) = D_{\mathrm{KL}}\!\bigl(p_{\text{future}}^{(1)} \,\|\, p_{\text{future}}^{(2)}\bigr)
+\]
+This is asymmetric; the symmetric version $D_{\mathrm{JS}} = \frac{1}{2}D_{\mathrm{KL}}(p_1\|p_2) + \frac{1}{2}D_{\mathrm{KL}}(p_2\|p_1)$ is preferred when states are interchangeable. This formulation connects admissibility distortion to existing information-geometric tools in machine learning and neuroscience.
+
+\begin{proposition}[Hierarchy of Distortion Measures]
+\label{prop:distortion-hierarchy}
+Under mild regularity conditions (compact $X$, absolutely continuous $\mu$, bounded densities):
+\[
+D_{\mathrm{KL}} = 0 \Rightarrow D_\mu = 0 \Rightarrow D_H = 0
+\]
+but not conversely in general. The KL distortion is the most sensitive; Hausdorff distortion is the most geometric.
+\end{proposition}
+
+\begin{proof}
+$D_{\mathrm{KL}} = 0$ implies $p_1 = p_2$ a.e., which implies $\mu(R_1 \triangle R_2) = 0$ (i.e., $D_\mu = 0$), which implies $d_H(R_1, R_2) = 0$ when $R_1, R_2$ are closed. The converses fail: $D_H = 0$ requires equality of closed sets but not of measures, and $D_\mu = 0$ requires equality up to measure-zero sets but not KL-equality. $\square$
+\end{proof}
+
+\section{Category-Theoretic Formulation}
+\label{app:category}
+
+The projection and collapse operations admit a clean category-theoretic formulation that clarifies their non-commutative relationship.
+
+\begin{definition}[Substrate Category]
+Define the \emph{substrate category} $\mathbf{Sub}$ with:
+\begin{itemize}
+  \item \emph{Objects}: substrate states $\mathbf{X} = (N, E, C, V, M)$
+  \item \emph{Morphisms}: admissible trajectories $\gamma: \mathbf{X}_1 \to \mathbf{X}_2$
+  \item \emph{Composition}: trajectory concatenation
+  \item \emph{Identity}: the constant trajectory at each state
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Observation Functor and Collapse Functor]
+A projection $\pi: \mathbf{Sub} \to \mathbf{Obs}$ to an observation category is a functor that maps substrate states to observations and admissible trajectories to observable transitions. A collapse map $\kappa: \mathbf{Sub} \to \mathbf{Obj}$ to an object category maps histories (morphism sequences) to stable object descriptions.
+\end{definition}
+
+\begin{proposition}[Projection--Collapse Noncommutativity]
+\label{prop:noncommutative}
+In general, $\kappa \circ \pi \neq \pi \circ \kappa$ as functors from $\mathbf{Sub}$.
+\end{proposition}
+
+\begin{proof}
+Consider two substrate states $\mathbf{X}_1, \mathbf{X}_2$ with $\pi(\mathbf{X}_1) = \pi(\mathbf{X}_2) = N$ but $\kappa(\gamma_1) \neq \kappa(\gamma_2)$ for histories $\gamma_i$ terminating at $\mathbf{X}_i$. Then:
+\[
+(\kappa \circ \pi)(\mathbf{X}_i) = \kappa(N) = O
+\]
+is the same object for both, since $\pi$ identifies the two states before collapse is applied.
+\[
+(\pi \circ \kappa)(\mathbf{X}_i) = \pi(\kappa(\mathbf{X}_i))
+\]
+which depends on the full substrate state $\mathbf{X}_i$ before projection; since $\kappa(\mathbf{X}_1) \neq \kappa(\mathbf{X}_2)$, the projections of their collapses may differ. Therefore $(\kappa\circ\pi)(\mathbf{X}_1) = (\kappa\circ\pi)(\mathbf{X}_2)$ but $(\pi\circ\kappa)(\mathbf{X}_1)$ may differ from $(\pi\circ\kappa)(\mathbf{X}_2)$, establishing non-commutativity. $\square$
+\end{proof}
+
+\begin{remark}
+The non-commutativity formalizes a fundamental epistemological asymmetry: information lost by projecting first cannot be recovered by collapsing afterward. Projecting the full substrate state to neural observations and then attempting to infer object-level categories from those observations differs from identifying the categories in the full substrate and then projecting to neural signatures. The former loses substrate-level distinctions that may be essential to correct categorization; the latter preserves them. This is the categorical statement of why electrofluidic substrate variables matter for neural computation.
+\end{remark}
+
+\section{Relation to Markov Blankets}
+\label{app:markov}
+
+A natural objection to the dynamic-substrate framework is that it conflicts with the Markov blanket formulation of self-organization, in which a system is characterized by a boundary that separates internal states from external states through a blanket of sensory and active states \cite{friston2019}. We show here that static blankets are a special case of dynamic admissibility boundaries, and that the Dynamic Substrate Theorem extends the blanket framework to cover substrate remodeling.
+
+\begin{definition}[Markov Blanket]
+A \emph{Markov blanket} $B$ for a set of internal states $\mu$ is a set of states such that $\mu \perp \eta \mid B$, where $\eta$ denotes external states and $\perp$ denotes conditional independence.
+\end{definition}
+
+In the static formulation, $B$ is fixed: the blanket defines a boundary that does not change over time, and self-organization consists of the internal states maintaining their states conditional on the blanket. This is formally equivalent to the frozen-manifold approximation: the constraint geometry (here, the blanket) is treated as given.
+
+\begin{proposition}[Dynamic Blanket as Special Case]
+\label{prop:markov}
+Let $\mathcal{A}_t = \mathcal{A}[x_{0:t}]$ be the dynamic admissibility region, and define the \emph{dynamic Markov blanket} $B_t = \partial \mathcal{A}_t$ as the boundary of the admissibility region at time $t$. Then:
+\begin{enumerate}[label=(\roman*)]
+  \item When $\varepsilon = 0$ (frozen substrate), $B_t = B$ is a static Markov blanket.
+  \item When $\varepsilon > 0$, $B_t$ evolves through substrate remodeling: the blanket is dynamic, and the boundary between internal and external states is continuously reshaped by the trajectories it constrains.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) follows from Proposition~\ref{prop:frozen-limit}: when $\varepsilon = 0$, $\mathcal{A}_t = \mathcal{A}^*$ for all $t$, so $\partial\mathcal{A}_t = \partial\mathcal{A}^* = B$ is fixed.
+(ii) follows from Theorem~\ref{thm:dst}: when $\varepsilon > 0$, $\mathcal{A}_t = \mathcal{A}[x_{0:t}]$ varies with the trajectory, so $B_t = \partial\mathcal{A}[x_{0:t}]$ also varies. $\square$
+\end{proof}
+
+\begin{remark}
+This result has immediate implications for the active inference literature. The standard active inference formulation assumes a static Markov blanket and derives perception, action, and learning from the free energy principle applied to that fixed boundary. The dynamic-substrate framework suggests that the blanket itself is a slow-timescale variable shaped by active inference trajectories at faster timescales. A complete active inference account should therefore include equations governing $\dot{B}_t$---which are precisely the RSVP field equations for the substrate.
+\end{remark}
+
+\section{Substrate Memory Without Explicit Storage}
+\label{app:memory}
+
+Corollary~\ref{cor:repair} establishes that repair pressure is history-sensitive under the Dynamic Substrate Theorem. This appendix formalizes the stronger claim that history-dependent behavior can occur without any explicit symbolic memory variables.
+
+\begin{definition}[Substrate Deviation]
+Let $\theta^* = (\Phi^*, \vec{v}^*, S^*)$ denote the substrate equilibrium state (the state reached in the absence of fast-layer activity, $\sigma = 0$, $R_\Phi = \alpha S$). The \emph{substrate deviation} at time $t$ is:
+\[
+M(t) = \bigl(\Phi(t) - \Phi^*,\; \vec{v}(t) - \vec{v}^*,\; S(t) - S^*\bigr)
+\]
+\end{definition}
+
+\begin{theorem}[Memory Without Explicit Storage]
+\label{thm:memory}
+Let the system~\eqref{eq:capacity}--\eqref{eq:fast} operate with $\sigma(x,t) > 0$ during an activity epoch $[0, T]$ and $\sigma = 0$ thereafter. Suppose $R_\Phi < \alpha S$ (net dissipation). Then $M(t) \neq 0$ for $t > T$ and the subsequent fast-trajectory behavior $x(t)$ for $t > T$ depends on $M(t)$, which depends on the prior activity history $x_{0:T}$. Therefore the system exhibits history-sensitive behavior without any explicit symbolic memory variable.
+\end{theorem}
+
+\begin{proof}
+During $[0, T]$, $\sigma(x,t) > 0$ drives $S$ above $S^*$ and $\Phi$ below $\Phi^*$ by Lemma~\ref{lem:monotone} and equation~\eqref{eq:entropy}. The deviation $M(T) \neq 0$ encodes the history $x_{0:T}$ through the integral $\int_0^T G(\theta(\tau), x(\tau))\,d\tau$. For $t > T$, $\sigma = 0$ and $R_\Phi < \alpha S$, so the substrate relaxes toward but does not immediately reach $\theta^*$: the decay rate is governed by $\alpha$ and $D_S$, giving $\|M(t)\| \leq \|M(T)\| e^{-\alpha(t-T)}$ in leading order. Since $M(t) \neq 0$ for finite $t - T$, and since $\dot{x} = F(x, \theta^* + M(t))$ depends on $M(t)$, the subsequent trajectory is influenced by the prior activity history. No symbolic memory variable is required; the history is encoded geometrically in $M(t)$. $\square$
+\end{proof}
+
+\begin{corollary}[Forgetting as Substrate Relaxation]
+\label{cor:forgetting}
+Under the conditions of Theorem~\ref{thm:memory}, the timescale of ``forgetting''---the time until behavior becomes approximately independent of prior history---is:
+\[
+\tau_{\text{forget}} \sim \frac{1}{\alpha}
+\]
+where $\alpha$ is the dissipation-depletion coupling in equation~\eqref{eq:capacity}. Faster dissipation clearance (larger $\alpha$ under regeneration $R_\Phi > 0$) reduces forgetting time. Persistent substrate deviation corresponds to long-term memory.
+\end{corollary}
+
+\section*{Appendix G: Notation and Symbol Glossary}
+\label{app:glossary}
+\addcontentsline{toc}{section}{Appendix G: Notation and Symbol Glossary}
+
+\begin{center}
+\begin{tabular}{lp{9cm}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\Phi(x,t)$ & Scalar capacity field: local resource density, energetic potential, or representational capacity \\[4pt]
+$\vec{v}(x,t)$ & Vector transport field: directed flow of capacity, signal propagation velocity \\[4pt]
+$S(x,t)$ & Scalar dissipation field: accumulated entropy, metabolic waste, constraint burden \\[4pt]
+$R_\Phi$ & Regenerative source term in capacity equation (sleep, repair, reform) \\[4pt]
+$\sigma(x,t)$ & Fast-layer dissipation source: metabolic cost of computation or activity \\[4pt]
+$\alpha$ & Dissipation-depletion coupling constant \\[4pt]
+$D_S$ & Diffusion coefficient for entropy field \\[4pt]
+$\mathcal{A}_t$ & Instantaneous admissibility region at time $t$ \\[4pt]
+$\mathcal{A}[x_{0:t}]$ & Path-dependent admissibility functional of trajectory history \\[4pt]
+$C(x, \Phi, \vec{v}, S)$ & Constraint functional ($\leq 0$ for admissible states) \\[4pt]
+$R(\mathbf{X})$ & Reachable future set from full state $\mathbf{X}$ \\[4pt]
+$\mathcal{R}_t(x)$ & Reachable future set at time $t$ from fast state $x$ \\[4pt]
+$V_R(t)$ & Volume of reachable future set \\[4pt]
+$\pi$ & Projection operator from full state space to observation space \\[4pt]
+$\pi_N$ & Neuron-only projection (discards $E, C, V, M$ substrate variables) \\[4pt]
+$\pi_\mathcal{A}$ & Admissibility-preserving projection onto linguistic substrate \\[4pt]
+$D_\pi$ & Admissibility distortion induced by projection $\pi$ \\[4pt]
+$D_H$ & Hausdorff distortion between reachable future sets \\[4pt]
+$D_\mu$ & Measure-theoretic distortion (symmetric difference volume) \\[4pt]
+$D_{\mathrm{KL}}$ & Information-geometric distortion (KL divergence of future distributions) \\[4pt]
+$\kappa$ & Collapse operator: maps process histories to stable object descriptions \\[4pt]
+$\Gamma_O$ & Preimage of object $O$ under collapse: the set of histories that collapse to $O$ \\[4pt]
+$\mathbf{X}$ & Full system state $(N, E, C, V, M)$: neural, extracellular, CSF, vascular, metabolic \\[4pt]
+$M(t)$ & Substrate deviation from equilibrium: encodes history geometrically \\[4pt]
+$\theta^*$ & Substrate equilibrium state \\[4pt]
+$B_t$ & Dynamic Markov blanket at time $t$: boundary of $\mathcal{A}_t$ \\[4pt]
+$\varepsilon$ & Slow-fast coupling parameter: ratio of substrate to fast-dynamics timescale \\[4pt]
+$\tau_{\text{forget}}$ & Forgetting timescale $\sim 1/\alpha$ \\[4pt]
+$H_{\text{utterance}}$ & Entropy of linguistic utterance (description) \\[4pt]
+$H_{\text{substrate}}$ & Entropy stored in shared linguistic substrate \\[4pt]
+$\rho$ & Semantic compression ratio $H(X)/H(\pi_\mathcal{A}(X))$ \\[4pt]
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}

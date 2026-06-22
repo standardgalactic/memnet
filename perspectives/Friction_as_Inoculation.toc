@@ -1,0 +1,89 @@
+\contentsline {part}{I\hspace {1em}Individual Friction: Phenomenology and Formal Foundations}{6}{part.1}%
+\contentsline {section}{\numberline {1}Introduction: The Smoothness Optimum and Its Costs}{6}{section.1}%
+\contentsline {section}{\numberline {2}The Phenomenology of Bounded Difficulty}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}The Comfort Trap}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Language Immersion as Structured Strain}{7}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Distributional Shift and Staged Ambiguity}{8}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Positive Ignorance and Operational Provisionality}{9}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Delayed Automation and Premature Compression}{9}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}The Dosage Principle}{10}{subsection.2.6}%
+\contentsline {part}{II\hspace {1em}Formal Models of Inoculation}{10}{part.2}%
+\contentsline {section}{\numberline {3}From Practice to Formal Structure}{11}{section.3}%
+\contentsline {section}{\numberline {4}Null Convention Logic and the Formal Structure of Incompleteness}{11}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Ternary Signal Algebra}{11}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Delay-Insensitive Gate Semantics}{12}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Nested Scope Resolution and the Pop Operation}{12}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Premature Collapse as Structural Incoherence}{13}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}The Bounded Null Exposure Operator}{14}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}The Null Inoculation Principle}{14}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Cognitive Correspondence}{15}{subsection.4.7}%
+\contentsline {section}{\numberline {5}Thermodynamic, Geometric, and Dynamical Foundations}{15}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Variational Free Energy and Null Preservation}{15}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Geometric Bayesianism and the Emergence of Sparsity}{16}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Metastability, Criticality, and the Null Band}{17}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Unified Interpretation}{18}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Invariant Across Representations}{19}{section.6}%
+\contentsline {section}{\numberline {7}Information-Theoretic Bounds on Premature Collapse}{19}{section.7}%
+\contentsline {section}{\numberline {8}Spectral Stability and Basin Enlargement}{20}{section.8}%
+\contentsline {section}{\numberline {9}Scaling the Law}{21}{section.9}%
+\contentsline {section}{\numberline {10}Institutional Design as Null Maintenance Under Adversarial Pressure}{22}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Premature Smoothness and Structural Fragility}{22}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Formal Governance Model}{22}{subsection.10.2}%
+\contentsline {section}{\numberline {11}Adversarial Null Exploitation and Defensive Design}{23}{section.11}%
+\contentsline {section}{\numberline {12}Distributed Versus Centralized Competence}{24}{section.12}%
+\contentsline {section}{\numberline {13}Equivalence of Free Energy Curvature and Dynamical Stability}{25}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Gradient Flow of Variational Free Energy}{25}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Linearization Near Equilibrium}{25}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Spectral Equivalence}{26}{subsection.13.3}%
+\contentsline {subsection}{\numberline {13.4}Effect of Bounded Null Exposure}{26}{subsection.13.4}%
+\contentsline {subsection}{\numberline {13.5}Unified Interpretation}{26}{subsection.13.5}%
+\contentsline {section}{\numberline {14}Natural Gradient Flow and Information-Geometric Stability}{27}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Riemannian Setup and Natural Gradient Flow}{27}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Curvature--Contraction in Fisher Geometry}{27}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Metric Contraction Rate}{28}{subsection.14.3}%
+\contentsline {subsection}{\numberline {14.4}Interpretation and Connection to Null Inoculation}{28}{subsection.14.4}%
+\contentsline {subsection}{\numberline {14.5}Critical Slowing-Down and Early Warning}{28}{subsection.14.5}%
+\contentsline {section}{\numberline {15}Delay-Tolerance, Partial Orders, and Causal Consistency}{29}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Event Structures and Causal Dependencies}{29}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}The Causal Interpretation of Friction}{30}{subsection.15.2}%
+\contentsline {subsection}{\numberline {15.3}Causal Stability Under Partial Orders}{30}{subsection.15.3}%
+\contentsline {section}{\numberline {16}Null Inoculation and Predictive Coding}{31}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Predictive Coding Hierarchy}{31}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Null States as Precision Attenuation}{31}{subsection.16.2}%
+\contentsline {subsection}{\numberline {16.3}Inoculation as Precision Curriculum}{32}{subsection.16.3}%
+\contentsline {section}{\numberline {17}Synthesis of Formal Foundations}{33}{section.17}%
+\contentsline {part}{III\hspace {1em}Platform and Institutional Design}{33}{part.3}%
+\contentsline {section}{\numberline {18}The Metric Is Not the Friction}{33}{section.18}%
+\contentsline {subsection}{\numberline {18.1}Measured Versus Total Friction}{34}{subsection.18.1}%
+\contentsline {subsection}{\numberline {18.2}The Friction Substitution Principle}{35}{subsection.18.2}%
+\contentsline {subsection}{\numberline {18.3}Productive and Wasteful Friction Distinguished}{36}{subsection.18.3}%
+\contentsline {section}{\numberline {19}Optimization Against Measured Friction}{36}{section.19}%
+\contentsline {section}{\numberline {20}Adversarial Amplification of Metric Optimization}{38}{section.20}%
+\contentsline {section}{\numberline {21}Institutional Analogues}{38}{section.21}%
+\contentsline {part}{IV\hspace {1em}Educational Design and the Competence Outsourcing Problem}{39}{part.4}%
+\contentsline {section}{\numberline {22}Premature Competence Outsourcing}{39}{section.22}%
+\contentsline {subsection}{\numberline {22.1}The Internalization Threshold}{40}{subsection.22.1}%
+\contentsline {section}{\numberline {23}The Educational Dosage Band}{40}{section.23}%
+\contentsline {subsection}{\numberline {23.1}Institutional Pressure on the Band}{41}{subsection.23.1}%
+\contentsline {section}{\numberline {24}Sequence and the Structure of Scaffolding}{42}{section.24}%
+\contentsline {part}{V\hspace {1em}Automation, AI, and the Question of Timing}{42}{part.5}%
+\contentsline {section}{\numberline {25}The Frictionless AI Question}{43}{section.25}%
+\contentsline {subsection}{\numberline {25.1}Two Regimes of Tool Use}{43}{subsection.25.1}%
+\contentsline {section}{\numberline {26}Friction as Distinction Formation}{44}{section.26}%
+\contentsline {section}{\numberline {27}The Timing Question}{45}{section.27}%
+\contentsline {subsection}{\numberline {27.1}A Fragility Criterion for Tool Introduction}{45}{subsection.27.1}%
+\contentsline {section}{\numberline {28}Healthy Friction in an Automated World}{46}{section.28}%
+\contentsline {section}{\numberline {29}Conclusion}{47}{section.29}%
+\contentsline {section}{\numberline {A}Minimal Dynamical Model of Bounded Friction}{48}{appendix.A}%
+\contentsline {section}{\numberline {B}Stochastic Robustness and Gradient Regularization}{49}{appendix.B}%
+\contentsline {section}{\numberline {C}Bayesian Ambiguity Tolerance}{51}{appendix.C}%
+\contentsline {section}{\numberline {D}Entropy Suppression and the Smoothness Deficit}{54}{appendix.D}%
+\contentsline {section}{\numberline {E}Simulated Annealing and the Exposure--Consolidation Cycle}{56}{appendix.E}%
+\contentsline {section}{\numberline {F}Control-Theoretic Stability Analysis}{59}{appendix.F}%
+\contentsline {section}{\numberline {G}Irreversible History and Narrative Structure}{62}{appendix.G}%
+\contentsline {section}{\numberline {H}Category-Theoretic Framing of Null Preservation}{64}{appendix.H}%
+\contentsline {section}{\numberline {I}Explicit Threshold Derivation in a Linear--Gaussian Model}{66}{appendix.I}%
+\contentsline {paragraph}{Underexposure.}{70}{paragraph*.1}%
+\contentsline {paragraph}{Inoculation regime.}{70}{paragraph*.2}%
+\contentsline {paragraph}{Overload regime.}{70}{paragraph*.3}%
+\contentsline {section}{\numberline {J}Metastable Temperature Correspondence}{70}{appendix.J}%
