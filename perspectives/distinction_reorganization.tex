@@ -1,0 +1,1470 @@
+% distinction_reorganization.tex
+% XeLaTeX
+\documentclass[11pt, a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  top=2.8cm, bottom=3cm,
+  left=3.2cm, right=3.2cm
+}
+
+\usepackage{setspace}
+\setstretch{1.18}
+
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdftitle={Distinction Reorganization and the Geometry of Understanding},
+  pdfauthor={Flyxion}
+}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Flyxion}}
+\fancyhead[R]{\small\textit{Distinction Reorganization and the Geometry of Understanding}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% Theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{principle}[theorem]{Principle}
+
+% Notation
+\newcommand{\Dist}{\mathcal{D}}
+\newcommand{\Adm}{\mathcal{A}}
+\newcommand{\Reach}{\mathcal{R}}
+\newcommand{\Proj}{\pi}
+\newcommand{\Obs}{\mathcal{O}}
+\newcommand{\PhiF}{\varPhi}
+\newcommand{\PhiFop}{\varPhi_{\mathrm{op}}}
+\newcommand{\PhiFid}{\varPhi^{*}}
+\newcommand{\Tlib}{\mathcal{T}}
+\newcommand{\Mod}{\mathcal{M}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\dA}{D_{\!\mathcal{A}}}
+\newcommand{\nstar}{n^{*}}
+\newcommand{\DG}{\mathcal{G}_{\Dist}}
+\DeclareMathOperator{\Hent}{H}
+\DeclareMathOperator{\Info}{I}
+
+\title{%
+  \LARGE\bfseries Distinction Reorganization and the\\
+  Geometry of Understanding%
+}
+
+\author{Flyxion}
+
+\date{2026}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\begin{abstract}
+\noindent
+Scientific revolutions, memory reconsolidation, archive rematching,
+representation learning, mechanistic interpretability, and ontology repair
+are customarily treated as distinct problems belonging to different
+disciplines. This paper argues that they are manifestations of a single
+underlying process: the reorganization of admissible distinctions into
+a structure with greater reachability and recoverability.
+The central claim is that understanding is not the accumulation of
+descriptions but a \emph{trajectory} of distinction reorganization:
+a sequence of structures $\Dist_0 \to \Dist_1 \to \cdots$ in which
+each transition expands reachability, reduces residual density, and
+retroactively remaps the accumulated observational archive.
+We introduce a formal framework --- distinction geometry --- in which
+distinctions are organized as dependency graphs, reachability is
+defined via recovery operators, and residual structure density $\varPhi$
+is given both an ideal formulation (via Kolmogorov complexity) and a
+computable operational proxy (via distance to the learned admissibility
+manifold).
+The framework is used to formalize Kuhnian paradigm change as a
+quantitative dynamical process ($\text{revolution} = \Delta\bar\varPhi \ll 0$),
+to state the World-Model Crossover and Directionality Principle as
+the formal boundary between observation-centered and model-centered
+epistemology, to introduce the Representational Revision Principle
+as a guard against conflating epistemological and ontological revision,
+and to prove the Observational--Interventional Separation Theorem as
+the formal foundation for the interpretability reframing.
+The framework unifies six independent research programs ---
+Frozen Processes, Persistent Anomalies, Waves of Collapse,
+Admissibility Geometry, Distinguishability Geometry, and RSVP ---
+as cross-sections of a single geometric object.
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+
+\bigskip\hrule\bigskip
+
+%% ============================================================
+\section{Introduction}
+\label{sec:intro}
+%% ============================================================
+
+There is a question that sits uncomfortably beneath almost every
+contemporary discussion of artificial intelligence, cognitive science,
+and the philosophy of science, yet is rarely stated directly:
+
+\begin{quote}
+\textit{What is the difference between a system that predicts correctly
+and a system that understands?}
+\end{quote}
+
+The standard answer --- that understanding is reliable, general, or
+robust prediction --- is demonstrably insufficient. A system may
+achieve high predictive accuracy on every benchmark while collapsing
+exactly the distinctions that would allow it to intervene, explain,
+or generalize beyond its training distribution. This is not a failure
+of capability. It is a failure of faithfulness: the representation
+has discarded structure that matters.
+
+This paper proposes a different answer. Understanding arises when a
+representation preserves and reorganizes the \emph{admissible
+distinctions} of a domain --- the distinctions whose collapse would
+impair navigation, intervention, or explanation relative to the
+purposes for which the representation exists. Understanding advances
+not gradually but through \emph{collapse events}: discontinuous
+reorganizations of the distinction structure that expand reachability,
+enable rematching of prior observations, and increase the domain's
+navigability.
+
+This claim unifies a cluster of apparently unrelated phenomena.
+Scientific revolutions are collapse events at civilizational scale.
+Memory reconsolidation is collapse at the scale of individual belief.
+Archive rematching is collapse in the domain of stored records.
+Ontology repair in AI systems is collapse in the domain of learned
+representations. Mechanistic interpretability is, properly understood,
+the project of verifying whether collapse has occurred and what
+structure it has revealed.
+
+The framework rests on three core concepts.
+
+\emph{Admissible distinctions} are those whose collapse would impair
+performance on a given task or family of tasks. Admissibility is
+always relative to a purpose; the same difference in the world may
+be admissible for one task and inadmissible for another.
+
+\emph{Reachability} is the capacity to express, recover, and operate
+on a distinction within a given representation. A distinction that
+exists in the world but is not reachable from a representation
+does not belong to that representation's understanding.
+
+\emph{Ontological deficit} is the frozen residue of collapsed
+admissible distinctions: the structured anomalies that a
+representation cannot compress, the persistent noise that resists
+current vocabulary, the pressure that accumulates before a collapse
+event releases it.
+
+Together these concepts define a geometry --- the geometry of
+understanding --- in which progress is not a smooth accumulation
+but a sequence of reorganizations, each of which expands the space
+of what is reachable.
+
+The paper is structured as follows.
+Section~\ref{sec:projection} establishes that every nontrivial
+representation destroys distinctions (the Projection Theorem) and
+introduces the core vocabulary.
+Section~\ref{sec:admissibility} defines admissibility and ontological
+deficit and distinguishes them from predictive failure.
+Section~\ref{sec:phi} introduces residual structure density $\PhiF$
+as the quantitative measure of accumulated distinction failure.
+Section~\ref{sec:kuhn} reinterprets Kuhnian paradigm change as
+distinction reorganization, making the sociology of science
+geometrically precise.
+Section~\ref{sec:crossover} states the World-Model Crossover Principle
+and the Directionality Principle as the formal boundary between
+observation-centered and model-centered epistemology.
+Section~\ref{sec:memory} shows that human memory behaves exactly
+as the framework predicts.
+Section~\ref{sec:ai} applies the framework to AI interpretability.
+Section~\ref{sec:unification} shows how the framework unifies
+several independent research programs.
+Section~\ref{sec:conclusion} states the master claim and its
+corollaries.
+
+%% ============================================================
+\section{Projection and Distinction Destruction}
+\label{sec:projection}
+%% ============================================================
+
+\subsection{Representations as projections}
+
+Every representation is a map from a richer domain to a poorer one.
+This is not a defect but a necessity: a map that preserved every
+detail of the territory would be useless. The question is not whether
+information is lost but which information.
+
+\begin{definition}[Representation and projection]
+\label{def:rep}
+Let $\Omega$ be a domain of cases. A \emph{representation} is a
+surjective map $\Proj : \Omega \to M$ where $M$ is the representational
+space. We call $\Proj$ a \emph{projection} and $M$ the \emph{model space}.
+\end{definition}
+
+\begin{definition}[Distinction]
+\label{def:dist}
+A \emph{distinction} on $\Omega$ is a binary relation
+$d \subseteq \Omega \times \Omega$ such that $d(x, y)$ holds when
+$x$ and $y$ are treated differently for some purpose.
+A distinction induces a partition of $\Omega$ into equivalence classes
+under the complementary relation $\lnot d$.
+\end{definition}
+
+A flat set of such relations is too weak a substrate for the framework.
+The concepts of strata, ceilings, and reachability all presuppose that
+distinctions stand in dependency relations to one another: collapsing
+a high-level distinction may destroy downstream ones without affecting
+peers. We therefore organize distinctions into a richer structure.
+
+\begin{definition}[Distinction dependency graph]
+\label{def:ddg}
+A \emph{distinction dependency graph} $\DG = (V, E)$ over domain $\Omega$
+is a directed acyclic graph in which:
+\begin{enumerate}[label=(\roman*)]
+  \item Each vertex $v \in V$ corresponds to a distinction $d_v$ on $\Omega$.
+  \item A directed edge $(u \to v) \in E$ indicates that $d_v$
+        \emph{depends on} $d_u$: drawing $d_v$ presupposes that $d_u$
+        has already been drawn. Collapsing $d_u$ therefore propagates
+        upward, destroying all $d_v$ reachable from $u$ via directed paths.
+\end{enumerate}
+The \emph{distinction structure} $\Dist$ is the pair $(\Omega, \DG)$.
+\end{definition}
+
+\begin{example}[Biological taxonomy as a distinction graph]
+Consider the distinctions: \textit{living thing} ($d_1$),
+\textit{animal} ($d_2$), \textit{vertebrate} ($d_3$),
+\textit{mammal} ($d_4$), \textit{dog} ($d_5$).
+The dependency graph has edges $d_1 \to d_2 \to d_3 \to d_4 \to d_5$.
+Collapsing $d_4$ (the mammal distinction) propagates upward and destroys
+$d_5$, but leaves $d_1, d_2, d_3$ intact.
+This asymmetry --- which the flat binary-relation definition cannot
+represent --- is what gives distinction structures their geometry.
+\end{example}
+
+\begin{definition}[Graph reachability and collapse]
+\label{def:collapse}
+A distinction $d_v$ is \emph{collapsed} by $\Proj$ if there exist
+$x, y \in \Omega$ with $d_v(x,y)$ but $\Proj(x) = \Proj(y)$.
+
+A distinction $d_v$ is \emph{graph-reachable} in $\DG$ from a set
+$S \subseteq V$ if there exists a directed path from some $u \in S$
+to $v$ in $\DG$. Collapsing a distinction $d_u$ renders
+graph-unreachable all distinctions depending on $d_u$.
+\end{definition}
+
+The following result is elementary but foundational.
+
+\begin{theorem}[Projection Theorem]
+\label{thm:projection}
+Let $\Proj : \Omega \to M$ be any nontrivial projection
+(i.e., $|M| < |\Omega|$). Then $\Proj$ collapses at least one
+distinction on $\Omega$.
+\end{theorem}
+
+\begin{proof}
+Since $|M| < |\Omega|$, by the pigeonhole principle there exist
+distinct $x, y \in \Omega$ with $\Proj(x) = \Proj(y)$.
+The pair $(x,y)$ constitutes a collapsed distinction.
+\end{proof}
+
+The Projection Theorem is not a theorem about compression
+in the technical sense; it is a theorem about representation in general.
+Every simplification, abstraction, categorization, and model
+necessarily collapses some distinctions. The question of epistemology
+is which distinctions are collapsed and which are preserved.
+
+\subsection{The Weierstrass obstruction}
+
+A tacit assumption in many representational frameworks is that
+a sufficiently rich finite vocabulary can approximate any signal
+to arbitrary precision. This assumption fails for signals with
+persistent fine-scale structure.
+
+\begin{remark}[Weierstrass obstruction]
+\label{rem:weierstrass}
+The Weierstrass function $f(x) = \sum_{n=0}^\infty a^n \cos(b^n \pi x)$
+(with $0 < a < 1$, $b$ odd, $ab > 1 + \frac{3\pi}{2}$) is continuous
+everywhere and differentiable nowhere. No finite library of smooth
+templates achieves finite residual on such a signal: new oscillations
+appear at every scale of magnification.
+
+For a representation whose template library contains only smooth
+primitives, the Weierstrass-type signal constitutes a permanent
+ontological deficit. The deficit is not resolvable by adding more
+smooth templates; it requires the admission of a qualitatively
+different template kind (recursive, scale-coupling templates).
+\end{remark}
+
+This observation is more than a mathematical curiosity.
+It establishes that ontological deficit can be \emph{structural}
+rather than merely quantitative: not a matter of having too few
+templates, but of having the wrong kind.
+
+%% ============================================================
+\section{Admissibility and Ontological Deficit}
+\label{sec:admissibility}
+%% ============================================================
+
+\subsection{Admissible distinctions}
+
+The Projection Theorem tells us that distinction collapse is
+inevitable. The theory of admissibility identifies which collapses
+constitute failures.
+
+\begin{definition}[Admissibility]
+\label{def:adm}
+Let $\tau$ be a task or purpose. A distinction $d_v \in V$ is
+\emph{admissible for $\tau$} if collapsing $d_v$ would impair
+performance on $\tau$.
+The \emph{admissibility manifold} $\Adm_\tau \subseteq V$ is the set
+of all distinctions admissible for $\tau$.
+\end{definition}
+
+Before developing the consequences of admissibility, we supply the
+formal definition of reachability that the framework requires throughout.
+
+\begin{definition}[Reachability]
+\label{def:reach}
+A distinction $d_v$ is \emph{reachable} from a representation
+$\Proj : \Omega \to M$ if there exists a computable function
+$R_v : M \to \{0,1\}$ such that $R_v(\Proj(x)) = \mathbf{1}[d_v(x,\cdot)]$
+for all $x$ in an appropriate reference class.
+We call $R_v$ a \emph{recovery operator} for $d_v$.
+
+The \emph{reachability set} of $\Proj$ relative to task $\tau$ is
+\[
+  \Reach(\Proj, \tau)
+  \;=\;
+  \bigl\{d_v \in \Adm_\tau : \exists\, R_v \text{ as above}\bigr\}.
+\]
+A representation \emph{understands} domain $\Omega$ for task $\tau$
+to the degree that $\Adm_\tau \subseteq \Reach(\Proj, \tau)$.
+\end{definition}
+
+Reachability, so defined, is the formal counterpart of the Witness
+Principle introduced in Section~\ref{sec:ai}: a distinction is
+reachable precisely when a recovery operator witnesses it.
+The reachability set is therefore the set of distinctions for which
+constructive evidence exists.
+
+Several features of admissibility deserve immediate emphasis.
+
+First, admissibility is \emph{task-relative}. The distinction between
+two chemical compounds that are pharmacologically identical but
+isotopically distinct is admissible for nuclear physics but
+inadmissible for most pharmacological tasks. This relativity is
+not a defect of the framework but a constitutive feature of
+understanding: understanding is always understanding \emph{for some
+purpose}.
+
+Second, the admissibility manifold has a natural stratification.
+Some distinctions are admissible for all tasks in a domain
+(structural distinctions); others are admissible only for specific
+interventions (functional distinctions); others only for counterfactual
+reasoning (causal distinctions). These strata correspond to
+different levels of understanding.
+
+Third, admissibility is not observable from outside the task.
+A representation may appear faithful on observational tasks while
+collapsing distinctions required for interventional or causal tasks.
+This is the source of the prediction trap.
+
+\begin{definition}[Projection failure]
+\label{def:projfail}
+A projection $\Proj$ \emph{fails} relative to task $\tau$ if it
+collapses any distinction in $\Adm_\tau$. The \emph{admissibility
+distortion} is
+\[
+  \dA(\Proj, \tau)
+  \;=\;
+  \Pr_{(x,y) \in \Adm_\tau}\!\bigl[\Proj(x) = \Proj(y)\bigr].
+\]
+A representation with $\dA = 0$ is \emph{faithful} for $\tau$;
+with $\dA > 0$ it has a \emph{projection failure}.
+\end{definition}
+
+\subsection{Ontological deficit}
+
+Ontological deficit is a stronger condition than projection failure.
+It arises when the representational vocabulary is incapable of
+expressing a distinction at all, not merely when a distinction
+has been collapsed for a particular input.
+
+\begin{definition}[Ontological deficit]
+\label{def:ontdef}
+A representation $\Proj$ has an \emph{ontological deficit} with
+respect to distinction $d$ if no state of $M$ corresponds to
+drawing the distinction $d$: the distinction is not merely
+collapsed but inexpressible.
+
+Formally, there is no partition of $M$ that represents $d$,
+even approximately.
+\end{definition}
+
+\begin{example}[Pre-Darwinian natural history]
+Pre-Darwinian taxonomy drew distinctions between species by
+morphological similarity. The distinction between homologous and
+analogous structures --- structures sharing a common ancestor
+versus structures convergently evolved --- was not merely collapsed
+by pre-Darwinian taxonomy but inexpressible within it, because
+the vocabulary of common descent did not exist.
+This is an ontological deficit, not a projection failure.
+\end{example}
+
+\begin{example}[Language model token prediction]
+A language model trained solely on next-token prediction may
+achieve low perplexity while having an ontological deficit with
+respect to the distinction between \emph{true} and \emph{false
+but fluent} continuations. The distinction is not represented
+in the model's output space if no training signal distinguished
+it; no linear probe on the model's internal representations
+will reliably recover it.
+\end{example}
+
+The practical significance of ontological deficit is that it is
+\emph{invisible from within}. A framework with an ontological
+deficit cannot, using its own resources, detect the deficit.
+It experiences the consequences --- persistent anomalies, residual
+structure that resists compression, asymmetric prediction errors ---
+but cannot name their source. The deficit becomes visible only
+from the perspective of a successor framework that has admitted
+the missing distinction.
+
+%% ============================================================
+\section{Residual Structure Density and the Pressure Toward Collapse}
+\label{sec:phi}
+%% ============================================================
+
+\subsection{Definition and properties}
+
+Ontological deficit is a qualitative description of representational
+failure. The following construction provides a quantitative measure.
+
+\begin{definition}[Residual structure density: ideal and operational]
+\label{def:phi}
+Let $\Proj : \Omega \to M$ be a representation and $\Tlib$ the current
+template library.
+
+The \emph{ideal residual density} at $x \in \Omega$ is
+\[
+  \PhiFid(x) \;=\; K(x \mid \Tlib) \;-\; K(x \mid \Tlib^*)
+\]
+where $K(\cdot \mid \cdot)$ is conditional Kolmogorov complexity and
+$\Tlib^*$ is the library achieving minimal description length.
+$\PhiFid$ measures the theoretical gap between current and optimal
+understanding; it is the benchmark against which progress is assessed.
+
+The \emph{operational residual density} at $x \in \Omega$ is
+\[
+  \PhiFop(x) \;=\; \min_{t \in \Tlib}\, d_{\Adm}(x,\, \mathcal{M}_t)
+\]
+where $\mathcal{M}_t$ is the manifold generated by template $t$ and
+$d_{\Adm}$ is a metric on the admissibility space.
+$\PhiFop$ is the distance from $x$ to the nearest template boundary:
+it is computable, measurable, and directly actionable.
+
+We write $\PhiF$ when referring to either form.
+The total residual is $\bar\PhiF = \int_\Omega \PhiF(x)\,d\mu(x)$.
+\end{definition}
+
+The two quantities serve complementary roles. $\PhiFid$ provides the
+conceptual foundation: it is what the framework is ultimately measuring.
+$\PhiFop$ provides the research instrument: it is what practitioners
+can compute as a distance from data points to the learned manifold,
+and its gradient $\nabla\PhiFop$ gives the direction in which new
+template admissions are most likely to be productive.
+This separation --- between the theoretical ideal and the operational
+proxy --- is standard practice in information-theoretic frameworks
+and insulates the $\PhiF$ concept from the uncomputability objection
+while retaining its explanatory force.
+
+Three properties hold for both forms.
+
+First, $\PhiF \geq 0$ everywhere, with equality if and only if
+the current vocabulary is optimal for $x$.
+
+Second, $\PhiF$ is \emph{structured}: it is concentrated at points
+where the representation fails. Structured concentration of $\PhiF$
+(systematic residual rather than random noise) is the operational
+signature of ontological deficit. Random residuals do not define a
+gradient; structured ones do.
+
+Third, $\PhiF$ exerts \emph{pressure} on the representation.
+The gradient $\nabla\PhiFop$ defines the direction in which new template
+admissions are likely to reduce $\bar\PhiF$. The anomaly field is the
+map of the investigation frontier.
+
+\subsection{The pressure toward collapse}
+
+A template library $\Tlib$ under pressure from a concentrated
+$\PhiF$ field is in an unstable equilibrium. New templates can be
+admitted --- speculatively, on credit --- if they reduce the total
+description length:
+\[
+  \Lam(\Tlib) \;=\; L(\Tlib) \;+\; \sum_{x \in \Obs} L(x \mid \Tlib)
+\]
+where $L(\Tlib)$ is the cost of the library itself (model complexity)
+and $\sum L(x \mid \Tlib)$ is the total residual cost.
+
+A template $t$ is \emph{admitted} if $\Lam(\Tlib \cup \{t\}) < \Lam(\Tlib)$.
+This Minimum Description Length criterion is the formal analog
+of Ockham's razor: templates earn their place by explaining more
+than they cost.
+
+When a successful template is admitted, the $\PhiF$ field undergoes
+a rapid transition: regions of high residual that the new template
+addresses are resolved into the crystallized entropy field $S$.
+The drop in $\bar\PhiF$ is discontinuous if the template addresses
+many observations simultaneously.
+
+This discontinuity is the collapse event.
+
+%% ============================================================
+\section{Paradigm Change as Distinction Reorganization}
+\label{sec:kuhn}
+%% ============================================================
+
+\subsection{The Kuhnian framework revisited}
+
+Kuhn's account of scientific revolutions~\cite{kuhn1962} identifies
+a pattern: long periods of normal science, punctuated by crises
+and revolutionary reorganizations. This account is persuasive as
+history but resists formalization. What exactly is a paradigm?
+Why do anomalies accumulate? What makes a revolution rather than
+a refinement?
+
+The distinction-geometry framework provides precise answers.
+The translation below is not merely metaphorical; each entry on the
+right admits mathematical treatment.
+
+\begin{definition}[Kuhnian translation]
+\label{def:kuhn}
+Under the distinction-geometry framework:
+\begin{align*}
+  \text{paradigm} &\;\longleftrightarrow\; \text{distinction structure } \Dist = (\Omega, \DG) \\
+  \text{normal science} &\;\longleftrightarrow\; \text{local optimization within } \Dist \\
+  \text{anomaly} &\;\longleftrightarrow\; \text{residual structure density } \PhiF \\
+  \text{anomaly pressure} &\;\longleftrightarrow\; \bar\PhiF \\
+  \text{crisis} &\;\longleftrightarrow\; \text{structured, intractable } \PhiF \\
+  \text{revolution} &\;\longleftrightarrow\; \text{distinction reorganization (collapse event)} \\
+  \text{Kuhn loss} &\;\longleftrightarrow\; \text{distinction retirement} \\
+  \text{incommensurability} &\;\longleftrightarrow\; \text{non-overlapping admissibility manifolds}
+\end{align*}
+\end{definition}
+
+The translation makes Kuhnian dynamics quantitative in the following
+precise sense.
+
+\begin{proposition}[Quantitative Kuhn]
+\label{prop:kuhn-quant}
+Under the distinction-geometry framework:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Anomaly pressure} is measured by total residual density:
+        $\text{pressure} = \bar\PhiF$.
+  \item \emph{Normal science} is operation in a regime where
+        $\frac{d\bar\PhiF}{dt} \approx 0$ under routine template additions.
+  \item \emph{Crisis} occurs when $\bar\PhiF$ is both large and structured:
+        residuals form a nonzero gradient $\nabla\PhiFop \neq 0$.
+  \item \emph{Revolution} is a collapse event characterized by
+        $\Delta\bar\PhiF \ll 0$: a discontinuous drop in total residual
+        following the admission of a new distinction $d^*$.
+\end{enumerate}
+\end{proposition}
+
+Whether or not the formalism is fully computable in historical cases,
+the conceptual transformation is important: paradigm change ceases to
+be a historical narrative and becomes a dynamical process with
+measurable precursors (structured $\PhiF$) and measurable outcomes
+($\Delta\bar\PhiF$). The sociology of science becomes, in principle,
+physics of information.
+
+\subsection{Normal science as local optimization}
+
+Within a fixed distinction structure $\Dist$, the archive performs
+routine encoding: new observations are matched to existing templates,
+residuals are minimized within the current vocabulary, and the
+reachability set $\Reach(\rho, \tau)$ expands incrementally.
+This is the operational definition of normal science: progress
+that does not require new distinctions, only better use of
+existing ones.
+
+Normal science is not stagnant. Within a stratum, significant
+progress is possible. But every stratum has a ceiling: the
+structural barrier defined by the distinctions it cannot express.
+The ceiling becomes visible when $\PhiF$ accumulates in ways that
+resist normal-science compression --- when anomalies are not
+random but systematic.
+
+\begin{definition}[Stratum ceiling]
+The \emph{ceiling} of a distinction structure $\Dist$ is the
+minimum description length achievable within $\Dist$:
+\[
+  \Lam^*(\Dist) = \min_{\Tlib \subseteq \Dist} \Lam(\Tlib).
+\]
+The ceiling is positive if $\Dist$ has an ontological deficit
+relative to the data-generating process.
+\end{definition}
+
+\subsection{Anomaly accumulation as pressure}
+
+Anomalies in Kuhn's account are observations that the paradigm
+cannot explain. In the distinction-geometry framework, they are
+regions of high, structured $\PhiF$: observations that resist
+compression under the current template library.
+
+The crucial word is \emph{structured}. Random residuals are
+uninformative. Structured residuals --- residuals that have a
+pattern, that vary systematically with known variables, that
+cluster in the same regions across independent observers ---
+carry information about the missing distinction. They define
+the misfit gradient: the direction in which new template
+admissions are likely to be productive.
+
+Anomaly accumulation is therefore not a pathology but an
+information-bearing process. The archive's persistent anomalies
+are its research program: they are the pressure that drives
+collapse.
+
+\subsection{Revolution as distinction reorganization}
+
+A scientific revolution is a collapse event at civilizational
+scale: a transition $\Dist \to \Dist'$ in which a new distinction
+$d^*$ reorganizes the entire distinction structure, reduces
+$\bar\PhiF$ discontinuously, and enables rematching of the
+accumulated observational archive.
+
+\begin{proposition}[Structure of a revolution]
+A distinction reorganization event $\Dist \to \Dist'$ driven by
+the admission of $d^*$ has the following structure:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Inexpressibility phase}: $d^*$ is not reachable
+        in $\Dist$; its consequences appear as structured $\PhiF$.
+  \item \textbf{Crystallization phase}: $d^*$ becomes expressible
+        through new vocabulary, instrumentation, or formal notation.
+        At this stage $d^*$ is not yet integrated into $\Dist$.
+  \item \textbf{Reorganization phase}: The admission of $d^*$
+        retroactively restructures $\Dist$. Cases previously
+        classified together are separated; cases previously
+        separate are unified.
+        $\bar\PhiF$ drops discontinuously.
+  \item \textbf{Rematching phase}: The observational archive
+        is reinterpreted under $\Dist'$. Old observations yield
+        new descriptions, often with greater precision than
+        was possible at the time of observation.
+\end{enumerate}
+\end{proposition}
+
+\begin{example}[Caloric to thermodynamic entropy]
+\label{ex:caloric}
+The caloric theory treated \emph{amount of caloric} as an admissible
+distinction. Thermodynamics retired this distinction and admitted
+\emph{entropy} (the distinction between states with many and few
+microstates). The reorganization collapsed the caloric distinction
+(reachable in the old stratum but retired in the new) while
+admitting the entropy distinction (inexpressible in the old stratum).
+
+The rematching phase was extensive: steam engine efficiency data,
+previously described using caloric quantities, was reinterpreted
+in entropy terms, yielding Carnot's efficiency theorem and its
+consequences for what is and is not possible for heat engines.
+The observational archive had not changed; the distinction structure
+had reorganized.
+\end{example}
+
+\subsection{Kuhn loss and distinction retirement}
+
+Kuhn loss is the observation that something may be expressible
+within an old paradigm that is not expressible within its
+successor. In the distinction-geometry framework, Kuhn loss is
+distinction retirement: a distinction $d$ that was part of $\Dist$
+may not appear in $\Dist'$.
+
+This is not symmetric with distinction admission. A retired
+distinction was real within the old framework --- it supported
+genuine inferences and successful manipulations --- but the new
+framework explains those successes without it, or explains them
+as approximations of a more fundamental distinction.
+
+Kuhn loss does not refute the progress account of science.
+It refines it: progress is the growth of the reachability set
+over the \emph{admissible} distinctions, which may require retiring
+distinctions that were previously admitted but turn out to be
+approximations, confabulations, or ontological artifacts of the
+old vocabulary.
+
+\subsection{Incommensurability without relativism}
+
+Kuhn's incommensurability thesis has often been read as implying
+that paradigms cannot be compared and that scientific revolutions
+have no rational basis. The distinction-geometry framework
+dissolves this difficulty.
+
+\begin{principle}[Local incommensurability, global comparability]
+\label{prin:incomm}
+Two distinction structures $\Dist$ and $\Dist'$ are
+\emph{locally incommensurable} on a distinction $d$ if
+$d \in \Dist$ but drawing $d$ is inconsistent with the
+organizing principles of $\Dist'$ (or vice versa).
+
+But $\Dist$ and $\Dist'$ are \emph{globally comparable}
+if their admissibility manifolds overlap on a sufficiently
+large common ground.
+
+Rational evaluation across a revolution proceeds via the common
+ground: observations expressible in both frameworks, tasks
+performable under both distinction structures, predictions
+where the structures agree or disagree in testable ways.
+\end{principle}
+
+Incommensurability is local; comparability is global.
+This is why revolutions are difficult (locally, the new vocabulary
+is alien) but not irrational (globally, the new structure explains
+more of the shared observations and reduces $\bar\PhiF$).
+
+%% ============================================================
+\section{The World-Model Crossover Theorem}
+\label{sec:crossover}
+%% ============================================================
+
+\subsection{The crossover condition}
+
+Every representation starts as a summary of observations.
+Initially, observations organize the model: each new datum updates
+the template library, and the model's content is determined by
+what it has seen. There is, however, a threshold beyond which
+the model's internal structure becomes more informative about
+the domain than any individual observation.
+
+This is the World-Model Crossover.
+
+\begin{principle}[World-Model Crossover]
+\label{prin:crossover}
+Let $\Mod$ be a representation of domain $\Omega$ built from a
+sequence of observations $\{O_1, O_2, \ldots, O_n\}$.
+Define the \emph{crossover threshold} $\nstar$ as the smallest
+$n$ such that
+\[
+  \Info(\Mod_n;\, \Omega) \;>\; \max_{i \leq n}\, \Info(O_i;\, \Omega)
+\]
+where $\Info(\cdot\,;\,\cdot)$ denotes mutual information.
+
+For $n < \nstar$, the observations are the primary information-bearing
+objects about $\Omega$; the model is their summary.
+
+For $n \geq \nstar$, the model is the primary information-bearing
+object; individual observations are perturbations to the model.
+
+An equivalent formulation in the distinction-geometry framework:
+$\nstar$ is the point at which $\Reach(\Proj, \tau)$ becomes
+independent of the size and recency of the training dataset ---
+the model's internal geometry, rather than any individual observation,
+provides the best guide for future inference.
+\end{principle}
+
+\begin{remark}
+The mutual-information inequality is an informative criterion but
+not yet a theorem with a constructive proof in the general setting.
+The formal crossover condition remains a conjecture in full generality.
+Its value is explanatory: it identifies the qualitative transition
+and defines what would need to be established for the claim to be proved.
+\end{remark}
+
+The crossover is not merely quantitative. It marks a \emph{qualitative}
+transition in the epistemological role of the model.
+
+\begin{principle}[Directionality Principle]
+\label{prin:direction}
+Below $\nstar$:
+\[
+  \text{observations} \;\longrightarrow\; \text{model}
+  \quad\text{(observations organize theories)}
+\]
+Above $\nstar$:
+\[
+  \text{model} \;\longrightarrow\; \text{observations}
+  \quad\text{(theories organize observations)}
+\]
+The directionality is informational, not causal.
+Below the crossover, an observation is primarily \emph{data}:
+something to be explained by the model.
+Above the crossover, an observation is primarily \emph{evidence}:
+something that confirms, disconfirms, or anomalously pressures
+the model, adding to the $\PhiF$ field if it cannot be absorbed.
+\end{principle}
+
+The Directionality Principle is the epistemologically significant
+claim. The inequality in Principle~\ref{prin:crossover} is its
+formal vehicle; the principle is what readers will recognize in
+the actual practice of mature sciences. Newtonian mechanics, once
+established, did not wait for further pendulum swings to organize
+its claims about motion. It used its own internal structure to predict
+pendulum behavior, and individual pendulum swings became tests of
+the theory rather than its constituents. The crossover had occurred.
+
+This transition defines the boundary between data collection and
+theory formation, between empirical science and theoretical science,
+between an archive and a world-model.
+
+\subsection{The byte as a unit of surprise}
+
+The crossover has a striking operational consequence for storage.
+
+Below $\nstar$, the cost of storing new observations tracks the
+\emph{data rate} of the sensors: more observations, more storage.
+
+Above $\nstar$, the cost tracks the \emph{novelty rate} of the world:
+\[
+  \text{storage cost} \;\approx\; \Hent(O \mid \Mod)
+\]
+where $\Hent(O \mid \Mod)$ is the entropy of an observation
+\emph{given the model}. If the model already knows what the
+sensors will record, the storage cost approaches zero.
+A 16K camera recording an empty, unchanging room costs almost
+nothing to store above $\nstar$, because the model already
+knows the room.
+
+The byte is no longer a unit of measurement; it is a unit of
+\emph{surprise}. The archive spends bits only on what its
+model could not predict.
+
+\subsection{Crossover and the diversity requirement}
+
+The crossover threshold $\nstar$ is not reached by accumulating
+more observations of the same type. It requires \emph{diversity
+of kernels}: observations from different measurement modalities
+that triangulate the same underlying domain from different angles.
+
+\begin{proposition}[Diversity requirement]
+\label{prop:diversity}
+Let $\{K_1, K_2, \ldots, K_m\}$ be measurement kernels
+(e.g., visual, acoustic, geometric).
+The joint information $\Info(\{K_i\};\, \Omega)$ exceeds
+$\max_i \Info(K_i;\, \Omega)$ when the kernels expose
+orthogonal aspects of the domain.
+
+Formally, $\nstar$ is minimized by maximizing the diversity
+of the kernel family:
+\[
+  \nstar \propto \frac{1}{\sum_{i \neq j} \Info(K_i; K_j \mid \Omega)}
+\]
+Highly correlated kernels (many cameras from similar angles)
+delay the crossover; orthogonal kernels (visual plus acoustic
+plus structural) accelerate it.
+\end{proposition}
+
+No single modality reaches the crossover alone. Genuine world-models
+emerge from the integration of multiple measurement kinds, because
+no single kind exposes the full structure of the domain.
+
+This is not merely a technical observation. It explains why
+scientific understanding depends on the coordination of multiple
+experimental traditions, and why disciplines that share data
+across modalities progress faster than those that do not.
+
+\subsection{Post-crossover rematching}
+
+Above the crossover, a new observation that conflicts with the
+model does not merely update the model's beliefs. It generates
+an anomaly in the $\PhiF$ field, creating pressure for a
+reorganization.
+
+The post-crossover archive therefore exhibits the same dynamics
+as the pre-revolution scientific community in Kuhn's account:
+anomalies accumulate, misfit gradients point toward missing
+distinctions, and collapse events are triggered by template
+admissions that resolve the pressure.
+
+The crossover is not a permanent state but a moving threshold.
+Each collapse event raises the model's informational content,
+but also opens new strata of the domain that the model cannot
+yet address. The $\PhiF$ field never reaches zero; it reorganizes.
+Understanding is not a destination but a process of continual
+reorganization.
+
+%% ============================================================
+\section{Memory as Distinction Reorganization}
+\label{sec:memory}
+%% ============================================================
+
+\subsection{The recording illusion}
+
+The folk model of memory presents recollection as retrieval: a
+record stored at encoding is located and returned intact.
+This picture is not merely imprecise but structurally wrong in
+a way that the distinction-geometry framework clarifies.
+
+A representation stores not observations but \emph{the distinctions
+an observation supported}. Recollection is reconstruction from
+those distinctions as they are organized in the current
+distinction structure. Because the current structure differs from
+the structure at encoding, recollection is necessarily reconstruction,
+not retrieval.
+
+\begin{principle}[Memory as reconstruction]
+\label{prin:memory}
+Recollection of event $e$ is the inference to the best
+distinction-preserving completion of the current distinction
+structure $\Dist_t$ consistent with the partial record
+encoded at time of observation.
+
+Since $\Dist_t \neq \Dist_{t_0}$ in general, the recollection
+is filtered through distinctions that did not exist at encoding.
+This is not a defect but a constitutive feature: the past is
+rendered in the vocabulary of the present.
+\end{principle}
+
+The phrase ``rendered in the vocabulary of the present'' requires a
+guard against a common misreading.
+
+\begin{principle}[Representational Revision Principle]
+\label{prin:reprrev}
+Distinction reorganization modifies the \emph{representation}
+of prior observations, not the observations themselves.
+
+Formally: a collapse event $\Dist \to \Dist'$ changes the encoding
+$\Proj_{t'}(e) \neq \Proj_t(e)$ for observations $e$ encoded
+before the event, but the observation $e \in \Omega$ itself is
+unchanged.
+
+The past is not rewritten. The representation of the past is rewritten.
+\end{principle}
+
+This principle insulates the framework from the objection that it
+conflates epistemology with ontology --- an objection that has been
+leveled against strong readings of the free-energy principle
+and related Markov blanket formalisms. The distinction-geometry
+framework is entirely epistemological: it concerns how observations
+are encoded and recovered, not what the observations themselves are.
+The revision of a memory under reconsolidation changes the \emph{render},
+not the event.
+
+This prediction is well confirmed. Bartlett's experiments
+on reconstructive memory~\cite{bartlett1932}, the misinformation
+effect studied by Loftus~\cite{loftus1979}, and the
+reconsolidation research of Nader and colleagues~\cite{nader2000}
+all document exactly the behavior the framework predicts:
+recall is shaped by post-encoding knowledge, schema, and belief.
+
+\subsection{Reconsolidation as local collapse}
+
+Memory reconsolidation --- the phenomenon in which retrieved
+memories become temporarily labile and subject to modification ---
+is, in the distinction-geometry framework, a local collapse event.
+
+When a memory is retrieved, it is reconstructed within the current
+distinction structure $\Dist_t$. If $\Dist_t$ contains distinctions
+that were absent at encoding time $t_0$, the reconstruction may
+differ from the original. The reconsolidation window is the period
+during which the reconstructed memory is re-encoded using the
+current (potentially reorganized) vocabulary.
+
+This is not distortion in any pejorative sense. It is the
+faithful application of the distinction-reorganization process
+to the domain of episodic memory. The memory becomes more
+\emph{reachable} --- more efficiently represented within the
+current distinction structure --- at the cost of some fidelity
+to the original encoding.
+
+Reconsolidation is therefore not a vulnerability of the memory
+system but evidence of its design: a rematching archive does not
+store frozen records but living theories, and living theories
+must be updated when the vocabulary improves.
+
+\subsection{The compressibility of the past}
+
+A counterintuitive prediction of the framework is that the past
+\emph{becomes more compressible over time} as the distinction
+structure matures.
+
+Early in learning, autobiographical memories are encoded in
+coarse-grained vocabularies: the memory of a trip to Paris at
+age twelve is encoded in whatever distinction structure was
+available at age twelve. As the distinction structure matures
+--- as new templates are admitted, as more subtle distinctions
+become reachable --- the same event can be re-encoded more
+efficiently. Details that were stored as raw impressions become
+pointers to general templates; patterns that were opaque become
+recognizable instances of known categories.
+
+This is what we experience as the wisdom of retrospection:
+the sense that past experiences become more \emph{intelligible}
+as we mature, not because the events changed but because our
+distinction structure has reorganized to make them more compressible.
+
+%% ============================================================
+\section{Interpretability as Distinction Verification}
+\label{sec:ai}
+%% ============================================================
+
+\subsection{The interpretability reframing}
+
+Mechanistic interpretability in AI research is commonly framed
+as the project of understanding what is happening inside a
+trained model: identifying circuits, features, attention patterns,
+and internal representations that explain the model's behavior.
+
+The distinction-geometry framework reframes this project.
+Interpretability is not primarily about \emph{describing}
+internal structure. It is about \emph{verifying} whether the
+model has preserved the admissible distinctions required for
+navigation, explanation, and intervention.
+
+A description of internal structure that does not answer this
+question is a description, not an explanation.
+
+\begin{principle}[Interpretability as distinction verification]
+\label{prin:interp}
+A mechanistic interpretability claim is \emph{explanatory}
+only if it demonstrates that the identified internal structure
+preserves a specific admissible distinction.
+
+An interpretability claim that identifies a feature without
+showing how that feature preserves a distinction in
+$\Adm_\tau$ for some task $\tau$ is a description of the
+representation, not an explanation of the understanding.
+\end{principle}
+
+This principle has sharp practical consequences.
+
+\subsection{Chain-of-thought and the trajectory question}
+
+Large language models prompted to produce chain-of-thought
+reasoning exhibit markedly improved performance on tasks
+requiring multi-step inference. The standard interpretation
+is that chain-of-thought forces the model to externalize
+its reasoning trajectory, making previously internal steps
+visible and correctable.
+
+The distinction-geometry framework raises a more pointed question:
+
+\begin{quote}
+Is the model \emph{performing} the reasoning trajectory,
+or merely \emph{describing} a trajectory it did not use?
+\end{quote}
+
+These are not the same. A model could produce a fluent verbal
+description of a reasoning process that is entirely post-hoc
+confabulation, while the actual computation that produced the
+answer preserved no admissible distinctions from the described
+steps.
+
+The test is not whether the chain-of-thought is coherent but
+whether the distinctions drawn in the chain-of-thought
+are preserved in the computation. If removing a step from the
+chain changes the model's output in ways that track the causal
+role of that step, the chain-of-thought preserves admissible
+distinctions. If the chain is rearranged or corrupted without
+affecting the output, it does not.
+
+\subsection{The recoverability requirement}
+
+A stronger condition than distinction preservation is
+\emph{distinction recoverability}: the ability to extract
+a specific distinction from the representation using a
+designated recovery operator.
+
+\begin{definition}[Recoverability]
+\label{def:recover}
+A distinction $d_v$ is \emph{recoverable} from representation $\Proj$
+via operator $R_v$ if there exists a map $R_v : M \to \{0,1\}$ such that
+$R_v(\Proj(x)) = \mathbf{1}[d_v(x,\cdot)]$ for all $x$ in the relevant domain.
+\end{definition}
+
+\begin{principle}[Witness principle]
+\label{prin:witness}
+A claim that distinction $d_v$ is represented in a model $M$
+requires a recovery operator $R_v$ as constructive evidence.
+Without a recovery operator, the claim is an assertion, not a proof.
+\end{principle}
+
+The witness principle is deliberately stringent. It excludes
+post-hoc attribution stories that are consistent with the
+model's behavior but do not reflect a genuine distinction
+in the model's internal structure.
+
+This is not a demand for perfect recovery. Approximate
+recoverability --- with known error bounds --- is sufficient.
+But the recovery operator must exist and be demonstrated,
+not merely hypothesized.
+
+\subsection{Observational and interventional separation}
+
+The admissibility framework distinguishes two levels of distinction:
+those separating cases that look different (\emph{observational})
+and those separating cases that respond differently under intervention
+(\emph{interventional}). A representation that is faithful at the
+observational level may fail at the interventional level.
+
+\begin{theorem}[Observational--Interventional Separation]
+\label{thm:oisep}
+Let $\Proj : \Omega \to M$ be a representation and let $\tau_{obs}$,
+$\tau_{int}$ denote the observational and interventional task families.
+Then:
+\[
+  \dA(\Proj, \tau_{obs}) = 0
+  \;\not\Rightarrow\;
+  \dA(\Proj, \tau_{int}) = 0.
+\]
+Observational faithfulness does not entail interventional faithfulness.
+Equivalently, there exist cases $x, y \in \Omega$ such that
+$\Proj(x) = \Proj(y)$ (observationally identical) but $do(x) \neq do(y)$
+(interventionally distinct), where $do(\cdot)$ denotes the response
+to a perturbation.
+\end{theorem}
+
+\begin{proof}
+It suffices to exhibit a representation that collapses an interventional
+distinction while preserving all observational ones. Let
+$\Omega = \{x_1, x_2, x_3\}$ where $x_1, x_2$ have identical
+observable properties but distinct responses to perturbation $p$:
+$do_p(x_1) = r_1 \neq r_2 = do_p(x_2)$, and $x_3$ is observationally
+distinct. Define $\Proj(x_1) = \Proj(x_2) = m_1$, $\Proj(x_3) = m_2$.
+Then $\dA(\Proj, \tau_{obs}) = 0$ (only observationally distinct cases
+are separated) but $\dA(\Proj, \tau_{int}) > 0$ (the interventional
+distinction $d(x_1, x_2)$ is collapsed).
+\end{proof}
+
+The theorem is a formal statement of a familiar intuition in the
+causal inference literature~\cite{pearl2009}: correlation does not
+imply intervention-reliability. Its significance here is that it
+gives the interpretability reframing a formal result to anchor on.
+A model that achieves low test error may be intervening on a
+statistical proxy rather than the genuine causal variable; the
+Observational--Interventional Separation Theorem says this is
+not merely possible but structurally expected when the training
+signal is purely observational.
+
+The practical test is: if the model's claimed internal distinction
+$d_v$ is manipulated directly (via causal intervention on the
+representation), does the output change in ways that track
+the real-world causal role of $d_v$? If not, the distinction has
+not been recovered; it has been described.
+
+%% ============================================================
+\section{Unification: Six Programs, One Geometry}
+\label{sec:unification}
+%% ============================================================
+
+The framework developed in this paper was not designed to unify
+independent research programs. The unification is a consequence
+of the framework's generality. Nevertheless, it is worth making
+the connections explicit.
+
+\medskip
+\noindent\textbf{Frozen Processes.}
+The Frozen Processes program~\cite{flyxion2026b} studies what happens
+when a distinction structure is assumed fixed: $\Adm_t = \Adm_0$.
+In the language of the present paper, a frozen-process assumption
+blocks distinction reorganization. The consequences are exactly what
+Frozen Processes documents: the accumulation of $\PhiF$ in the form
+of unexplained anomalies, the inability to rematch historical
+observations, and the eventual crisis that forces a reorganization.
+Frozen Processes is the study of the \emph{obstruction to collapse events}.
+
+\medskip
+\noindent\textbf{Persistent Anomalies.}
+The Persistent Anomalies program studies structured residuals that
+resist compression under the current template library.
+In the present framework, a persistent anomaly is a concentrated,
+structured region of the $\PhiF$ field whose misfit gradient points
+toward a specific missing distinction.
+Persistent Anomalies is the study of \emph{$\PhiF$ dynamics and
+the geometry of the investigation frontier}.
+
+\medskip
+\noindent\textbf{Waves of Collapse.}
+The Waves of Collapse program~\cite{flyxion2025d} studies the
+discontinuous structure of archive compression: long plateaus of
+normal encoding punctuated by collapse events.
+In the present framework, this is the Devil's Staircase of
+the total description length $\Lam$ under sequential template admissions.
+Waves of Collapse is the study of \emph{collapse event dynamics and
+the Devil's Staircase structure of $\Lam(t)$}.
+
+\medskip
+\noindent\textbf{Admissibility Geometry.}
+The Admissibility Geometry program formalizes the admissibility
+manifold and the geometry of projection failure.
+It is the foundational mathematical framework from which the
+present paper derives its formal content.
+Admissibility Geometry is the study of \emph{the structure of
+$\Adm_\tau$ and the metrics on the space of distinctions}.
+
+\medskip
+\noindent\textbf{Distinguishability Geometry.}
+The Distinguishability Geometry program studies the metric structure
+of the space of distinctions: how far apart are two cases, how
+much information separates them, how the geometry changes under
+different admissibility assumptions.
+In the present framework, distinguishability geometry provides
+the metric on the distinction space within which collapse events
+are geodesic reorganizations.
+Distinguishability Geometry is the study of \emph{the Riemannian
+structure of the admissibility manifold}.
+
+\medskip
+\noindent\textbf{RSVP (Relativistic Scalar-Vector Plenum).}
+The RSVP program provides the field-theoretic dynamics:
+the equations governing how $\PhiF$, $v$ (rematching flow),
+and $S$ (crystallized entropy) evolve, interact, and generate
+shock fronts at collapse events.
+RSVP is the study of \emph{the thermodynamics of distinction reorganization}.
+
+\medskip
+The six programs are cross-sections of the same geometric object:
+the distinction structure of a domain under pressure from
+accumulated residual and periodic reorganization by collapse events.
+Each program captures a different aspect --- the obstruction to
+collapse, the dynamics of anomaly accumulation, the structure of
+discontinuous events, the geometry of admissibility, the metric
+on distinctions, the thermodynamic field theory of reorganization ---
+but each is addressing the same underlying phenomenon.
+
+%% ============================================================
+\section{Conclusion: The Master Claim and Its Corollaries}
+\label{sec:conclusion}
+%% ============================================================
+
+The argument of this paper can be compressed into seven statements.
+
+\begin{enumerate}
+  \item \textbf{Projection destroys distinctions.}
+        Every nontrivial representation collapses at least one
+        distinction (Theorem~\ref{thm:projection}).
+        Epistemology is the theory of which collapses matter.
+
+  \item \textbf{Admissibility identifies which collapses matter.}
+        A distinction is admissible for a task if collapsing it
+        would impair navigation, intervention, or explanation.
+        Projection failure is admissibility-relative:
+        a harmless collapse for one task may be catastrophic for another.
+
+  \item \textbf{Ontological deficit is invisible from within.}
+        A distinction that is inexpressible in the current vocabulary
+        manifests as structured residual $\PhiF$, not as an identifiable gap.
+        The deficit becomes visible only from the successor vocabulary.
+
+  \item \textbf{Residual density $\PhiF$ is the pressure toward reorganization.}
+        Concentrated, structured $\PhiF$ defines the investigation frontier.
+        Anomalies are not noise; they are the fuel for collapse events.
+
+  \item \textbf{Understanding advances through collapse events.}
+        A collapse event admits a new distinction $d^*$ that
+        reorganizes the existing distinction structure, reduces
+        $\bar\PhiF$ discontinuously, and enables rematching of the
+        accumulated observational archive.
+        Scientific revolutions, memory reconsolidation, archive
+        rematching, and ontology repair in AI are all collapse events.
+
+  \item \textbf{The World-Model Crossover and Directionality Principle
+        mark the boundary between observation-centered and model-centered
+        epistemology.}
+        Below $\nstar$, observations organize theories.
+        Above $\nstar$, theories organize observations.
+        The byte becomes a unit of surprise rather than a unit of size.
+        This is a principle and research program, not yet a theorem
+        with a constructive proof in the general case.
+
+  \item \textbf{Interpretability is distinction verification.}
+        A model understands a domain to the degree that it preserves
+        and makes recoverable the admissible distinctions.
+        Chain-of-thought, mechanistic features, and internal
+        representations are explanatory only insofar as they
+        recover specific distinctions via recoverable operators.
+\end{enumerate}
+
+These seven statements converge on a single master claim:
+
+\begin{quote}
+\textbf{Understanding is not the accumulation of descriptions but
+the reorganization of the distinctions from which descriptions
+are constructed.}
+\end{quote}
+
+And because reorganization is irreducibly historical --- because
+it occurs in time, requires a prior state to reorganize, and
+produces a successor state that cannot be reached by accumulation
+--- understanding is more precisely defined as a \emph{trajectory}:
+
+\begin{quote}
+\textbf{Understanding is a trajectory of distinction reorganization:
+$\Dist_0 \to \Dist_1 \to \Dist_2 \to \cdots$,
+in which each transition expands reachability, reduces residual density,
+and retroactively remaps the accumulated observational archive.}
+\end{quote}
+
+This formulation resolves the tension between the static picture
+(understanding as a property of a representation) and the dynamic
+picture (understanding as a process). Both are correct at different
+levels of description. The static picture characterizes a given
+distinction structure $\Dist_t$ at a moment. The dynamic picture
+characterizes the sequence and its properties. The static picture
+is what a representation has; the dynamic picture is what an
+understander does.
+
+Prediction is not understanding because a predictor can collapse
+admissible distinctions while achieving high accuracy.
+Compression is not understanding because a compressor can reduce
+size while discarding the distinctions required for intervention.
+Description is not understanding because a description can be
+accurate and inaccessible, faithful to the observation and
+unfaithful to the domain.
+
+Understanding is something more specific: a representation that
+preserves the admissible distinctions of a domain, organizes them
+into a structure with maximum reachability, and is capable of
+reorganizing that structure when the residual field demands it.
+
+The geometry of understanding is the geometry of this process.
+It is not the geometry of facts in a space but the geometry of
+distinctions in transformation.
+
+\section*{Acknowledgements}
+
+The RSVP field theory, Admissibility Geometry, Distinguishability
+Geometry, Frozen Processes, and Persistent Anomalies programs
+are developed across the author's ongoing independent research
+corpus.
+The Kuhnian translation in Section~\ref{sec:kuhn} benefited
+from the observation that Kuhn's account becomes quantitative
+once anomalies are identified with structured residual density.
+The crossover theorem in Section~\ref{sec:crossover} is the
+formal precipitate of ideas developed in the Waves of Collapse
+and Rematching Archive programs.
+
+\begin{thebibliography}{99}
+
+\bibitem{bartlett1932}
+Bartlett, F.~C. (1932).
+\textit{Remembering: A Study in Experimental and Social Psychology}.
+Cambridge University Press.
+
+\bibitem{bengio2013}
+Bengio, Y., Courville, A., \& Vincent, P. (2013).
+Representation learning: a review and new perspectives.
+\textit{IEEE Transactions on Pattern Analysis and Machine Intelligence},
+35(8), 1798--1828.
+
+\bibitem{friston2010}
+Friston, K. (2010).
+The free-energy principle: a unified brain theory?
+\textit{Nature Reviews Neuroscience}, 11(2), 127--138.
+
+\bibitem{jaynes2003}
+Jaynes, E.~T. (2003).
+\textit{Probability Theory: The Logic of Science}.
+Cambridge University Press.
+
+\bibitem{kolmogorov1965}
+Kolmogorov, A.~N. (1965).
+Three approaches to the quantitative definition of information.
+\textit{Problems of Information Transmission}, 1(1), 1--7.
+
+\bibitem{kuhn1962}
+Kuhn, T.~S. (1962).
+\textit{The Structure of Scientific Revolutions}.
+University of Chicago Press.
+
+\bibitem{lewis1973}
+Lewis, D. (1973).
+\textit{Counterfactuals}.
+Harvard University Press.
+
+\bibitem{loftus1979}
+Loftus, E.~F. (1979).
+\textit{Eyewitness Testimony}.
+Harvard University Press.
+
+\bibitem{nader2000}
+Nader, K., Schafe, G.~E., \& LeDoux, J.~E. (2000).
+Fear memories require protein synthesis in the amygdala for
+reconsolidation after retrieval.
+\textit{Nature}, 406, 722--726.
+
+\bibitem{pearl2009}
+Pearl, J. (2009).
+\textit{Causality: Models, Reasoning, and Inference}.
+Cambridge University Press.
+
+\bibitem{rissanen1978}
+Rissanen, J. (1978).
+Modeling by shortest data description.
+\textit{Automatica}, 14(5), 465--471.
+
+\bibitem{shannon1948}
+Shannon, C.~E. (1948).
+A mathematical theory of communication.
+\textit{Bell System Technical Journal}, 27, 379--423.
+
+\bibitem{flyxion2025a}
+Flyxion. (2025).
+\textit{The Ecology of Distinctions}.
+Independent monograph, 31 chapters.
+
+\bibitem{flyxion2025b}
+Flyxion. (2025).
+\textit{Constraint, Projection, and Reachability}.
+Independent textbook, 92 chapters.
+
+\bibitem{flyxion2025c}
+Flyxion. (2025).
+\textit{Repair Pressure and the Lifecycle of Distinctions}.
+Independent essay, 34 pages.
+
+\bibitem{flyxion2025d}
+Flyxion. (2025).
+\textit{Waves of Collapse}.
+Independent monograph.
+
+\bibitem{flyxion2026a}
+Flyxion. (2026).
+\textit{Intelligence as Distinction Repair}.
+Independent essay.
+
+\bibitem{flyxion2026b}
+Flyxion. (2026).
+\textit{The Danger of Frozen Processes}.
+Independent essay.
+
+\bibitem{flyxion2026c}
+Flyxion. (2026).
+\textit{The Geometry of Distinction Preservation}.
+Independent essay.
+
+\end{thebibliography}
+
+\end{document}

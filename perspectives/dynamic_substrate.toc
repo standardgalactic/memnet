@@ -1,0 +1,47 @@
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {section}{\numberline {2}RSVP: The Substrate as Dynamic Admissibility Field}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}The RSVP Field Ontology}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Coupled Field Equations}{6}{subsection.2.2}%
+\contentsline {paragraph}{Dimensional analysis.}{6}{equation.2.3}%
+\contentsline {subsection}{\numberline {2.3}Dynamic Admissibility}{6}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Projection, Distortion, and Collapse}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}The Projection Problem}{9}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}The Full State and Its Projection}{9}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}The MPS Projection: A Laboratory Confirmation}{10}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Two Mechanisms of Projection Repair}{10}{subsection.3.4}%
+\contentsline {paragraph}{Substrate remodeling: Cohen et al.~\cite {cohen2020}.}{11}{subsection.3.4}%
+\contentsline {paragraph}{Trajectory preservation: Busch et al.~\cite {busch2022}.}{11}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Why Standard Models Miss Substrate Degrees of Freedom}{12}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Objects as Collapsed Process Histories}{13}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Implications and Applications}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Language}{15}{subsection.4.1}%
+\contentsline {paragraph}{The primary inversion: descriptions before signals.}{15}{subsection.4.1}%
+\contentsline {paragraph}{Compression as projection onto admissible distinctions.}{15}{subsection.4.1}%
+\contentsline {paragraph}{Distinction operations as the primitive elements.}{17}{theorem.4.2}%
+\contentsline {paragraph}{Language as a bundle of domain-specific admissibility manifolds.}{18}{theorem.4.2}%
+\contentsline {paragraph}{The dynamic substrate of language.}{18}{theorem.4.2}%
+\contentsline {subsection}{\numberline {4.2}Scientific Paradigms}{19}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Institutions}{19}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Economies}{20}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Software Systems}{20}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Quantum Many-Body Systems}{21}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Deep Network Hierarchies}{22}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}The General Pattern}{22}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}The Frozen-Process Connection}{23}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Memory, Trajectory Stabilization, and the History Encoded in Constraint Geometry}{24}{subsection.4.10}%
+\contentsline {subsection}{\numberline {4.11}Catastrophic Forgetting in Neural Networks}{25}{subsection.4.11}%
+\contentsline {subsection}{\numberline {4.12}Institutional Path Dependence as Geometric Necessity}{25}{subsection.4.12}%
+\contentsline {subsection}{\numberline {4.13}Sleep as Substrate Maintenance}{25}{subsection.4.13}%
+\contentsline {subsection}{\numberline {4.14}The Phenomenology of Learning}{26}{subsection.4.14}%
+\contentsline {section}{\numberline {5}Conclusion}{26}{section.5}%
+\contentsline {section}{\numberline {A}Formal Grammars of the Three Frameworks and Their Synthesis}{28}{appendix.A}%
+\contentsline {section}{\numberline {B}The Frozen-Manifold Approximation and Its Limits}{32}{appendix.B}%
+\contentsline {section}{\numberline {C}Dynamic Reachability Geometry}{33}{appendix.C}%
+\contentsline {section}{\numberline {D}Concrete Realizations of Admissibility Distortion}{33}{appendix.D}%
+\contentsline {paragraph}{Hausdorff distortion.}{33}{appendix.D}%
+\contentsline {paragraph}{Measure-theoretic distortion.}{34}{appendix.D}%
+\contentsline {paragraph}{Information-geometric distortion.}{34}{appendix.D}%
+\contentsline {section}{\numberline {E}Category-Theoretic Formulation}{34}{appendix.E}%
+\contentsline {section}{\numberline {F}Relation to Markov Blankets}{35}{appendix.F}%
+\contentsline {section}{\numberline {G}Substrate Memory Without Explicit Storage}{36}{appendix.G}%
+\contentsline {section}{Appendix G: Notation and Symbol Glossary}{38}{theorem.G.3}%

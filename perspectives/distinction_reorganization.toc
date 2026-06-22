@@ -1,0 +1,33 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {section}{\numberline {2}Projection and Distinction Destruction}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Representations as projections}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}The Weierstrass obstruction}{5}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Admissibility and Ontological Deficit}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Admissible distinctions}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Ontological deficit}{6}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Residual Structure Density and the Pressure Toward Collapse}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Definition and properties}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}The pressure toward collapse}{8}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Paradigm Change as Distinction Reorganization}{9}{section.5}%
+\contentsline {subsection}{\numberline {5.1}The Kuhnian framework revisited}{9}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Normal science as local optimization}{9}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Anomaly accumulation as pressure}{10}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Revolution as distinction reorganization}{10}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Kuhn loss and distinction retirement}{11}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Incommensurability without relativism}{11}{subsection.5.6}%
+\contentsline {section}{\numberline {6}The World-Model Crossover Theorem}{12}{section.6}%
+\contentsline {subsection}{\numberline {6.1}The crossover condition}{12}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}The byte as a unit of surprise}{13}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Crossover and the diversity requirement}{13}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Post-crossover rematching}{14}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Memory as Distinction Reorganization}{14}{section.7}%
+\contentsline {subsection}{\numberline {7.1}The recording illusion}{14}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Reconsolidation as local collapse}{15}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}The compressibility of the past}{15}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Interpretability as Distinction Verification}{16}{section.8}%
+\contentsline {subsection}{\numberline {8.1}The interpretability reframing}{16}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Chain-of-thought and the trajectory question}{16}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}The recoverability requirement}{16}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Observational and interventional separation}{17}{subsection.8.4}%
+\contentsline {section}{\numberline {9}Unification: Six Programs, One Geometry}{18}{section.9}%
+\contentsline {section}{\numberline {10}Conclusion: The Master Claim and Its Corollaries}{19}{section.10}%

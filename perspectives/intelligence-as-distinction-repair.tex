@@ -1,0 +1,825 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{mathrsfs}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{tcolorbox}
+\usepackage{titling}
+\usepackage{microtype}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\setlength{\droptitle}{-2.5em}
+
+\title{\textbf{Intelligence as Distinction Repair}\\[0.3em]
+\large How Seeing, Misunderstanding, and Surviving Are the Same Problem}
+\author{Flyxion}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent
+This essay argues that seeing, disagreeing, and being intelligent are three views of a single underlying activity: repairing distinctions that have started to fail. A distinction is not a thing but an ongoing maintenance burden --- a wager that some boundary will keep doing useful work, sustained only by continued repair. Objects, categories, and selves persist not because they were perceived correctly once, but because they have survived repeated repair. Two systems can agree on every present observation and still disagree, because they have compressed different repair histories into the same current state: misunderstanding is path-dependent distinction divergence. Intelligence is the capacity to keep repairing --- not to predict, compress, or optimize --- and is sharper than the usual competence/intelligence split once execution, competence, and intelligence are separated as three distinct tiers. Good repair is repair that preserves a system's \emph{future} capacity to repair, which connects this account to admissibility and explains technical debt, bureaucratic sclerosis, and overfitting as a single phenomenon: successful local repair producing global loss of repairability. The account is then extended in three steps. Projections can fail independently of the labels built on top of them, and no amount of repair confined to those labels can fix a projection that has collapsed cases the world requires to be kept apart (CLIO). A repair can look successful at the current instant while the trajectory it belongs to drifts away from every admissible future, making the failure a delayed collapse rather than an absence of one (TARTAN). And large systems distribute repair across many agents, whose locally admissible repairs can interfere with one another, which forces a further level at which the repair process itself --- not just the distinctions it acts on --- must be revised (HYDRA). These three extensions nest inside a single recursive objective, of which the earlier repair-capacity and admissibility measures are special cases. The essay then turns the recursion in two further directions. Run forward under an economics of specialization, it predicts that recurring failure classes crystallize into dedicated repair subsystems, giving a derivation --- rather than a mere analogy --- of de Gyurky's eight-faculty architecture for autonomous minds as a candidate instance of a more general Faculty Emergence Theorem. Run sideways into category theory, the same recursion identifies projection failure with the loss of functorial faithfulness, admissibility with a subcategory condition, meta-repair with a 2-categorical structure, and misunderstanding with a genuine cohomological obstruction to gluing local sections of a sheaf --- sharpening the earlier, informal account of path-dependent disagreement into a claim that some disagreements cannot be dissolved by any amount of further pairwise comparison. Finally, the essay asks why repair-capable systems exist at all, and offers an answer that does not require an inferring agent: such systems exist because the alternative does not persist. This reframing shifts the explanatory primitive from \emph{inference} to \emph{persistence}, which is a genuine conceptual gain over standard free-energy language rather than a relabeling of it.
+\end{abstract}
+
+\newpage
+\vspace{0.5em}
+\noindent\textbf{Notation.}
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lp{10.3cm}}
+$X$ & space of events, cases, or observations \\
+$d : X \to C$ & a distinction (categorical or distributional) \\
+$\mathcal{D}$ & space of possible distinctions \\
+$\ell(d,x)$ & loss incurred when distinction $d$ meets case $x$ \\
+$F_T(d)$ & cumulative failure pressure on $d$ over $T$ cases \\
+$R : \mathcal{D}\times X \to \mathcal{D}$ & a repair operator \\
+$d^\ast$ & a repair-stable (fixed-point) distinction \\
+$H_A$ & the repair history of system $A$ \\
+$M(A,B;x)$ & projection mismatch between $A$ and $B$ at $x$ \\
+$\mathcal{A}(d)$ & admissible future region under distinction $d$ \\
+$V_t = \operatorname{Vol}(\mathcal{A}(d_t))$ & reachable volume at time $t$ \\
+$\mathcal{I}(S),\ \mathcal{I}_A(S)$ & repair capacity / admissibility-weighted intelligence of $S$ \\
+$\mathcal{F}(q)$ & free-energy-like failure-pressure functional \\
+\midrule
+$\pi_t : X \to \mathcal{Y}_t$ & projection into model space $\mathcal{Y}_t$ at time $t$ \\
+$c_t(x) = d_t(\pi_t(x))$ & induced classification through the projection \\
+$S_{\pi_t}(y)$ & representational entropy of the fiber over $y \in \mathcal{Y}_t$ \\
+$\gamma,\ \mu_t = \pi_t\circ\gamma$ & a trajectory and its projected image \\
+$\mathcal{L}_T(\pi,d,\gamma)$ & trajectory loss \\
+$\Gamma_{\mathrm{adm}}$ & set of admissible reference trajectories \\
+$D_i,\ D_{\mathrm{collective}}$ & local and collective distinction systems \\
+$C(t)$ & coordination coherence across agents \\
+$\mathcal{R}_t = \{R_i\}$ & repair operator library at time $t$ \\
+$Q(R_i)$ & score of repair operator $R_i$ \\
+$\mathcal{M} : \mathcal{R}_t \to \mathcal{R}_{t+1}$ & meta-repair operator \\
+$\mathcal{H}$ & full system-update recursion \\
+$\mathcal{J}$ & integrated repair objective \\
+\midrule
+$F,\ R_F,\ \Sigma_F$ & a failure class, its specialized repair, its crystallized faculty \\
+$C_F,\ C_{\mathrm{gen}},\ C_F^{\mathrm{build}}$ & per-occurrence and build/maintenance cost of specialized vs.\ generic repair \\
+$n_F = \mathbb{E}[\#F_t]\cdot T$ & expected class-$F$ occurrences in a window of length $T$ \\
+$\theta_F$ & critical occurrence-rate threshold for specialization \\
+\end{tabular}
+\end{center}
+
+\section{Distinctions Fail}
+
+Every cognitive act presupposes a distinction. Figure against ground. This against not-this. Object against non-object. Before you can recognize a chair, disagree about fairness, or solve a problem, something has already drawn a line.
+
+The line is not given by the world. It is imposed on the world, and then it has to hold up under contact with the world. A friendship is a distinction --- this relationship counts as one, that one does not --- and it has to survive years of ambiguous behavior to remain a friendship. A species is a distinction that has to survive hybridization, gradual variation, and disagreement among taxonomists. A legal entity is a distinction that has to survive mergers, bankruptcies, and litigation. A word's meaning is a distinction that has to survive being used in situations nobody anticipated when the word was coined.
+
+None of these distinctions are facts in the sense of being simply true. They are bets. A distinction is a wager that some boundary will keep doing useful work as new cases arrive. But this understates the matter. The stronger and more accurate claim is:
+
+\begin{center}
+\emph{A distinction is not a thing. It is an ongoing maintenance burden.}
+\end{center}
+
+\noindent This single sentence is doing real work. It explains why distinctions fail by default rather than as an exception, why repair has to exist as a standing activity rather than an occasional correction, and why intelligence --- once it is introduced in Section 4 --- turns out to be exactly the capacity to carry that burden.
+
+We can make the failure precise. Let $X$ be a space of events, cases, or observations. A \emph{distinction} is a map
+\[
+d : X \to \{0,1\}, \qquad \text{or more generally} \qquad d : X \to C,
+\]
+where $C$ is a finite or structured category space. New cases $x_1, x_2, \dots$ are encountered over time, and each one incurs a loss $\ell(d, x_t)$ measuring how badly the current distinction handles that case. The cumulative pressure on a distinction after $T$ cases is
+\[
+F_T(d) = \sum_{t=1}^{T} \ell(d, x_t).
+\]
+
+\begin{definition}[Instability]
+A distinction $d$ is \emph{unstable at tolerance $\theta$} if $F_T(d) > \theta$ for some finite $T$.
+\end{definition}
+
+\begin{proposition}[Persistence Requires Tolerable Failure]
+A distinction $d$ continues to be used without revision only while $F_T(d) \le \theta$ for the tolerance $\theta$ of the system maintaining it.
+\end{proposition}
+
+\begin{proof}
+By definition, once $F_T(d) > \theta$ the distinction is classified as unstable, which is precisely the condition under which a maintaining system is forced to either revise $d$ or abandon it. Hence continued unrevised use is equivalent to remaining below threshold.
+\end{proof}
+
+This is close to definitional, but it is worth stating formally because it fixes the vocabulary for everything that follows: distinctions are not binary (working / broken) but accumulate pressure, and what counts as ``broken'' is a threshold set by whatever is relying on the distinction, not a property of the distinction alone.
+
+\section{Seeing Is Repair}
+
+The usual story about perception runs in one direction: reality $\to$ perception $\to$ representation. The world is out there, fully formed; perception samples it; representation records the sample. On this story, a chair is \emph{seen} because a chair is \emph{there}, and seeing is basically a transcription problem.
+
+The alternative offered here runs differently: disturbance $\to$ repair $\to$ stabilized distinction. You do not perceive a chair as a single static category that the world simply confirms. You perceive a chair because, across thousands of encounters --- a stool, a stump someone is sitting on, a broken chair with one leg missing, a beanbag, a church pew --- the category has been quietly patched, narrowed, stretched, and re-stabilized so that it keeps doing useful work. Every near-violation that did not actually break the category is a small successful repair, almost always invisible, almost never noticed as an event.
+
+Formally, let $\mathcal{D}$ be the space of possible distinctions. A \emph{repair operation} is a map
+\[
+R : \mathcal{D} \times X \to \mathcal{D}, \qquad d_{t+1} = R(d_t, x_t),
+\]
+so that encountering a difficult case $x_t$ updates the distinction rather than merely applying it. Seeing an object is not simply evaluating $d(x)$; it is the stabilized limit of repeated repair,
+\[
+d_0 \xrightarrow{\,x_1\,} d_1 \xrightarrow{\,x_2\,} d_2 \xrightarrow{\,x_3\,} \cdots
+\]
+
+\begin{definition}[Repair-Stable Distinction]
+A distinction $d^\ast \in \mathcal{D}$ is \emph{repair-stable} if $R(d^\ast, x) \approx d^\ast$ for ordinary perturbations $x$ --- that is, $d^\ast$ is (approximately) a fixed point of the repair operator under the perturbations the system actually encounters.
+\end{definition}
+
+\begin{proposition}[Objecthood as Fixed Point]
+Object-categories are repair-stable distinctions: $d_t \to d^\ast$, or more weakly $\ell(d_t, x_t) < \epsilon$ for most subsequent cases, exactly when the distinction has reached (or entered a small neighborhood of) a fixed point of $R$.
+\end{proposition}
+
+\begin{proof}
+If $d_t \to d^\ast$ then for all $\delta>0$ there exists $T$ such that for $t>T$, $d_t$ lies within $\delta$ of $d^\ast$ under whatever metric $\mathcal{D}$ carries, and by continuity of $R$ in its first argument, $R(d_t,x_t) \approx R(d^\ast,x_t) \approx d^\ast$, so $\ell(d_t,x_t)$ approaches the loss of an actual fixed point, which is small by definition of repair-stability. The weak form follows by taking $\epsilon$ in place of $\delta$ directly on the loss rather than on $\mathcal{D}$ itself.
+\end{proof}
+
+An object is therefore not primitive. It is a repair-stable distinction --- the residue of a repair process that has, for now, stopped finding anything to fix. A distinction that no longer receives repair does not disappear; it freezes, becoming a noun preserved by habit rather than by the activity that originally stabilized it, which is exactly what makes frozen distinctions the ones most likely to fail silently.
+
+\begin{remark}[Path-Dependence of Stable Distinctions]
+\label{rem:path-dependence}
+Fixed points of $R$ need not be unique, and $\mathcal{D}$ need not be a space with a single global attractor. Two repair trajectories starting from the same $d_0$ but exposed to different sequences of cases can converge to \emph{different} fixed points $d_A^\ast \ne d_B^\ast$, each individually repair-stable in the sense above. This single observation is the hinge on which the rest of the essay turns: a stabilized distinction encodes not just its current behavior but the particular history of repairs that produced it, and that history is in general not recoverable from the present state alone. Two systems can therefore agree on every observation available to them today and still disagree, because what each of them is looking at is the compressed residue of a different trajectory through the space of possible repairs --- not a different map of the same territory, but a different \emph{path} through map-space.
+\end{remark}
+
+\section{Misunderstanding Is Repair Failure}
+
+Remark \ref{rem:path-dependence} has an immediate consequence. If every stabilized distinction is the residue of a private history of repairs, then two systems --- two people, two institutions, two disciplines --- that have undergone different repair histories will carve the same situation differently, even when they are looking at identical raw material right now.
+
+Formally, let two agents or systems $A$ and $B$ have repair histories
+\[
+H_A = (x_1^A, \dots, x_m^A), \qquad H_B = (x_1^B, \dots, x_n^B),
+\]
+and let their present distinctions be $d_A = R_{H_A}(d_0)$ and $d_B = R_{H_B}(d_0)$, where $R_H$ denotes the composition of $R$ along the history $H$. Even confronted with the same new case $x$, they may classify it differently: $d_A(x) \ne d_B(x)$. Define the \emph{projection mismatch} between $A$ and $B$ at $x$ as
+\[
+M(A,B;x) = \mathbf{1}[\,d_A(x) \ne d_B(x)\,],
+\]
+or, when distinctions output distributions $d_A(x), d_B(x) \in \Delta(C)$ rather than hard labels,
+\[
+M(A,B;x) = D_{\mathrm{KL}}\big(d_A(x) \,\Vert\, d_B(x)\big).
+\]
+
+\begin{proposition}[Path-Dependent Disagreement]
+\label{prop:disagreement}
+If $R$ is not globally contractive to a single fixed point --- i.e.\ if $\mathcal{D}$ admits more than one repair-stable distinction reachable from $d_0$ --- then there exist histories $H_A \ne H_B$ and a case $x$ such that $d_A(x) \ne d_B(x)$, even though $A$ and $B$ are responding to the same $x$.
+\end{proposition}
+
+\begin{proof}
+By hypothesis there exist two distinct repair-stable points $d_A^\ast \ne d_B^\ast$, each attracting some open set of histories. Choose $H_A$ in the basin of $d_A^\ast$ and $H_B$ in the basin of $d_B^\ast$; such histories exist by openness of the basins. Then $d_A = d_A^\ast \ne d_B^\ast = d_B$ as distinctions, so by definition of distinctness as maps there is some $x \in X$ with $d_A(x) \ne d_B(x)$.
+\end{proof}
+
+\begin{remark}
+The hypothesis matters. If $R$ were globally contractive --- a single basin, a single fixed point reachable from any history --- then path-dependent disagreement of this kind could not arise, and all disagreement would reduce to incomplete information about a shared, eventually-converging distinction. Proposition \ref{prop:disagreement} should therefore be read as identifying \emph{when} misunderstanding is structural rather than informational: precisely when the repair dynamics admit multiple stable basins, which is the generic case for any sufficiently expressive $\mathcal{D}$.
+\end{remark}
+
+It is worth naming the two species of disagreement this produces separately, since they call for different responses. The first is disagreement \emph{inside} a shared distinction system: both sides use the same $d$, and differ only in which $x$'s they have observed. This is resolvable, in principle, by more information. The second is disagreement \emph{between} distinction systems --- projection mismatch in the sense of $M(A,B;x)$ above. No amount of fact-sharing closes this gap, because the facts are being filtered through carves that do not align. What is needed instead is something closer to translation, or negotiation over the distinction itself, or joint repair work on the boundary actually in dispute.
+
+A political argument about ``fairness'' is often the second kind: both sides can agree on the empirical record and still disagree, because ``fair'' has been repaired along different historical paths for each of them. A disagreement between a manager and a worker about ``productivity'' is rarely about the numbers on a dashboard; it is about which distinction the numbers are even supposed to track. Most protracted disagreements that more research or more facts repeatedly fail to resolve are, on inspection, disagreements of the second kind dressed up as the first.
+
+This raises an obvious next question. If repair is what produces stable distinctions, and divergent repair histories are what produce misunderstanding, then which systems are good at this kind of work in the first place --- and what does it mean for one system to be \emph{better} at it than another?
+
+\section{Intelligence Is Repair Capacity}
+
+The standard candidates for defining intelligence all fail in the same way. Prediction cannot be the answer, because a calculator predicts the result of an arithmetic operation with perfect reliability and nobody calls a calculator intelligent. Compression cannot be the answer, because a lossy compressor discards exactly the information that does not matter for reconstruction, with no understanding of anything. Optimization cannot be the answer, because a thermostat optimizes a single variable continuously and tirelessly, and remains a thermostat.
+
+What is missing in each case is the same thing: none of these systems can notice that the distinction it depends on has stopped fitting events, and none of them can revise that distinction while preserving what still works. This calls for separating three tiers rather than two.
+
+\begin{definition}[Execution, Competence, Intelligence]
+Let a system $S$ possess a set of distinctions $D_S = \{d_1,\dots,d_k\}$ and a repair operator family $\mathcal{R}_S$.
+\begin{enumerate}[label=(\roman*),itemsep=2pt]
+\item \textbf{Execution} is bare application of a fixed distinction: $x \mapsto d(x)$, with no claim about quality.
+\item \textbf{Competence} is execution with low expected loss under ordinary cases: $\mathbb{E}_x[\ell(d,x)] \ll 1$ for $x$ drawn from the distribution $S$ normally encounters.
+\item \textbf{Intelligence} is the capacity to revise $d$ itself when competence breaks: $d_{t+1} = R(d_t, x_t)$ for $R \in \mathcal{R}_S$, in response to cases that competence alone cannot handle.
+\end{enumerate}
+\end{definition}
+
+This separates a calculator (execution without revision), a domain expert operating well inside a stable field (competence), and an innovator who notices the field's categories have stopped fitting and reworks them (intelligence) --- three different properties routinely collapsed into a single word.
+
+\begin{definition}[Repair Capacity]
+The repair capacity of $S$ is
+\[
+\mathcal{I}(S) \;=\; \mathbb{E}_{x_t}\left[\, \max_{R \in \mathcal{R}_S} \big(\ell(d_t,x_t) - \ell(R(d_t,x_t),x_t)\big) \,\right],
+\]
+the expected reduction in distinction failure achievable by the best available repair under disturbance.
+\end{definition}
+
+On this definition, intelligence is not a possession but a rate --- something a system is currently doing, or has recently stopped doing --- rather than a fixed quantity it has. A person, an institution, or a species can lose intelligence in this sense without losing any existing knowledge, simply by losing the capacity to notice when that knowledge has stopped fitting. A system that hallucinates confidently when its training distinctions stop matching the situation in front of it is exhibiting competence without intelligence: fluent operation inside a frame, with no loop that checks whether the frame still applies.
+
+\section{Admissibility and Reachability}
+
+Repair capacity, as defined in Section 4, says nothing about \emph{which} repairs are good. This matters, because not all repairs are equally good, and the difference is not about how well a repair fixes the immediate problem but about what it does to the system's future.
+
+Let $\mathcal{A}(d_t)$ denote the admissible future region available under the current distinction system at time $t$, with reachable volume $V_t = \operatorname{Vol}(\mathcal{A}(d_t))$.
+
+\begin{definition}[Local vs.\ Global Repair Success]
+A repair $d_t \to d_{t+1}$ is \emph{locally successful} if
+\[
+\ell(d_{t+1}, x_t) < \ell(d_t, x_t).
+\]
+It is \emph{globally good} if it is locally successful \emph{and} preserves future repairability:
+\[
+\operatorname{Vol}\big(\mathcal{A}(d_{t+1})\big) \;\ge\; \operatorname{Vol}\big(\mathcal{A}(d_t)\big) - \epsilon.
+\]
+A repair is \emph{bad} if it is locally successful but
+\[
+\operatorname{Vol}\big(\mathcal{A}(d_{t+1})\big) \;\ll\; \operatorname{Vol}\big(\mathcal{A}(d_t)\big).
+\]
+\end{definition}
+
+A special case bolted onto a piece of code makes today's bug disappear while making the code harder to repair tomorrow: locally successful, globally bad. A refactor that removes an underlying ambiguity makes the next bug easier to find: locally successful and globally good. The distinction is not about how clean the fix looks in the moment; it is about whether the repair leaves the system more or less able to repair itself again.
+
+This motivates strengthening the definition of intelligence itself. The bare repair-capacity measure $\mathcal{I}(S)$ from Section 4 rewards any locally successful repair, including bad ones. The admissibility-weighted measure does not:
+\begin{equation}
+\boxed{\;\mathcal{I}_A(S) \;=\; \mathbb{E}\Big[-\Delta\ell \;+\; \lambda\, \Delta \log \operatorname{Vol}\big(\mathcal{A}\big)\Big]\;}
+\label{eq:IA}
+\end{equation}
+where $-\Delta\ell = \ell(d_t,x_t) - \ell(d_{t+1},x_t)$ is the immediate gain and $\Delta \log V = \log V_{t+1} - \log V_t$ is the change in log-reachable-volume, with $\lambda > 0$ trading off the two. Equation~\eqref{eq:IA} is a discrete-time, finite-difference statement of a more compact continuous-time claim:
+\begin{equation}
+\boxed{\;\text{Intelligence} \;\approx\; \frac{d}{dt}\big(\text{Future Repair Capacity}\big)\;}
+\label{eq:Idot}
+\end{equation}
+Equation~\eqref{eq:Idot} is the stronger and more original statement of the two. It says that what should be tracked is not how much a system repairs, nor even how well, but whether its capacity to repair in the future is growing or shrinking as a result of what it just did. A repair that solves today's problem while reducing tomorrow's flexibility has \emph{negative} intelligence by this measure, however well it scores by $\mathcal{I}(S)$ alone.
+
+\begin{proposition}[Anti-Intelligent Repair]
+There exist repairs that strictly increase $\mathcal{I}(S)$ while strictly decreasing $\mathcal{I}_A(S)$.
+\end{proposition}
+\begin{proof}
+Construct $R$ so that $\ell(d_{t+1},x_t) < \ell(d_t,x_t)$ (positive contribution to $\mathcal{I}(S)$) by adding a special case to $d_t$ that handles $x_t$ exactly, while that special case removes a previously-available branch point from $\mathcal{A}(d_t)$, so that $\operatorname{Vol}(\mathcal{A}(d_{t+1})) < \operatorname{Vol}(\mathcal{A}(d_t))$. Such $R$ exist whenever $\mathcal{D}$ permits case-specific patches that are not also structural generalizations --- which is the generic situation for any distinction system rich enough to support both kinds of repair. Then $-\Delta\ell > 0$ while $\Delta \log V < 0$, so for $\lambda$ large enough, $\mathcal{I}_A(S) < 0$ even though the local term alone would register as a gain.
+\end{proof}
+
+This single proposition gives a unifying account of technical debt, bureaucratic sclerosis, institutional collapse, dogmatism, and overfitted AI systems: all of them are cases of successful local repair producing a global loss of repairability, recognizable as such only once intelligence is measured by Equation~\eqref{eq:Idot} rather than by raw repair frequency.
+
+\section{Projection Repair and CLIO}
+\label{sec:clio}
+
+Sections 1 through 5 treated $X$ as the direct domain of a distinction $d : X \to C$. This was a simplification. A system practically never has direct access to $X$; it has access only through some representation it has built. The full picture replaces a single distinction with a pair: a \emph{projection} and a distinction defined on the projection's image.
+
+\begin{definition}[Projection and Induced Distinction]
+A projection at time $t$ is a map $\pi_t : X \to \mathcal{Y}_t$ into a model space $\mathcal{Y}_t$. A distinction at time $t$ is a map $d_t : \mathcal{Y}_t \to C$ defined on the projection's image rather than on $X$ directly. The induced classification of an event $x \in X$ is
+\[
+c_t(x) = d_t(\pi_t(x)).
+\]
+\end{definition}
+
+\begin{remark}
+This recovers Sections 1--5 as the special case $\pi_t = \mathrm{id}_X$, $\mathcal{Y}_t = X$. Everything proved there about $d_t$ continues to hold with $d_t \circ \pi_t$ in place of $d_t$; what is new is that the projection itself can now fail independently of the distinction defined on top of it.
+\end{remark}
+
+A projection fails when it collapses cases that the ground truth requires to be kept apart.
+
+\begin{definition}[Projection Fiber and Representational Entropy]
+The fiber of $\pi_t$ over $y \in \mathcal{Y}_t$ is $\pi_t^{-1}(y) = \{x \in X : \pi_t(x) = y\}$. The representational entropy of $\pi_t$ at $y$ is
+\[
+S_{\pi_t}(y) = \log \operatorname{Vol}\big(\pi_t^{-1}(y)\big).
+\]
+\end{definition}
+
+\begin{definition}[CLIO Failure]
+$\pi_t$ suffers a \emph{CLIO failure} at $x_1, x_2 \in X$ if
+\[
+\pi_t(x_1) = \pi_t(x_2) \qquad \text{but} \qquad c^\ast(x_1) \ne c^\ast(x_2),
+\]
+where $c^\ast$ is the ground-truth classification the system is answerable to. A CLIO failure is a case where two realities have been treated as one thing.
+\end{definition}
+
+CLIO failures matter because no amount of repair confined to $d_t$ can fix them.
+
+\begin{theorem}[Projection Floor]
+\label{thm:floor}
+Fix $\pi_t$. For any choice of $d_t : \mathcal{Y}_t \to C$,
+\[
+\mathbb{E}_x\big[\ell(d_t(\pi_t(x)), c^\ast(x))\big] \;\ge\; \mathbb{E}_{y \sim \pi_{t\ast}P}\big[\ell_{\min}(y)\big],
+\]
+where $\ell_{\min}(y) = \min_{c \in C} \mathbb{E}_{x \mid \pi_t(x)=y}\big[\ell(c, c^\ast(x))\big]$ is the irreducible loss of the best constant label on the fiber over $y$, and $\pi_{t\ast}P$ is the pushforward of the data distribution under $\pi_t$.
+\end{theorem}
+\begin{proof}
+Since $d_t$ depends on $x$ only through $\pi_t(x)$, the value $d_t(\pi_t(x))$ is constant on each fiber $\pi_t^{-1}(y)$; call this constant value $d_t(y)$. For each fixed $y$, $\mathbb{E}_{x\mid \pi_t(x)=y}[\ell(d_t(y), c^\ast(x))] \ge \ell_{\min}(y)$ by definition of $\ell_{\min}(y)$ as the minimum over constant labels. Taking the expectation over $y \sim \pi_{t\ast}P$ and applying the law of total expectation over fibers gives the stated bound, with equality iff $d_t(y)$ attains the minimizing label on every fiber.
+\end{proof}
+
+\begin{corollary}
+If $c^\ast$ is non-constant on some fiber of positive measure, then $\ell_{\min}(y) > 0$ on that fiber, and the bound in Theorem~\ref{thm:floor} is strictly positive. No revision of $d_t$ alone can drive expected loss to zero; only revising $\pi_t$ can.
+\end{corollary}
+
+This is the formal content behind the informal claim that the deepest repairs alter the projection rather than the labels built on top of it. A repaired projection should trade off fitting the current data against collapsing too much of $X$ into each fiber:
+\begin{equation}
+\pi_{t+1} = \arg\min_{\pi} \; \mathbb{E}_{x \sim P_t}\Big[\ell\big(d_t(\pi(x)), c^\ast(x)\big) + \alpha\, S_{\pi}(\pi(x))\Big],
+\label{eq:clio-repair}
+\end{equation}
+the entropy term penalizing projections that achieve low loss only by being too coarse to ever be tested against the cases that would break them.
+
+\begin{tcolorbox}[title=Projection Repair Principle]
+A system becomes intelligent at the CLIO level when it can repair not only the distinctions drawn within a projection, but the projection generating those distinctions. Repair confined to $d_t$ is bounded below by the Projection Floor; repair of $\pi_t$ is not.
+\end{tcolorbox}
+
+\section{Trajectory Repair and TARTAN}
+\label{sec:tartan}
+
+The Projection Floor shows that repairing labels is not enough when the representation itself is too coarse. A second, independent limitation appears even when the projection and the labels are both adequate at every instant: a system that is only ever evaluated state-by-state can be failing along its trajectory without this ever showing up at any single state.
+
+\begin{definition}[Trajectory and Trajectory-Level Distinction]
+A trajectory is a map $\gamma : [0,T] \to X$. Its projected trajectory is $\mu_t = \pi_t \circ \gamma$. A state-level distinction classifies $d_t(\pi_t(x))$ for a single $x$; a trajectory-level distinction $D_t$ classifies the whole path, $D_t(\pi_t \circ \gamma)$.
+\end{definition}
+
+\begin{definition}[Trajectory Loss]
+Let $\Gamma_{\mathrm{adm}}$ denote the set of admissible reference trajectories and $D(\cdot, \Gamma_{\mathrm{adm}})$ a distance from a trajectory to that set. The trajectory loss of $(\pi,d)$ along $\gamma$ is
+\[
+\mathcal{L}_T(\pi,d,\gamma) = \int_0^T \ell\big(d(\pi(\gamma(s))), c^\ast(\gamma(s))\big)\, ds \;+\; \beta\, D\big(\pi\circ\gamma, \Gamma_{\mathrm{adm}}\big).
+\]
+\end{definition}
+
+\begin{proposition}[Invisible Trajectory Failure]
+\label{prop:invisible}
+There exist $(\pi, d, \gamma)$ such that the instantaneous loss at the current time $t$ is arbitrarily small, $\ell(d(\pi(\gamma(t))), c^\ast(\gamma(t))) < \epsilon$, while $D(\pi\circ\gamma,\Gamma_{\mathrm{adm}})$ is strictly increasing at $t$ and the trajectory loss $\mathcal{L}_T(\pi,d,\gamma)$ is bounded away from zero.
+\end{proposition}
+\begin{proof}
+Construct $\gamma$ so that $\pi \circ \gamma$ tracks $\Gamma_{\mathrm{adm}}$ closely enough at every instant up to $t$ for $d$ to classify it correctly pointwise, giving small instantaneous loss throughout $[0,t]$ by direct choice of $\gamma$ near the admissible set. Independently, set the rate of departure $\frac{d}{ds}D(\pi\circ\gamma,\Gamma_{\mathrm{adm}})\big|_{s=t} > 0$ by choosing $\gamma$ to drift along a direction orthogonal to the level sets of $\ell(d(\pi(\cdot)),c^\ast(\cdot))$ but not to those of $D(\cdot,\Gamma_{\mathrm{adm}})$; such a direction exists whenever the two level-set families are not identical, which holds generically. Integrating the increasing distance term over $[0,T]$ then yields $\mathcal{L}_T$ bounded away from zero despite small pointwise loss throughout $[0,t]$.
+\end{proof}
+
+Proposition~\ref{prop:invisible} is the formal statement of an observation made informally in Section 5: a company can look healthy on every quarterly report while following a trajectory that is, in aggregate, unrecoverable; a person can score well on every instantaneous measure of functioning while moving steadily toward burnout. State-level repair is blind to exactly this.
+
+\begin{theorem}[Trajectory Repair]
+\label{thm:trajectory}
+Let a repair act on the present state, $d_t \to d_{t+1}$, with $\ell(d_{t+1}(\pi_t(x_t)), c^\ast(x_t)) < \ell(d_t(\pi_t(x_t)), c^\ast(x_t))$, while leaving the trajectory's distance to $\Gamma_{\mathrm{adm}}$ non-decreasing, $\frac{d}{dt}D(\mu_t,\Gamma_{\mathrm{adm}}) \ge 0$. Then the repair is locally successful in the sense of Section 5 but fails the trajectory-level admissibility condition of this section.
+\end{theorem}
+\begin{proof}
+The first clause restates Section 5's definition of local success, evaluated at $x_t$ through the projection. The second clause is the trajectory-level analogue of Section 5's global-goodness condition $\operatorname{Vol}(\mathcal{A}(d_{t+1})) \ge \operatorname{Vol}(\mathcal{A}(d_t)) - \epsilon$ failing once admissibility is measured along $\gamma$ rather than at a point: non-decreasing distance to $\Gamma_{\mathrm{adm}}$ means the repair has not preserved, and may have shrunk, the trajectory's standing relative to the admissible set. A repair satisfying the first clause while violating the second therefore meets Section 5's own criterion for a bad repair, restated at the trajectory level.
+\end{proof}
+
+\begin{tcolorbox}[title=Trajectory Repair Theorem]
+A repair that improves the present state while moving the trajectory away from the admissible set is not a repair. It is a delayed collapse, made invisible by measuring success only at single instants.
+\end{tcolorbox}
+
+This motivates folding projection and trajectory failure into one repair objective:
+\[
+(\pi_{t+1}, d_{t+1}) = \arg\min_{\pi,d}\Big[\mathcal{L}_T(\pi,d,\gamma) + \alpha S_\pi - \lambda \log \operatorname{Vol}(\mathcal{A}(\pi,d))\Big],
+\]
+which sharpens the admissibility-weighted intelligence measure of Equation~\eqref{eq:IA} by replacing its point-wise reachable-volume term with a trajectory-wide admissibility distance.
+
+\section{Coordination and Meta-Repair: HYDRA}
+\label{sec:hydra}
+
+\subsection{Distributed Repair}
+
+A single repair operator is already an idealization. Most systems of interest --- organizations, scientific disciplines, multi-agent software systems --- distribute repair across many local agents, each maintaining its own distinction system.
+
+\begin{definition}[Collective Distinction System]
+Let $A_1,\dots,A_n$ be agents, each maintaining a local distinction system $D_i$. The collective distinction system is $D_{\mathrm{collective}} = \bigcup_i D_i$. The coordination coherence at time $t$ is
+\[
+C(t) = \frac{1}{n^2}\sum_{i,j}\operatorname{Sim}(D_i, D_j),
+\]
+for some similarity measure $\operatorname{Sim}$ on distinction systems.
+\end{definition}
+
+\begin{proposition}[Repair Interference]
+\label{prop:interference}
+If $C(t) < C_{\mathrm{crit}}$ for some critical threshold $C_{\mathrm{crit}}$, there exist repairs $R_i$ at agent $A_i$ and $R_j$ at agent $A_j$, each admissible for $D_i$ and $D_j$ in isolation, whose joint application is not admissible for $D_{\mathrm{collective}}$.
+\end{proposition}
+\begin{proof}
+Low similarity $\operatorname{Sim}(D_i,D_j)$ means $D_i$ and $D_j$ partition shared cases differently, so a boundary exists on which they disagree. Choose $R_i$ that locally improves fit by redrawing that boundary; this increases $\operatorname{Vol}(\mathcal{A}(D_i))$ by hypothesis of local admissibility. Because $D_j$ relies on the same boundary being placed elsewhere, the same redrawing can simultaneously decrease $\operatorname{Vol}(\mathcal{A}(D_j))$, and by the union structure of $D_{\mathrm{collective}}$ this can produce a net decrease in $\operatorname{Vol}(\mathcal{A}(D_{\mathrm{collective}}))$ even though $R_i$ and $R_j$ were each admissible against their own local $\mathcal{A}(D_i)$, $\mathcal{A}(D_j)$. The threshold $C_{\mathrm{crit}}$ marks the similarity level below which such conflicting boundary choices become available.
+\end{proof}
+
+\begin{tcolorbox}[title=Coordination Repair Principle]
+The repairability of a collective depends not only on the repair capacity of its parts but on repair \emph{compatibility} across them. One department can repair a problem by creating another; one discipline can resolve a puzzle by exporting confusion to an adjacent one. Local admissibility does not compose into global admissibility without coherence.
+\end{tcolorbox}
+
+\subsection{Meta-Repair}
+
+Everything so far --- Sections 4 through 7 --- has described a system selecting among, or applying, a fixed repertoire of repair operators. A further level is available: revising the repertoire itself.
+
+\begin{definition}[Repair Library and Its Score]
+Let $\mathcal{R}_t = \{R_1,\dots,R_n\}$ be the repair operators available to a system at time $t$. The score of $R_i$ is
+\[
+Q(R_i) = -\Delta\ell_i \;-\; \alpha\,\Delta S_{\pi,i} \;+\; \lambda\,\Delta \log V_i \;-\; \eta\, C_i,
+\]
+where $C_i$ is the cost or complexity of applying $R_i$. Ordinary adaptive repair selects $R^\ast = \arg\max_{R_i \in \mathcal{R}_t} Q(R_i)$.
+\end{definition}
+
+\begin{definition}[Meta-Repair Operator]
+A meta-repair operator is a map
+\[
+\mathcal{M} : \mathcal{R}_t \to \mathcal{R}_{t+1}, \qquad \mathcal{R}_{t+1} = \mathcal{M}(\mathcal{R}_t, H_t),
+\]
+where $H_t$ is the history of failures, repairs, and outcomes available to the system. $\mathcal{M}$ does not ask which distinction should be repaired, nor which operator should be applied; it asks which repair process should exist.
+\end{definition}
+
+This produces a strict hierarchy of repair:
+\[
+d \;\to\; R(d) \;\to\; \mathcal{M}(R).
+\]
+A scientific revolution, on this account, is not usually a repaired theory; it is a repaired way of repairing theories. A constitutional reform is not a repaired law; it is a repaired process for repairing laws.
+
+\begin{tcolorbox}[title=HYDRA Principle]
+Intelligence at the highest level available to a system is not the repair of distinctions, nor the repair of projections, nor even the repair of trajectories. It is the repair of the process that performs all three.
+\end{tcolorbox}
+
+\subsection{The Full Recursion}
+
+Collecting Sections~\ref{sec:clio}--\ref{sec:hydra} into a single update rule, a system's state is the triple $(\pi_t, d_t, \mathcal{R}_t)$, and its evolution under an observation $x_t$ and history $H_t$ is
+\begin{equation}
+(\pi_{t+1}, d_{t+1}, \mathcal{R}_{t+1}) = \mathcal{H}(\pi_t, d_t, \mathcal{R}_t, x_t, H_t),
+\label{eq:fullrecursion}
+\end{equation}
+where $\mathcal{H}$ composes ordinary repair (Section 5), projection repair (Section~\ref{sec:clio}), trajectory repair (Section~\ref{sec:tartan}), and meta-repair (this section) according to the score $Q$ and the meta-repair operator $\mathcal{M}$. The corresponding integrated objective is
+\begin{equation}
+\mathcal{J} = \underbrace{\mathcal{L}_T}_{\text{trajectory failure}} + \underbrace{\alpha S_\pi}_{\text{projection collapse}} - \underbrace{\lambda \log V}_{\text{admissible futures}} + \underbrace{\eta\, C_R}_{\text{repair cost}} + \underbrace{\rho\, C_M}_{\text{meta-repair cost}},
+\label{eq:fullobjective}
+\end{equation}
+and intelligence, generalizing Equation~\eqref{eq:IA}, becomes
+\begin{equation}
+\boxed{\;\mathcal{I}(S) = -\Delta \mathcal{J}.\;}
+\label{eq:Ifinal}
+\end{equation}
+
+\begin{remark}
+Equation~\eqref{eq:Ifinal} subsumes the rest of the essay. Section 4's bare repair capacity is recovered by setting $\alpha=\lambda=\eta=\rho=0$ and collapsing the trajectory integral to a point. Section 5's admissibility-weighted $\mathcal{I}_A(S)$ is recovered by setting $\alpha=\eta=\rho=0$. Each additional term in $\mathcal{J}$ corresponds to one further way a repair can be locally successful while doing global damage: to fit (Section 4), to reachability (Section 5), to representation (Section~\ref{sec:clio}), to trajectory (Section~\ref{sec:tartan}), or to the repair process itself (this section).
+\end{remark}
+
+This compresses to three slogans and one principle:
+\[
+\begin{gathered}
+\text{CLIO: repair the projection.} \qquad \text{TARTAN: repair the trajectory.}\\[2pt]
+\text{HYDRA: repair the repair process.}
+\end{gathered}
+\]
+\begin{tcolorbox}[title=Recursive Admissibility]
+\centering
+Intelligence is recursive admissibility-preserving repair under projection and trajectory failure.
+\end{tcolorbox}
+
+\section{Free Energy Without Agents}
+
+This leaves one question unaddressed. Why do repair-capable, admissibility-preserving systems exist at all? Why is the world furnished with things that do this kind of work, rather than only with things that do not?
+
+One well-known answer comes from the free energy principle: systems persist by minimizing a quantity that behaves like surprise, which is mathematically equivalent to performing approximate inference about the hidden causes of their sensory states. Define
+\[
+\mathcal{F}(q) \;=\; \mathbb{E}_q[-\log p(x)] \;+\; D_{\mathrm{KL}}(q \,\Vert\, p),
+\]
+where $p$ is the distribution of states compatible with continued persistence and $q$ is the distribution currently induced by the system's distinction structure. The standard reading says the system minimizes $\mathcal{F}$ \emph{by inference} --- it persists because it infers, and infers well.
+
+A caution is available here, borrowed from a parallel debate about statistical boundaries. The mathematics of a Markov blanket is a genuinely useful tool for picking out which variables belong to a system and which belong to its environment. What does not follow automatically is the further claim that this statistical boundary is the metaphysical boundary of an agent --- that the blanket is not just a useful device for analysis but the real edge of a self that infers things across it. The formalism is solid; the agent-talk riding on top of it is an additional, optional commitment.
+
+The same move is worth making here. Repair reduces $\mathcal{F}$:
+\[
+d_{t+1} = R(d_t, x_t) \quad \text{such that} \quad \mathcal{F}(d_{t+1}) < \mathcal{F}(d_t),
+\]
+and the mathematics describing a system that maintains a stable distinction under perturbation may well resemble free-energy-minimization dynamics. But no agentive inference is required to make this true.
+
+\begin{proposition}[Selection Reading of $\mathcal{F}$]
+\label{prop:selection}
+Persistence selects systems satisfying $\mathcal{F}(d_t) < \Theta$ over time; systems for which $\mathcal{F}(d_t) \to \infty$ cease to persist as that system. This statement requires no claim that any system computes, represents, or infers the hidden causes of $x$.
+\end{proposition}
+\begin{proof}
+By construction $\mathcal{F}$ measures failure pressure on the distinction structure, and $F_T(d) > \theta$ was already shown (Proposition 1.2) to be the condition under which a distinction is abandoned or revised. Identifying $\mathcal{F}(d_t)$ with an instance of this failure pressure, a system whose $\mathcal{F}(d_t)$ diverges has, by the same argument, exceeded tolerance on every available repair, and so no longer satisfies the definition of a system maintaining $d_t$. Nothing in this chain of implication invokes inference, belief, or a model of hidden causes; it invokes only the failure-and-repair dynamics already established. $\blacksquare$
+\end{proof}
+
+\begin{remark}[What This Buys, Beyond Relabeling]
+A natural objection is that this is simply free-energy language wearing a different vocabulary. The objection misses a genuine conceptual gain. Standard free-energy language begins with beliefs, generative models, and hidden causes, and treats persistence as a \emph{consequence} of successful inference. The repair framing begins with distinction failure and treats inference as \emph{one possible repair mechanism among others} --- a powerful one for systems equipped to do it, but not a precondition for the framework to apply. This is a strictly weaker ontological commitment, and weaker commitments generalize further: the repair account applies without modification to organisms, institutions, ecosystems, legal systems, software repositories, and scientific theories, none of which need be credited with literally inferring hidden causes for the account to describe why some of them are still here and others are not. Inference becomes a special case of repair, available to systems with the right machinery, rather than the foundation the whole account is built on.
+\end{remark}
+
+If this is right, then intelligence and admissibility --- Sections 4 and 5 --- are not achievements of an inner epistemic subject working to stay alive. They are descriptions of why a system is still around to be examined at all. The system did not necessarily infer its way to persistence. It is one of the configurations that did not fail to repair what needed repairing, while the configurations that failed are no longer here to compare notes with.
+
+\begin{remark}[$\mathcal{F}$ as a Special Case of $\mathcal{J}$]
+The functional $\mathcal{F}$ used above is the simplest member of the family introduced in Section~\ref{sec:hydra}: setting the projection, trajectory, and meta-repair terms of $\mathcal{J}$ (Equation~\eqref{eq:fullobjective}) to zero recovers a bare failure-pressure functional playing the same role as $\mathcal{F}$. The selection argument of this section therefore applies unchanged to the full objective: persistence selects systems satisfying $\mathcal{J}(\pi_t,d_t,\mathcal{R}_t) < \Theta$, with no agent required to compute $\mathcal{J}$, infer hidden causes, or evaluate any of CLIO, TARTAN, or HYDRA explicitly. Those names pick out levels at which failure pressure can build --- on labels, on projections, on trajectories, on the repair process itself --- not levels at which a subject must be doing something.
+\end{remark}
+
+\section{Faculty Architectures as Crystallized Repair}
+\label{sec:faculty}
+
+The repair-theoretic account developed so far is \emph{failure-centric}: it starts from distinction failure and derives structure --- repair, admissibility, projection repair, trajectory repair, coordination, meta-repair --- as successive responses to successive kinds of failure. A large literature in cognitive architecture instead starts \emph{faculty-centric}: it proposes that a mind is built from a fixed set of subsystems and asks how they communicate. De Gyurky and Tarbell's \emph{The Autonomous System} (2013) is an unusually explicit example, decomposing an autonomous mind into eight systems --- Sensory, Presentation, Understanding, Intellect, Reason, Decision, Will, and Thought (\emph{Nexus Cogitationis}) --- each with named subsystems of its own, including a Repair subsystem embedded inside Will.
+
+These two decompositions are not competing answers to the same question. They are orthogonal: one asks what a mind \emph{contains}, the other asks what a mind \emph{does} when its distinctions stop fitting events. Read side by side, a striking correspondence appears.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{3.1cm}p{3.3cm}p{5.7cm}}
+\toprule
+\textbf{de Gyurky Faculty} & \textbf{This Essay} & \textbf{Formal Correspondence} \\
+\midrule
+Sensory & Observation layer & raw events $x_t \in X$, prior to any $\pi_t$ or $d_t$ \\
+Presentation & CLIO (Section~\ref{sec:clio}) & the construction of $\pi_t : X \to \mathcal{Y}_t$ \\
+Understanding & Distinction formation & the construction of $d_t : \mathcal{Y}_t \to C$ \\
+Intellect & Distinction manipulation & operations on existing $d$'s: composition, refinement, abstraction \\
+Reason & Admissibility (Section 5) & the constraint surface $\mathcal{A}_t$; a repair is acceptable only if it keeps $d_{t+1}$ inside $\mathcal{A}_t$ \\
+Decision & Preference fields & movement through a preference landscape constrained to $\mathcal{A}_t$ \\
+Will & Reachability preservation & $\max \operatorname{Vol}(\mathcal{A}_t)$ \\
+Thought (\emph{Nexus Cogitationis}) & HYDRA (Section~\ref{sec:hydra}) & the meta-repair operator $\mathcal{M} : \mathcal{R}_t \to \mathcal{R}_{t+1}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Three correspondences are worth dwelling on. De Gyurky's Presentation system bundles viewing, projection, analysis, recall, and contemplation into one faculty, which is close to a direct description of the construction of a projection $\pi_t$ --- making Presentation $\approx$ CLIO the strongest single-faculty match in the table. De Gyurky's Will system bundles survival, propagation, dominance, mission, and repair --- not cognitive operations but \emph{persistence} operations --- which is exactly what Section 5's admissibility program is built to track; Will is reachability preservation under another name, arrived at independently. And de Gyurky's Reason system is built from axioms, rules, commandments, and laws: a faculty-level description of a constraint surface. Reason is the admissibility manifold $\mathcal{A}_t$, and an act failing Reason is, in this essay's vocabulary, an inadmissible repair.
+
+\subsection{Faculties as Fossilized Repair}
+
+The correspondence above is already useful as a translation key. A stronger claim is available: that the faculty architecture is not merely analogous to the repair architecture but \emph{derivable} from it, as the outcome of repeated specialization under recurring failure.
+
+\begin{definition}[Failure Class and Specialized Repair]
+A failure class $F$ is a recurring type of distinction, projection, trajectory, coordination, or repair-process failure (e.g.\ ``projection failure,'' ``preference conflict,'' ``reachability collapse''). A repair operator $R_F$ is specialized to $F$ if it handles failures of class $F$ at lower per-occurrence cost than the system's generic repair operator $R_{\mathrm{gen}}$: $C_F < C_{\mathrm{gen}}$, where $C_F, C_{\mathrm{gen}}$ enter $\mathcal{J}$ through the $\eta\,C_R$ term of Equation~\eqref{eq:fullobjective}.
+\end{definition}
+
+\begin{theorem}[Faculty Emergence]
+\label{thm:faculty}
+Suppose building and maintaining a dedicated repair subsystem $\Sigma_F$ implementing $R_F$ costs $C_F^{\mathrm{build}}$, amortized over a window of $T$ time steps, and suppose the expected number of class-$F$ failures in that window is $n_F = \mathbb{E}[\#F_t]\cdot T$. Then maintaining $\Sigma_F$ strictly decreases integrated repair cost relative to repeated use of $R_{\mathrm{gen}}$ exactly when
+\[
+\mathbb{E}[\#F_t] \;>\; \theta_F \;:=\; \frac{C_F^{\mathrm{build}}}{T\,(C_{\mathrm{gen}} - C_F)}.
+\]
+\end{theorem}
+\begin{proof}
+The total cost of handling all class-$F$ failures generically over the window is $\eta\, C_{\mathrm{gen}}\, n_F$. The total cost of handling them with a dedicated subsystem is $\eta\,(C_F\, n_F + C_F^{\mathrm{build}})$. The specialized strategy has lower cost exactly when
+\[
+C_F\, n_F + C_F^{\mathrm{build}} \;<\; C_{\mathrm{gen}}\, n_F
+\quad\Longleftrightarrow\quad
+n_F \,(C_{\mathrm{gen}} - C_F) \;>\; C_F^{\mathrm{build}}
+\quad\Longleftrightarrow\quad
+n_F \;>\; \frac{C_F^{\mathrm{build}}}{C_{\mathrm{gen}}-C_F},
+\]
+using $C_F < C_{\mathrm{gen}}$ to divide without reversing the inequality. Substituting $n_F = \mathbb{E}[\#F_t]\, T$ gives the stated threshold.
+\end{proof}
+
+\begin{corollary}[Faculties Are Persistent Repair Specializations]
+\label{cor:faculty}
+If $\mathbb{E}[\#F_t] > \theta_F$ holds persistently rather than transiently, the integrated objective $\mathcal{J}$ favors maintaining $\Sigma_F$ indefinitely, and by the selection argument of Proposition~\ref{prop:selection} a system satisfying this condition while lacking $\Sigma_F$ is outperformed by one that has crystallized it. Symbolically,
+\[
+F \;\to\; R_F \;\to\; \Sigma_F.
+\]
+\end{corollary}
+
+Theorem~\ref{thm:faculty} gives the correspondence table a second reading. Each row is not merely an analogy but a candidate instance of Corollary~\ref{cor:faculty}: Presentation is what crystallizes once projection failures recur often enough to justify a dedicated $\Sigma_{F_\pi}$ (Section~\ref{sec:clio}); Understanding crystallizes from recurring distinction-boundary failures; Reason crystallizes from recurring constraint violations; Will crystallizes from recurring reachability collapse; Thought crystallizes from recurring coordination failure across the other faculties (Repair Interference, Proposition~\ref{prop:interference}). This is offered as an interpretation of de Gyurky's architecture, not a proof that his particular eight-way decomposition is the unique optimum: Theorem~\ref{thm:faculty} establishes \emph{that} specialization is favored above a threshold occurrence rate, not that exactly these eight failure classes, and no others, must be the ones that cross it.
+
+\begin{remark}[A Weaker Kant]
+De Gyurky's architecture is explicitly Kantian: Understanding organizes the ``form of all appearances''; Reason is built from noumena and phenomena. Kant treated the categories of understanding as transcendental --- necessary conditions for any possible experience, true a priori. Corollary~\ref{cor:faculty} suggests a weaker and more falsifiable claim: that such categories are not transcendental but \emph{evolutionary}, in the sense of Proposition~\ref{prop:selection}. Systems that fail to crystallize repair specializations for their recurring failure classes are outcompeted by systems that do, so the same architecture re-appears not because it is the only possible architecture for a mind, but because it is a stable attractor of repair-under-selection for the particular failure classes a mind-sized system tends to encounter.
+\end{remark}
+
+\begin{remark}[Thought as Architecture Maintenance]
+Represent de Gyurky's constellation as a graph $G_t = (V,E_t)$ with $V = \{\text{Will, Reason, Intellect, Presentation, Understanding, Decision}\}$ and $E_t$ the active communication channels among them. On this reading, Thought (\emph{Nexus Cogitationis}) is not a ninth node performing its own cognition; it is the meta-repair operator of Section~\ref{sec:hydra} acting on the graph itself, $\mathcal{M} : G_t \to G_{t+1}$. This matches the coordinating role de Gyurky assigns to it more precisely than treating Thought as one faculty among equals: Thought is architecture maintenance, not reasoning, representation, or preference.
+\end{remark}
+
+\begin{tcolorbox}[title=Faculty Crystallization Principle]
+A faculty is a repair specialization that has paid for itself. De Gyurky's architecture is not an alternative to repair theory; under Theorem~\ref{thm:faculty} it is a candidate output of it.
+\end{tcolorbox}
+
+\section{A Categorical Reformulation}
+\label{sec:cat}
+
+Every construction so far has been about transformations that preserve or fail to preserve structure: a repair transforms one distinction into another; a projection transforms reality into a model; a meta-repair transforms one repair process into another. This is the native subject matter of category theory, and recasting the essay in that language is not decoration: it makes precise several claims that were stated informally above, and it exposes one connection --- to sheaf theory --- with no other natural home in this essay. Local notation for this section only: $\mathbf{D}, \mathbf{X}, \mathbf{M}, \mathbf{C}$ denote categories (the categorified versions of $\mathcal{D}, X, \mathcal{Y}_t, C$); $\mathbb{D}$ denotes a 2-category; $\mu$ denotes a 2-morphism; $\mathscr{F}$ denotes a sheaf.
+
+\subsection{Distinctions and Repairs as a Category}
+
+\begin{definition}[The Category of Distinctions]
+Let $\mathbf{D}$ be the free category generated by the available repair operators: objects are distinctions $d \in \mathcal{D}$, and a morphism $R : d_A \to d_B$ is a finite composable sequence of repair operators taking $d_A$ to $d_B$, with composition given by concatenation and the identity morphism on $d$ given by the empty sequence (no repair).
+\end{definition}
+
+\begin{remark}
+This makes precise the slogan of Section 2: repair histories are morphism compositions. A history $H = (R_1,\dots,R_n)$ taking $d_0$ to $d_n$ is exactly a morphism $R_n \circ \cdots \circ R_1 : d_0 \to d_n$ in $\mathbf{D}$.
+\end{remark}
+
+\begin{remark}[Misunderstanding, Categorically]
+\label{rem:miscat}
+Section 3 showed that two histories $H_A \ne H_B$ from a common $d_0$ can reach distinct objects $d_A \ne d_B$ whenever $\mathbf{D}$ admits more than one basin reachable from $d_0$ (Proposition~3.1). Categorically this is the statement that $\mathbf{D}$, as a free category on a non-trivial set of generators, need not be commutative: two morphisms out of $d_0$ need not share a target, and even when further repair brings $d_A$ and $d_B$ into contact, there is no guarantee the resulting square commutes. Persistent disagreement is the absence of a commuting square; Section~\ref{sec:sheaf} below gives the sharper version of this statement.
+\end{remark}
+
+\subsection{CLIO as a Functor}
+
+\begin{definition}[Categorified Projection]
+Let $\mathbf{X}$ be a category whose objects are states (taking Section~\ref{sec:tartan}'s view, $\mathbf{X}$ may be taken to be $\mathrm{Path}(X)$ itself), and let $\mathbf{M}$ be a category on the model space $\mathcal{Y}_t$. A projection is a functor $\Pi : \mathbf{X} \to \mathbf{M}$ extending $\pi_t$ on objects and acting on morphisms by $f \mapsto \Pi(f)$.
+\end{definition}
+
+\begin{definition}[Faithfulness]
+$\Pi$ is \emph{faithful} if for all $x_1, x_2$ and all $f,g \in \mathrm{Hom}_{\mathbf X}(x_1,x_2)$, $\Pi(f) = \Pi(g) \implies f = g$.
+\end{definition}
+
+\begin{proposition}[CLIO Failure Refines to Unfaithfulness]
+If $\Pi$ identifies two objects, $\pi_t(x_1) = \pi_t(x_2)$ for $x_1 \ne x_2$ (a CLIO failure, Definition~6.3), then any two distinct morphisms $f : x_0 \to x_1$ and $g : x_0 \to x_2$ are sent to morphisms $\Pi(f), \Pi(g)$ sharing a codomain. If in addition $\Pi(f) = \Pi(g)$ --- the projection also forgets which of the two histories was followed --- then $\Pi$ is not faithful at $\mathrm{Hom}_{\mathbf X}(x_0,\{x_1,x_2\})$. Object-level collapse is necessary but not automatically sufficient for morphism-level unfaithfulness; the two can be checked independently.
+\end{proposition}
+\begin{proof}
+The first claim follows from functoriality: $\Pi(f)$ and $\Pi(g)$ both have codomain $\Pi(x_1) = \Pi(x_2)$ by hypothesis. The second is then the definition of unfaithfulness applied to this pair. Independence holds because $\Pi$ can collapse $x_1, x_2$ while still distinguishing $f,g$ by retained structure (e.g.\ a tagged origin), or could in principle remain injective on objects while still identifying two distinct morphisms between objects it keeps separate.
+\end{proof}
+
+This gives the Projection Floor (Theorem~\ref{thm:floor}) a categorical reading: $\Pi$ losing faithfulness is the general phenomenon of which object-level fiber collapse is the special, distinction-relevant case.
+
+\subsection{TARTAN as a Path Category, Admissibility as a Subcategory}
+
+Section~\ref{sec:tartan}'s shift from states to trajectories is already a shift from a category of objects to a path category: $\mathrm{Path}(X)$ has states as objects and trajectories $\gamma : x_i \to x_j$ as morphisms, and a trajectory-level distinction is a functor $D : \mathrm{Path}(X) \to \mathbf{C}$ rather than a map out of $X$ alone.
+
+\begin{definition}[Admissible Subcategory]
+Let $\mathbf{A}_t \subseteq \mathbf{X}$ be the full subcategory whose objects are the states in $\mathcal{A}(d_t)$ (Section 5) and whose morphisms are trajectories remaining inside $\mathcal{A}(d_t)$ throughout.
+\end{definition}
+
+\begin{remark}[Admissibility as an Endofunctor Condition]
+A repair $R_t : (\pi_t,d_t) \to (\pi_{t+1},d_{t+1})$ is globally good in the sense of Section 5 exactly when its action on states restricts to a functor $\mathbf{A}_t \to \mathbf{A}_{t+1}$ that does not shrink the object set by more than $\epsilon$ --- the categorical shadow of $\operatorname{Vol}(\mathcal{A}(d_{t+1})) \ge \operatorname{Vol}(\mathcal{A}(d_t)) - \epsilon$. A bad repair, in these terms, sends admissible objects outside $\mathbf{A}_{t+1}$.
+\end{remark}
+
+\subsection{HYDRA as a 2-Category}
+
+\begin{definition}[The 2-Category of Repairs]
+Let $\mathbb{D}$ be the 2-category whose objects are distinctions, whose 1-morphisms are repairs $R : d_A \to d_B$, and whose 2-morphisms are meta-repairs $\mu : R_1 \Rightarrow R_2$ relating two repairs with common source and target.
+\end{definition}
+
+\begin{remark}
+A meta-repair operator $\mathcal{M} : \mathcal{R}_t \to \mathcal{R}_{t+1}$ (Definition~8.4) is precisely a family of 2-morphisms $\{\mu_i : R_i \Rightarrow \mathcal{M}(R_i)\}$ in $\mathbb{D}$. HYDRA's claim that intelligence at the highest level is the repair of the repair process is, categorically, the claim that the relevant structure to optimize lives one dimension up from ordinary morphisms.
+\end{remark}
+
+\subsection{Will as a Colimit}
+
+\begin{definition}[The Local Repair Diagram]
+At time $t$, let $\{R_i : d_i \to d_i'\}_{i \in I}$ be the repair morphisms currently active across a system's agents or subsystems, viewed as a diagram in $\mathbf{D}$.
+\end{definition}
+
+\begin{remark}[Will, Interpreted as a Cocone]
+\label{rem:will}
+A cocone over this diagram is an object $d_W$ together with compatible maps $d_i' \to d_W$ for every $i$; the colimit, when it exists, is the universal such object. Reading Will as $\operatorname{colim}_i \{R_i\}$ proposes that a system's persistence-directed faculty is, at any instant, an attempt to find a single distinction into which all currently active local repairs can be coherently mapped. This is consistent with Section 5: when the colimit exists, the local repairs are jointly compatible, which is the categorical face of high coordination coherence $C(t)$ (Section~\ref{sec:hydra}); when it fails to exist, that is the categorical face of Repair Interference (Proposition~\ref{prop:interference}). This reading is offered as an interpretation rather than a theorem, since nothing established so far guarantees $\mathbf{D}$ has the relevant colimits.
+\end{remark}
+
+\subsection{Sheaves: A Sharper Theory of Misunderstanding}
+\label{sec:sheaf}
+
+Remark~\ref{rem:miscat} located misunderstanding in a failure of commutativity. Sheaf theory gives this a sharper and standard formal home.
+
+\begin{definition}[Distinction Sheaf]
+Let $X$ be covered by overlapping regions $U \subseteq X$ (domains of competence: a discipline, an institution, a person's experience). A presheaf $\mathscr{F}$ assigns to each region $U$ the set $\mathscr{F}(U)$ of distinctions valid on $U$, together with restriction maps $\mathscr{F}(U) \to \mathscr{F}(V)$ for $V \subseteq U$. $\mathscr{F}$ is a sheaf if local sections agreeing on overlaps glue: whenever $s_U \in \mathscr{F}(U)$ and $s_V \in \mathscr{F}(V)$ satisfy $s_U|_{U\cap V} = s_V|_{U \cap V}$ for every pair in a cover of $X$, there exists a unique $s \in \mathscr{F}(X)$ restricting to each $s_U$.
+\end{definition}
+
+\begin{proposition}[Gluing Obstruction]
+\label{prop:gluing}
+A family of pairwise-compatible local sections $\{s_U\}$ glues to a global section if and only if a corresponding \v{C}ech cohomology class vanishes; in general, the obstruction to gluing is measured by $H^1(X,\mathscr{F})$, and $H^1(X,\mathscr{F}) \ne 0$ permits the existence of local sections that agree on every pairwise overlap yet admit no consistent global section.
+\end{proposition}
+\begin{proof}[Sketch]
+This is the standard relationship between sheaf cohomology and the gluing problem: compatible local data defines a \v{C}ech 1-cocycle measuring the discrepancy between candidate global sections assembled region by region, and this cocycle is a coboundary --- so the local sections glue --- exactly when it vanishes in $H^1$. The general theory is not re-derived here; the point is its applicability, not its proof.
+\end{proof}
+
+\begin{remark}[Misunderstanding as a Genuine Obstruction]
+A scientist, an engineer, a politician, and a clinician can each hold a distinction system $s_U$ that is locally correct --- well-repaired against everything encountered inside their own region $U$ --- and still be unable to construct a single $s \in \mathscr{F}(X)$ agreeing with all of them. Proposition~\ref{prop:gluing} says this can happen even when every pairwise comparison among them comes back compatible: the obstruction is topological, detected only by the global cohomology class, not by any local check. This is a stronger and more precise claim than Section 3's projection-mismatch account: not every disagreement is a difference in repair history that more shared history would eventually dissolve. Some disagreements are obstructions that persist no matter how much pairwise comparison is done, because the obstruction lives in $H^1$, not in any single overlap.
+\end{remark}
+
+\begin{tcolorbox}[title=Repair as Gluing]
+Repair, at the coordination level of Section~\ref{sec:hydra}, is the attempt to revise local sections $s_U, s_V$ --- not merely to compare them --- until their restrictions agree on $U \cap V$ for every overlap in a cover, i.e.\ until the obstruction class in $H^1(X,\mathscr{F})$ vanishes and a global section becomes constructible.
+\end{tcolorbox}
+
+\subsection{The Grand Synthesis}
+
+Collecting this section:
+\[
+\mathbf{X} \xrightarrow{\;\Pi\;} \mathbf{M} \xrightarrow{\;d\;} \mathbf{C}
+\]
+with CLIO the projection functor $\Pi$, the distinction ecology the category $\mathbf{D}$, repair the morphisms of $\mathbf{D}$, TARTAN the path category $\mathrm{Path}(X)$, admissibility the subcategory $\mathbf{A}_t$, HYDRA the 2-category $\mathbb{D}$, Will the colimit of active local repairs (Remark~\ref{rem:will}), and misunderstanding the non-vanishing of a gluing obstruction in $H^1(X,\mathscr{F})$ (Proposition~\ref{prop:gluing}).
+
+\begin{tcolorbox}[title=Categorical Compression]
+\centering
+Intelligence is the sheaf-theoretic gluing of repaired distinctions across admissible categories of trajectories.
+\end{tcolorbox}
+
+This sentence is a compression, not a new theorem: it names, in one breath, the functor that can fail to be faithful (CLIO), the subcategory a repair must stay inside (Admissibility), the path structure a repair must respect (TARTAN), the 2-categorical structure available for repairing the repair process (HYDRA), and the cohomological obstruction explaining why some disagreements are not failures of effort (Sheaves). Section~\ref{sec:faculty}'s reading of de Gyurky's architecture and this section's categorical reading are two different generalizations of the same trunk; the final section returns to that trunk directly.
+
+\section{The Trunk}
+
+The full chain can now be written as
+\[
+\begin{gathered}
+\text{Distinction} \to \text{Projection} \to \text{Failure} \to \text{Repair} \to \text{Trajectory Repair}\\[2pt]
+\to\ \text{Coordination Repair} \to \text{Meta-Repair} \to \text{Intelligence} \to \text{Admissibility} \to \text{Persistence},
+\end{gathered}
+\]
+or as a single recursion on the triple $(\pi_t,d_t,\mathcal{R}_t)$,
+\[
+(\pi_{t+1}, d_{t+1}, \mathcal{R}_{t+1}) = \mathcal{H}(\pi_t, d_t, \mathcal{R}_t, x_t, H_t),
+\]
+subject to the constraint that drives every section of this essay in one form or another: each step should reduce immediate failure without reducing $\operatorname{Vol}(\mathcal{A})$, $S_\pi$, or trajectory distance to $\Gamma_{\mathrm{adm}}$ by more than it gains, and should leave $R(d^\ast,x)\approx d^\ast$ for ordinary perturbation once a distinction has stabilized.
+
+The first constraint is local repair. The second is admissibility, projection adequacy, and trajectory adequacy together. The third is what makes a repaired distinction count, eventually, as an object. Everything else in this essay --- the path-dependence of disagreement, the three tiers of execution, competence, and intelligence, the Projection Floor, the Trajectory Repair Theorem, the Coordination Repair Principle, the HYDRA Principle, the Faculty Emergence Theorem, the selection reading of free energy, and the categorical reformulation --- is what happens when this one recursion is examined from different vantage points: at the level of a single label, a single projection, a single trajectory, a population of agents, the repair process itself, the long-run economics of specialization, or the abstract shape common to all of the above.
+
+Two of those vantage points deserve a final word, since they generalize the chain in different directions rather than merely restating it. Section~\ref{sec:faculty} ran the chain forward in time: under the Faculty Emergence Theorem, a recurring failure class crystallizes into a dedicated repair subsystem once its occurrence rate crosses an economic threshold, $F \to R_F \to \Sigma_F$, and de Gyurky's eight-faculty architecture is offered as a candidate instance rather than a competing theory --- a faculty is what a repair specialization looks like once it has paid for itself. Section~\ref{sec:cat} ran the chain sideways, into a different formal register: the same recursion, expressed in the vocabulary of categories, functors, 2-categories, and sheaves, is precise about exactly which informal claims made earlier were claims about composition (Section 2), about non-injectivity (Section~\ref{sec:clio}), about subcategory membership (Section 5), about one-dimension-up structure (Section~\ref{sec:hydra}), and about a genuine cohomological obstruction rather than a mere difference of opinion (Section~\ref{sec:sheaf}).
+
+The compressed thesis, in its original form, is
+\begin{equation}
+\boxed{\;\text{Intelligence} \;=\; \text{repair that preserves future repairability.}\;}
+\end{equation}
+Its full operational form, after Sections~\ref{sec:clio}--\ref{sec:hydra}, is
+\begin{equation}
+\boxed{\;\mathcal{I}(S) \;=\; -\Delta\mathcal{J} \;=\; -\Delta\mathcal{L}_T \;-\; \alpha\,\Delta S_\pi \;+\; \lambda\,\Delta\log V \;-\; \eta\,\Delta C_R \;-\; \rho\,\Delta C_M.\;}
+\end{equation}
+and its most compressed categorical form, after Section~\ref{sec:cat}, is
+\begin{center}
+\emph{Intelligence is the sheaf-theoretic gluing of repaired distinctions across admissible categories of trajectories.}
+\end{center}
+all three of which compress to a single sentence:
+\begin{center}
+\emph{Intelligence is recursive admissibility-preserving repair under projection and trajectory failure.}
+\end{center}
+
+Everything beyond this --- the specific formal machinery for measuring reachable futures, tracking projections, modeling collapse, coordinating distributed repair, crystallizing faculties, or gluing local sections into a global one --- can be read as an elaboration of one sentence:
+
+\begin{center}
+\emph{Systems persist to the extent that they can repair the distinctions upon which their future possibilities depend --- and repair the means by which they repair them.}
+\end{center}
+
+\noindent The rest is detail.
+
+\appendix
+
+\section{Faculty--Repair Duality}
+\label{app:duality}
+
+Corollary~\ref{cor:faculty} established one direction of a correspondence between failure and faculty: a sufficiently persistent failure class crystallizes into a dedicated repair subsystem, $F \to R_F \to \Sigma_F$. Write $\mathrm{Emerge}(F) = \Sigma_F$ for the faculty produced this way whenever $\mathbb{E}[\#F_t] > \theta_F$. This appendix makes the converse direction precise and shows the correspondence is not a strict equivalence but a one-sided covering relation, with an informative failure mode of its own.
+
+\begin{definition}[Domain of a Faculty]
+For a crystallized faculty $\Sigma$ implementing repair operator $R_\Sigma$, its \emph{domain} is
+\[
+\mathrm{Domain}(\Sigma) = \{\, F' : C_{R_\Sigma}(F') < C_{\mathrm{gen}}(F') \,\},
+\]
+the set of failure classes on which $\Sigma$'s repair operator strictly beats the generic one.
+\end{definition}
+
+\begin{proposition}[Faculty Coverage]
+\label{prop:coverage}
+For every $F$ in the domain of $\mathrm{Emerge}$, writing $\Sigma_F = \mathrm{Emerge}(F)$,
+\[
+F \;\subseteq\; \mathrm{Domain}(\Sigma_F).
+\]
+\end{proposition}
+\begin{proof}
+By Definition~10.1, $R_F$ is constructed to satisfy $C_F < C_{\mathrm{gen}}$ specifically on $F$; this is exactly the membership condition for $F \in \mathrm{Domain}(\Sigma_F)$, so $F \subseteq \mathrm{Domain}(\Sigma_F)$ follows directly from the defining property of a specialized repair operator.
+\end{proof}
+
+The inclusion in Proposition~\ref{prop:coverage} need not be an equality, and the gap is informative.
+
+\begin{remark}[Faculties as Exaptations]
+\label{rem:exapt}
+When $F \subsetneq \mathrm{Domain}(\Sigma_F)$, the faculty crystallized to handle $F$ turns out to be cheaper than generic repair for some failures it was never built for. This is the repair-theoretic image of \emph{exaptation}: a structure selected for one function turning out to serve another. De Gyurky's Intellect, crystallized on the reading of Section~\ref{sec:faculty} from recurring distinction-manipulation failures, plausibly has a domain reaching well past that originating class --- abstraction machinery built to repair one kind of conceptual confusion is rarely useful for only that kind. A faculty with $F = \mathrm{Domain}(\Sigma_F)$ exactly is \emph{tight}; most faculties worth keeping are not tight.
+\end{remark}
+
+\begin{tcolorbox}[title=Faculty--Repair Duality]
+Every persistent failure class has an associated repair process (Corollary~\ref{cor:faculty}); every repair process specialized enough to crystallize has an associated domain of failure classes it covers (Proposition~\ref{prop:coverage}); and the two need not match. A faculty is not a label for the failure that produced it. It is whatever that failure's cheapest fix turned out to generalize to.
+\end{tcolorbox}
+
+\section{The Admissible Repair Fibration}
+\label{app:fibration}
+
+Sections~\ref{sec:clio} through~\ref{sec:cat} treat projection, distinction, repair, trajectory, coordination, and admissibility as separate layers, each with its own definitions. This appendix asks whether a single object underlies all of them, in the sense that each layer is a particular view of that one object rather than a separate construction glued on afterward.
+
+\subsection{Regions and Fibers}
+
+\begin{definition}[Base Category of Regions]
+Let $\mathbf{U}(X)$ be the category whose objects are regions $U \subseteq X$ and whose morphisms are inclusions $V \hookrightarrow U$.
+\end{definition}
+
+\begin{definition}[Local Admissible Configuration]
+For $U \in \mathbf{U}(X)$, let $\mathfrak{R}(U)$ be the category whose objects are admissible configurations on $U$ --- triples $(\pi_U, d_U, R_U)$ consisting of a projection $\pi_U : U \to \mathcal{Y}_U$, a distinction $d_U : \mathcal{Y}_U \to C$, and a choice of available repair operators, restricted so that $d_U$'s induced classification stays within $\mathcal{A}_t \cap U$ --- and whose morphisms are admissible repairs between such configurations in the sense of Section 5.
+\end{definition}
+
+\begin{definition}[Restriction Functors]
+For $V \subseteq U$, let $\mathrm{res}^U_V : \mathfrak{R}(U) \to \mathfrak{R}(V)$ send a configuration to its restriction to $V$ and a repair to its restriction. These satisfy $\mathrm{res}^U_U = \mathrm{id}$ and $\mathrm{res}^U_W = \mathrm{res}^V_W \circ \mathrm{res}^U_V$ for $W \subseteq V \subseteq U$.
+\end{definition}
+
+\begin{definition}[The Admissible Repair Fibration]
+Let $\mathfrak{R}$ be the total category with objects $(U,\xi)$ for $U \in \mathbf{U}(X)$ and $\xi \in \mathfrak{R}(U)$, and morphisms $(U,\xi) \to (V,\xi')$ given by an inclusion $V \subseteq U$ together with a morphism $\mathrm{res}^U_V(\xi) \to \xi'$ in $\mathfrak{R}(V)$. The forgetful functor $\varpi : \mathfrak{R} \to \mathbf{U}(X)$, $(U,\xi) \mapsto U$, exhibits $\mathfrak{R}$ as a fibered category (Grothendieck fibration) over $\mathbf{U}(X)$: every morphism $V \subseteq U$ and every object over $U$ admits a Cartesian lift, given by restriction.
+\end{definition}
+
+\begin{remark}
+This is the standard Grothendieck construction applied to the presheaf of categories $U \mapsto \mathfrak{R}(U)$; the general theory --- that any pseudofunctor into categories yields a fibration, and conversely --- is not re-derived here.
+\end{remark}
+
+\subsection{Recovering Each Layer}
+
+\begin{proposition}[Unification]
+\label{prop:unification}
+The following are recovered from $\mathfrak{R}$:
+\begin{enumerate}[itemsep=2pt]
+\item \textbf{CLIO} (Section~\ref{sec:clio}) is the functor $\mathfrak{R} \to \mathbf{M}$ forgetting $d_U$ and $R_U$ and remembering only $\pi_U$.
+\item \textbf{Distinction Ecology} (Sections 1--2) is the analogous forgetful functor remembering only $d_U$.
+\item \textbf{Repair Theory} (Section 2) is the morphism structure within each fiber $\mathfrak{R}(U)$.
+\item \textbf{TARTAN} (Section~\ref{sec:tartan}) is recovered by taking the base category to be $\mathbf{U}(X) \times \mathbf{Interval}([0,T])$ rather than $\mathbf{U}(X)$ alone, where $\mathbf{Interval}([0,T])$ has subintervals of $[0,T]$ as objects and inclusions as morphisms: CLIO's spatial restriction and TARTAN's temporal truncation become the two factors of one product base.
+\item \textbf{Admissibility} (Section 5) is the full sub-fibration $\mathfrak{R}^{\mathrm{adm}} \subseteq \mathfrak{R}$ on objects whose configuration lies in $\mathcal{A}_t$ throughout.
+\item \textbf{HYDRA} (Section~\ref{sec:hydra}) is the fiberwise upgrade of each $\mathfrak{R}(U)$ from a category to a 2-category, with meta-repairs as 2-morphisms, exactly as in Section~\ref{sec:hydra}'s $\mathbb{D}$.
+\item \textbf{Misunderstanding} (Section~\ref{sec:sheaf}) is failure of descent: local objects $\xi_U \in \mathfrak{R}(U)$ agreeing on overlaps but admitting no single $\xi \in \mathfrak{R}(X)$ restricting to each of them.
+\end{enumerate}
+\end{proposition}
+\begin{proof}[Justification]
+Each item is a direct reading of the relevant section's definitions specialized to a single $U$, together with the standard fact that a fibration's fibers, forgetful functors to the base data, sub-fibrations, and descent data recover exactly the presheaf-of-categories structure used to build $\mathfrak{R}$ in the first place. This is not an independent claim about each framework so much as a check that none of the constructions in Sections~\ref{sec:clio}--\ref{sec:sheaf} used anything beyond what is already present in $\mathfrak{R}$.
+\end{proof}
+
+\subsection{Intelligence as a Global Section}
+
+\begin{definition}[Global Admissible Section]
+A global admissible section of $\mathfrak{R}$ over $X$ is a choice of $\xi_U \in \mathfrak{R}^{\mathrm{adm}}(U)$ for every $U \in \mathbf{U}(X)$, compatible under restriction ($\mathrm{res}^U_V(\xi_U) = \xi_V$ for $V \subseteq U$), together with the maintenance of this compatibility under ongoing repair.
+\end{definition}
+
+\begin{tcolorbox}[title=The Unifying Principle]
+Intelligence is the existence, and continued repair, of a global admissible section of $\mathfrak{R}$.
+\end{tcolorbox}
+
+\begin{remark}
+When no such section exists --- when locally admissible $\xi_U$ cannot be glued across overlaps --- this is exactly $H^1(X,\mathscr{F}) \ne 0$ from Proposition~\ref{prop:gluing}, now read as a property of $\mathfrak{R}$ rather than of a separately introduced sheaf $\mathscr{F}$: the obstruction to global intelligence is the same obstruction that explains why some disagreements cannot be resolved locally. A system can be locally intelligent everywhere --- every $\xi_U$ well-repaired, every fiber non-empty --- and still fail to be intelligent as a whole, for the reason Section~\ref{sec:sheaf} gives: the obstruction lives in the cohomology of the base, not in any one region.
+\end{remark}
+
+This is offered as the compression this essay has been building toward rather than a thirteenth independent framework: $(\pi,d,R,\mathcal{A})$ were never four things glued together after the fact. They are four shadows of one fibered category, visible separately only because each section of this essay looked at $\mathfrak{R}$ through a different forgetful functor.
+
+\end{document}

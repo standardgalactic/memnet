@@ -1,0 +1,674 @@
+\documentclass[11pt]{book}
+
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage{tcolorbox}
+\usepackage{microtype}
+\usepackage{titlesec}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{\textbf{Variable Drift}\\[0.5em]
+\large A General Theory of Prediction Failure}
+\author{Flyxion}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%-----------------------------------------------------------------------
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+%-----------------------------------------------------------------------
+
+This monograph grew from a single observation about an astrophysics paper.
+
+A study published in June 2026 argued that Earth may survive the Sun's giant phases---not because the Sun expands less than expected, but because Earth's orbit widens as the Sun loses mass. The orbital radius, long treated as a fixed background parameter in models of Earth's long-term fate, turned out to be a dynamical quantity evolving on the same timescale as the very expansion it was assumed to survive.
+
+The observation is interesting astrophysics. What is more interesting is the shape of the error it corrects. The older conclusion was not based on bad data or imprecise calculation. It was based on a prior decision---implicit, unnoticed, entirely routine---about what kind of thing Earth's orbital radius was: not a trajectory to be modeled, but a constant to be looked up. Once that decision was made, the subsequent mathematics was correct and the conclusion was wrong.
+
+That structure---a correct calculation producing a wrong answer because the ontological classification upstream of it was mistaken---appears far outside astrophysics. It appears in evolutionary biology, in geology, in macroeconomics, in financial modeling, in ecology, and in the everyday reasoning of institutions and individuals. In each case, the error is not in the equations. It is in the prior decision about which quantities belong in those equations and which quantities serve as their fixed backdrop.
+
+This monograph is an attempt to state that error precisely, understand when it occurs, explain why it persists, and identify the kind of capacity---in individuals, models, and institutions---that is needed to correct it.
+
+The theory is developed in nine chapters. Chapter~1 uses the Earth--Sun case to introduce the problem informally. Chapters~2 and~3 give the formal criterion and connect it to a broader claim about prediction as ontological classification. Chapter~4 surveys the history of science as a sequence of parameter-to-state-variable transitions. Chapters~5 through~8 apply the theory to adaptive systems, language, and the structure of reachable futures. Chapter~9 states the general theorems.
+
+\emph{Variable Drift} is intended to be read alongside the broader \emph{Ecology of Distinctions} research program, of which it can be read as a special case. The frozen-process error is what distinction failure looks like when the failing distinction is about the nature of a variable rather than the location of a category boundary. The unfreezing capacity described in Chapter~6 is a special case of the repair capacity developed in that program. The reachability analysis of Chapter~8 connects directly to the admissibility framework. These connections are noted where they arise but are not assumed in the main development, so the monograph also reads as a self-contained work on the theory of prediction.
+
+\vfill
+\noindent\textit{Flyxion \hfill June 2026}
+\clearpage
+
+%-----------------------------------------------------------------------
+\chapter[The Danger of Frozen Processes]{The Danger of Frozen Processes: Why Earth May Survive the Sun}
+%-----------------------------------------------------------------------
+
+For decades, the popular fate of Earth has been told as a simple story. The Sun exhausts its hydrogen, swells into a red giant, and swallows the inner planets on its way out. Earth orbits at about 1~AU. The future Sun expands past 1~AU. Therefore Earth burns.
+
+A paper published this June complicates that story. The reason is not that the Sun expands less than expected. The reason is that Earth does not stay where it is.
+
+\section{The Snapshot Model}
+
+The old argument treats Earth as fixed and the Sun as the only thing changing:
+\begin{enumerate}[itemsep=1pt]
+\item Earth orbits at 1~AU.
+\item The Sun expands past 1~AU.
+\item Earth is engulfed.
+\end{enumerate}
+Every step looks correct. But the argument smuggles in an assumption: Earth's orbit is held constant while the Sun's radius is allowed to grow. One variable moves. The other is frozen by omission, not by physics.
+
+\section{The Trajectory Model}
+
+Orbits are not independent of the star they circle. For a planet of mass $m \ll M_\odot$ on a nearly circular orbit of radius $a$, the orbital angular momentum is
+\[
+L = m\sqrt{GM_\odot a}.
+\]
+The relevant conservation law is slightly more specific than ``angular momentum is conserved'' in general: under slow, spherically symmetric (isotropic) mass loss, the planet's own mass and the symmetry of the outflow together guarantee that no torque acts on the orbit, so it is the planet's \emph{specific} angular momentum---angular momentum per unit planet mass---that survives the adiabatic limit. This is the standard adiabatic mass-loss relation for the semi-major axis. Holding $L$ and $m$ fixed,
+\[
+L^2 = m^2 G M_\odot a = \text{const} \quad\Longrightarrow\quad M_\odot\, a = \text{const} \quad\Longrightarrow\quad a \propto \frac{1}{M_\odot}.
+\]
+As the Sun sheds mass, Earth's orbit must widen to conserve that quantity. Integrating from a reference time $t_0$,
+\begin{equation}
+a(t) = a_0\,\frac{M_{\odot,0}}{M_\odot(t)}, \qquad a_0 = a(t_0),\ M_{\odot,0} = M_\odot(t_0).
+\label{eq:awiden}
+\end{equation}
+Earth survives the giant phase, in the crudest version of the question, if its orbit stays outside the Sun's physical radius, $a(t) > R_\odot(t)$; more realistically, it survives if its orbital separation remains outside the effective Roche or tidal boundary, $a(t) > R_{\mathrm{Roche}}(t)$---the operational engulfment criterion in the 2026 paper. The whole question reduces to a race: does the outward push of Equation~\eqref{eq:awiden} beat the inward pull of tidal dissipation and the outward growth of $R_\odot(t)$ itself?
+
+For years, the consensus leaned toward engulfment, based on older tidal models. The new paper (Esseldeurs, Mathis \& Decin, 2026) redoes the tidal physics from first principles, finds the drag weaker than assumed, and anchors the Sun's mass-loss rate to L2~Puppis---an aging giant close enough to study in detail, a working preview of what our own star will do. In the paper's reference model Mercury and Venus are engulfed during the RGB; Earth and Mars widen fast enough to survive it. The outcome still depends on the strength of tidal coupling, but the qualitative picture has shifted: where the textbook answer was a confident ``engulfed,'' the live answer is now a qualified ``not necessarily.''
+
+\section{What Doesn't Change}
+
+None of this rescues Earth as a place to live. On a timescale closer to one billion years---long before the giant phase---the Sun's slow main-sequence brightening raises surface temperatures enough to destabilize the oceans and end complex life. Earth's orbit barely moves over that shorter stretch; the brightening dominates long before orbital migration in Equation~\eqref{eq:awiden} becomes large enough to help. Two questions where the popular imagination usually carries only one: will Earth stay habitable, and will Earth physically survive. The first answer is still bleak, and arrives first.
+
+\section{Frozen Processes}
+
+What makes the astrophysics worth dwelling on past its own interest is the shape of the original mistake. It isn't that anyone got the physics of stellar expansion wrong. It's that a system with two coupled, moving parts got analyzed as if it had one moving part and one fixed backdrop.
+
+The two models can be written side by side. The snapshot model assumes $a(t) = a_0$ outright, so engulfment occurs once $R_\odot(t) > a_0$. The trajectory model uses Equation~\eqref{eq:awiden}, so engulfment instead requires the stronger condition
+\[
+R_\odot(t) > a_0\,\frac{M_{\odot,0}}{M_\odot(t)}.
+\]
+Since $M_\odot(t) < M_{\odot,0}$ throughout the mass-losing giant phase, the ratio exceeds 1, so the trajectory model's engulfment threshold is strictly larger than the snapshot model's. Every snapshot-model engulfment prediction is therefore incomplete at minimum---missing a term, not merely early---and in the range the new paper considers, sometimes wrong outright. The old argument made no error in physics. It made an error in calculus. It silently set
+\[
+\frac{da}{dt} = 0.
+\]
+
+\begin{tcolorbox}[title={Frozen Process (Preliminary)}]
+\centering
+A frozen process is a trajectory assigned $\dfrac{dx}{dt}=0$ --- not by law, but by omission.
+\end{tcolorbox}
+
+\noindent Chapter~\ref{ch:timescale} will sharpen this into a definition with a precise criterion for when the omission constitutes an error and when it constitutes legitimate simplification.
+
+\section{Coda}
+
+Earth was never a rock parked at 1~AU, waiting. It is not an object moving through time. It is a trajectory whose successive states are similar enough that we assign them a common name. The giant-phase question turned out to hinge on remembering that the name isn't the thing.
+
+Wherever a forecast feels inevitable, it is worth asking which variable got frozen to make it feel that way---and what the forecast would say if that variable were allowed to move like everything else. The future is often determined not by the variables we are tracking, but by the trajectories we have forgotten to notice.
+
+\bigskip
+\noindent\textit{Reference: M.~Esseldeurs, S.~Mathis, L.~Decin, ``The fate of Earth during the Sun's giant phases,'' \textit{Astronomy \& Astrophysics} (2026). \href{https://doi.org/10.1051/0004-6361/202660576}{DOI:~10.1051/0004-6361/202660576}.}
+
+%-----------------------------------------------------------------------
+\chapter{Timescales and Legitimate Simplification}
+\label{ch:timescale}
+%-----------------------------------------------------------------------
+
+The previous chapter ended with a boxed definition that was deliberately marked provisional. The claim that setting $\dot x = 0$ by omission is an error cannot be the whole story, because every model does exactly that for most of its variables, and physics would be impossible otherwise. This chapter supplies the missing half: a criterion distinguishing legitimate simplification from frozen-process error.
+
+\section{Every Model Freezes Variables}
+
+Bridge engineers ignore continental drift. Airplane designers ignore stellar evolution. Nobody re-derives orbital mechanics to compute a mortgage amortization schedule. Nobody calls any of this an error, because in each case the frozen quantity changes on a timescale wildly longer than the thing being predicted. The omission is not careless; it is the entire point. A model that allowed every variable to move simultaneously would be a simulation of the universe, not a tool for answering a question.
+
+The preliminary definition in Chapter~1 therefore needs a qualifier. The error is not in fixing variables. The error is in fixing variables \emph{that evolve on the same timescale as the phenomenon being forecast}.
+
+\section{The Timescale Ratio}
+
+\begin{definition}[Timescale Ratio]
+\label{def:epsilon}
+Let $x$ be a variable assigned to the parameter set $\Theta$ in a model whose prediction horizon is $\tau_{\mathrm{phenomenon}}$. Let $\tau_{x}$ be the characteristic timescale on which $x$ actually changes---the time over which it varies by an amount comparable to its own scale. The \emph{timescale ratio} is
+\[
+\epsilon_x = \frac{\tau_{\mathrm{phenomenon}}}{\tau_{x}}.
+\]
+\end{definition}
+
+\begin{proposition}[Error Order]
+\label{prop:error-order}
+If $x(t)$ varies smoothly and $\epsilon_x \ll 1$, then freezing $x$ introduces a fractional error of order $\epsilon_x$ in the model's output over the prediction horizon.
+\end{proposition}
+\begin{proof}
+Taylor-expand the model output $y = F(S, x)$ around the frozen value $x_0 = x(t_0)$:
+\[
+y(t) = F\!\big(S(t), x(t)\big) \approx F\!\big(S(t), x_0\big) + \frac{\partial F}{\partial x}\bigg|_{x_0}\!\cdot \big(x(t)-x_0\big) + O\!\big((x-x_0)^2\big).
+\]
+The deviation satisfies $|x(t)-x_0| \lesssim \dot x_0\,\tau_{\mathrm{phenomenon}} = x_0\,\epsilon_x$ (up to dimensionless constants), so the fractional error in $y$ is of order $\epsilon_x\,|\partial \ln F/\partial \ln x|$. When $\epsilon_x \ll 1$ and the logarithmic sensitivity is $O(1)$, the error is $O(\epsilon_x)$.
+\end{proof}
+
+\begin{tcolorbox}[title={Frozen Process Error, Defined}]
+A frozen-process error occurs when a quantity $x \in \Theta$ satisfies $\epsilon_x \not\ll 1$: the variable changes on a timescale comparable to or shorter than the prediction horizon, so freezing it introduces an error that does not vanish as the prediction is refined.
+\end{tcolorbox}
+
+This definition is deliberately conservative: it marks an error only when the timescale ratio is not small, leaving legitimate simplification---everything with $\epsilon_x \ll 1$---untouched.
+
+\section{Where the Earth--Sun Case Sits}
+
+The Earth--Sun case is clean precisely because there is no ambiguity about where the timescale ratio lands. The giant-phase prediction concerns stellar evolution, which unfolds over $\sim 5\times 10^9$~years. Orbital migration from Equation~\eqref{eq:awiden} is driven by the same stellar-evolution process and therefore occurs on the same timescale. The timescale ratio for Earth's orbital radius is:
+\[
+\epsilon_a = \frac{\tau_{\mathrm{giant\,phase}}}{\tau_{\mathrm{orbital\,migration}}} \sim \frac{5\times 10^9\,\text{yr}}{5\times 10^9\,\text{yr}} = O(1).
+\]
+This is not $\ll 1$. Setting $da/dt = 0$ violates Definition~\ref{def:epsilon} by an order-of-magnitude argument, and by Proposition~\ref{prop:error-order} the resulting error is not suppressed. The frozen-process label applies without reservation.
+
+Contrast with the one-billion-year habitability question from Chapter~1. There, the frozen quantity being questioned was whether Earth's orbit helps mitigate the brightening. Over a billion-year horizon the Sun's main-sequence mass loss is indeed small---total mass shed over this period is perhaps 0.01\% of solar mass---so $a$ changes by at most 0.01\%. The timescale ratio here is small: $\epsilon_a \approx 10^{-4}$. Freezing the orbital radius is legitimate for the billion-year question. It is not legitimate for the five-billion-year question. The same variable, the same system: which approximation applies depends entirely on the horizon.
+
+\section{A Practical Checklist}
+
+The timescale ratio supplies a concrete question to ask before fixing any variable in a model.
+
+\begin{enumerate}[label=\arabic*.,itemsep=4pt]
+\item \textbf{Identify the prediction horizon.} What timescale does the forecast actually concern?
+\item \textbf{For each frozen variable, estimate $\tau_x$.} How quickly does it actually change?
+\item \textbf{Compute $\epsilon_x = \tau_{\mathrm{phenomenon}}/\tau_x$.} If $\epsilon_x \ll 1$, the freeze is justified. If not, the variable belongs in $S$, not $\Theta$.
+\item \textbf{Ask whether the frozen quantity is downstream of anything already in $S$.} A variable can appear static while being secretly driven by a dynamic process already in the model---in which case the freeze is doubly wrong.
+\end{enumerate}
+
+Step~4 deserves emphasis. Earth's orbital radius is not merely a variable with its own independent timescale; it is downstream of $M_\odot(t)$, which is already inside the model's $S$ (that is the whole point of modeling stellar evolution). A frozen variable that depends functionally on a state variable the model already tracks is a frozen process error \emph{by construction}---the model already contains the information needed to unfreeze it.
+
+\begin{remark}[The Obvious Half]
+The examples in Chapter~1 where freezing is obviously right---bridge engineering, airplane design---share a feature: the frozen variable is not downstream of anything in $S$. Continental drift is not caused by bridge stress. Stellar evolution is not caused by airplane aerodynamics. The independence is what makes the freeze legitimate. When the frozen variable \emph{is} caused by something already in $S$, the case for freezing it collapses.
+\end{remark}
+
+\section{When Whole Timescale Hierarchies Shift}
+
+The timescale ratio $\epsilon_x$ is not a fixed property of a variable. It depends on the prediction horizon, which can itself change as a question is refined or extended.
+
+\begin{example}[Shifting Horizon]
+Consider forecasting Earth's climate over a century, a millennium, and a million years. Over a century, ocean circulation, ice-sheet extent, and vegetation cover all belong in $S$, while continental positions can safely belong in $\Theta$. Over a million years, continental drift ($\tau \sim 10^7$~yr) starts to approach $\epsilon \sim 0.1$, and the approximation begins to weaken. Over tens of millions of years, continents must move into $S$. The same variable crosses the $S/\Theta$ line as the horizon extends.
+\end{example}
+
+This is the systematic pattern behind most scientific revolutions involving a frozen-process correction: not that a new variable was discovered, but that an established variable's timescale became relevant because the question was asked over a longer or wider domain than before.
+
+%-----------------------------------------------------------------------
+\chapter{Forecasting as Ontological Classification}
+\label{ch:ontology}
+%-----------------------------------------------------------------------
+
+Chapter~\ref{ch:timescale} gave a precise criterion for when fixing a variable is an error: when $\epsilon_x \not\ll 1$. This chapter asks why the error gets made so often, and argues that the answer is not primarily computational. It is ontological. Frozen-process errors are, more often than not, the downstream consequence of a prior decision about what \emph{kind of thing} a variable is.
+
+\section{The State--Parameter Misclassification Principle}
+
+Every forecast begins with a partition of the world into things that are \emph{changing} and things that are \emph{given}. This partition is usually implicit: it lives in the choice of model, the selection of inputs, the framing of the question. Making it explicit reveals a predictable structure.
+
+\begin{definition}[State--Parameter Misclassification]
+A state--parameter misclassification occurs when a quantity $y$ is placed in $\Theta$ because it is \emph{conceived of as a parameter}---a fixed characteristic of the system rather than a dynamical variable---when in fact $\epsilon_y \not\ll 1$ on the prediction horizon of interest.
+\end{definition}
+
+The distinction between this definition and a simple timescale-ratio violation is the word \emph{conceived}. A state--parameter misclassification is not primarily a computational error. It is an error about what \emph{kind of thing} $y$ is---whether it is the sort of entity that varies, or the sort that simply is. Once the ontological classification is made, the computational error---setting $\dot y = 0$---follows nearly automatically, often without anyone noticing that a choice was made.
+
+\begin{remark}
+This is why frozen-process errors are often invisible from inside the model. The variable that would reveal the error is not merely unlisted; it is \emph{categorically absent}. A model that treats species as fixed cannot represent evolutionary change, not because it assigns zero to a change variable, but because it contains no change variable to assign anything to. The error is not in the equations. It is in the ontology the equations were built to express.
+\end{remark}
+
+\section{The General Prediction Error Formula}
+
+With this in mind, the prediction error from a frozen process can be written precisely. Let the true dynamics be
+\[
+\dot S = f(S, y(t)),
+\]
+where $y(t)$ is a genuinely evolving quantity the model has placed in $\Theta$ at the frozen value $y_0 = y(t_0)$. The model predicts
+\[
+x_{\mathrm{model}}(t) = F(x(t_0), y_0),
+\]
+while the true trajectory is
+\[
+x_{\mathrm{true}}(t) = F(x(t_0), y(t)).
+\]
+The prediction error is therefore
+\begin{equation}
+\Delta x(t) = F(x(t_0), y(t)) - F(x(t_0), y_0),
+\label{eq:prediction-error}
+\end{equation}
+which vanishes when $y(t) = y_0$ (no drift from the frozen value) and grows as $y$ departs from $y_0$ over the prediction horizon. Equation~\eqref{eq:prediction-error} is the master equation for all subsequent chapters: every example is a particular instantiation of $y$, $F$, and the way $y$ moves while the model holds it still.
+
+\section{Why Ontological Errors Precede Computational Ones}
+
+The sequence matters. A forecaster who suspects $\dot y \ne 0$ would add $y$ to $S$ and model its dynamics. A forecaster who has classified $y$ as a parameter---a fixed background property of the world---never runs this check, because the question ``how fast does this change?'' is not the kind of question one asks about a constant.
+
+This produces a diagnostic signature. Frozen-process errors tend to persist through model refinements that increase the sophistication of $S$'s dynamics, because those refinements never touch $\Theta$. The error is not revealed by solving $f(S,\Theta)$ more accurately; it is revealed only by moving $y$ from $\Theta$ to $S$, which requires a prior ontological reclassification. Correcting a frozen-process error therefore typically looks less like fixing a bug in a calculation and more like asking a question that wasn't being asked before.
+
+The Earth--Sun case fits this pattern exactly. The orbital-radius error was not revealed by better calculations of stellar expansion, tidal dissipation, or giant-phase luminosity---all of which belong to $S$ and were modeled with increasing sophistication over decades. It was revealed by the question ``but what is happening to Earth's orbit?'', which placed orbital radius in $S$ for the first time in this context.
+
+\section{Prediction as Committed Ontology}
+
+A prediction, on this view, is not merely a quantitative claim about the future. It is a statement about the ontological structure of the phenomenon: which things in it are entities with their own dynamics, and which things are background conditions.
+
+\begin{tcolorbox}[title={Prediction as Ontology}]
+Every forecast is implicitly a classification of all quantities in the system into those that \emph{act} and those that \emph{simply are}. Frozen-process errors arise when that classification is made for reasons of convention, habit, or computability, rather than by checking the timescale criterion of Definition~\ref{ch:timescale}.1.
+\end{tcolorbox}
+
+The practical implication is that improving a forecast does not always mean solving the same model more accurately. It sometimes means rebuilding the model around a different partition of the world.
+
+%-----------------------------------------------------------------------
+\chapter{The History of Moving Parameters}
+\label{ch:history}
+%-----------------------------------------------------------------------
+
+The previous chapter described state--parameter misclassification as a structural feature of forecasting. This chapter shows that science has encountered and corrected it repeatedly---not as a curiosity but as the central move of several of its most consequential revolutions. Each example below is a case where a quantity long treated as a fixed parameter became, under pressure from new observations or longer time horizons, a state variable with its own dynamics.
+
+\section{Species: From Taxonomy to Trajectory}
+
+For most of the history of natural history, species were the paradigm case of a fixed parameter. A species was a kind: defined, stable, recognized. Naturalists collected specimens and assigned them; the category itself was not a variable. The underlying ontology was essentialist---species had defining natures, and individual variation was noise around a fixed type.
+
+Darwin moved species from $\Theta$ to $S$. What had been a classification---this is a finch, that is a hawk---became a state with its own dynamics, driven by heritable variation and differential reproduction. The relevant ``timescale'' of species change is the generation time multiplied by the selection coefficient, ranging from years (for bacteria under antibiotic pressure) to millions of years (for slowly evolving lineages). Against that timescale, a human-scale natural history study has $\epsilon \ll 1$: fixing the species is legitimate. Against a geological timescale, $\epsilon \sim 1$ or larger, and the fixity assumption produces the very problem Darwin diagnosed: a world of fixed types whose diversity and geographic distribution cannot be explained.
+
+\section{Continents: From Map to Process}
+
+Continental positions were, for virtually all of recorded science, background conditions. A geologist in 1900 did not model the movement of South America; South America was a fixed stage on which geology happened. Wegener's proposal that continents had once been joined and had since drifted was rejected in part because no mechanism was known, but also in part because the very idea of modeling continents as state variables---things with rates of change that matter for geological predictions---was categorically foreign to the established ontology.
+
+Plate tectonics resolved both objections and moved continental positions into $S$. The timescale of significant continental motion is $\sim 10^7$--$10^8$~years. Against human-history horizons, $\epsilon \ll 1$: we do not include continental drift in navigation calculations. Against geological or evolutionary-biogeography horizons, $\epsilon \sim 1$, and treating continents as fixed produces systematic errors---the same distribution of marsupials, the same patterns of mountain-building, the same earthquake geography cannot be explained from a fixed map.
+
+\section{Climate: From Background to System}
+
+As recently as the mid-twentieth century, climate was routinely treated as a long-run average that formed the background for weather. Climate change in this usage meant a change in the background---a shift in the parameters---not a dynamics in the state. The recognition that climate is itself a dynamical system, with its own feedback loops, tipping points, and time-dependent trajectories, was the foundational shift of modern climate science.
+
+The timescale issue here is particularly sharp. Over decades, some aspects of climate ($\epsilon \ll 1$ for many purposes) can reasonably be treated as background. Over centuries and millennia, the ice-albedo feedback, the carbon cycle, and ocean circulation are all state variables with $\epsilon \sim 1$ or larger, and the forecast error from freezing them is the entire problem in long-horizon climate projection.
+
+\section{The Universe: From Stage to Protagonist}
+
+Before Hubble, the universe was background. Stars moved; galaxies might rotate; but the universe itself was a fixed container, not a dynamical object. The discovery of the expansion of the universe moved the universe's scale factor from $\Theta$ to $S$. Subsequent discoveries---deceleration, acceleration, dark energy---have made the universe's own dynamics as complicated as anything happening within it.
+
+This example is worth noting because the timescale at which the universe's expansion becomes relevant is enormous for most purposes---the fractional change in the Hubble parameter over a human lifetime is unmeasurable. Yet for cosmological questions, $\epsilon \sim 1$ and the fixed-universe assumption produces systematic errors in distance calculations, age estimates, and the interpretation of redshift.
+
+\section{The Pattern}
+
+Across these examples, the same structure repeats:
+
+\begin{enumerate}[label=\arabic*.,itemsep=3pt]
+\item A quantity is treated as a fixed parameter within an established ontology.
+\item Observations extend in time, space, or precision until the assumption's timescale ratio $\epsilon$ is no longer small.
+\item A conceptual revolution occurs that moves the quantity from $\Theta$ to $S$.
+\item The move is resisted, initially, not primarily because of disagreement about the data but because the ontological reclassification is unfamiliar.
+\item After the move, previously anomalous observations resolve, and predictions over the relevant timescale improve.
+\end{enumerate}
+
+\begin{tcolorbox}[title={The Historical Principle}]
+Scientific revolutions often occur not when new data arrives, but when a quantity previously classified as a fixed parameter is reclassified as a state variable---when something that \emph{simply was} becomes something that \emph{changes according to its own dynamics}.
+\end{tcolorbox}
+
+What looks, from inside a paradigm, like the discovery of a new phenomenon is often, from outside it, the correction of a frozen-process error.
+
+%-----------------------------------------------------------------------
+\chapter{The Lucas Principle and Adaptive Systems}
+\label{ch:lucas}
+%-----------------------------------------------------------------------
+
+The previous chapter showed that natural science repeatedly corrects frozen-process errors by moving quantities from $\Theta$ to $S$. This chapter examines a class of cases that are, in a sense, harder: cases where the quantity being frozen is not a physical process but a \emph{behavioral rule}---the way agents respond to their environment. These are harder because the rule may genuinely have been approximately constant in the past, making the freeze historically defensible, while being systematically non-constant once the model is acted upon. The forecast doesn't merely fail to capture behavior; it \emph{changes} the behavior it was meant to forecast.
+
+\section{The Lucas Critique}
+
+In 1976, Robert Lucas published a critique of the large-scale macroeconometric models then in use for policy analysis. The models worked by estimating stable statistical relationships between economic variables---inflation and unemployment, money supply and output, and so forth. These relationships were then used to predict the effects of policy changes: if the central bank raises the money supply by $x$, output will increase by $y$.
+
+Lucas's argument was precise. The estimated relationships were not structural constants. They were themselves behavioral rules---equilibrium outcomes of agents' optimization under their expectations about policy. If policy changes, rational agents update their expectations and therefore their behavior. The estimated relationship changes. What was in $\Theta$ belongs in $S$.
+
+In the notation of Chapter~\ref{ch:ontology}, the prediction error of Equation~\eqref{eq:prediction-error} applies directly. Let $y$ be the behavioral rule (the expectations-formation process of agents), $y_0$ the value estimated from historical data under the old policy regime, and $y(t)$ the value the rule takes under the new policy regime. The model predicts $F(x, y_0)$; the true outcome is $F(x, y(t))$; the prediction error $\Delta x = F(x,y(t)) - F(x,y_0)$ is nonzero and systematic. The error is not from bad data or imprecise estimates; it is structural, arising from the frozen-process misclassification of the behavioral rule.
+
+\section{The General Form: Feedback-Sensitive Forecasts}
+
+The Lucas critique is a special case of a more general phenomenon. Whenever a forecast is acted upon by agents whose behavior depends on the forecast, the very act of making the forecast changes what the forecast is trying to model. The frozen variable---the behavioral rule---is not merely evolving on its own; it is evolving in response to the forecast itself.
+
+Define a \emph{feedback-sensitive forecast} as one in which
+\[
+y(t) = G(y_0, F(x(t_0), y_0)),
+\]
+so that the behavioral parameter $y$ at time $t$ depends on both the initial value $y_0$ and on the policy implied by the model's own output. This is the structure that makes the behavioral rule unfreezeble within the original model: to forecast it, one would need a model of how agents respond to the model's forecasts, which requires a model of how they respond to that, and so on. The regress is resolved in practice by structural modeling (modeling the underlying preferences and constraints, not just the behavioral outcomes) and by game-theoretic approaches (modeling the strategic interaction between policy and behavior). Both moves are exactly the move from $\Theta$ to $S$: they add the behavioral rule's dynamics to the model rather than holding them fixed.
+
+\section{Adaptive Markets}
+
+Financial markets provide a vivid illustration because the feedback is rapid and observable. A trading rule that generates abnormal returns attracts capital until the arbitrage is eliminated. A pricing model that accurately estimates asset values is used until those values are bid to the levels the model predicts. A momentum strategy that exploits a persistent behavioral pattern erodes the pattern as others exploit it.
+
+In each case, the relationship being modeled---the anomaly, the misprice, the behavioral pattern---is a behavioral equilibrium that evolves in response to being modeled and acted upon. The timescale of adaptation is not geological but financial: months to years rather than millions of years. The $\epsilon_x$ ratio for these quantities, measured against a prediction horizon of even a few years, is not small. Freezing the market's response to a trading rule is a frozen-process error with a timescale ratio of order 1.
+
+This does not mean financial modeling is impossible. It means that the relevant models must include the dynamics of market adaptation: how quickly capital flows to exploit a discovered anomaly, how rapidly a behavioral pattern erodes once it is recognized, how the behavioral rule $y$ evolves as a function of the actions taken in response to the forecast $F(x, y_0)$.
+
+\section{Ecosystems and Coevolution}
+
+The same structure appears in ecology. A species population model that treats another species' behavior---predation strategy, foraging pattern, migration route---as a fixed parameter will generate systematic errors once the timescale of behavioral adaptation or evolutionary change is comparable to the prediction horizon. In coevolutionary systems, the predator's behavior is driven by the prey's, and the prey's by the predator's: both are feedback-sensitive. A model that fixes one while modeling the other is a frozen-process model of an adaptive system.
+
+The relevant timescale for behavioral adaptation is ecological time---years to decades. The timescale for evolutionary adaptation is generation-time dependent---years for small organisms under strong selection, millennia for large vertebrates. A conservation model projecting outcomes over a century must decide where each of these sits relative to its prediction horizon before fixing them in $\Theta$.
+
+\section{The Common Structure}
+
+Across economics, finance, and ecology, the pattern from Equation~\eqref{eq:prediction-error} repeats. The frozen quantity is a behavioral rule rather than a physical process, but the mathematical structure of the error is identical. What differs is the mechanism by which $y(t)$ departs from $y_0$: in physical systems, $y$ changes according to its own physical dynamics; in adaptive systems, $y$ changes in response to being acted upon, often in response to the forecast itself.
+
+This makes adaptive-system frozen-process errors distinctively difficult to correct: one cannot simply run the old model more carefully. One must move the behavioral rule into $S$ and model how it evolves---which requires a theory of learning, adaptation, or evolution, depending on the system. Each such theory is a different specification of $\dot y = g(y, F(x,y))$.
+
+%-----------------------------------------------------------------------
+\chapter{Intelligence as Unfreezing}
+\label{ch:intelligence}
+%-----------------------------------------------------------------------
+
+Chapters~\ref{ch:timescale} through~\ref{ch:lucas} have described how systems---physical, biological, economic---undergo frozen-process errors when their models hold some evolving quantity fixed. This chapter turns the argument around: rather than asking when models fail, it asks what it means for a system to succeed. The answer connects the frozen-process account of prediction failure to a broader claim about what intelligence is.
+
+\section{Prediction and Meta-Prediction}
+
+A predictive system operates at two levels, whether or not it recognizes them. At the first level it runs its current model:
+\[
+x_{\mathrm{model}}(t) = F(x(t_0), \Theta).
+\]
+At the second level---which a simple predictive system may not operate---it monitors $\Theta$ itself: are the parameters actually staying fixed? Are there quantities in $\Theta$ whose $\epsilon$ is quietly growing as the prediction horizon extends?
+
+Call the first level \emph{prediction} and the second level \emph{meta-prediction}. A purely predictive system, with no meta-predictive capacity, will continue generating outputs from $F(x, \Theta)$ even as $\Theta$ drifts away from $\Theta_0$. The prediction error from Equation~\eqref{eq:prediction-error} accumulates invisibly, because the system has no mechanism for noticing that it is accumulating.
+
+\begin{definition}[Unfreezing Capacity]
+A system has \emph{unfreezing capacity} to the extent that it can detect when a quantity currently in $\Theta$ satisfies $\epsilon \not\ll 1$ and can reclassify that quantity from $\Theta$ to $S$---updating its model structure, not merely its parameter values---in response to that detection.
+\end{definition}
+
+\section{Competence, Intelligence, and Unfreezing}
+
+This connects to the three-tier distinction introduced in an earlier treatment. A system can \emph{execute} its current model without revision. A system can be \emph{competent} within its current model---solving $f(S,\Theta)$ accurately and efficiently. Neither competence nor bare execution requires unfreezing capacity.
+
+Intelligence, in the sense developed here, requires something more: the capacity to notice that $\Theta$ is wrong and to do something about it. This is not a mystical capacity. It is precisely the capacity to run the timescale check of Chapter~\ref{ch:timescale}: to ask, for each frozen quantity, whether $\epsilon_x$ is actually small given the current prediction horizon, and to move quantities out of $\Theta$ and into $S$ when the answer is no.
+
+A system with low unfreezing capacity will perform well when the world matches its model---when its $\Theta$ classifications happen to be accurate---and will fail systematically and increasingly as the world diverges from those classifications. The failure pattern is distinctive: the errors are not random but structured, clustering around precisely the variables the system has frozen, and growing over time as those variables drift.
+
+\section{CLIO and the Projection Connection}
+
+The unfreezing-capacity account of intelligence connects naturally to the projection-repair account developed elsewhere in this research program. A model's parameter set $\Theta$ is, in effect, a projection: it is a choice of which aspects of the world to represent as fixed background. A frozen-process error is a case where the projection has collapsed something dynamic into something static---where the projection $\pi : X \to M$ has treated a trajectory in $X$ as a point in $M$.
+
+Unfreezing, then, is a special case of projection repair: it is the move that expands $M$ to include the dynamics of a previously collapsed dimension. The mathematical structure is identical to what was described earlier as CLIO-level repair, and the intelligence criterion---repair that preserves future repairability---applies here as it did there. An unfreezing that adds one previously frozen variable to $S$ is intelligent to the extent that it does not, in doing so, make it harder to unfreeze the next variable when that becomes necessary.
+
+\section{The Deepest Unfreezing}
+
+The recursive structure becomes apparent once unfreezing capacity is itself treated as a variable. A system can fail to unfreeze not only the physical or behavioral variables in its model but the \emph{model structure itself}---the very partition into $S$ and $\Theta$. A system that never revises its $S/\Theta$ partition is, at a higher level, a frozen system: it has assigned $\partial(\text{model structure})/\partial t = 0$ by omission.
+
+The deepest form of unfreezing is the capacity to revise not just the variables in a model but the model's own structural commitments: which things count as state variables, which count as parameters, and which count as background scenery too slow-moving to bother with. This is what scientific revolutions do. It is what the move from Newtonian to Einsteinian mechanics did to the status of time. It is what Darwin did to the status of species. It is, as Chapter~\ref{ch:history} showed, the characteristic move by which parameters become trajectories.
+
+A system---individual, institution, or civilization---that can make this move retains the ability to correct its frozen-process errors. A system that cannot is doomed to optimize within its current model while the world departs from the model's assumptions, accumulating prediction error in precisely the directions it cannot see.
+
+%-----------------------------------------------------------------------
+\chapter{The Noun Fallacy}
+\label{ch:nouns}
+%-----------------------------------------------------------------------
+
+The previous chapters have described frozen-process errors in terms of models and variables. This chapter steps back and asks why the errors arise so persistently, and argues that the answer is partly linguistic: the nouns in a language are, in effect, a collectively maintained list of what the world has decided to treat as parameters.
+
+\section{Nouns as Frozen Processes}
+
+A noun names a thing. Things, in the ordinary grammatical sense, are entities that persist, that can be pointed to, that can be the subject of a sentence. Processes, in the same ordinary sense, are not things but events---they are what happens to things, or between things, rather than the things themselves.
+
+This grammatical distinction is not neutral. It encodes an ontological presumption: that the world divides into entities that endure and events that merely occur. Once something has been named, the name carries the presumption of persistence. To say ``Earth is at 1 AU'' is to use a noun (Earth) and an attribute (1 AU) in a grammatical form that presupposes Earth is an enduring entity with fixed attributes, rather than a momentary state of an ongoing orbital trajectory.
+
+The noun fallacy is the tendency to mistake the grammatical fixity of a name for the physical fixity of the thing named.
+
+\begin{tcolorbox}[title={The Noun Fallacy}]
+A noun names a trajectory stable enough to have earned a name. The frozen-process error is the mistake of inferring from the stability of the name the permanence of the trajectory.
+\end{tcolorbox}
+
+\section{Objects as Compressed Trajectories}
+
+This points toward a deeper claim about the ontological status of objects. From the perspective developed across this monograph, the natural order of explanation is not \emph{object $\to$ trajectory} (objects move through time) but \emph{trajectory $\to$ object} (objects are what we call trajectories stable enough to merit a name).
+
+Earth is not a rock moving through time. Earth is a trajectory whose successive states are similar enough---similar enough in mass, size, orbital radius, and surface composition---that calling them by the same name is useful over the relevant timescales. The name compresses the trajectory into a point and then treats the point as the fundamental entity. The frozen-process error is committed at the moment of naming: by assigning a noun, we implicitly assign $\dot x \approx 0$ to all the trajectory's attributes.
+
+This is a useful compression in exactly the same sense that freezing a variable with $\epsilon \ll 1$ is a useful compression. Earth's mass does not change significantly on human timescales. Earth's surface exists and can be walked upon. The noun is not a lie. But the noun becomes misleading when the relevant question is precisely about an attribute that is, in fact, changing---when the horizon extends far enough that $\epsilon$ for some attribute of Earth is no longer small.
+
+\section{Institutions as Frozen Processes}
+
+The noun fallacy is particularly consequential for institutions, because institutions are the entities that do most of the organizing of human life, and they are named entities almost by definition---a university, a government, a company, a legal tradition.
+
+An institution named in the eighteenth century and still bearing that name in the twenty-first is not the same entity in any sense beyond the name. Its personnel are entirely replaced. Its technologies are utterly different. Its legal standing may have been rechartered multiple times. Its cultural practices, its power structure, its geographic footprint may all have changed. What persists is a trajectory of organizational activity whose thread has been continuous enough---continuous enough in some set of attributes that someone cared about---to maintain a shared name.
+
+Predictions about institutions that treat the noun as fixed commit the frozen-process error in exactly the same form as predictions about Earth's orbit. To predict what ``Harvard'' will do in fifty years by extrapolating what it has done in the past is to treat ``Harvard'' as an object with stable properties, when Harvard is a trajectory whose properties include mechanisms for institutional change that can dramatically alter the relevant attributes on a timescale entirely comparable to fifty years.
+
+The relevant check, as always, is $\epsilon$: what attribute is being predicted, what is its timescale of change within the institution, and how does that compare to the prediction horizon?
+
+\section{Language as a Collective Frozen-Process Commitment}
+
+Language does not merely describe the world. By establishing which things get nouns and which things get verbs, it shapes which aspects of the world its speakers naturally treat as background parameters and which they naturally treat as dynamic variables.
+
+A language with a rich verb vocabulary for ecological processes and a sparse noun vocabulary for landscape features would generate different default $S/\Theta$ partitions in its speakers than a language that names every hill and tree but has few words for flow and succession. Neither partition is the right one in the absolute sense; each is right for some prediction horizons and wrong for others. But the partition that a language embeds in its grammar is applied as a default, without the timescale check of Chapter~\ref{ch:timescale}, in every sentence uttered.
+
+This suggests that one function of scientific revolutions is to resist the noun-induced default partition. Darwin did not merely discover that species change; he argued against treating them as the relevant nouns in the first place. Plate tectonics did not merely discover that continents move; it replaced the noun ``continent'' (a fixed geographic feature) with a trajectory (a slowly moving crustal plate). The scientific work of Chapter~\ref{ch:history} is, in part, a systematic correction of the noun fallacy in its most consequential historical instances.
+
+%-----------------------------------------------------------------------
+\chapter{Reachability and Frozen Futures}
+\label{ch:reachability}
+%-----------------------------------------------------------------------
+
+The previous chapters have treated frozen-process errors as errors about the present: a quantity is changing, but the model holds it fixed. This chapter treats a subtler and in some ways more consequential variant: errors about the space of futures available. A system can freeze not merely a variable but the \emph{set of trajectories it considers possible}---its own reachable future space. When this happens, the frozen-process error is not about what is happening now, but about what can happen next.
+
+\section{Reachable State Space}
+
+\begin{definition}[Reachable Set]
+Let $\mathcal{X}$ be the state space of a system and $\mathcal{U}$ the space of available actions or perturbations. The \emph{reachable set} at horizon $T$ from state $x_0$ is
+\[
+\mathcal{R}_T(x_0) = \big\{x_T : \exists \text{ trajectory from } x_0 \text{ to } x_T \text{ under some } u \in \mathcal{U}\big\}.
+\]
+The reachable volume is $V_T = \operatorname{Vol}(\mathcal{R}_T(x_0))$.
+\end{definition}
+
+A frozen reachability error occurs when the model assumes $\mathcal{R}_T$ is fixed---specifically, when it holds $\mathcal{R}_T = \mathcal{R}_0$ even as the actual reachable set changes over time.
+
+\section{Three Ways Reachable Sets Change}
+
+Reachable sets change for three distinct reasons, each generating a different class of frozen-future errors.
+
+\textbf{Innovation} expands $\mathcal{R}$. A technology that does not yet exist is not in $\mathcal{R}_T(x_0)$ at $t=0$, but may be by $t = T$. A forecast that fixes the technology space at the initial set cannot predict the expansion. Malthusian predictions, revisited from this angle, froze not only food production's growth rate (the Lucas-type error discussed in Chapter~\ref{ch:lucas}) but the very set of agricultural methods available---treating the 1798 production frontier as the permanent frontier, when the Industrial Revolution was in the process of expanding $\mathcal{R}$ dramatically.
+
+\textbf{Constraint relaxation} expands $\mathcal{R}$. Legal prohibition, physical bottlenecks, political barriers, and social prohibitions all restrict $\mathcal{U}$ and thereby constrain $\mathcal{R}$. When they are removed---through political change, technical innovation, or social evolution---the reachable set expands. A forecast that models outcomes within a fixed constraint set misses any such expansion.
+
+\textbf{Erosion of capacity} shrinks $\mathcal{R}$. Degradation of physical infrastructure, loss of institutional knowledge, depletion of a resource, or accumulation of debt in its various forms (financial, ecological, or organizational) all reduce $\mathcal{U}$ and thereby shrink $\mathcal{R}$. A forecast that ignores this erosion overestimates what the system will be able to do when the relevant horizon arrives.
+
+\section{Frozen Futures in Practice}
+
+\begin{example}[Long-Range Infrastructure Forecasting]
+A transportation planner forecasting travel demand over thirty years typically models demand against a fixed network---the roads, rails, and airports existing at the forecast date. This freezes the infrastructure $\mathcal{U}$ at $\mathcal{U}_0$. Over thirty years, the infrastructure will be extended, degraded, upgraded, and restructured; new modes (autonomous vehicles, urban air mobility) may enter $\mathcal{U}$; existing modes may exit it. The frozen-future error here is not about a particular route's capacity but about the space of routes that will exist.
+\end{example}
+
+\begin{example}[Civilizational Futures]
+A long-run economic forecast that models GDP growth while holding fixed the institutional, technological, and resource landscape is a frozen-future forecast at civilizational scale. What makes such forecasts systematically misleading is not that they get the growth rate wrong within the fixed landscape; it is that the landscape itself is changing on a timescale comparable to the forecast horizon. The growth rate is modeled as a state variable; the set of things that can be grown is treated as a parameter.
+\end{example}
+
+\section{Admissibility and Reachability Preservation}
+
+The frozen-future error has a normative correlate: a system that makes decisions optimized for a frozen future may take actions that shrink its actual reachable set, foreclosing options it did not know it was foreclosing. This is the admissibility problem in its most direct form.
+
+A trajectory is \emph{admissible} if it does not shrink the reachable volume below what future repair and adaptation would require. A system that optimizes present performance while depleting institutional capacity, ecological reserves, or financial maneuverability is following a locally admissible trajectory that is globally inadmissible: it reaches a state from which fewer trajectories are available than the optimization assumed.
+
+The frozen-future error and the admissibility problem are therefore two faces of the same phenomenon. A model that freezes $\mathcal{R}_T = \mathcal{R}_0$ will generate plans that optimize within $\mathcal{R}_0$ without tracking whether those plans are consuming the capacity on which $\mathcal{R}_T$ actually depends. The plans look optimal in the model and produce inadmissible trajectories in reality.
+
+\begin{tcolorbox}[title={Frozen Futures}]
+The deepest form of the frozen-process error is not a misclassified variable but a misclassified future: treating the space of available trajectories as fixed when it is itself evolving---expanding through innovation and capacity-building, contracting through erosion and depletion.
+\end{tcolorbox}
+
+%-----------------------------------------------------------------------
+\chapter{The General Theory of Frozen Processes}
+\label{ch:general}
+%-----------------------------------------------------------------------
+
+The previous chapters have developed the frozen-process concept through a series of domains---astrophysics, natural history, economics, adaptive systems, language, and reachability. This final chapter draws the threads together into a general theory, relates it to the prediction-error formula developed in Chapter~\ref{ch:ontology}, and states the central theorems the preceding chapters have been building toward.
+
+\section{The Frozen Process Set}
+
+\begin{definition}[Frozen Process Set]
+Let $\{x_i\}$ be the full collection of quantities relevant to a dynamical system, partitioned into state variables $S = \{s_j\}$ and parameters $\Theta = \{\theta_k\}$ by a given model. The \emph{frozen process set} is
+\[
+\mathcal{F} = \Big\{\theta_k \in \Theta : \epsilon_{\theta_k} = \frac{\tau_{\mathrm{phenomenon}}}{\tau_{\theta_k}} \not\ll 1\Big\},
+\]
+the set of parameters that are evolving on a timescale comparable to the prediction horizon.
+\end{definition}
+
+\begin{theorem}[Systematic Prediction Error]
+\label{thm:systematic}
+Let $\mathcal{F} \ne \varnothing$ and let $F(x, \Theta)$ be the model's forecast function. Then the prediction error
+\[
+\Delta x(t) = F\!\big(x(t_0), \Theta(t)\big) - F\!\big(x(t_0), \Theta_0\big)
+\]
+is nonzero for almost all $t > t_0$, grows in expectation as $t - t_0$ increases, and is \emph{systematic} rather than random: it is determined by the dynamics of $\theta_k \in \mathcal{F}$ and is therefore correlated with model outputs and with changes in the world that the model cannot represent.
+\end{theorem}
+\begin{proof}
+Since $\theta_k \in \mathcal{F}$ satisfies $\epsilon_{\theta_k} \not\ll 1$, the quantity $\theta_k(t)$ departs from $\theta_{k,0}$ by a non-negligible fraction of its own scale over the prediction horizon. By smoothness of $F$ in $\Theta$, this produces a nonzero contribution to $\Delta x(t)$ for almost all $t > t_0$. The contribution grows with $t - t_0$ because the departure $|\theta_k(t) - \theta_{k,0}|$ is non-decreasing in expectation when $\tau_{\theta_k} \sim \tau_{\mathrm{phenomenon}}$. The error is systematic because $\theta_k(t)$ evolves according to its own dynamics $\dot\theta_k = g_k(\Theta, S, t)$, which is a deterministic function of the world's state even when unknown to the model---so the error is not random noise but a coherent function of real-world processes the model is ignoring.
+\end{proof}
+
+\begin{corollary}[Error Invisibility]
+\label{cor:invisible}
+The prediction error in Theorem~\ref{thm:systematic} cannot be reduced by improving the accuracy of $F(x, \Theta_0)$ within the frozen partition. Correction requires moving at least one element of $\mathcal{F}$ from $\Theta$ to $S$ and modeling its dynamics.
+\end{corollary}
+\begin{proof}
+Improving $F$'s accuracy at $\Theta_0$ reduces the gap between the model's output and the exact solution of $\dot S = f(S, \Theta_0)$. It does not reduce the gap between $\Theta_0$ and $\Theta(t)$. The error $\Delta x(t)$ depends on the latter gap, not the former. Therefore no improvement internal to the model reduces it.
+\end{proof}
+
+Corollary~\ref{cor:invisible} is the formal statement of the observation made repeatedly in earlier chapters: frozen-process errors are not corrected by better calculations but by ontological reclassification. More powerful solvers, more data about the current state, and finer discretization all leave $\mathcal{F}$ unchanged and therefore leave Theorem~\ref{thm:systematic}'s error unchanged.
+
+\section{The Hierarchy of Freezing}
+
+The development of this monograph has encountered frozen processes at three distinct levels, forming a natural hierarchy.
+
+\begin{definition}[Freezing Hierarchy]
+\begin{enumerate}[label=\textbf{Level \arabic*.},itemsep=4pt]
+\item \textbf{Variable freezing.} A quantity $\theta_k \in \Theta$ evolves while the model holds it fixed. This is the base case of Definition~9.1 and Theorem~\ref{thm:systematic}. (Chapters 1--5.)
+\item \textbf{Rule freezing.} A behavioral or adaptive rule---the function $g$ governing how agents or components respond to their environment---is placed in $\Theta$ while the environment evolves in ways that change $g$. This is the Lucas-type error of Chapter~\ref{ch:lucas}, a variable-freezing error where the frozen variable is itself a function. (Chapter 5.)
+\item \textbf{Possibility freezing.} The reachable set $\mathcal{R}_T$ is treated as fixed while innovation, capacity erosion, or constraint relaxation change it. This is the frozen-future error of Chapter~\ref{ch:reachability}: what is frozen is not a variable's current value but the space of values the system can reach. (Chapter 8.)
+\end{enumerate}
+\end{definition}
+
+Each level is strictly harder to correct than the previous. A variable-freezing error is corrected by adding $\theta_k$ to $S$ and modeling its dynamics---a well-defined technical task. A rule-freezing error requires additionally modeling the mechanism by which the behavioral rule responds to the model's own outputs---a feedback problem. A possibility-freezing error requires modeling the evolution of the reachable set itself, which depends on all the state and parameter dynamics simultaneously---the most demanding task in the hierarchy.
+
+\section{The Adaptive Intelligence Criterion}
+
+Combining Chapters~\ref{ch:ontology} and~\ref{ch:intelligence}, the general theory suggests a criterion for adaptive intelligence that is not merely about predictive accuracy but about structural responsiveness.
+
+\begin{definition}[Adaptive Intelligence]
+A system is \emph{adaptively intelligent} to the extent that it can:
+\begin{enumerate}[label=(\roman*),itemsep=2pt]
+\item Maintain an estimate of $\mathcal{F}$---the set of quantities it is currently freezing that may not be truly frozen.
+\item Detect when $\epsilon_{\theta_k}$ for some $\theta_k$ is growing toward 1 as the prediction horizon extends or as the world changes.
+\item Move $\theta_k$ from $\Theta$ to $S$ and acquire a model of its dynamics before the resulting prediction error becomes consequential.
+\end{enumerate}
+\end{definition}
+
+This definition deliberately excludes systems that merely make accurate predictions within a fixed partition. A lookup table can achieve perfect accuracy within its domain; a regression model can fit its training distribution exactly. Neither is adaptively intelligent in this sense. Adaptive intelligence requires the capacity to notice when the partition itself is wrong---when the ontological classification of fixed versus dynamic has become incorrect---and to correct it.
+
+\section{The Master Theorem}
+
+\begin{theorem}[The General Frozen-Process Result]
+\label{thm:master}
+Let a system $\mathcal{S}$ produce predictions from a model $M = (S, \Theta, F)$ over a prediction horizon $\tau_{\mathrm{phenomenon}}$. Then:
+\begin{enumerate}[label=(\roman*),itemsep=3pt]
+\item If $\mathcal{F} = \varnothing$ (all frozen quantities have $\epsilon \ll 1$), the model's prediction error is $O(\max_k \epsilon_{\theta_k})$ and vanishes in the limit of infinite timescale separation.
+\item If $\mathcal{F} \ne \varnothing$, the model generates systematic, growing prediction errors that cannot be corrected without moving at least one element of $\mathcal{F}$ into $S$.
+\item If $\mathcal{F}$ contains elements at Level 2 or Level 3 of the freezing hierarchy, the correction requires not just adding variables to $S$ but restructuring the model's representation of available actions or futures.
+\item A system with adaptive intelligence in the sense of Definition~9.3 is the only system that can correct frozen-process errors at all three levels without external intervention.
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof Sketch]
+Part (i) follows from Proposition~\ref{prop:error-order} applied uniformly to all $\theta_k \in \Theta$. Part (ii) is Theorem~\ref{thm:systematic}. Part (iii) follows because Level 2 errors involve functions in $\Theta$ rather than scalars, requiring a model of functional dynamics, and Level 3 errors involve set-valued objects ($\mathcal{R}_T$), requiring a model of reachability dynamics; in both cases the correction transcends adding a scalar equation to $\dot S$. Part (iv) follows from Corollary~\ref{cor:invisible} applied at each level: internal improvement of $F$ cannot correct the error, so only a structural revision driven by the system's own detection of $\mathcal{F} \ne \varnothing$ suffices.
+\end{proof}
+
+\section{Summary: What the Theory Says}
+
+The nine chapters of this monograph develop a single idea from the concrete to the abstract.
+
+A simple observation: a paper about Earth's fate under a giant Sun turned out to hinge on whether Earth's orbital radius was treated as a fixed parameter or as a dynamical quantity. That choice---parameter versus state variable---was not made by calculation. It was made by habit, convention, and an implicit ontological commitment about what kind of thing an orbit is.
+
+The general statement: many forecasting failures are not primarily errors of computation, data, or method. They are errors of classification---decisions, made before the calculation begins, about which quantities are the sort of thing that changes and which are the sort of thing that simply is. Once the classification is made, the calculation correctly produces wrong answers.
+
+The criterion: a frozen-process error occurs when a quantity classified as a parameter is evolving on a timescale comparable to the prediction horizon. The relevant check is always $\epsilon = \tau_{\mathrm{phenomenon}} / \tau_{\mathrm{variable}}$: small $\epsilon$ licenses the freeze; $\epsilon \sim 1$ or larger does not.
+
+The deepest level: the error is not always about a misclassified variable. It is sometimes about a misclassified rule (the Lucas level) or a misclassified future (the reachability level). At the deepest level, what is frozen is the space of possibilities itself---the set of trajectories the system believes it can take---and this freezing is invisible from inside the model because the possibilities the model cannot see are precisely the ones the model has classified as impossible.
+
+The corrective capacity: a system that can detect its own $\mathcal{F}$, check $\epsilon$ for its frozen quantities, and move items from $\Theta$ to $S$ when warranted is the functional definition of adaptive intelligence. All the chapters of this monograph are, in one sense, extended examples of what happens when a system has this capacity---and of what happens when it does not.
+
+\begin{tcolorbox}[title={The Final Principle}]
+\centering
+The future is often determined not by the variables we are tracking,\\
+but by the trajectories we have forgotten to notice.
+\end{tcolorbox}
+
+%-----------------------------------------------------------------------
+\chapter*{Epilogue: Variable Drift and the Ecology of Distinctions}
+\addcontentsline{toc}{chapter}{Epilogue}
+%-----------------------------------------------------------------------
+
+This monograph has developed variable drift---the silent movement of a parameter across the timescale boundary that would justify holding it fixed---as a theory of prediction failure. The theory stands on its own. But it also sits within a larger research program, and the connections are worth making explicit for readers who know that program.
+
+\section*{Frozen Processes as Distinction Failure}
+
+The \emph{Ecology of Distinctions} research program begins from the observation that distinctions are not facts about the world but maintenance burdens: a boundary between categories persists only because something keeps repairing it against the pressure of cases that do not fit cleanly on either side. A frozen distinction is a boundary that has stopped receiving repair---preserved by habit rather than by ongoing maintenance, and therefore likely to fail silently precisely when a new case arrives that the maintenance process would have caught.
+
+Variable drift is the same phenomenon at a different level of description. A parameter in a model is a distinction: it is a decision that some quantity belongs on the ``fixed'' side of the line between dynamic and static. That decision, like any distinction, requires maintenance---specifically, it requires that someone keep checking whether the timescale ratio $\epsilon$ remains small. When that check stops being performed, the parameter becomes frozen in the sense of the \emph{Ecology of Distinctions}: held in place by convention rather than by continued verification, and subject to silent failure as the world's timescales shift.
+
+The prediction error formula of Chapter~3, $\Delta x = F(x,\Theta(t)) - F(x,\Theta_0)$, is the quantitative expression of what distinction failure looks like when the failing distinction is about the nature of a variable rather than the location of a category boundary.
+
+\section*{Unfreezing as Repair}
+
+Chapter~6 defined unfreezing capacity as the ability to detect that a parameter is drifting---that $\epsilon$ is growing toward 1---and to move it from $\Theta$ to $S$ before the resulting prediction error becomes consequential. This is a special case of the repair capacity central to the \emph{Ecology of Distinctions} framework.
+
+In that framework, repair preserves not merely the current distinction but the system's future capacity to revise distinctions. A repair that restores a boundary while making the next revision harder is locally successful and globally inadmissible. The same structure appears here: an unfreezing that adds a variable to $S$ while making the model harder to revise at the next level is locally correct and globally a frozen-future error in the sense of Chapter~8. Good unfreezing, like good repair, preserves future unfreezing capacity.
+
+\section*{The Hierarchy of Freezing and the Hierarchy of Repair}
+
+The three-level freezing hierarchy of Chapter~9---variable freezing, rule freezing, possibility freezing---corresponds to three levels at which the \emph{Ecology of Distinctions} framework identifies repair.
+
+Variable freezing is repaired by moving a scalar from $\Theta$ to $S$: a local distinction revision.
+
+Rule freezing is repaired by modeling the adaptive dynamics of behavioral rules: this corresponds to the CLIO-level repair of projection operators, where what is revised is not a label within a projection but the projection itself.
+
+Possibility freezing is repaired by modeling the evolution of the reachable set $\mathcal{R}_T$: this corresponds to the HYDRA-level meta-repair, where what is revised is not a distinction or a projection but the system's capacity to make and revise distinctions at all.
+
+\begin{sloppypar}
+The Master Theorem (Theorem~9.2) that no internal improvement to a frozen model can correct its frozen-process errors is the variable-drift analogue of the Projection Floor result: just as no relabeling within a fixed projection can fix a failure that lives in the projection itself, no refinement of the calculation within a fixed $S/\Theta$ partition can fix an error that lives in the partition.
+\end{sloppypar}
+
+\section*{The Noun Fallacy and Frozen Distinctions}
+
+\begin{sloppypar}
+Chapter~7's account of the noun fallacy---that names compress trajectories into points and then treat the points as fundamental---restates in linguistic terms the core claim of the process-ontology strand of the \emph{Ecology of Distinctions} program. Objects are repair-stable distinctions: they exist because a boundary has been maintained long enough, against enough pressure, to appear self-evident. The noun fallacy is the mistake of reading the stability of the name as evidence for the permanence of the trajectory, rather than as evidence for the success of maintenance so far.
+\end{sloppypar}
+
+\begin{sloppypar}
+Variable drift is the noun fallacy in formal dress: it is the assignment of the noun ``parameter'' to a quantity whose trajectory has not actually stopped, on the implicit assumption that the stability observed so far will persist across the prediction horizon.
+\end{sloppypar}
+
+\section*{Coda}
+
+The deepest version of variable drift is not a misclassified scalar, a misclassified rule, or a misclassified future. It is a misclassified ontology: a wholesale commitment to a partition of the world into fixed and dynamic that was appropriate for one domain and one set of timescales, and has been carried forward by institutional inertia into domains and timescales where it no longer applies.
+
+The corrective is not a new partition, offered as the correct one. It is the capacity to keep checking---to treat the $S/\Theta$ distinction itself as a variable that drifts, that requires maintenance, and that can fail silently if the maintenance stops.
+
+That capacity is what the \emph{Ecology of Distinctions} calls generative admissibility: the preservation not merely of future trajectories but of future ways of describing trajectories. Variable drift is what happens in its absence.
+
+%-----------------------------------------------------------------------
+\chapter*{References}
+\addcontentsline{toc}{chapter}{References}
+%-----------------------------------------------------------------------
+
+\begin{sloppypar}
+\begin{description}[leftmargin=0pt,itemsep=6pt]
+
+\item Esseldeurs, M., Mathis, S., \& Decin, L. (2026). The fate of Earth during the Sun's giant phases: New constraints from ab initio tidal modelling and AGB mass loss. \textit{Astronomy \& Astrophysics}. \href{https://doi.org/10.1051/0004-6361/202660576}{DOI:~10.1051/0004-6361/202660576}
+
+\item Lucas, R.~E. (1976). Econometric policy evaluation: A critique. \textit{Carnegie-Rochester Conference Series on Public Policy}, 1, 19--46.
+
+\item Malthus, T.~R. (1798). \textit{An Essay on the Principle of Population}. J. Johnson, London.
+
+\item Wegener, A. (1912). Die Entstehung der Kontinente. \textit{Geologische Rundschau}, 3(4), 276--292.
+
+\end{description}
+\end{sloppypar}
+
+\end{document}

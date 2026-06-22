@@ -1,0 +1,208 @@
+\begin{theindex}
+
+  \item admissibility
+    \subitem cognitive, \hyperindexformat{\textbf}{275}, 
+		\hyperpage{291}
+    \subitem computational, \hyperindexformat{\textbf}{306}, 
+		\hyperindexformat{\textbf}{313}, \hyperpage{326}, 
+		\hyperpage{339}
+    \subitem curvature, \hyperindexformat{\textbf}{177}
+    \subitem generative vs. extractive, \hyperindexformat{\textbf}{436}
+    \subitem invariant (full), \hyperindexformat{\textbf}{176}
+    \subitem manifold, \hyperindexformat{\textbf}{159}
+    \subitem physical, \hyperindexformat{\textbf}{194}, \hyperpage{220}, 
+		\hyperpage{239}
+    \subitem social, \hyperindexformat{\textbf}{348}, \hyperpage{366}, 
+		\hyperpage{392}
+  \item admissibility potential, \hyperindexformat{\textbf}{287}
+  \item admissible distinction entropy, \hyperindexformat{\textbf}{427}
+  \item alignment
+    \subitem and capability, \hyperpage{91}
+    \subitem theorem, \hyperindexformat{\textbf}{91}
+  \item anomaly
+    \subitem persistent, \hyperindexformat{\textbf}{82}
+  \item awareness, \hyperindexformat{\textbf}{272}
+
+  \indexspace
+
+  \item blind spot, \hyperindexformat{\textbf}{12}
+    \subitem relation to partition refinement, 
+		\hyperindexformat{\textbf}{11}, \hyperpage{24}
+
+  \indexspace
+
+  \item collapse
+    \subitem admissibility collapse, \hyperindexformat{\textbf}{221}
+    \subitem institutional collapse, \hyperindexformat{\textbf}{369}
+  \item consciousness
+    \subitem as recursive repair, \hyperindexformat{\textbf}{276}
+    \subitem mutual information measure, 
+		\hyperindexformat{\textbf}{276}
+  \item continuation
+    \subitem degeneracy, \hyperindexformat{\textbf}{102}
+  \item continuation space, \hyperindexformat{\textbf}{100}
+  \item cosmology
+    \subitem admissible volume, \hyperindexformat{\textbf}{220}
+  \item curvature
+    \subitem distinction-density, \hyperindexformat{\textbf}{211}
+
+  \indexspace
+
+  \item distinction, \hyperindexformat{\textbf}{7}
+    \subitem Axiom of, \hyperindexformat{\textbf}{8}
+    \subitem capacity, \hyperindexformat{\textbf}{10}
+    \subitem cost, \hyperindexformat{\textbf}{11}
+    \subitem density, \hyperindexformat{\textbf}{208}
+    \subitem entropy, \hyperindexformat{\textbf}{427}
+  \item distinction balance law, \hyperindexformat{\textbf}{435}
+  \item distinction ecology, \hyperindexformat{\textbf}{125}
+  \item distinction metric, \hyperindexformat{\textbf}{207}
+  \item diversity
+    \subitem ecological, \hyperindexformat{\textbf}{127}
+  \item domain, \hyperpage{7}
+
+  \indexspace
+
+  \item ecology
+    \subitem ecology of distinctions, \hyperindexformat{\textbf}{414}
+    \subitem scientific communities as, \hyperindexformat{\textbf}{386}
+  \item ecphory, \hyperindexformat{\textbf}{63}
+  \item entropy
+    \subitem as distinction multiplicity, 
+		\hyperindexformat{\textbf}{32}
+    \subitem RSVP field S, \hyperindexformat{\textbf}{186}
+    \subitem Second Law reinterpreted, \hyperpage{35}
+  \item expyrotic renewal operator, \hyperindexformat{\textbf}{222}
+
+  \indexspace
+
+  \item failure manifold, \hyperindexformat{\textbf}{82}
+  \item future cone, \hyperindexformat{\textbf}{145}
+    \subitem relation to A(x,t), \hyperindexformat{\textbf}{160}, 
+		\hyperpage{177}
+
+  \indexspace
+
+  \item generative admissibility
+    \subitem principle, \hyperindexformat{\textbf}{178}
+    \subitem theorem, \hyperindexformat{\textbf}{178}
+  \item generativity, \hyperindexformat{\textbf}{175}
+  \item geodesic
+    \subitem admissible, \hyperindexformat{\textbf}{207}
+  \item gravity
+    \subitem capacity potential, \hyperpage{205}
+
+  \indexspace
+
+  \item hidden multiplicity, \hyperpage{32}
+  \item history
+    \subitem entropy, \hyperpage{45}
+    \subitem historical self-information, 
+		\hyperindexformat{\textbf}{276}
+    \subitem primacy theorem, \hyperpage{45}
+    \subitem vs. state, \hyperindexformat{\textbf}{45}
+  \item history space, \hyperindexformat{\textbf}{44}
+  \item horizon
+    \subitem distinction, \hyperindexformat{\textbf}{236}
+
+  \indexspace
+
+  \item information
+    \subitem as distinction count, \hyperindexformat{\textbf}{19}
+    \subitem fundamental theorem, \hyperpage{25}
+  \item intelligence
+    \subitem as repair capacity, \hyperindexformat{\textbf}{90}
+
+  \indexspace
+
+  \item lamphrodyne relaxation, \hyperindexformat{\textbf}{193}
+  \item Lyapunov function, \hyperindexformat{\textbf}{196}
+
+  \indexspace
+
+  \item memory
+    \subitem as recoverability preservation, 
+		\hyperindexformat{\textbf}{62}
+
+  \indexspace
+
+  \item object
+    \subitem as equivalence class, \hyperpage{9}
+  \item ontological enlargement, \hyperindexformat{\textbf}{83}
+  \item ontology revision
+    \subitem definition, \hyperindexformat{\textbf}{83}
+    \subitem generative admissibility of, 
+		\hyperindexformat{\textbf}{83}
+    \subitem meta-learning connection, \hyperpage{90}
+
+  \indexspace
+
+  \item phenomenological depth, \hyperindexformat{\textbf}{274}
+  \item possibility
+    \subitem classes of trajectories, \hyperpage{428}
+  \item possibility functional, \hyperindexformat{\textbf}{435}
+    \subitem refined, \hyperindexformat{\textbf}{427}
+  \item preference field, \hyperindexformat{\textbf}{284}, 
+		\hyperindexformat{\textbf}{291}
+  \item preservation hierarchy, \hyperindexformat{\textbf}{408}
+  \item projection
+    \subitem loss, \hyperpage{13}
+
+  \indexspace
+
+  \item reachability
+    \subitem control-theory contrast, \hyperindexformat{\textbf}{150}
+    \subitem fiscal, \hyperindexformat{\textbf}{348}
+    \subitem volume, \hyperindexformat{\textbf}{141}
+  \item recoverability, \hyperindexformat{\textbf}{54}
+    \subitem floor/threshold, \hyperindexformat{\textbf}{277}
+    \subitem law of, \hyperindexformat{\textbf}{54}
+  \item refinement
+    \subitem of partitions, \hyperindexformat{\textbf}{10}
+  \item regeneration, \hyperindexformat{\textbf}{112}
+    \subitem biological, \hyperindexformat{\textbf}{618}
+    \subitem cosmological, \hyperindexformat{\textbf}{222}, 
+		\hyperpage{237}
+    \subitem hierarchy theorem, \hyperpage{112}
+    \subitem principle of, \hyperindexformat{\textbf}{114}
+  \item reintegration operator, \hyperindexformat{\textbf}{226}
+  \item repair
+    \subitem admissible, \hyperindexformat{\textbf}{75}
+    \subitem conservation, \hyperindexformat{\textbf}{76}, 
+		\hyperpage{414}
+    \subitem intelligence as, \hyperindexformat{\textbf}{90}
+    \subitem monoid, \hyperpage{76}
+    \subitem operator, \hyperindexformat{\textbf}{74}
+    \subitem saturation, \hyperpage{83}
+  \item RSVP
+    \subitem attractor, \hyperindexformat{\textbf}{197}
+    \subitem capacity field, \hyperpage{186}
+    \subitem constraint field, \hyperpage{186}
+    \subitem energy functional, \hyperindexformat{\textbf}{195}
+    \subitem transport field, \hyperpage{187}
+  \item RSVP (Relativistic Scalar Vector Plenum), 
+		\hyperindexformat{\textbf}{186}
+
+  \indexspace
+
+  \item self-model, \hyperindexformat{\textbf}{271}
+    \subitem recursive, \hyperindexformat{\textbf}{271}
+  \item semantic horizon, \hyperindexformat{\textbf}{56}
+  \item singularity
+    \subitem admissibility, \hyperindexformat{\textbf}{221}
+  \item survival
+    \subitem vs viability, \hyperpage{436}
+
+  \indexspace
+
+  \item trajectory
+    \subitem admissible, \hyperindexformat{\textbf}{177}
+    \subitem extractive, \hyperindexformat{\textbf}{177}
+    \subitem generative, \hyperindexformat{\textbf}{177}
+    \subitem generative/extractive/neutral classes, \hyperpage{436}
+
+  \indexspace
+
+  \item universal regeneration theorem, \hyperpage{436}
+
+\end{theindex}
