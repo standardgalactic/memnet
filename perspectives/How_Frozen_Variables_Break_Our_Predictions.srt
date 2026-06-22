@@ -1,0 +1,3988 @@
+1
+00:00:00,000 --> 00:00:05,800
+Five billion years from now, the sun is going to run out of its nuclear fuel.
+
+2
+00:00:06,140 --> 00:00:06,440
+Right.
+
+3
+00:00:06,560 --> 00:00:08,040
+Just completely exhausted.
+
+4
+00:00:08,040 --> 00:00:08,300
+Yeah.
+
+5
+00:00:08,480 --> 00:00:14,140
+And it'll swell into this massive glowing red giant expanding outward until it swallows
+
+6
+00:00:14,140 --> 00:00:15,180
+the orbit of Mercury.
+
+7
+00:00:15,460 --> 00:00:20,580
+Then it swallows Venus and then it will swallow the Earth whole.
+
+8
+00:00:20,740 --> 00:00:22,160
+Just entirely engulfs.
+
+9
+00:00:22,180 --> 00:00:22,620
+Exactly.
+
+10
+00:00:22,840 --> 00:00:26,780
+I mean, that is the undisputed mathematical fate of our planet, right?
+
+11
+00:00:26,780 --> 00:00:31,820
+It's written in literally every standard astrophysics textbook on Earth.
+
+12
+00:00:32,020 --> 00:00:32,140
+Yeah.
+
+13
+00:00:32,240 --> 00:00:33,960
+It's treated as absolute gospel.
+
+14
+00:00:34,200 --> 00:00:37,340
+You can go to a university right now, look at the timeline, and a scientist will point
+
+15
+00:00:37,340 --> 00:00:39,760
+to a chart and just say, there it is.
+
+16
+00:00:40,180 --> 00:00:40,740
+Inevitable.
+
+17
+00:00:40,940 --> 00:00:41,240
+Right.
+
+18
+00:00:41,580 --> 00:00:47,200
+But what if the smartest physicists in the world got the math absolutely correct, but
+
+19
+00:00:47,200 --> 00:00:49,100
+the final answer entirely wrong?
+
+20
+00:00:49,200 --> 00:00:51,280
+Which is such a crazy concept to even entertain.
+
+21
+00:00:51,640 --> 00:00:52,180
+It is.
+
+22
+00:00:52,180 --> 00:00:57,180
+But today, we're looking at a blind spot so massive, it doesn't just change the fate of
+
+23
+00:00:57,180 --> 00:00:57,780
+the solar system.
+
+24
+00:00:57,860 --> 00:00:59,680
+It basically changes everything.
+
+25
+00:01:00,100 --> 00:01:00,640
+It really does.
+
+26
+00:01:01,000 --> 00:01:06,660
+It forces us to completely re-evaluate what we mean when we say a fact is, you know, fixed.
+
+27
+00:01:06,840 --> 00:01:12,680
+Because that textbook assumption about the Earth burning up, it relies on this structural
+
+28
+00:01:12,680 --> 00:01:16,720
+illusion that human beings just, we fall for it every single day.
+
+29
+00:01:16,960 --> 00:01:20,680
+And that illusion is basically the jumping off point for today's deep dive.
+
+30
+00:01:20,680 --> 00:01:26,640
+We are unpacking a genuinely brilliant, just, mind-bending monograph published in June
+
+31
+00:01:26,640 --> 00:01:33,580
+2026 by Flyxion titled Variable Drift, A General Theory of Prediction Failure.
+
+32
+00:01:33,680 --> 00:01:34,580
+It's a fantastic paper.
+
+33
+00:01:34,780 --> 00:01:35,600
+It really is.
+
+34
+00:01:35,680 --> 00:01:38,360
+And I want to clarify our mission right up front for you listening.
+
+35
+00:01:39,120 --> 00:01:43,540
+Today is not just about astrophysics, and we'll get into that, but it is fundamentally
+
+36
+00:01:43,540 --> 00:01:48,340
+about how you, and frankly, the smartest forecasters in the entire world, make predictions
+
+37
+00:01:48,340 --> 00:01:49,120
+about the future.
+
+38
+00:01:49,120 --> 00:01:52,860
+Yeah, we are exploring why incredibly smart models fail.
+
+39
+00:01:53,020 --> 00:01:53,460
+Exactly.
+
+40
+00:01:53,720 --> 00:01:57,740
+And not because the underlying data is bad or, you know, because someone carried a one
+
+41
+00:01:57,740 --> 00:01:59,320
+incorrectly in the math or something.
+
+42
+00:01:59,360 --> 00:02:00,600
+Right, it's not an arithmetic error.
+
+43
+00:02:00,720 --> 00:02:04,580
+No, it's because of what we implicitly assume is standing perfectly still.
+
+44
+00:02:04,920 --> 00:02:08,800
+Which is such a profound shift in how we evaluate our own failures.
+
+45
+00:02:09,560 --> 00:02:16,100
+I mean, when a prediction goes wrong, whether it's a supercomputer forecasting the climate or
+
+46
+00:02:16,100 --> 00:02:19,900
+just a human being trying to predict where their career will be in five years.
+
+47
+00:02:20,000 --> 00:02:21,760
+Our first instinct is always to check the data.
+
+48
+00:02:22,160 --> 00:02:22,600
+Exactly.
+
+49
+00:02:22,860 --> 00:02:23,080
+Right.
+
+50
+00:02:23,160 --> 00:02:25,160
+We assume we just didn't gather enough information.
+
+51
+00:02:25,260 --> 00:02:26,100
+We missed a data point.
+
+52
+00:02:26,180 --> 00:02:26,320
+Right.
+
+53
+00:02:26,320 --> 00:02:32,560
+But Flyxion argues that the critical error usually happens way before the calculation
+
+54
+00:02:32,560 --> 00:02:33,300
+even begins.
+
+55
+00:02:33,640 --> 00:02:34,460
+It's wild.
+
+56
+00:02:34,780 --> 00:02:39,540
+So whether you are planning a massive career shift, trying to invest your money in an unpredictable
+
+57
+00:02:39,540 --> 00:02:44,180
+market, or, you know, just simply trying to make sense of the daily news cycle, this
+
+58
+00:02:44,180 --> 00:02:47,700
+deep dive is going to completely reframe how you look at the world.
+
+59
+00:02:47,880 --> 00:02:49,340
+It really will change your perspective.
+
+60
+00:02:49,480 --> 00:02:49,640
+Right.
+
+61
+00:02:49,720 --> 00:02:50,580
+Let's unpack this.
+
+62
+00:02:50,580 --> 00:02:55,300
+We have to start with this astrophysics aha moment, because it is the perfect physical
+
+63
+00:02:55,300 --> 00:02:56,700
+anchor for the whole theory.
+
+64
+00:02:57,060 --> 00:02:57,360
+I agree.
+
+65
+00:02:57,780 --> 00:03:04,740
+So let's look at that June 2026 astrophysics paper by Esseldorf, Mathis, and Dessen that
+
+66
+00:03:04,740 --> 00:03:05,580
+Flyxion highlights.
+
+67
+00:03:05,780 --> 00:03:07,600
+The one that kind of kicked this whole thing off?
+
+68
+00:03:07,880 --> 00:03:08,500
+Yeah, exactly.
+
+69
+00:03:08,640 --> 00:03:08,920
+Mm-hmm.
+
+70
+00:03:09,220 --> 00:03:13,120
+They break down the problem into two distinct ways of looking at reality.
+
+71
+00:03:13,900 --> 00:03:17,360
+The snapshot model versus the trajectory model.
+
+72
+00:03:17,480 --> 00:03:17,760
+Okay.
+
+73
+00:03:17,760 --> 00:03:21,960
+The old argument, you know, the textbook fate of the Earth being engulfed in fire, that
+
+74
+00:03:21,960 --> 00:03:23,740
+relies entirely on the snapshot model.
+
+75
+00:03:23,960 --> 00:03:24,020
+Right.
+
+76
+00:03:24,140 --> 00:03:27,740
+It's basically a three-step logical progression that feels bulletproof.
+
+77
+00:03:27,860 --> 00:03:29,300
+I mean, that's what we were all taught.
+
+78
+00:03:29,500 --> 00:03:29,760
+Right.
+
+79
+00:03:30,240 --> 00:03:34,840
+So step one, Earth orbits at one astronomical unit, or one AU.
+
+80
+00:03:35,440 --> 00:03:40,620
+Step two, the sun expands past one AU as it transitions into a red giant.
+
+81
+00:03:40,760 --> 00:03:42,800
+And step three, Earth is engulfed.
+
+82
+00:03:42,900 --> 00:03:43,320
+Exactly.
+
+83
+00:03:43,560 --> 00:03:46,360
+Every single step there looks flawlessly logical.
+
+84
+00:03:46,360 --> 00:03:51,860
+Yeah, it's the logic of, like, a moving train hitting a car that is stalled on the train
+
+85
+00:03:51,860 --> 00:03:52,300
+tracks.
+
+86
+00:03:52,400 --> 00:03:55,600
+The train is moving, the car is parked, impact is inevitable.
+
+87
+00:03:55,900 --> 00:03:56,940
+That's a great way to put it.
+
+88
+00:03:57,440 --> 00:04:01,460
+But Flyxion points out that this argument smuggles in a massive, silent assumption.
+
+89
+00:04:01,680 --> 00:04:02,560
+Okay, what is it?
+
+90
+00:04:02,720 --> 00:04:07,200
+It assumes that the Earth's orbit is held completely constant while the sun's radius is allowed
+
+91
+00:04:07,200 --> 00:04:07,660
+to grow.
+
+92
+00:04:08,020 --> 00:04:08,400
+Oh.
+
+93
+00:04:08,400 --> 00:04:08,840
+Right.
+
+94
+00:04:09,200 --> 00:04:14,640
+The model allows one variable, the sun, to be highly dynamic, but it completely freezes
+
+95
+00:04:14,640 --> 00:04:16,580
+the other variable, the Earth's position.
+
+96
+00:04:17,040 --> 00:04:18,600
+And it freezes it by omission, right?
+
+97
+00:04:18,640 --> 00:04:20,080
+Not by the actual laws of physics.
+
+98
+00:04:20,140 --> 00:04:20,540
+It's precisely.
+
+99
+00:04:20,820 --> 00:04:21,480
+It's an omission.
+
+100
+00:04:21,920 --> 00:04:22,480
+Wait, hold on.
+
+101
+00:04:22,540 --> 00:04:24,200
+I want to make sure I'm really wrapping my head around this.
+
+102
+00:04:24,300 --> 00:04:24,480
+Sure.
+
+103
+00:04:24,740 --> 00:04:26,740
+The Earth is caught in the sun's gravity.
+
+104
+00:04:26,740 --> 00:04:32,440
+So, if the sun is actively swelling up and losing its outer layers, why does the Earth
+
+105
+00:04:32,440 --> 00:04:34,820
+just, you know, gently drift outward?
+
+106
+00:04:34,980 --> 00:04:35,900
+That's the key question.
+
+107
+00:04:36,080 --> 00:04:36,320
+Yeah.
+
+108
+00:04:36,480 --> 00:04:42,280
+Like, why wouldn't we just lose our gravitational tether entirely and go slingshotting off into
+
+109
+00:04:42,280 --> 00:04:44,620
+deep space like a broken carnival ride?
+
+110
+00:04:44,660 --> 00:04:46,520
+Which is a highly intuitive question.
+
+111
+00:04:46,640 --> 00:04:46,820
+Yeah.
+
+112
+00:04:47,100 --> 00:04:51,500
+And the answer gets to the absolute heart of the trajectory model.
+
+113
+00:04:51,620 --> 00:04:51,960
+Okay.
+
+114
+00:04:52,140 --> 00:04:56,400
+Orbits are not just, you know, independent tracks painted in space.
+
+115
+00:04:57,000 --> 00:04:59,960
+They are deeply coupled to the star they circle.
+
+116
+00:05:00,140 --> 00:05:00,400
+Right.
+
+117
+00:05:00,480 --> 00:05:00,980
+They're connected.
+
+118
+00:05:01,260 --> 00:05:03,820
+Let's gently walk through the mechanics of the physics here.
+
+119
+00:05:04,040 --> 00:05:04,220
+Yeah.
+
+120
+00:05:04,500 --> 00:05:07,920
+It basically all comes down to the conservation of angular momentum.
+
+121
+00:05:08,000 --> 00:05:08,240
+Okay.
+
+122
+00:05:08,440 --> 00:05:09,340
+Angular momentum.
+
+123
+00:05:09,520 --> 00:05:14,500
+For a planet like Earth, on a nearly circular orbit, the orbital angular momentum is tied
+
+124
+00:05:14,500 --> 00:05:17,140
+directly to the mass of the sun and the radius of the orbit.
+
+125
+00:05:17,140 --> 00:05:19,240
+I remember this from high school physics, actually.
+
+126
+00:05:19,620 --> 00:05:21,720
+It's the classic ice skater analogy, right?
+
+127
+00:05:21,720 --> 00:05:22,640
+It's exactly that.
+
+128
+00:05:22,900 --> 00:05:26,380
+The stater pulls their arms in, they spin faster, they throw their arms out.
+
+129
+00:05:26,400 --> 00:05:27,320
+They spin slower.
+
+130
+00:05:27,580 --> 00:05:30,100
+The total energy of the spin is conserved.
+
+131
+00:05:30,820 --> 00:05:31,860
+That is the exact principle.
+
+132
+00:05:32,340 --> 00:05:38,180
+But here we are dealing with a star that is actively losing mass, not just changing its
+
+133
+00:05:38,180 --> 00:05:38,500
+shape.
+
+134
+00:05:39,180 --> 00:05:44,980
+During the red giant phase, the sun sheds massive amounts of its mass, mostly in the form of
+
+135
+00:05:44,980 --> 00:05:47,320
+stellar winds just blowing it out into space.
+
+136
+00:05:47,340 --> 00:05:47,460
+Right.
+
+137
+00:05:47,520 --> 00:05:49,640
+It's literally losing physical material.
+
+138
+00:05:49,640 --> 00:05:56,320
+And under these conditions, which physicists call a slow, spherically symmetric mass loss,
+
+139
+00:05:56,840 --> 00:05:58,200
+there is no twisting force.
+
+140
+00:05:58,400 --> 00:06:00,460
+There's no torque acting on the planet's orbit.
+
+141
+00:06:00,700 --> 00:06:00,940
+Hmm.
+
+142
+00:06:01,200 --> 00:06:01,480
+Okay.
+
+143
+00:06:01,620 --> 00:06:06,740
+Because there's no external torque, the planet's specific angular momentum has to stay perfectly
+
+144
+00:06:06,740 --> 00:06:07,300
+conserved.
+
+145
+00:06:07,580 --> 00:06:12,320
+So the math equation for this, which Flyxion breaks down the paper, basically says that the
+
+146
+00:06:12,320 --> 00:06:16,320
+solar mass multiplied by the orbital radius has to equal a constant number.
+
+147
+00:06:16,320 --> 00:06:16,840
+Exactly.
+
+148
+00:06:17,180 --> 00:06:18,460
+It has to equal a constant.
+
+149
+00:06:19,600 --> 00:06:24,600
+So if the product of those two things must remain constant, then as the sun's mass goes
+
+150
+00:06:24,600 --> 00:06:27,280
+down, the Earth's orbital radius has to go up.
+
+151
+00:06:27,480 --> 00:06:29,100
+They are inversely proportional.
+
+152
+00:06:29,500 --> 00:06:29,720
+Right.
+
+153
+00:06:29,980 --> 00:06:33,240
+The orbital radius is proportional to one over the sun's mass.
+
+154
+00:06:33,400 --> 00:06:39,100
+Meaning, as the sun gets physically lighter because it's blowing off all this gas, its gravitational
+
+155
+00:06:39,100 --> 00:06:42,080
+grip on the entire solar system actually weakens.
+
+156
+00:06:42,160 --> 00:06:43,260
+Yes, it loosens its grip.
+
+157
+00:06:43,260 --> 00:06:48,240
+And because we still have our forward momentum, that weakened grip allows the Earth to naturally
+
+158
+00:06:48,240 --> 00:06:50,460
+drift outward into a wider circle.
+
+159
+00:06:50,700 --> 00:06:51,180
+Exactly.
+
+160
+00:06:51,180 --> 00:06:57,360
+So the entire question of whether the Earth survives the red giant phase just reduces to
+
+161
+00:06:57,360 --> 00:06:58,620
+a mathematical race.
+
+162
+00:06:58,860 --> 00:07:00,140
+A race between what and what?
+
+163
+00:07:00,260 --> 00:07:01,480
+Between three things, really.
+
+164
+00:07:01,820 --> 00:07:07,020
+Does the outward push of this widening orbit beat the inward pull of tidal drag and the outward
+
+165
+00:07:07,020 --> 00:07:09,180
+physical growth of the sun's fiery radius?
+
+166
+00:07:09,180 --> 00:07:13,660
+And for decades, scientists just assumed the inward pull and the outward growth of the
+
+167
+00:07:13,660 --> 00:07:15,620
+sun would easily win that race.
+
+168
+00:07:15,840 --> 00:07:19,440
+Yeah, based on older, much simpler models of tidal dissipation.
+
+169
+00:07:19,500 --> 00:07:22,880
+And tidal drag, that's where the gravity of the sun and the Earth pull on each other,
+
+170
+00:07:22,940 --> 00:07:23,200
+right?
+
+171
+00:07:23,440 --> 00:07:23,700
+Right.
+
+172
+00:07:24,000 --> 00:07:28,700
+It creates a slight bulge in the star, which basically creates friction and steals orbital
+
+173
+00:07:28,700 --> 00:07:29,140
+energy.
+
+174
+00:07:29,240 --> 00:07:29,460
+Gotcha.
+
+175
+00:07:29,460 --> 00:07:35,020
+But the Esselder's paper redoes all the tidal physics from first principles, and they found
+
+176
+00:07:35,020 --> 00:07:39,760
+the drag is actually much, much weaker than humanity previously assumed.
+
+177
+00:07:40,440 --> 00:07:40,540
+Wow.
+
+178
+00:07:40,780 --> 00:07:45,780
+They even anchor their mass loss rate to a real star, L2 Puppets.
+
+179
+00:07:45,860 --> 00:07:46,680
+L2 Puppets.
+
+180
+00:07:46,760 --> 00:07:52,040
+Yeah, it's an aging red giant close enough to us to study as a sort of working preview,
+
+181
+00:07:52,220 --> 00:07:54,700
+like a crystal ball, of our own sun's future.
+
+182
+00:07:54,880 --> 00:07:55,580
+That's wild.
+
+183
+00:07:55,580 --> 00:07:59,720
+So they're looking at a star right now going through exactly what our sun will do in 5
+
+184
+00:07:59,720 --> 00:08:03,020
+billion years, just to get real-time empirical data.
+
+185
+00:08:03,180 --> 00:08:03,600
+Exactly.
+
+186
+00:08:03,740 --> 00:08:04,680
+They're watching it happen.
+
+187
+00:08:05,040 --> 00:08:09,260
+And their reference model shows that while Mercury and Venus are definitively engulfed...
+
+188
+00:08:09,260 --> 00:08:11,720
+Because they're just too close to outrun the expansion.
+
+189
+00:08:11,940 --> 00:08:12,180
+Right.
+
+190
+00:08:12,280 --> 00:08:13,020
+They have no chance.
+
+191
+00:08:13,260 --> 00:08:17,280
+But Earth and Mars actually widen their orbits fast enough to potentially survive.
+
+192
+00:08:17,560 --> 00:08:19,020
+That is mind-blowing.
+
+193
+00:08:19,140 --> 00:08:22,080
+But the textbook answer used to be a very confident engulfed.
+
+194
+00:08:22,080 --> 00:08:26,320
+The new answer is a highly qualified, not necessarily.
+
+195
+00:08:26,640 --> 00:08:30,760
+Which brings us to the crux of Flickschildo's whole thesis, the definition of the error.
+
+196
+00:08:31,200 --> 00:08:36,160
+If the old textbook model didn't use bad math, they didn't calculate the sun's expansion
+
+197
+00:08:36,160 --> 00:08:36,740
+incorrectly.
+
+198
+00:08:37,440 --> 00:08:42,160
+The error was that they silently set the rate of change of the Earth's orbit to zero.
+
+199
+00:08:42,480 --> 00:08:43,000
+Exactly.
+
+200
+00:08:43,400 --> 00:08:48,660
+In calculus terms, the derivative of the position over time, dx dt, was just set to zero.
+
+201
+00:08:48,660 --> 00:08:51,860
+They froze the variable by simply forgetting to track it.
+
+202
+00:08:52,340 --> 00:08:55,180
+It is an error of calculus, made purely by omission.
+
+203
+00:08:55,920 --> 00:09:01,380
+They analyzed the system with two coupled, interacting moving parts, as if it had only
+
+204
+00:09:01,380 --> 00:09:04,140
+one moving part, against a completely fixed backdrop.
+
+205
+00:09:04,420 --> 00:09:04,540
+Right.
+
+206
+00:09:04,860 --> 00:09:09,480
+In the trajectory model, the engulfment threshold is strictly larger than in the snapshot model,
+
+207
+00:09:09,840 --> 00:09:12,840
+because the Earth is actively running away from the expanding sun.
+
+208
+00:09:13,100 --> 00:09:17,100
+Every snapshot prediction was therefore missing a critical term in its equation.
+
+209
+00:09:17,260 --> 00:09:17,820
+Precisely.
+
+210
+00:09:17,820 --> 00:09:21,260
+I was trying to picture this earlier, and the best way I could visualize it for you listening
+
+211
+00:09:21,260 --> 00:09:21,800
+is this.
+
+212
+00:09:23,000 --> 00:09:28,860
+Imagine a city planner calculating exactly how long it will take a rising tide to submerge
+
+213
+00:09:28,860 --> 00:09:29,980
+a boat tied to a dock.
+
+214
+00:09:30,120 --> 00:09:30,980
+Well, that's a good analogy.
+
+215
+00:09:31,280 --> 00:09:31,520
+Right.
+
+216
+00:09:32,040 --> 00:09:37,300
+So, they run incredibly complex fluid dynamic math on the water rising.
+
+217
+00:09:37,860 --> 00:09:42,760
+They know the dock's exact elevation, and they declare with absolute certainty the boat will
+
+218
+00:09:42,760 --> 00:09:44,760
+be completely underwater at 3 p.m.
+
+219
+00:09:44,760 --> 00:09:48,200
+But they treated the boat as a fixed parameter.
+
+220
+00:09:48,720 --> 00:09:50,860
+They completely forgot that boats float.
+
+221
+00:09:51,240 --> 00:09:51,520
+Yes.
+
+222
+00:09:51,860 --> 00:09:55,860
+The boat's elevation is a dynamic variable, just like the Earth's orbit.
+
+223
+00:09:55,980 --> 00:09:56,440
+Exactly.
+
+224
+00:09:56,840 --> 00:10:02,460
+If you freeze the boat's altitude in your spreadsheet, your math regarding the water level is flawless,
+
+225
+00:10:03,020 --> 00:10:06,840
+but your conclusion about the boat drowning is objectively false.
+
+226
+00:10:06,840 --> 00:10:08,260
+Because the boat moves with the water.
+
+227
+00:10:08,400 --> 00:10:13,400
+Now, I do want to throw in the one caveat from the text, just to manage expectations for
+
+228
+00:10:13,400 --> 00:10:17,920
+anyone listening who's hoping humanity will be hanging out on Earth in 5 billion years
+
+229
+00:10:17,920 --> 00:10:18,800
+to watch this happen.
+
+230
+00:10:18,900 --> 00:10:19,060
+Right.
+
+231
+00:10:19,100 --> 00:10:19,920
+We should clarify that.
+
+232
+00:10:20,000 --> 00:10:24,040
+Surviving the red giant phase doesn't mean the Earth remains a pleasant place to live.
+
+233
+00:10:24,040 --> 00:10:24,800
+No, no.
+
+234
+00:10:24,920 --> 00:10:28,620
+The habitability question is entirely separate from the physical survival question.
+
+235
+00:10:28,700 --> 00:10:28,900
+Yeah.
+
+236
+00:10:29,140 --> 00:10:35,960
+On a much shorter timescale, closer to 1 billion years, the sun is slowly brightening during
+
+237
+00:10:35,960 --> 00:10:37,740
+its current main sequence phase.
+
+238
+00:10:38,060 --> 00:10:42,460
+That slow brightening will eventually raise surface temperatures enough to evaporate our oceans,
+
+239
+00:10:42,920 --> 00:10:46,780
+trigger a runaway greenhouse effect, and basically end all complex life.
+
+240
+00:10:46,780 --> 00:10:53,760
+So, the Earth still basically boils in a billion years, the rock survives, but everything on
+
+241
+00:10:53,760 --> 00:10:54,480
+it is cooked.
+
+242
+00:10:54,780 --> 00:10:56,460
+It is a pretty bleak timeline, honestly.
+
+243
+00:10:56,620 --> 00:10:56,920
+Yeah.
+
+244
+00:10:57,260 --> 00:11:01,840
+But mathematically, it highlights something absolutely crucial for reflections theory.
+
+245
+00:11:02,840 --> 00:11:08,140
+Over that one billion year horizon, the sun's mass loss is microscopic.
+
+246
+00:11:08,480 --> 00:11:08,840
+Really?
+
+247
+00:11:09,140 --> 00:11:09,800
+How small?
+
+248
+00:11:09,900 --> 00:11:13,380
+It is maybe 0.01% of its total mass.
+
+249
+00:11:13,380 --> 00:11:18,440
+Because the mass loss is so negligible, the Earth's orbit barely moves a fraction of an
+
+250
+00:11:18,440 --> 00:11:18,620
+inch.
+
+251
+00:11:18,820 --> 00:11:19,220
+Oh, I see.
+
+252
+00:11:19,520 --> 00:11:24,000
+So, in that specific calculation regarding ocean evaporation, treating the Earth's orbit
+
+253
+00:11:24,000 --> 00:11:28,440
+as a fixed, frozen variable is actually a completely legitimate shortcut.
+
+254
+00:11:28,600 --> 00:11:33,240
+The orbit only becomes a critical moving variable when you extend your timeline out to 5 billion
+
+255
+00:11:33,240 --> 00:11:33,580
+years.
+
+256
+00:11:33,660 --> 00:11:34,100
+Exactly.
+
+257
+00:11:34,360 --> 00:11:39,160
+And that transition is perfect because it brings up a huge, glaring question for me.
+
+258
+00:11:39,520 --> 00:11:43,200
+We obviously have to freeze things sometimes to make our daily lives function, right?
+
+259
+00:11:43,200 --> 00:11:46,960
+Like, I don't calculate the gravitational pull of Jupiter when I'm trying to catch a
+
+260
+00:11:46,960 --> 00:11:47,780
+baseball in the park.
+
+261
+00:11:48,020 --> 00:11:48,840
+No, that would be absurd.
+
+262
+00:11:49,040 --> 00:11:54,380
+So, how do we know when freezing a variable is a catastrophic mistake, like the red giant
+
+263
+00:11:54,380 --> 00:12:01,100
+scenario, versus a totally necessary shortcut, like the ocean evaporation scenario?
+
+264
+00:12:01,380 --> 00:12:06,380
+That is the exact question Flyxion answers in chapter one, with what they call the timescale
+
+265
+00:12:06,380 --> 00:12:06,820
+ratio.
+
+266
+00:12:06,880 --> 00:12:07,120
+Okay.
+
+267
+00:12:07,280 --> 00:12:08,280
+The timescale ratio.
+
+268
+00:12:08,400 --> 00:12:11,500
+It's a mathematical concept denoted by the Greek letter epsilon.
+
+269
+00:12:11,880 --> 00:12:12,280
+Epsilon.
+
+270
+00:12:12,280 --> 00:12:12,980
+Got it.
+
+271
+00:12:13,200 --> 00:12:17,520
+This ratio is the characteristic timescale of the phenomenon you were trying to predict,
+
+272
+00:12:18,040 --> 00:12:23,060
+divided by the timescale on which the background variable actually changes in the real world.
+
+273
+00:12:23,140 --> 00:12:23,320
+Okay.
+
+274
+00:12:23,380 --> 00:12:25,960
+Let's break that down into plain English for everyone listening.
+
+275
+00:12:26,140 --> 00:12:27,140
+Think of it as a fraction.
+
+276
+00:12:27,440 --> 00:12:30,720
+The numerator, the top number, is your prediction horizon.
+
+277
+00:12:31,040 --> 00:12:32,900
+How far out into the future are you looking?
+
+278
+00:12:33,520 --> 00:12:34,160
+Ten years.
+
+279
+00:12:34,320 --> 00:12:34,560
+Yeah.
+
+280
+00:12:34,620 --> 00:12:35,400
+A million years.
+
+281
+00:12:35,400 --> 00:12:35,720
+Okay.
+
+282
+00:12:36,080 --> 00:12:37,620
+The horizon is the top number.
+
+283
+00:12:37,820 --> 00:12:37,920
+Right.
+
+284
+00:12:38,040 --> 00:12:42,980
+And the denominator, the bottom number, is the amount of time it takes for your background
+
+285
+00:12:42,980 --> 00:12:45,280
+variable to undergo a significant change.
+
+286
+00:12:45,380 --> 00:12:45,520
+Right.
+
+287
+00:12:45,840 --> 00:12:51,040
+If you divide your prediction horizon by the variable's timescale, and the result, your
+
+288
+00:12:51,040 --> 00:12:56,760
+epsilon is a tiny fraction, like much, much less than the number one, then freezing that
+
+289
+00:12:56,760 --> 00:12:58,580
+variable is a legitimate simplification.
+
+290
+00:12:58,580 --> 00:13:02,920
+Meaning, you can safely ignore it, pretend it doesn't move, and your model will still
+
+291
+00:13:02,920 --> 00:13:03,880
+work perfectly fine.
+
+292
+00:13:03,960 --> 00:13:04,420
+Exactly.
+
+293
+00:13:04,900 --> 00:13:07,620
+Flyxion gives some wonderfully grounded examples of this.
+
+294
+00:13:08,100 --> 00:13:10,740
+Think about the engineers who designed the Golden Gate Bridge.
+
+295
+00:13:10,820 --> 00:13:11,060
+Okay.
+
+296
+00:13:11,060 --> 00:13:13,960
+They completely ignored continental drift.
+
+297
+00:13:14,280 --> 00:13:14,520
+Right.
+
+298
+00:13:14,720 --> 00:13:16,180
+Or airplane designers.
+
+299
+00:13:16,980 --> 00:13:21,760
+They do not factor in stellar evolution when they build a Boeing 777.
+
+300
+00:13:22,120 --> 00:13:22,360
+Yeah.
+
+301
+00:13:22,540 --> 00:13:27,240
+Nobody re-derives orbital mechanics to compute a 30-year mortgage amortization schedule.
+
+302
+00:13:27,340 --> 00:13:27,900
+No, exactly.
+
+303
+00:13:28,100 --> 00:13:28,320
+Right.
+
+304
+00:13:28,680 --> 00:13:33,440
+If I go to my bank to buy a house, and the loan officer says, well, the tectonic plates
+
+305
+00:13:33,440 --> 00:13:37,740
+are shifting about two inches a year, so your interest rate might fluctuate by a millimeter
+
+306
+00:13:37,740 --> 00:13:41,140
+over the next three decades, I mean, I'm finding a new bank.
+
+307
+00:13:41,140 --> 00:13:48,360
+Because in those cases, the frozen quantity changes on a timescale wildly longer than the
+
+308
+00:13:48,360 --> 00:13:49,200
+thing being predicted.
+
+309
+00:13:49,660 --> 00:13:51,200
+The engineers aren't being careless.
+
+310
+00:13:51,460 --> 00:13:54,660
+That omission is the entire point of mathematical modeling.
+
+311
+00:13:55,080 --> 00:13:55,580
+Precisely.
+
+312
+00:13:55,980 --> 00:14:01,140
+A model that allowed every single variable in the entire universe to move simultaneously
+
+313
+00:14:01,140 --> 00:14:02,560
+wouldn't be a tool.
+
+314
+00:14:02,960 --> 00:14:05,860
+It would be a one-to-one perfect simulation of reality.
+
+315
+00:14:05,940 --> 00:14:06,500
+Like the matrix.
+
+316
+00:14:06,820 --> 00:14:07,040
+Right.
+
+317
+00:14:07,040 --> 00:14:12,240
+And a one-to-one simulation is completely useless for answering a specific bounded question.
+
+318
+00:14:12,380 --> 00:14:13,660
+You'd be overwhelmed with data.
+
+319
+00:14:14,120 --> 00:14:18,780
+So wait, if I'm understanding this timescale ratio correctly, um, sorry, let me rephrase.
+
+320
+00:14:19,420 --> 00:14:26,480
+The same exact variable, the same physical object can be a totally legitimate simplification
+
+321
+00:14:26,480 --> 00:14:32,420
+on Tuesday and a catastrophic frozen process error on Wednesday, depending purely on how far
+
+322
+00:14:32,420 --> 00:14:33,120
+out I'm trying to look.
+
+323
+00:14:33,220 --> 00:14:33,520
+Yes.
+
+324
+00:14:33,800 --> 00:14:36,020
+You have hit the absolute core of the theory right there.
+
+325
+00:14:36,020 --> 00:14:39,320
+The ratio is not a fixed property of the variable itself.
+
+326
+00:14:39,480 --> 00:14:39,740
+Okay.
+
+327
+00:14:40,300 --> 00:14:43,220
+A rock is not inherently a static background object.
+
+328
+00:14:43,600 --> 00:14:46,480
+The ratio is entirely dependent on the horizon of your question.
+
+329
+00:14:46,640 --> 00:14:47,580
+Give me an example of that.
+
+330
+00:14:47,760 --> 00:14:49,880
+Let's look at the climate example Flyxion provides.
+
+331
+00:14:50,700 --> 00:14:53,780
+Imagine you are forecasting Earth's climate over the next century.
+
+332
+00:14:53,900 --> 00:14:54,620
+A hundred years.
+
+333
+00:14:54,940 --> 00:14:55,280
+Got it.
+
+334
+00:14:55,280 --> 00:15:01,860
+Over a hundred years, things like ocean circulation patterns, ice sheet extent, and global vegetation
+
+335
+00:15:01,860 --> 00:15:04,760
+cover are all dynamic state variables.
+
+336
+00:15:05,320 --> 00:15:06,120
+They are moving.
+
+337
+00:15:06,240 --> 00:15:06,980
+They are fluctuating.
+
+338
+00:15:07,060 --> 00:15:07,400
+Sure.
+
+339
+00:15:07,740 --> 00:15:13,260
+But the physical positions of the continents, they're moving so slowly that you can safely
+
+340
+00:15:13,260 --> 00:15:16,660
+park them in your parameter set as a fixed background.
+
+341
+00:15:16,660 --> 00:15:20,060
+Your epsilon is incredibly close to zero.
+
+342
+00:15:20,380 --> 00:15:24,820
+Because North America moves maybe a few feet over a century, that is totally irrelevant
+
+343
+00:15:24,820 --> 00:15:27,700
+to predicting the hurricane season in Florida next year.
+
+344
+00:15:27,860 --> 00:15:28,240
+Exactly.
+
+345
+00:15:28,560 --> 00:15:28,720
+Yeah.
+
+346
+00:15:28,860 --> 00:15:30,940
+But now, extend your prediction horizon.
+
+347
+00:15:31,220 --> 00:15:35,420
+Let's say you want to model the Earth's climate over tens of millions of years.
+
+348
+00:15:35,640 --> 00:15:35,860
+Okay.
+
+349
+00:15:36,080 --> 00:15:36,860
+Huge jump.
+
+350
+00:15:36,860 --> 00:15:41,740
+Suddenly, continental drift, which operates on a timescale about 10 million years, has
+
+351
+00:15:41,740 --> 00:15:43,380
+an epsilon ratio approaching one.
+
+352
+00:15:43,500 --> 00:15:46,920
+Oh, because the top number and the bottom number of the fraction are almost the same
+
+353
+00:15:46,920 --> 00:15:47,160
+now.
+
+354
+00:15:47,220 --> 00:15:47,520
+Yes.
+
+355
+00:15:47,660 --> 00:15:52,320
+It is now changing on a timescale entirely comparable to your prediction horizon.
+
+356
+00:15:52,560 --> 00:15:56,740
+The approximation weakens, and eventually, the math collapses entirely.
+
+357
+00:15:57,140 --> 00:16:03,940
+Over tens of millions of years, continental drift must become a dynamic state variable in
+
+358
+00:16:03,940 --> 00:16:04,400
+your model.
+
+359
+00:16:04,400 --> 00:16:10,060
+Well, the boundary between what is background scenery and what is an active participant literally
+
+360
+00:16:10,060 --> 00:16:10,680
+shifts.
+
+361
+00:16:11,160 --> 00:16:12,140
+That is wild.
+
+362
+00:16:12,820 --> 00:16:17,980
+The exact same piece of reality, the physical mass of a continent, crosses the line from
+
+363
+00:16:17,980 --> 00:16:22,220
+a painting on the wall to an actor on the stage, just because I let the stopwatch run
+
+364
+00:16:22,220 --> 00:16:22,660
+longer.
+
+365
+00:16:22,860 --> 00:16:24,300
+It's a great way to visualize it.
+
+366
+00:16:24,400 --> 00:16:24,600
+Yeah.
+
+367
+00:16:24,600 --> 00:16:29,760
+And Flyxion argues that whenever you build a model or make a life forecast, you have to
+
+368
+00:16:29,760 --> 00:16:30,860
+run this timescale check.
+
+369
+00:16:31,020 --> 00:16:32,180
+You just have to make it a habit.
+
+370
+00:16:32,420 --> 00:16:33,160
+You have to ask.
+
+371
+00:16:33,160 --> 00:16:38,080
+For every variable I am holding constant, how quickly does it actually change?
+
+372
+00:16:38,360 --> 00:16:43,160
+And critically, is the frozen quantity downstream of anything already active in my model?
+
+373
+00:16:43,420 --> 00:16:45,460
+Wait, give me an example of a downstream variable.
+
+374
+00:16:45,560 --> 00:16:48,300
+Well, the Earth's orbit from our first example.
+
+375
+00:16:48,380 --> 00:16:49,040
+Oh, right.
+
+376
+00:16:49,060 --> 00:16:51,500
+The orbital radius isn't just floating out there independently.
+
+377
+00:16:51,820 --> 00:16:54,200
+It is functionally dependent on the sun's mass.
+
+378
+00:16:54,340 --> 00:16:54,620
+Okay.
+
+379
+00:16:54,620 --> 00:16:58,980
+And the sun's mass is already the primary active variable the scientists were tracking.
+
+380
+00:16:59,380 --> 00:17:00,360
+Ah, I see.
+
+381
+00:17:00,720 --> 00:17:06,860
+To track the sun's mass loss, but freeze the orbit, is a frozen process error by construction.
+
+382
+00:17:07,480 --> 00:17:12,380
+The model already contained all the mathematical information needed to unfreeze the Earth.
+
+383
+00:17:12,540 --> 00:17:15,180
+The scientists just refused to make the connection.
+
+384
+00:17:15,180 --> 00:17:23,340
+It's like tracking the exact amount of rain falling into a plastic bucket, but treating the overall weight of the bucket as a fixed constant.
+
+385
+00:17:23,520 --> 00:17:24,720
+Yes, perfect analogy.
+
+386
+00:17:24,880 --> 00:17:30,880
+You literally have the data telling you the bucket is taking on water, but you just aren't hooking those two concepts together.
+
+387
+00:17:31,100 --> 00:17:31,540
+Exactly.
+
+388
+00:17:32,080 --> 00:17:33,440
+Contrast that with the bridge engineer.
+
+389
+00:17:34,000 --> 00:17:37,900
+Continental drift is not caused by the stress of cars driving on the bridge.
+
+390
+00:17:38,020 --> 00:17:38,220
+Right.
+
+391
+00:17:38,220 --> 00:17:44,300
+The complete physical independence of those variables is what makes freezing the tectonic plates legitimate.
+
+392
+00:17:44,780 --> 00:17:49,640
+Which makes me realize the real danger here isn't just doing bad math in a spreadsheet.
+
+393
+00:17:50,000 --> 00:17:54,000
+The danger is that we don't even realize we've made these categorizations in our heads.
+
+394
+00:17:54,140 --> 00:17:55,720
+We're completely blind to it.
+
+395
+00:17:55,820 --> 00:17:56,060
+Right.
+
+396
+00:17:56,220 --> 00:18:01,840
+We don't wake up in the morning and consciously say, I am now choosing to freeze the concept of my marriage.
+
+397
+00:18:02,020 --> 00:18:03,480
+We just do it by default.
+
+398
+00:18:03,600 --> 00:18:04,240
+Yeah, it's automatic.
+
+399
+00:18:04,240 --> 00:18:09,520
+And this moves us perfectly from the hard physics into the deep philosophy of modeling.
+
+400
+00:18:10,400 --> 00:18:14,240
+Flyxion calls this the ghost in the math prediction as ontology.
+
+401
+00:18:15,380 --> 00:18:17,640
+The state parameter misclassification principle.
+
+402
+00:18:18,100 --> 00:18:19,200
+That's a mouthful.
+
+403
+00:18:19,460 --> 00:18:20,940
+It is, but it's essential.
+
+404
+00:18:21,900 --> 00:18:33,860
+Every single forecast you make, whether it's a supercomputer running climate models or you just guessing what time you need to leave for work to beat traffic, begins with a fundamental partition of the world.
+
+405
+00:18:33,860 --> 00:18:34,660
+A partition.
+
+406
+00:18:35,560 --> 00:18:38,180
+You divide reality into things that act.
+
+407
+00:18:38,980 --> 00:18:45,100
+These are your state variables, denoted mathematically as S, and things that simply are these your parameters, denoted as theta.
+
+408
+00:18:45,360 --> 00:18:47,320
+Things that act and things that simply are.
+
+409
+00:18:47,520 --> 00:18:47,660
+Okay.
+
+410
+00:18:47,900 --> 00:18:59,480
+Flyxion argues that a frozen process error happens when a quantity is thrown into the parameter bucket because it is conceived of as a fixed characteristic of the system, when in reality its epsilon ratio is not small.
+
+411
+00:18:59,580 --> 00:19:01,780
+It's actively changing out there in the dark.
+
+412
+00:19:02,180 --> 00:19:02,660
+Precisely.
+
+413
+00:19:02,740 --> 00:19:05,180
+Okay, here's where it gets really interesting, at least to me.
+
+414
+00:19:05,540 --> 00:19:09,240
+Flyxion says these errors are actually invisible from inside the model.
+
+415
+00:19:09,460 --> 00:19:10,580
+They are completely invisible.
+
+416
+00:19:10,580 --> 00:19:19,840
+But if I build a bad model of my commute, can't I just look at the times I was late, see my model was wrong, and tweak the math until it's right?
+
+417
+00:19:20,340 --> 00:19:23,500
+How on earth do we ever spot this error if it's invisible?
+
+418
+00:19:23,980 --> 00:19:27,860
+You cannot fix an ontological error by running the math more accurately.
+
+419
+00:19:28,080 --> 00:19:28,600
+Why not?
+
+420
+00:19:28,600 --> 00:19:35,500
+Because the variable that would reveal your mistake is categorically absent from the equations you wrote down.
+
+421
+00:19:35,620 --> 00:19:36,480
+Oh, wow.
+
+422
+00:19:36,700 --> 00:19:43,180
+Let's say your equation is calculating the future based on your active variables, the S, and your fixed parameters, the theta.
+
+423
+00:19:43,400 --> 00:19:43,620
+Okay.
+
+424
+00:19:43,620 --> 00:19:46,440
+The calculation itself might be flawlessly executed.
+
+425
+00:19:47,020 --> 00:19:50,900
+A supercomputer might run it a billion times without a single arithmetic error.
+
+426
+00:19:51,580 --> 00:19:54,240
+It is perfectly correct based on its own assumptions.
+
+427
+00:19:54,520 --> 00:19:55,960
+But the assumptions are wrong.
+
+428
+00:19:55,960 --> 00:19:56,380
+Right.
+
+429
+00:19:56,540 --> 00:20:07,320
+The true trajectory of reality diverges from your model because your parameter, theta, is actually moving out there in the real world, and your computer doesn't even have a column in its database for that movement.
+
+430
+00:20:07,520 --> 00:20:10,400
+So throwing a faster processor at the problem doesn't help at all.
+
+431
+00:20:10,600 --> 00:20:11,300
+Not even a little.
+
+432
+00:20:11,800 --> 00:20:18,320
+If a model treats biological species as fixed, immutable types, it cannot represent evolutionary change.
+
+433
+00:20:18,320 --> 00:20:25,500
+Not because it is signed as zero to a change variable, but because it contains no change variable to begin with.
+
+434
+00:20:26,000 --> 00:20:27,600
+The error isn't in the equations.
+
+435
+00:20:27,800 --> 00:20:29,260
+The error is in the ontology.
+
+436
+00:20:29,380 --> 00:20:31,040
+The equations were built to express.
+
+437
+00:20:31,400 --> 00:20:31,880
+Ontology.
+
+438
+00:20:31,980 --> 00:20:38,860
+Let's define that for everyone because it's a word that gets thrown around in philosophy 101, but it is the absolute linchpin of this entire discussion.
+
+439
+00:20:38,860 --> 00:20:43,500
+Yes, ontology is the philosophical study of being or reality.
+
+440
+00:20:44,020 --> 00:20:46,260
+It asks, what is?
+
+441
+00:20:46,360 --> 00:20:47,060
+What exists?
+
+442
+00:20:47,320 --> 00:20:53,600
+In forecasting, your ontology dictates your fundamental assumptions about what kinds of things exist in your system.
+
+443
+00:20:54,000 --> 00:20:56,180
+Are they actors or are they the stage?
+
+444
+00:20:56,360 --> 00:20:56,620
+Okay.
+
+445
+00:20:56,860 --> 00:21:01,180
+A forecaster who suspects a variable might be moving will try to model its dynamics.
+
+446
+00:21:01,380 --> 00:21:01,620
+Yeah.
+
+447
+00:21:01,680 --> 00:21:07,880
+But a forecaster who has ontologically classified something as a fixed background property never even runs the timescale check.
+
+448
+00:21:07,880 --> 00:21:09,260
+Because it wouldn't even occur to them.
+
+449
+00:21:09,360 --> 00:21:09,760
+Exactly.
+
+450
+00:21:10,160 --> 00:21:12,380
+The question, how fast does this change?
+
+451
+00:21:12,560 --> 00:21:12,720
+Yeah.
+
+452
+00:21:12,820 --> 00:21:15,180
+Is simply not the kind of question you ask about a constant.
+
+453
+00:21:15,420 --> 00:21:23,020
+You don't ask a physicist how fast the speed of light is changing because by ontological definition, the speed of light is a constant.
+
+454
+00:21:23,640 --> 00:21:24,080
+Exactly.
+
+455
+00:21:24,300 --> 00:21:29,760
+If I can try to apply this to everyday life for you listening, think about a struggling marriage.
+
+456
+00:21:30,260 --> 00:21:34,420
+One partner might say, our relationship is failing because we don't spend enough time together.
+
+457
+00:21:34,420 --> 00:21:35,540
+Let's run the math.
+
+458
+00:21:35,740 --> 00:21:37,680
+Let's schedule date nights on Thursdays.
+
+459
+00:21:37,880 --> 00:21:39,520
+We tweak the act of variables.
+
+460
+00:21:39,800 --> 00:21:40,000
+Right.
+
+461
+00:21:40,060 --> 00:21:41,120
+They try to fix the schedule.
+
+462
+00:21:41,120 --> 00:21:47,100
+But what if the problem is that the fundamental nature of what both people want out of life has drifted over 10 years?
+
+463
+00:21:47,880 --> 00:21:49,480
+The schedule is just a math problem.
+
+464
+00:21:50,100 --> 00:21:54,540
+The shifting foundation of their desires is an ontological problem.
+
+465
+00:21:54,680 --> 00:21:54,900
+Yes.
+
+466
+00:21:55,060 --> 00:21:58,380
+If you only fix the schedule, you're missing the ghost in the math.
+
+467
+00:21:58,640 --> 00:22:00,440
+That is a phenomenal application.
+
+468
+00:22:00,440 --> 00:22:04,620
+And it produces a very specific diagnostic signature.
+
+469
+00:22:04,820 --> 00:22:05,340
+Which is?
+
+470
+00:22:05,400 --> 00:22:09,400
+These errors survive massive upgrades in effort and technology.
+
+471
+00:22:09,520 --> 00:22:11,300
+Because you're working harder on the wrong thing.
+
+472
+00:22:11,560 --> 00:22:11,940
+Exactly.
+
+473
+00:22:12,660 --> 00:22:16,640
+The couple can schedule 50 dates perfectly and the marriage still fails.
+
+474
+00:22:17,440 --> 00:22:22,300
+The astrophysicist can refine their model of stellar expansion to the decimal point.
+
+475
+00:22:22,300 --> 00:22:28,320
+And they will still be wrong about the Earth's fate because those refinements never touch the fixed parameters.
+
+476
+00:22:28,820 --> 00:22:31,120
+So to fix it, you need an ontological shift.
+
+477
+00:22:31,200 --> 00:22:33,720
+You have to ask a question that wasn't being asked before.
+
+478
+00:22:33,940 --> 00:22:34,320
+Yes.
+
+479
+00:22:34,720 --> 00:22:39,260
+You have to fundamentally change your mind about what kind of universe you live in.
+
+480
+00:22:39,320 --> 00:22:41,100
+Which sounds incredibly hard to do.
+
+481
+00:22:41,200 --> 00:22:44,460
+I mean, I don't want to change my fundamental view of reality on a Tuesday.
+
+482
+00:22:44,880 --> 00:22:45,820
+Very few people do.
+
+483
+00:22:45,820 --> 00:22:53,780
+And Flyxion proves how hard it is in Chapter 4, which is basically a tour through human history as a graveyard of frozen parameters.
+
+484
+00:22:54,700 --> 00:22:57,160
+Humanity has repeatedly fallen into this trap.
+
+485
+00:22:57,280 --> 00:23:03,980
+And it has required massive, painful, multi-generational scientific revolutions just to unfreeze our parameters.
+
+486
+00:23:04,180 --> 00:23:06,960
+This is one of the most compelling syntheses in the monograph.
+
+487
+00:23:06,980 --> 00:23:07,900
+The historical principle.
+
+488
+00:23:07,900 --> 00:23:08,520
+Let's get into it.
+
+489
+00:23:08,520 --> 00:23:19,700
+Flyxion argues that what looks from inside a paradigm, like the brilliant discovery of a new phenomenon, is often from outside it, just the mundane correction of a frozen process error.
+
+490
+00:23:20,000 --> 00:23:23,800
+Okay, let's walk through the deep dives they provide, starting with biology.
+
+491
+00:23:24,320 --> 00:23:24,680
+Perfect.
+
+492
+00:23:25,020 --> 00:23:25,800
+Let's look at Darwin.
+
+493
+00:23:26,000 --> 00:23:28,300
+Darwin, the ultimate paradigm shifter.
+
+494
+00:23:28,300 --> 00:23:34,560
+For most of the history of natural science, species were the paradigm case of a fixed parameter, a theta.
+
+495
+00:23:34,560 --> 00:23:37,240
+A species was a kind.
+
+496
+00:23:37,820 --> 00:23:38,680
+It was defined.
+
+497
+00:23:38,820 --> 00:23:40,120
+It was completely stable.
+
+498
+00:23:40,780 --> 00:23:49,140
+If you were a naturalist in 1700, you collected a specimen, you assigned it to a category, and that category was not considered a variable.
+
+499
+00:23:49,300 --> 00:23:51,140
+It was just a box you put the animal in.
+
+500
+00:23:51,140 --> 00:24:05,040
+The ontology was purely essentialist, meaning species had defining natures given by a creator, and individual variation, like a bird with a slightly longer beak or a moth with darker wings, was just noise around a fixed perfect type.
+
+501
+00:24:05,100 --> 00:24:07,640
+Wait, so they just thought a finch was a finch?
+
+502
+00:24:07,920 --> 00:24:08,380
+Exactly.
+
+503
+00:24:08,520 --> 00:24:09,660
+They thought it was entirely fixed.
+
+504
+00:24:09,780 --> 00:24:10,460
+That's wild.
+
+505
+00:24:10,560 --> 00:24:12,920
+So what did Darwin actually do in this framework?
+
+506
+00:24:13,200 --> 00:24:17,880
+What Charles Darwin did was move species from the fixed theta bucket to the active state S bucket.
+
+507
+00:24:17,940 --> 00:24:18,800
+The unfroze it.
+
+508
+00:24:18,800 --> 00:24:20,800
+He didn't just discover new bones.
+
+509
+00:24:21,080 --> 00:24:30,120
+He realized that what had been a static classification was actually a state with its own dynamics, driven by heritable variation and differential reproduction.
+
+510
+00:24:30,500 --> 00:24:34,580
+And if we apply the timescale ratio to Darwin, how does that work out?
+
+511
+00:24:34,700 --> 00:24:35,680
+It maps perfectly.
+
+512
+00:24:35,680 --> 00:24:42,340
+The timescale of species change is the generation time multiplied by the evolutionary selection pressure.
+
+513
+00:24:42,340 --> 00:24:46,460
+For bacteria under antibiotics, that timescale is years.
+
+514
+00:24:46,940 --> 00:24:51,320
+For slowly evolving lineages, it's millions of years.
+
+515
+00:24:51,540 --> 00:24:51,640
+Right.
+
+516
+00:24:51,840 --> 00:24:59,680
+If you are a medieval monk doing a human-scale natural history study of the birds in your garden, your prediction horizon is maybe 10 years.
+
+517
+00:25:00,080 --> 00:25:05,520
+Your epsilon is tiny, and fixing the species as a constant is a totally legitimate shortcut.
+
+518
+00:25:05,720 --> 00:25:09,640
+Because the birds aren't going to turn into a new species while you're tending your garden.
+
+519
+00:25:09,640 --> 00:25:10,240
+Exactly.
+
+520
+00:25:10,540 --> 00:25:13,860
+But against a geological timescale, epsilon approaches one.
+
+521
+00:25:14,520 --> 00:25:20,420
+The fixity assumption produces a worldview of fixed types whose sheer diversity simply cannot be explained.
+
+522
+00:25:20,840 --> 00:25:22,920
+So Darwin didn't just find new data.
+
+523
+00:25:23,080 --> 00:25:24,260
+He unfroze the parameter.
+
+524
+00:25:24,500 --> 00:25:24,620
+Exactly.
+
+525
+00:25:24,720 --> 00:25:25,620
+That is so cool.
+
+526
+00:25:25,700 --> 00:25:27,120
+Okay, let's do geology next.
+
+527
+00:25:27,580 --> 00:25:29,560
+Alfred Wegener and plate tectonics.
+
+528
+00:25:29,560 --> 00:25:37,120
+This one always fascinated me because people genuinely thought Wegener was a crackpot when he first suggested it in 1912.
+
+529
+00:25:37,200 --> 00:25:38,160
+Oh, they ridiculed him.
+
+530
+00:25:38,260 --> 00:25:41,360
+And Flixute explains exactly why they thought he was a crackpot.
+
+531
+00:25:41,480 --> 00:25:41,860
+Why?
+
+532
+00:25:42,060 --> 00:25:46,880
+For virtually all of recorded science, continental positions were background conditions.
+
+533
+00:25:47,620 --> 00:25:53,520
+A geologist in 1900 did not sit down and try to mathematically model the physical movement of South America.
+
+534
+00:25:53,600 --> 00:25:53,920
+Right.
+
+535
+00:25:53,920 --> 00:25:59,580
+South America was the fixed stage on which geology like earthquakes and volcanoes happened.
+
+536
+00:25:59,680 --> 00:26:01,400
+It was the theater, not the actors.
+
+537
+00:26:01,520 --> 00:26:01,920
+Exactly.
+
+538
+00:26:02,480 --> 00:26:08,540
+When Wegener proposed that the continents had actually drifted apart over time, it was vehemently rejected.
+
+539
+00:26:09,020 --> 00:26:11,500
+Partly because he lacked a mechanism for how they moved.
+
+540
+00:26:11,500 --> 00:26:24,240
+But fundamentally because the very idea of modeling continents as state variables, treating massive landmasses as things with rates of change, was categorically foreign to the established ontology of geology.
+
+541
+00:26:24,380 --> 00:26:27,340
+They literally couldn't conceive of a continent as a moving object.
+
+542
+00:26:27,580 --> 00:26:29,980
+It broke their mental model of reality.
+
+543
+00:26:30,220 --> 00:26:36,760
+If you told a geologist in 1920 that Africa was moving, it would be like telling me today that the color blue is moving.
+
+544
+00:26:37,060 --> 00:26:38,200
+It just doesn't compute.
+
+545
+00:26:38,360 --> 00:26:38,520
+Right.
+
+546
+00:26:38,600 --> 00:26:39,880
+It's a category error to them.
+
+547
+00:26:39,940 --> 00:26:40,120
+Yeah.
+
+548
+00:26:40,120 --> 00:26:43,880
+Until plate tectonics finally resolved it in the 1960s.
+
+549
+00:26:43,920 --> 00:26:45,460
+Which took 50 years.
+
+550
+00:26:45,620 --> 00:26:50,020
+Because the timescale of continental motion is tens of millions of years.
+
+551
+00:26:50,900 --> 00:26:54,120
+Against the human history horizon, epsilon is tiny.
+
+552
+00:26:54,620 --> 00:26:59,440
+We do not calculate continental drift when we use Google Maps to drive to the grocery store.
+
+553
+00:26:59,620 --> 00:26:59,640
+Right.
+
+554
+00:26:59,780 --> 00:27:00,160
+Obviously.
+
+555
+00:27:00,500 --> 00:27:03,360
+But against geological horizons, epsilon is massive.
+
+556
+00:27:03,360 --> 00:27:10,160
+If you treat continents as fixed over millions of years, you end up with systematic, unsolvable errors.
+
+557
+00:27:10,320 --> 00:27:11,540
+Like what kind of errors?
+
+558
+00:27:12,080 --> 00:27:21,860
+You find identical fossils of ancient reptiles on continents separated by vast oceans, or you find inexplicable patterns of mountain building that don't make sense on a static map.
+
+559
+00:27:21,860 --> 00:27:24,580
+And unfreezing the map solved all those anomalies.
+
+560
+00:27:24,740 --> 00:27:25,220
+Instantly.
+
+561
+00:27:25,220 --> 00:27:28,460
+And the third historical example Flyxion gives is cosmology.
+
+562
+00:27:28,960 --> 00:27:31,460
+Edwin Hubble unfreezing the universe itself.
+
+563
+00:27:31,460 --> 00:27:33,400
+This is the ultimate unfreezing.
+
+564
+00:27:33,400 --> 00:27:37,640
+Before Hubble in the 1920s, the universe was merely the container.
+
+565
+00:27:38,220 --> 00:27:38,980
+Stars moved.
+
+566
+00:27:39,420 --> 00:27:40,500
+Galaxies might rotate.
+
+567
+00:27:41,000 --> 00:27:45,060
+But the universe itself, the fabric of space, was the fixed background.
+
+568
+00:27:45,560 --> 00:27:47,000
+It was not a dynamical object.
+
+569
+00:27:47,220 --> 00:27:47,420
+Okay.
+
+570
+00:27:47,560 --> 00:27:55,000
+Hubble's discovery of the expansion of the universe moved the universe's scale factor from a fixed parameter to a dynamic state variable.
+
+571
+00:27:55,000 --> 00:27:57,100
+The container became a participant.
+
+572
+00:27:57,500 --> 00:27:58,160
+Beautifully put.
+
+573
+00:27:58,760 --> 00:28:06,760
+And subsequent discoveries, like dark energy accelerating that expansion, have made the universe's own dynamics just as complicated as anything happening inside it.
+
+574
+00:28:06,840 --> 00:28:07,120
+Wow.
+
+575
+00:28:07,400 --> 00:28:14,240
+What is notable here is that the fractional change in the universe's expansion over a single human lifetime is basically unmeasurable.
+
+576
+00:28:14,980 --> 00:28:17,620
+The time scale is unimaginably enormous.
+
+577
+00:28:17,780 --> 00:28:17,980
+Right.
+
+578
+00:28:18,100 --> 00:28:20,800
+Our epsilons are practically zero for everyday life.
+
+579
+00:28:20,800 --> 00:28:24,720
+Yet for cosmological questions about the origin of light, epsilon is near one.
+
+580
+00:28:25,000 --> 00:28:33,620
+If you assume a fixed universe, you get systematic errors in calculating the age of stars, the distances between galaxies, and the interpretation of light redshift.
+
+581
+00:28:33,980 --> 00:28:36,360
+So, synthesizing all of this.
+
+582
+00:28:37,480 --> 00:28:43,200
+A scientific revolution usually isn't just the discovery of a new shiny object out there in the dark.
+
+583
+00:28:43,860 --> 00:28:50,240
+It is the realization that something we thought was a background painting is actually an actor walking around on the stage.
+
+584
+00:28:50,480 --> 00:28:51,560
+That's a perfect summary.
+
+585
+00:28:51,560 --> 00:28:59,820
+It is taking something that simply was and recognizing it as something that changes according to its own internal dynamics.
+
+586
+00:29:00,260 --> 00:29:02,160
+That is the historical principle in a nutshell.
+
+587
+00:29:02,980 --> 00:29:09,540
+We advance as a species by repeatedly correcting these errors by moving quantities from the parameter set to the state set.
+
+588
+00:29:09,700 --> 00:29:11,300
+Okay, but I want to push back on this a little.
+
+589
+00:29:11,440 --> 00:29:11,600
+Sure.
+
+590
+00:29:11,600 --> 00:29:17,660
+All of these historical examples, birds, rocks, stars, the universe itself, these are physical things.
+
+591
+00:29:18,140 --> 00:29:20,700
+They follow the rigid laws of physics and biology.
+
+592
+00:29:20,920 --> 00:29:21,140
+True.
+
+593
+00:29:21,460 --> 00:29:24,220
+What happens when the thing we are freezing isn't made of atoms?
+
+594
+00:29:24,780 --> 00:29:27,560
+What happens when the variable we are freezing is human behavior?
+
+595
+00:29:27,880 --> 00:29:32,300
+Because humans are notoriously uncooperative when you try to put them in a mathematical spreadsheet.
+
+596
+00:29:32,300 --> 00:29:39,040
+And this brings us to what Flyxion calls level two in the hierarchy of freezing, the Lucas Principle and adaptive systems.
+
+597
+00:29:39,140 --> 00:29:39,960
+Okay, level two.
+
+598
+00:29:40,120 --> 00:29:42,280
+It is one thing to freeze a physical process.
+
+599
+00:29:43,060 --> 00:29:46,440
+It is another entirely to freeze a behavioral rule.
+
+600
+00:29:46,660 --> 00:29:49,140
+Why is behavior harder to map than rocks?
+
+601
+00:29:50,140 --> 00:29:56,900
+Because a behavioral rule, the way human agents respond to their environment, might actually have been perfectly constant in the past.
+
+602
+00:29:56,960 --> 00:29:57,240
+Right.
+
+603
+00:29:57,240 --> 00:30:00,140
+It might be entirely historically defensible to freeze it.
+
+604
+00:30:00,540 --> 00:30:02,660
+You might have 50 years of data proving it works.
+
+605
+00:30:02,820 --> 00:30:03,800
+So it looks solid.
+
+606
+00:30:04,040 --> 00:30:08,500
+But it becomes systematically non-constant the exact moment your model is acted upon.
+
+607
+00:30:08,720 --> 00:30:09,100
+Wait, what?
+
+608
+00:30:09,300 --> 00:30:11,900
+Your forecast doesn't just fail to capture the behavior.
+
+609
+00:30:12,480 --> 00:30:18,200
+The very act of publishing your forecast actually changes the behavior it was meant to predict.
+
+610
+00:30:18,460 --> 00:30:19,020
+Oh, wow.
+
+611
+00:30:19,360 --> 00:30:21,040
+Okay, walk us through the Lucas Critique.
+
+612
+00:30:21,140 --> 00:30:23,460
+This is from Macri Economics in the 1970s, right?
+
+613
+00:30:23,460 --> 00:30:23,760
+Yes.
+
+614
+00:30:23,760 --> 00:30:34,160
+In 1976, Robert Lucas published a devastating critique of the large-scale macroeconomic models that governments and central banks were using to dictate national policy.
+
+615
+00:30:35,060 --> 00:30:40,180
+These models operated by estimating stable statistical relationships between economic variables.
+
+616
+00:30:40,760 --> 00:30:45,800
+The most famous example is the Phillips Curve, the historical relationship between inflation and unemployment.
+
+617
+00:30:45,800 --> 00:30:54,720
+Meaning, economists looked at decades of data and said, hey, historically, when inflation goes up a little bit, unemployment tends to go down a little bit.
+
+618
+00:30:54,720 --> 00:30:55,280
+Exactly.
+
+619
+00:30:55,540 --> 00:31:02,500
+And they treated that relationship as a fixed parameter, a structural, unchangeable constant of the economy.
+
+620
+00:31:02,600 --> 00:31:03,180
+They froze it.
+
+621
+00:31:03,180 --> 00:31:07,420
+They built massive models and used them to predict policy effects.
+
+622
+00:31:07,420 --> 00:31:18,040
+If the central bank intentionally raises the money supply by X amount to induce a little inflation, output and employment will reliably increase by Y amount.
+
+623
+00:31:18,220 --> 00:31:24,320
+Which sounds perfectly logical if the past dictates the future, you pull lever A, and you get result B.
+
+624
+00:31:24,320 --> 00:31:29,860
+But Lucas pointed out that these historical relationships are not structural constants like the speed of light.
+
+625
+00:31:30,360 --> 00:31:31,680
+They are behavioral rules.
+
+626
+00:31:32,300 --> 00:31:42,720
+They are the equilibrium outcomes of millions of human beings, workers, factory owners, shoppers, optimizing their lives based on their expectations about government policy.
+
+627
+00:31:42,840 --> 00:31:43,960
+Oh, I see where this is going.
+
+628
+00:31:44,180 --> 00:31:51,140
+If the central bank suddenly changes its policy to exploit that historical relationship, rational human beings update their expectations.
+
+629
+00:31:51,140 --> 00:31:54,440
+Let me try to put this in a real world scenario to make sure I'm following.
+
+630
+00:31:54,560 --> 00:31:54,780
+What?
+
+631
+00:31:54,920 --> 00:31:55,360
+Please do.
+
+632
+00:31:55,700 --> 00:31:58,260
+Let's say I'm a factory worker in 1975.
+
+633
+00:31:59,040 --> 00:32:04,700
+If I know the government is intentionally printing money to lower unemployment, I'm not just going to sit there.
+
+634
+00:32:04,840 --> 00:32:05,100
+Right.
+
+635
+00:32:05,300 --> 00:32:07,520
+I know prices at the grocery store are going to go up.
+
+636
+00:32:08,000 --> 00:32:17,100
+So I go to my boss or my union goes to the boss and we demand a cost of living raise before the inflation hits to compensate for what we know is coming.
+
+637
+00:32:17,300 --> 00:32:17,680
+Exactly.
+
+638
+00:32:17,920 --> 00:32:18,400
+You adapt.
+
+639
+00:32:18,400 --> 00:32:23,820
+And suddenly the government strategy stops working because the labor market adapted to the forecast.
+
+640
+00:32:24,100 --> 00:32:24,700
+Precisely.
+
+641
+00:32:25,160 --> 00:32:26,160
+The humans adapt.
+
+642
+00:32:26,780 --> 00:32:29,240
+The estimated historical relationship breaks down.
+
+643
+00:32:29,880 --> 00:32:35,220
+What the central bank's model placed in the fixed parameter bucket actually belonged in the dynamic state bucket.
+
+644
+00:32:35,480 --> 00:32:36,020
+Wow.
+
+645
+00:32:36,340 --> 00:32:39,440
+This is what Flyxion calls a feedback sensitive forecast.
+
+646
+00:32:40,120 --> 00:32:44,520
+The behavioral parameter depends on the policy implied by the model's own output.
+
+647
+00:32:44,520 --> 00:32:48,800
+You cannot just run the old macroeconomic model more carefully to fix it.
+
+648
+00:32:49,020 --> 00:32:50,960
+The model destroys its own foundation.
+
+649
+00:32:51,360 --> 00:32:56,000
+It's like trying to perfectly map out a chess game assuming your opponent will never react to your moves.
+
+650
+00:32:56,080 --> 00:32:56,960
+That's a perfect analogy.
+
+651
+00:32:57,420 --> 00:33:02,660
+You sit there and plan five brilliant moves ahead based on the current layout of the board.
+
+652
+00:33:02,660 --> 00:33:08,700
+But the very act of you making your first move completely changes the landscape of the board.
+
+653
+00:33:09,080 --> 00:33:10,300
+The opponent adapts.
+
+654
+00:33:10,700 --> 00:33:12,440
+Your model is instantly useless.
+
+655
+00:33:12,440 --> 00:33:16,620
+And this phenomenon isn't just limited to 1970s macroeconomics.
+
+656
+00:33:17,520 --> 00:33:21,560
+Flyxion applies this to adaptive markets in modern finance.
+
+657
+00:33:21,700 --> 00:33:23,120
+Like Wall Street algorithms.
+
+658
+00:33:23,420 --> 00:33:23,820
+Exactly.
+
+659
+00:33:24,380 --> 00:33:32,700
+Imagine a quantitative hedge fund discovers a highly complex trading rule that generates abnormal returns based on some historical mispricing of a stock.
+
+660
+00:33:32,700 --> 00:33:34,440
+They find a loophole in the market.
+
+661
+00:33:34,740 --> 00:33:36,020
+They find a mathematical loophole.
+
+662
+00:33:36,780 --> 00:33:46,560
+But the moment they start trading millions of dollars on it and the moment other market participants notice that volume and attract competing capital to that exact same strategy, the arbitrage is eliminated.
+
+663
+00:33:46,720 --> 00:33:48,520
+Oh, because everyone else starts doing it.
+
+664
+00:33:48,580 --> 00:33:48,760
+Right.
+
+665
+00:33:49,020 --> 00:33:53,880
+The asset values are bid up to exactly the levels the model predicts and the anomaly vanishes.
+
+666
+00:33:54,300 --> 00:33:57,380
+The behavioral pattern erodes because it was recognized and exploited.
+
+667
+00:33:57,740 --> 00:34:01,860
+So the timescale of adaptation here isn't millions of years like continental drift.
+
+668
+00:34:01,860 --> 00:34:02,460
+No.
+
+669
+00:34:02,640 --> 00:34:09,980
+In financial markets, the timescale of adaptation is months, sometimes days, and with algorithmic trading, milliseconds.
+
+670
+00:34:10,320 --> 00:34:10,660
+Jesus.
+
+671
+00:34:11,380 --> 00:34:16,060
+Measured against a prediction horizon of a few years, the epsilon ratio is massive.
+
+672
+00:34:17,200 --> 00:34:22,600
+Freezing the market's response to a new trading rule is a catastrophic frozen process error.
+
+673
+00:34:22,980 --> 00:34:28,580
+Infliction also mentions ecology here, co-evolutionary systems, because animals adapt too.
+
+674
+00:34:28,800 --> 00:34:30,660
+Think of predator and prey dynamics.
+
+675
+00:34:30,660 --> 00:34:41,560
+If you build a conservation model to protect a specific species of prey and you treat the local predator's foraging pattern as a fixed parameter, your model will generate systematic errors.
+
+676
+00:34:41,820 --> 00:34:42,340
+Why?
+
+677
+00:34:42,720 --> 00:34:51,280
+Because over ecological time, just years or decades, the predator adapts its hunting behavior to the prey's defensive behavior, and the prey adapts to the predator.
+
+678
+00:34:51,440 --> 00:34:51,700
+Right.
+
+679
+00:34:51,800 --> 00:34:53,100
+An evolutionary arms race.
+
+680
+00:34:53,100 --> 00:34:54,500
+They are feedback sensitive.
+
+681
+00:34:55,160 --> 00:35:00,700
+Fixing one while mathematically modeling the other is a frozen process error in an adaptive system.
+
+682
+00:35:00,920 --> 00:35:05,340
+So we've seen how economists and finance bros and ecologists fall into this trap.
+
+683
+00:35:05,660 --> 00:35:12,020
+But what's genuinely terrifying to me is that this psychological blindness to changing systems isn't just a quirk of bad math.
+
+684
+00:35:12,320 --> 00:35:13,560
+No, it's much deeper than that.
+
+685
+00:35:13,560 --> 00:35:20,060
+The reason we are so prone to freezing the world is actually baked into the very words coming out of our mouths right now.
+
+686
+00:35:21,100 --> 00:35:26,880
+Think about basic grammar, which brings us to section six of the text, the noun fallacy.
+
+687
+00:35:26,880 --> 00:35:32,960
+This is where the monograph moves beautifully from applied mathematics into deep linguistics and philosophy.
+
+688
+00:35:33,100 --> 00:35:33,960
+I love this part.
+
+689
+00:35:33,960 --> 00:35:43,480
+Flyxion proposes that the grammatical distinction between nouns and verbs encodes a massive, implicit, ontological presumption about how the universe works.
+
+690
+00:35:43,700 --> 00:35:43,940
+Okay.
+
+691
+00:35:44,060 --> 00:35:46,120
+A noun is a person, place, or thing.
+
+692
+00:35:46,700 --> 00:35:48,140
+A verb is an action.
+
+693
+00:35:48,580 --> 00:35:50,680
+That's what we all learned in first grade grammar.
+
+694
+00:35:50,820 --> 00:35:52,120
+A noun names a thing.
+
+695
+00:35:52,620 --> 00:35:57,320
+And in our ordinary grammatical sense, things are entities that persist.
+
+696
+00:35:57,460 --> 00:35:58,560
+They endure over time.
+
+697
+00:35:58,600 --> 00:35:59,380
+You can point to them.
+
+698
+00:35:59,460 --> 00:35:59,680
+Okay.
+
+699
+00:35:59,980 --> 00:36:02,860
+Verbs or processes are events that happen to things.
+
+700
+00:36:02,860 --> 00:36:04,260
+The noun is primary.
+
+701
+00:36:04,600 --> 00:36:05,460
+The verb is secondary.
+
+702
+00:36:06,100 --> 00:36:08,320
+But Flyxion argues that this is fundamentally backwards.
+
+703
+00:36:09,040 --> 00:36:12,320
+The natural order of the universe is not objects moving through time.
+
+704
+00:36:12,480 --> 00:36:12,720
+Okay.
+
+705
+00:36:12,820 --> 00:36:13,200
+I'll bite.
+
+706
+00:36:13,480 --> 00:36:15,400
+If it's not objects moving through time, what is it?
+
+707
+00:36:15,640 --> 00:36:17,480
+The natural order is trajectories.
+
+708
+00:36:18,120 --> 00:36:21,740
+Nouns are simply what we call trajectories that are stable enough to merit a name.
+
+709
+00:36:21,800 --> 00:36:22,020
+Whoa.
+
+710
+00:36:22,160 --> 00:36:22,320
+Okay.
+
+711
+00:36:22,420 --> 00:36:22,600
+Wait.
+
+712
+00:36:23,520 --> 00:36:25,340
+Trajectories stable enough to merit a name.
+
+713
+00:36:25,420 --> 00:36:26,200
+Let's unpack that.
+
+714
+00:36:26,200 --> 00:36:28,440
+Because if I pick up a rock, that rock is a noun.
+
+715
+00:36:28,580 --> 00:36:29,260
+It is a thing.
+
+716
+00:36:29,380 --> 00:36:30,340
+It is not a trajectory.
+
+717
+00:36:30,600 --> 00:36:31,200
+But it is.
+
+718
+00:36:31,660 --> 00:36:32,560
+Think about the earth.
+
+719
+00:36:32,860 --> 00:36:34,220
+From our astrophysics example.
+
+720
+00:36:34,760 --> 00:36:38,620
+Earth is not a static rock moving through time.
+
+721
+00:36:38,940 --> 00:36:39,260
+I love it.
+
+722
+00:36:39,280 --> 00:36:40,300
+Earth is a trajectory.
+
+723
+00:36:40,860 --> 00:36:46,720
+It is a sequence of successive physical states, cooling magma, shifting continents, evolving
+
+724
+00:36:46,720 --> 00:36:50,840
+atmospheres that are similar enough from one millennium to the next that calling them
+
+725
+00:36:50,840 --> 00:36:57,220
+all by the same single name, earth, is a highly useful compression over our short human timescales.
+
+726
+00:36:57,220 --> 00:36:58,000
+Oh, man.
+
+727
+00:36:58,320 --> 00:37:03,220
+Because my human lifespan is so incredibly short, the earth looks perfectly identical the day
+
+728
+00:37:03,220 --> 00:37:04,500
+I am born and the day I die.
+
+729
+00:37:04,580 --> 00:37:06,280
+So I just label it a noun to save time.
+
+730
+00:37:06,280 --> 00:37:12,460
+The name compresses the entire complex billion-year trajectory into a single point and then treats
+
+731
+00:37:12,460 --> 00:37:14,240
+that point as a fundamental entity.
+
+732
+00:37:14,620 --> 00:37:16,480
+Affliction calls this the noun fallacy.
+
+733
+00:37:16,640 --> 00:37:17,400
+The noun fallacy.
+
+734
+00:37:17,600 --> 00:37:24,000
+It is the tendency to mistake the grammatical fixity of a word for the physical fixity of
+
+735
+00:37:24,000 --> 00:37:24,700
+the thing named.
+
+736
+00:37:24,700 --> 00:37:31,460
+The moment we assign a noun to something, we implicitly assign its rate of change to zero.
+
+737
+00:37:31,800 --> 00:37:35,000
+We commit a frozen process error at the very moment of naming.
+
+738
+00:37:35,180 --> 00:37:38,820
+That is staggering because it means the noun isn't necessarily a lie.
+
+739
+00:37:38,940 --> 00:37:40,580
+It's just a compression algorithm.
+
+740
+00:37:41,000 --> 00:37:43,500
+It is a ZIP file for reality.
+
+741
+00:37:43,740 --> 00:37:44,300
+I love that.
+
+742
+00:37:44,380 --> 00:37:45,960
+A ZIP file for reality.
+
+743
+00:37:46,080 --> 00:37:50,520
+But it becomes incredibly misleading when our prediction horizon extends far enough that
+
+744
+00:37:50,520 --> 00:37:52,900
+the thing is actually changing underneath the label.
+
+745
+00:37:52,900 --> 00:37:57,720
+And nowhere is this more consequential than in how we forecast human institutions.
+
+746
+00:37:58,240 --> 00:37:59,760
+This is Flyxion's prime example.
+
+747
+00:38:00,440 --> 00:38:04,700
+Institutions organize the vast majority of human life, and they are named entities by
+
+748
+00:38:04,700 --> 00:38:05,220
+definition.
+
+749
+00:38:05,720 --> 00:38:09,760
+A government, a legal tradition, a massive corporation, a university.
+
+750
+00:38:10,120 --> 00:38:13,220
+The text specifically uses Harvard University as an example.
+
+751
+00:38:13,480 --> 00:38:17,580
+Think about an institution named in the 17th century, like Harvard, that still bears that
+
+752
+00:38:17,580 --> 00:38:19,320
+exact same name in the 21st century.
+
+753
+00:38:19,600 --> 00:38:21,920
+In what sense is it actually the same entity?
+
+754
+00:38:21,920 --> 00:38:26,440
+Its personnel have been entirely replaced dozens of times over.
+
+755
+00:38:27,000 --> 00:38:28,580
+Its technologies are utterly different.
+
+756
+00:38:28,780 --> 00:38:34,300
+Its cultural practices, its power structure, its geographic footprint, the very subjects it
+
+757
+00:38:34,300 --> 00:38:37,100
+teaches all have completely transformed.
+
+758
+00:38:37,440 --> 00:38:40,200
+Literally, the only thing that has persisted is the word Harvard.
+
+759
+00:38:41,020 --> 00:38:45,060
+If you sign a contract with Harvard today, you aren't signing a contract with an object.
+
+760
+00:38:45,060 --> 00:38:45,540
+No.
+
+761
+00:38:45,540 --> 00:38:51,780
+What persists is a trajectory of organizational activity that has been continuous enough in
+
+762
+00:38:51,780 --> 00:38:54,380
+some attributes to maintain a shared legal name.
+
+763
+00:38:54,720 --> 00:38:54,760
+Okay.
+
+764
+00:38:55,180 --> 00:39:00,300
+But if you try to predict what Harvard will do in 50 years by extrapolating its past, and
+
+765
+00:39:00,300 --> 00:39:05,540
+you treat it as a fixed object with stable, immutable properties, you are committing a massive
+
+766
+00:39:05,540 --> 00:39:06,980
+frozen process error.
+
+767
+00:39:07,200 --> 00:39:08,640
+Because it's not a fixed object.
+
+768
+00:39:08,640 --> 00:39:13,860
+Harvard is a trajectory that includes internal mechanisms for massive institutional change on
+
+769
+00:39:13,860 --> 00:39:17,800
+a timescale totally comparable to a 50-year forecasting horizon.
+
+770
+00:39:18,040 --> 00:39:21,480
+What's fascinating here is how this applies to an entire culture's worldview.
+
+771
+00:39:22,160 --> 00:39:25,680
+Flyxion says that language forms a collective frozen process commitment.
+
+772
+00:39:25,940 --> 00:39:26,520
+It does.
+
+773
+00:39:26,520 --> 00:39:32,040
+If I speak a language that is heavily skewed towards nouns, how does that change my forecasting
+
+774
+00:39:32,040 --> 00:39:34,680
+compared to someone who speaks a language rich in verbs?
+
+775
+00:39:35,040 --> 00:39:36,340
+It is a profound observation.
+
+776
+00:39:37,340 --> 00:39:39,780
+A language does not just passively describe the world.
+
+777
+00:39:40,200 --> 00:39:44,660
+It actively shapes the default partition of what its speakers treat as background parameters
+
+778
+00:39:44,660 --> 00:39:46,940
+and what they treat as dynamic variables.
+
+779
+00:39:47,100 --> 00:39:47,400
+Okay.
+
+780
+00:39:47,880 --> 00:39:54,160
+A language with a rich verb vocabulary for ecological processes, words that emphasize flow, succession,
+
+781
+00:39:54,360 --> 00:39:55,420
+decay, and adaptation.
+
+782
+00:39:55,420 --> 00:40:01,340
+But a sparse noun vocabulary for landscape features would generate a completely different
+
+783
+00:40:01,340 --> 00:40:06,980
+worldview than a language that has a rigid, fixed noun for every hill, rock, and tree.
+
+784
+00:40:07,120 --> 00:40:12,340
+If I have a specific noun for that specific hill, I inherently subconsciously assume that
+
+785
+00:40:12,340 --> 00:40:12,980
+hill is prominent.
+
+786
+00:40:13,240 --> 00:40:13,640
+Exactly.
+
+787
+00:40:13,860 --> 00:40:18,720
+If my language describes that area as earth rising and eroding, I am naturally primed to
+
+788
+00:40:18,720 --> 00:40:19,620
+see it as a trajectory.
+
+789
+00:40:20,140 --> 00:40:23,660
+I am immune to the frozen process error because my grammar won't let me freeze it.
+
+790
+00:40:23,660 --> 00:40:26,600
+Neither linguistic partition is absolute truth.
+
+791
+00:40:27,220 --> 00:40:29,680
+Each is just useful for different prediction horizons.
+
+792
+00:40:30,240 --> 00:40:35,600
+But the grammar of your language applies its default partition automatically without you
+
+793
+00:40:35,600 --> 00:40:38,760
+ever consciously running that timescale check we talked about.
+
+794
+00:40:38,900 --> 00:40:43,160
+So every sentence you utter smuggles in a frozen process commitment?
+
+795
+00:40:43,440 --> 00:40:44,260
+Yes, precisely.
+
+796
+00:40:44,260 --> 00:40:49,640
+Which means part of the job of scientific revolutions, like plate tectonics, is to literally fight
+
+797
+00:40:49,640 --> 00:40:52,400
+against the noun-induced default of our own brains.
+
+798
+00:40:53,180 --> 00:40:58,440
+Wegener had to destroy the noun continent as a fixed feature and replace it with a verb,
+
+799
+00:40:58,680 --> 00:41:00,420
+a process of drifting plates.
+
+800
+00:41:00,860 --> 00:41:03,640
+He had to correct the noun fallacy at a planetary scale.
+
+801
+00:41:03,740 --> 00:41:08,400
+And this requires immense cognitive effort because you are fighting your own vocabulary.
+
+802
+00:41:08,580 --> 00:41:09,980
+It's exhausting just to think about.
+
+803
+00:41:09,980 --> 00:41:14,540
+Okay, this is blowing my mind, but it also leads me to a slightly terrifying realization.
+
+804
+00:41:14,860 --> 00:41:15,460
+Uh-oh.
+
+805
+00:41:15,540 --> 00:41:20,980
+If we freeze physical variables like orbits, and we freeze behavioral rules like economics,
+
+806
+00:41:21,320 --> 00:41:26,400
+and we even freeze the very language we used to think, what is the ultimate limit of our
+
+807
+00:41:26,400 --> 00:41:26,720
+freezing?
+
+808
+00:41:27,140 --> 00:41:29,200
+Is there a final boss of prediction failure?
+
+809
+00:41:29,560 --> 00:41:30,020
+There is.
+
+810
+00:41:30,660 --> 00:41:33,120
+Infliction tackles it in section 7 of the monograph.
+
+811
+00:41:34,060 --> 00:41:35,720
+Reachability and frozen futures.
+
+812
+00:41:35,900 --> 00:41:36,260
+Okay.
+
+813
+00:41:36,740 --> 00:41:38,560
+This is level 3 in the hierarchy of freezing.
+
+814
+00:41:38,560 --> 00:41:44,160
+It is the deepest, most invisible, and most consequential error a modeler can make.
+
+815
+00:41:44,620 --> 00:41:46,440
+It is called possibility freezing.
+
+816
+00:41:46,940 --> 00:41:48,020
+Possibility freezing.
+
+817
+00:41:48,220 --> 00:41:50,780
+We are literally freezing the future itself.
+
+818
+00:41:51,080 --> 00:41:53,960
+We freeze the actual set of futures available to us.
+
+819
+00:41:54,840 --> 00:41:59,020
+In dynamical systems theory, there is a concept called the reachable state space.
+
+820
+00:41:59,380 --> 00:42:00,760
+Reachable state space.
+
+821
+00:42:00,880 --> 00:42:05,020
+Simply put, from where we are right now, given the actions and resources currently available
+
+822
+00:42:05,020 --> 00:42:08,440
+to us, what are all the possible states we could transition into?
+
+823
+00:42:08,560 --> 00:42:10,760
+Like a menu of possible futures.
+
+824
+00:42:10,940 --> 00:42:15,240
+If I'm at a restaurant, the reachable state space is whatever is printed on the menu.
+
+825
+00:42:15,240 --> 00:42:20,600
+A frozen reachability error occurs when a model assumes that the menu of futures is eternally
+
+826
+00:42:20,600 --> 00:42:21,080
+fixed.
+
+827
+00:42:21,560 --> 00:42:26,020
+It assumes the reachable set today will be the exact same reachable set 30 years from now.
+
+828
+00:42:26,060 --> 00:42:27,100
+Which is never true.
+
+829
+00:42:27,280 --> 00:42:27,500
+Never.
+
+830
+00:42:28,100 --> 00:42:32,500
+Flyxion breaks down three distinct mechanisms by which reachable sets actually change over
+
+831
+00:42:32,500 --> 00:42:32,840
+time.
+
+832
+00:42:32,840 --> 00:42:33,880
+Let's walk through them.
+
+833
+00:42:34,040 --> 00:42:36,120
+Number one, innovation expands the set.
+
+834
+00:42:36,460 --> 00:42:40,780
+A technology that doesn't exist today isn't on the menu today, but it might be on the menu
+
+835
+00:42:40,780 --> 00:42:41,720
+in 20 years.
+
+836
+00:42:42,280 --> 00:42:45,480
+Flyxion points to Malthusian predictions as the classic example.
+
+837
+00:42:45,600 --> 00:42:47,000
+Thomas Malthus from the 1700s.
+
+838
+00:42:47,000 --> 00:42:55,240
+In 1798, Thomas Malthus famously predicted catastrophic global famine because human population growth
+
+839
+00:42:55,240 --> 00:42:57,580
+would mathematically outpace food production.
+
+840
+00:42:58,320 --> 00:43:01,380
+But Malthus didn't just miscalculate the birth rates.
+
+841
+00:43:02,200 --> 00:43:06,400
+His deepest error was freezing the agricultural technology space.
+
+842
+00:43:06,940 --> 00:43:13,280
+He treated the 1798 production methods as the permanent, unchangeable frontier of what was
+
+843
+00:43:13,280 --> 00:43:14,200
+physically possible.
+
+844
+00:43:14,200 --> 00:43:16,260
+He couldn't foresee the industrial revolution.
+
+845
+00:43:16,460 --> 00:43:20,920
+He couldn't foresee synthetic fertilizers or mechanized farming or genetically modified
+
+846
+00:43:20,920 --> 00:43:21,360
+crops.
+
+847
+00:43:21,520 --> 00:43:22,700
+He froze the menu.
+
+848
+00:43:22,900 --> 00:43:27,220
+So his mathematical model literally could not imagine a future where humanity fed itself.
+
+849
+00:43:27,540 --> 00:43:30,100
+The second way the menu changes is constraint relaxation.
+
+850
+00:43:31,160 --> 00:43:37,140
+Legal prohibitions, physical bottlenecks, political barriers, these all restrict the menu of available
+
+851
+00:43:37,140 --> 00:43:37,640
+actions.
+
+852
+00:43:37,920 --> 00:43:44,060
+When a political revelation happens or a major social barrier falls, the reachable set expands
+
+853
+00:43:44,060 --> 00:43:44,560
+dramatically.
+
+854
+00:43:44,560 --> 00:43:50,880
+A forecast that models the future within the current, fixed set of constraints will systematically
+
+855
+00:43:50,880 --> 00:43:52,020
+miss that expansion.
+
+856
+00:43:52,780 --> 00:43:55,680
+And the third way is the dark mirror of the first two.
+
+857
+00:43:56,360 --> 00:43:59,360
+Erosion of capacity shrinks the reachable set.
+
+858
+00:43:59,760 --> 00:44:03,840
+This is where the theory gets grim and highly relevant to modern policy.
+
+859
+00:44:03,840 --> 00:44:09,000
+Degradation of physical infrastructure, loss of institutional knowledge, the depletion of
+
+860
+00:44:09,000 --> 00:44:13,740
+a natural resource, or the accumulation of massive debt, whether financial debt or ecological
+
+861
+00:44:13,740 --> 00:44:14,100
+debt.
+
+862
+00:44:14,180 --> 00:44:15,140
+It shrinks your options.
+
+863
+00:44:15,520 --> 00:44:17,340
+All of these reduce your available actions.
+
+864
+00:44:18,040 --> 00:44:23,660
+If a long-term forecast ignores this erosion, it will wildly overestimate what the system will
+
+865
+00:44:23,660 --> 00:44:26,780
+actually be capable of doing when that future horizon arrives.
+
+866
+00:44:26,780 --> 00:44:28,560
+Let me test this with an example.
+
+867
+00:44:29,240 --> 00:44:33,780
+If a city planner is forecasting traffic in 30 years, and they base it purely on today's
+
+868
+00:44:33,780 --> 00:44:37,500
+road network, they aren't just getting the math of the population growth wrong.
+
+869
+00:44:37,980 --> 00:44:42,700
+They are failing to imagine that the very definition of transportation might completely change.
+
+870
+00:44:42,960 --> 00:44:43,360
+Exactly.
+
+871
+00:44:43,580 --> 00:44:45,780
+They freeze the infrastructure network as a parameter.
+
+872
+00:44:46,600 --> 00:44:51,380
+Over 30 years, that network will degrade, maybe some bridges collapse, or maybe autonomous
+
+873
+00:44:51,380 --> 00:44:54,160
+vehicles, or entirely new transit modes emerge.
+
+874
+00:44:54,160 --> 00:44:59,320
+The prediction error isn't about guessing the exact number of cars on a specific route.
+
+875
+00:44:59,720 --> 00:45:03,220
+The error is freezing the space of routes that will even exist.
+
+876
+00:45:03,980 --> 00:45:08,980
+And Flyxion connects this to a massive normative problem in how we run society.
+
+877
+00:45:09,800 --> 00:45:11,260
+The admissibility problem.
+
+878
+00:45:11,720 --> 00:45:12,240
+Admissibility?
+
+879
+00:45:12,340 --> 00:45:14,480
+I've never heard that term used in this context.
+
+880
+00:45:14,620 --> 00:45:15,340
+What does that mean?
+
+881
+00:45:15,560 --> 00:45:20,860
+A trajectory is admissible if it does not shrink your reachable menu below what you need to survive
+
+882
+00:45:20,860 --> 00:45:21,820
+and adapt in the future.
+
+883
+00:45:22,080 --> 00:45:23,100
+Okay, walk me through that.
+
+884
+00:45:23,100 --> 00:45:26,220
+Imagine a system that optimizes purely for present performance.
+
+885
+00:45:27,500 --> 00:45:30,520
+Let's say a marathon runner wants to win the first mile of the race.
+
+886
+00:45:30,840 --> 00:45:35,940
+So they sprint at top speed, burning through their body's finite supply of glycogen and physically
+
+887
+00:45:35,940 --> 00:45:37,080
+tearing their muscle tissue.
+
+888
+00:45:37,260 --> 00:45:39,180
+They look incredibly fast on mile one.
+
+889
+00:45:39,500 --> 00:45:40,780
+Their model says they are winning.
+
+890
+00:45:41,200 --> 00:45:44,120
+In their frozen future model, that plan looks optimal.
+
+891
+00:45:44,720 --> 00:45:48,340
+But in reality, they are depleting their biological capacity.
+
+892
+00:45:48,740 --> 00:45:51,020
+They are shrinking their reachable future volume.
+
+893
+00:45:51,020 --> 00:45:56,220
+They are following a trajectory that is locally optimal but globally inadmissible.
+
+894
+00:45:56,860 --> 00:46:02,220
+They reach mile 10 and they have zero options left to adapt because they consumed the biological
+
+895
+00:46:02,220 --> 00:46:04,020
+capacity on which their future depended.
+
+896
+00:46:04,420 --> 00:46:08,060
+The optimization in the spreadsheet literally destroys the real world future.
+
+897
+00:46:08,060 --> 00:46:12,720
+We see corporations do this all the time, gutting research and development to maximize quarterly
+
+898
+00:46:12,720 --> 00:46:16,740
+profits, looking great on paper but ensuring banknancy in a decade.
+
+899
+00:46:16,980 --> 00:46:17,820
+Happens constantly.
+
+900
+00:46:17,960 --> 00:46:18,560
+That is heavy.
+
+901
+00:46:19,080 --> 00:46:24,300
+So with all these traps, variables drifting in space, human rules adapting to central banks,
+
+902
+00:46:24,520 --> 00:46:29,920
+our language tricking us with nouns, and the very menu of possibilities expanding and shrinking,
+
+903
+00:46:29,920 --> 00:46:35,340
+how does any system, whether it's a human being, a government, or an AI, actually survive?
+
+904
+00:46:35,720 --> 00:46:37,440
+What is the antidote to all this freezing?
+
+905
+00:46:38,000 --> 00:46:40,920
+The antidote is what Flyxion outlines in the final chapter.
+
+906
+00:46:41,540 --> 00:46:44,020
+True intelligence as unfreezing capacity.
+
+907
+00:46:44,640 --> 00:46:46,920
+This is the culmination of the entire general theory.
+
+908
+00:46:47,620 --> 00:46:51,520
+Flyxion completely redefines what adaptive intelligence actually is.
+
+909
+00:46:51,520 --> 00:46:54,940
+So it's not just about having a high IQ or a fast supercomputer?
+
+910
+00:46:55,520 --> 00:46:56,060
+Not at all.
+
+911
+00:46:56,140 --> 00:47:02,320
+Being able to execute a complex mathematical model perfectly without revision is just competence.
+
+912
+00:47:02,800 --> 00:47:04,500
+It is not intelligence in this framework.
+
+913
+00:47:05,140 --> 00:47:08,300
+True to active intelligence is not about being competent within a model.
+
+914
+00:47:08,840 --> 00:47:14,940
+It is the capacity to notice the model is wrong and the ability to step outside it and fix it.
+
+915
+00:47:15,060 --> 00:47:17,560
+The text contrasts prediction with meta prediction.
+
+916
+00:47:17,660 --> 00:47:18,060
+Exactly.
+
+917
+00:47:18,340 --> 00:47:20,400
+A standard predictive system just runs the model.
+
+918
+00:47:20,400 --> 00:47:23,540
+It assumes the parameters are fixed and churns out answers.
+
+919
+00:47:24,200 --> 00:47:27,320
+A meta predictive system constantly monitors the parameters themselves.
+
+920
+00:47:27,460 --> 00:47:28,440
+It's watching the watchers.
+
+921
+00:47:28,560 --> 00:47:30,340
+It runs the timescale ratio in the background.
+
+922
+00:47:30,820 --> 00:47:33,960
+It asks, are these background variables actually staying fixed?
+
+923
+00:47:34,340 --> 00:47:38,920
+Is the epsilon ratio on this variable quietly growing as my time horizon extends?
+
+924
+00:47:39,300 --> 00:47:44,960
+It's constantly checking the bucket of frozen variables to see if anything is secretly thawing out and starting to move.
+
+925
+00:47:45,220 --> 00:47:50,020
+Unfreezing capacity is the ability to detect when a frozen parameter is evolving too fast.
+
+926
+00:47:50,020 --> 00:47:53,580
+And then actively moving it into the dynamic state category.
+
+927
+00:47:54,020 --> 00:47:59,200
+Updating the very ontology of the model before the prediction error becomes catastrophic.
+
+928
+00:47:59,200 --> 00:48:00,740
+So what does this all mean?
+
+929
+00:48:01,060 --> 00:48:05,180
+It means you can be absolutely brilliant at executing a mathematical model.
+
+930
+00:48:05,180 --> 00:48:17,040
+Like you can calculate the sun's expansion and the tidal drag with flawless precision, but you utterly lack adaptive intelligence if you never step back and question the structural commitments of the model itself.
+
+931
+00:48:17,040 --> 00:48:17,440
+Right.
+
+932
+00:48:17,440 --> 00:48:20,480
+If you never ask, hey, does the earth move too?
+
+933
+00:48:20,480 --> 00:48:28,140
+A system with low unfreezing capacity will perform amazingly well as long as the world happens to perfectly match its frozen assumptions.
+
+934
+00:48:28,840 --> 00:48:37,980
+But as the real world inevitably diverges, that system will fail systematically, accumulating massive errors in precisely the blind spots it refuses to look at.
+
+935
+00:48:37,980 --> 00:48:38,420
+Wow.
+
+936
+00:48:38,420 --> 00:48:45,720
+And Flyxion takes this one step further in the epilogue, tying it to a broader philosophical program called the ecology of distinctions.
+
+937
+00:48:46,200 --> 00:48:48,180
+The deepest unfreezing of them all.
+
+938
+00:48:48,740 --> 00:48:55,840
+The deepest unfreezing is realizing that the boundary between state and parameter is not a law of nature.
+
+939
+00:48:55,840 --> 00:49:01,240
+The partition itself is a fluid variable that requires constant maintenance and checking.
+
+940
+00:49:01,600 --> 00:49:01,720
+Oh.
+
+941
+00:49:02,000 --> 00:49:06,640
+A truly intelligent civilization treats its own ontology as provisional.
+
+942
+00:49:07,000 --> 00:49:11,640
+It preserves its future capacity to revise its fundamental distinctions.
+
+943
+00:49:12,000 --> 00:49:16,960
+We have covered an immense amount of ground today, and I want to make sure this all locks in for you listening.
+
+944
+00:49:17,400 --> 00:49:19,680
+Let's do a rapid fire summary to bring this all home.
+
+945
+00:49:19,860 --> 00:49:20,340
+Sounds good.
+
+946
+00:49:20,340 --> 00:49:31,300
+We started with the textbook Fate of the Earth and the Sun, and realized that treating the Earth's orbit as a frozen process changes the math from definitely engulfed to maybe surviving.
+
+947
+00:49:31,540 --> 00:49:37,940
+We introduced the timescale ratio, epsilon, which tells us exactly when a mathematical shortcut becomes a fatal emission.
+
+948
+00:49:37,940 --> 00:49:50,180
+We looked at the history of science as a sequence of moving parameters from Darwin unfreezing the static concept of species, to Wegener unfreezing the continents, to Hubble unfreezing the container of the universe itself.
+
+949
+00:49:50,440 --> 00:49:57,100
+And we explored how the Lucas critique proves human behavior adapts to the very forecasts we make about it.
+
+950
+00:49:57,100 --> 00:50:08,680
+We unpacked the noun fallacy, revealing how language tricks us into treating compressed trajectories as permanent objects, leading us to freeze the menu of the future itself through reachability errors.
+
+951
+00:50:08,840 --> 00:50:19,540
+And finally, we redefined true intelligence as unfreezing capacity, the meta-awareness, to catch your own model failing and restructure reality before it's too late.
+
+952
+00:50:19,660 --> 00:50:25,080
+It is a stunningly cohesive theory of why we get the future wrong and how we can learn to get it right.
+
+953
+00:50:25,300 --> 00:50:25,900
+It really is.
+
+954
+00:50:25,900 --> 00:50:31,660
+I want to end by taking all this incredible astrophysics and economic theory and bringing it right to your doorstep.
+
+955
+00:50:32,080 --> 00:50:35,560
+Think about your own life for a second, your career, your relationships.
+
+956
+00:50:36,140 --> 00:50:39,380
+What are the nouns in your life that you are treating as fixed parameters?
+
+957
+00:50:39,860 --> 00:50:44,140
+What is evolving right under your nose that you have silently set to zero by omission?
+
+958
+00:50:44,840 --> 00:50:46,580
+The Harvard example is so poignant here.
+
+959
+00:50:46,680 --> 00:50:51,780
+If an institution is just a trajectory compressed into a noun, then so is a person.
+
+960
+00:50:51,780 --> 00:50:55,240
+If Harvard is just a trajectory, then so is your identity.
+
+961
+00:50:55,900 --> 00:51:02,180
+When you try to forecast where you will be in 10 years, are you committing a frozen process error on yourself?
+
+962
+00:51:02,340 --> 00:51:03,300
+That's a great question.
+
+963
+00:51:03,560 --> 00:51:10,920
+Are you projecting your future, assuming your current desires, your current fears, and your current capacities are fixed parameters?
+
+964
+00:51:11,080 --> 00:51:12,000
+Because they aren't.
+
+965
+00:51:12,100 --> 00:51:12,920
+They are trajectories.
+
+966
+00:51:12,960 --> 00:51:14,000
+They're constantly moving.
+
+967
+00:51:14,000 --> 00:51:19,720
+The future is often determined not by the variables we obsessively track, but by the trajectories we forget to notice.
+
+968
+00:51:20,060 --> 00:51:22,300
+Maybe it's time to check your own timescale ratio.
+
+969
+00:51:22,300 --> 00:51:24,520
+Thank you for joining us on this deep dive.
+
+970
+00:51:24,660 --> 00:51:25,520
+Let that thought linger.
+
+971
+00:51:25,780 --> 00:51:26,500
+Check your parameters.
+
+972
+00:51:26,980 --> 00:51:28,220
+And we will see you next time.
+
+973
+00:51:28,220 --> 00:51:35,500
+As you recognize, come on the binge écran��isme.
+
+974
+00:51:36,420 --> 00:51:36,700
+We'll see you next time.
+
+975
+00:51:36,700 --> 00:51:37,220
+See you next time.
+
+976
+00:51:37,220 --> 00:51:38,220
+We'll see you next time.
+
+977
+00:51:38,760 --> 00:51:39,040
+Thank you.
+
+978
+00:51:39,300 --> 00:51:39,680
+Help me.
+
+979
+00:51:40,060 --> 00:51:40,580
+Help me.
+
+980
+00:51:41,060 --> 00:51:41,740
+You'll see you next time.
+
+981
+00:51:41,800 --> 00:51:42,720
+Help me.
+
+982
+00:51:42,720 --> 00:51:42,860
+Help me.
+
+983
+00:51:42,920 --> 00:51:43,980
+Help me.
+
+984
+00:51:44,040 --> 00:51:44,500
+Help me.
+
+985
+00:51:44,500 --> 00:51:45,140
+Help me.
+
+986
+00:51:45,320 --> 00:51:45,500
+Help me.
+
+987
+00:51:45,500 --> 00:51:45,880
+Excuse me.
+
+988
+00:51:46,260 --> 00:51:47,580
+Help me.
+
+989
+00:51:47,780 --> 00:51:48,040
+What do you mean?
+
+990
+00:51:48,500 --> 00:51:49,760
+I'll wait.
+
+991
+00:51:49,760 --> 00:51:50,240
+Help me.
+
+992
+00:51:50,240 --> 00:51:51,080
+Help me.
+
+993
+00:51:51,220 --> 00:51:52,460
+Help me.
+
+994
+00:51:53,960 --> 00:51:54,860
+Help me.
+
+995
+00:51:54,860 --> 00:51:56,000
+Help me.
+
+996
+00:51:56,240 --> 00:51:56,660
+Help me.
+
+997
+00:51:56,660 --> 00:51:57,920
+Help me.
+

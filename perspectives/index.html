@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>◈ SIGNAL</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+  width:100%;height:100%;overflow:hidden;
+  background:#000;font-family:monospace;
+  touch-action:manipulation;
+  color:#00ff41;text-shadow:0 0 5px #00ff41;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:900;
+  background:radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.62) 100%);
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:901;
+  background:repeating-linear-gradient(
+    to bottom,rgba(0,0,0,.20) 0px,rgba(0,0,0,.20) 1px,
+    transparent 1px,transparent 3px);
+}
+#screen{
+  position:fixed;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;will-change:transform;
+}
+#title{
+  position:fixed;top:18px;left:0;right:0;text-align:center;
+  font-size:9px;letter-spacing:.20em;text-transform:uppercase;
+  opacity:.72;z-index:100;
+}
+#tracks{
+  position:fixed;top:42px;left:0;right:0;
+  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+  z-index:100;padding:0 8px;
+}
+#tracks button{
+  background:none;border:none;
+  border-bottom:1px solid rgba(0,255,65,.22);
+  color:rgba(0,255,65,.40);font-family:monospace;
+  font-size:7px;letter-spacing:.13em;padding:3px 5px;
+  cursor:pointer;transition:all .2s;
+}
+#tracks button.active{
+  color:#00ff41;border-bottom-color:#00ff41;
+  text-shadow:0 0 8px #00ff41;
+}
+#clock{
+  position:fixed;top:18px;right:12px;
+  font-size:7px;letter-spacing:.1em;opacity:.28;z-index:100;
+}
+canvas{
+  display:block;
+  width:min(350px,78vw);height:min(350px,78vw);
+  image-rendering:pixelated;
+}
+#status{
+  position:fixed;bottom:46px;left:0;right:0;
+  text-align:center;font-size:7px;letter-spacing:.18em;
+  opacity:.20;z-index:100;
+}
+#subs{
+  position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+  width:min(560px,88vw);min-height:2em;text-align:center;
+  font-size:11px;line-height:1.5;letter-spacing:.03em;
+  opacity:.68;z-index:100;font-style:italic;
+}
+#glitch-band{
+  position:fixed;left:0;right:0;height:2px;
+  background:rgba(0,255,65,.55);
+  pointer-events:none;z-index:902;display:none;
+  box-shadow:0 0 6px #00ff41;
+}
+#debug{
+  position:fixed;bottom:4px;left:8px;
+  font-size:6px;opacity:.09;z-index:100;letter-spacing:.05em;
+}
+</style>
+</head>
+<body>
+<div id="screen">
+  <div id="title">—</div>
+  <div id="tracks"></div>
+  <span id="clock">00:00</span>
+  <canvas id="viz"></canvas>
+  <div id="status">[ click or touch · play / pause ]</div>
+  <div id="subs"></div>
+</div>
+<div id="glitch-band"></div>
+<div id="debug"></div>
+<audio id="audio" preload="auto"></audio>
+
+<script>
+const tracks = [
+  {
+    file:"How_Frozen_Variables_Break_Our_Predictions.mp3",
+    vtt:"How_Frozen_Variables_Break_Our_Predictions.vtt",
+    label:"FROZEN",
+    title:"HOW FROZEN VARIABLES BREAK OUR PREDICTIONS",
+    mode:"frozen"
+  },
+  {
+    file:"Intelligence_as_distinction_repair.mp3",
+    vtt:"Intelligence_as_distinction_repair.vtt",
+    label:"REPAIR",
+    title:"INTELLIGENCE AS DISTINCTION REPAIR",
+    mode:"repair"
+  },
+  {
+    file:"How_actions_reshape_your_brain_s_geometry.mp3",
+    vtt:"How_actions_reshape_your_brain_s_geometry.vtt",
+    label:"GEOMETRY",
+    title:"HOW ACTIONS RESHAPE YOUR BRAIN'S GEOMETRY",
+    mode:"geometry"
+  },
+  {
+    file:"Why_Perfect_Memory_Prevents_Understanding.mp3",
+    vtt:"Why_Perfect_Memory_Prevents_Understanding.vtt",
+    label:"MEMORY",
+    title:"WHY PERFECT MEMORY PREVENTS UNDERSTANDING",
+    mode:"memory"
+  },
+  {
+    file:"How_rematching_archives_rewrite_the_past.mp3",
+    vtt:"How_rematching_archives_rewrite_the_past.vtt",
+    label:"ARCHIVES",
+    title:"HOW REMATCHING ARCHIVES REWRITE THE PAST",
+    mode:"archives"
+  },
+  {
+    file:"How_institutions_flatten_reality_into_history.mp3",
+    vtt:"How_institutions_flatten_reality_into_history.vtt",
+    label:"FLATTEN",
+    title:"HOW INSTITUTIONS FLATTEN REALITY INTO HISTORY",
+    mode:"flatten"
+  }
+];
+
+let trackIndex=0, mode=tracks[0].mode;
+
+const audio     = document.getElementById("audio");
+const subsEl    = document.getElementById("subs");
+const titleEl   = document.getElementById("title");
+const trackBtns = document.getElementById("tracks");
+const clockEl   = document.getElementById("clock");
+const screen    = document.getElementById("screen");
+const glitchBand= document.getElementById("glitch-band");
+const debugEl   = document.getElementById("debug");
+
+let audioCtx,analyser,freqData,timeData;
+
+function initAudio(){
+  if(audioCtx) return;
+  audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  analyser=audioCtx.createAnalyser();
+  analyser.fftSize=2048;
+  analyser.smoothingTimeConstant=.84;
+  freqData=new Uint8Array(analyser.frequencyBinCount);
+  timeData=new Uint8Array(analyser.fftSize);
+  const src=audioCtx.createMediaElementSource(audio);
+  src.connect(analyser);analyser.connect(audioCtx.destination);
+}
+
+function buildButtons(){
+  tracks.forEach((t,i)=>{
+    const btn=document.createElement("button");
+    btn.textContent=t.label;
+    btn.onclick=async e=>{
+      e.stopPropagation();initAudio();
+      if(audioCtx.state==="suspended") await audioCtx.resume();
+      await loadTrack(i,true);
+    };
+    trackBtns.appendChild(btn);
+  });
+}
+
+function updateButtons(){
+  [...trackBtns.querySelectorAll("button")]
+    .forEach((b,i)=>b.classList.toggle("active",i===trackIndex));
+}
+
+async function loadTrack(i,autoplay=true){
+  trackIndex=((i%tracks.length)+tracks.length)%tracks.length;
+  const t=tracks[trackIndex];
+  mode=t.mode;titleEl.textContent=t.title;
+  audio.src=t.file;audio.load();
+  updateButtons();
+  await loadVTT(t.vtt);
+  if(autoplay){try{await audio.play();}catch(e){}}
+}
+
+audio.addEventListener("ended",()=>loadTrack(trackIndex+1,true));
+document.body.addEventListener("click",async ()=>{
+  initAudio();
+  if(audioCtx.state==="suspended") await audioCtx.resume();
+  if(audio.paused) await audio.play();
+  else audio.pause();
+});
+
+audio.ontimeupdate=()=>{
+  const t=audio.currentTime|0;
+  clockEl.textContent=`${String(t/60|0).padStart(2,"0")}:${String(t%60).padStart(2,"0")}`;
+  const c=cues.find(c=>audio.currentTime>=c.start&&audio.currentTime<c.end+.2);
+  subsEl.textContent=c?c.text:"";
+};
+
+let cues=[];
+async function loadVTT(url){
+  cues=[];subsEl.textContent="";
+  try{const r=await fetch(url);if(!r.ok)return;cues=parseVTT(await r.text());}catch(e){}
+}
+function parseVTT(text){
+  const out=[];
+  for(const block of text.replace(/\r/g,"").split(/\n{2,}/)){
+    const lines=block.trim().split("\n");
+    const ts=lines.find(l=>l.includes("-->"));if(!ts)continue;
+    const ti=lines.indexOf(ts);
+    const[s,e]=ts.split("-->").map(x=>x.trim());
+    out.push({start:parseTime(s),end:parseTime(e),text:lines.slice(ti+1).join(" ")});
+  }
+  return out;
+}
+function parseTime(t){
+  t=t.split(" ")[0].replace(",",".");const p=t.split(":");
+  if(p.length===3)return +p[0]*3600+ +p[1]*60+parseFloat(p[2]);
+  return +p[0]*60+parseFloat(p[1]);
+}
+
+/* canvas */
+const canvas=document.getElementById("viz");
+const ctx=canvas.getContext("2d");
+const W=512,H=512,cx=W/2,cy=H/2;
+canvas.width=W;canvas.height=H;
+
+let frame=0,bass=0,mid=0,high=0,vol=0,entropy=0;
+
+function updateEnergy(){
+  if(!analyser)return;
+  analyser.getByteFrequencyData(freqData);
+  analyser.getByteTimeDomainData(timeData);
+  let b=0,m=0,h=0,v=0;
+  for(let i=0;i<40;i++)b+=freqData[i];
+  for(let i=40;i<180;i++)m+=freqData[i];
+  for(let i=180;i<freqData.length;i++)h+=freqData[i];
+  for(let i=0;i<freqData.length;i++)v+=freqData[i];
+  bass+=(b/(40*255)-bass)*.08;mid+=(m/(140*255)-mid)*.06;
+  high+=(h/((freqData.length-180)*255)-high)*.05;
+  vol+=(v/(freqData.length*255)-vol)*.07;
+  let sum=0,ent=0;
+  for(let i=0;i<freqData.length;i++)sum+=freqData[i];
+  if(sum>0){
+    for(let i=0;i<freqData.length;i++){
+      const p=freqData[i]/sum;if(p>0)ent-=p*Math.log2(p);
+    }
+    ent/=Math.log2(freqData.length);
+  }
+  entropy+=(ent-entropy)*.04;
+}
+
+/* glitch */
+let glitchActive=false,glitchTimer=0,glitchType=0,lastGlitch=0;
+function maybeGlitch(){
+  if(glitchActive)return;
+  if(entropy<.70&&vol<.50)return;
+  if(frame-lastGlitch<100)return;
+  if(Math.random()>.015)return;
+  glitchActive=true;glitchTimer=0;
+  glitchType=Math.random()<.55?0:1;lastGlitch=frame;
+}
+function applyGlitch(){
+  if(!glitchActive){screen.style.transform="";glitchBand.style.display="none";return;}
+  glitchTimer++;
+  const dur=glitchType===0?20:9;
+  if(glitchType===0){
+    const d=1-glitchTimer/dur;
+    screen.style.transform=`translate(${(Math.random()-.5)*7*d}px,${(Math.random()-.5)*2*d}px)`;
+    glitchBand.style.display="none";
+  }else{
+    const pct=(glitchTimer/dur)*110-5;
+    glitchBand.style.display="block";
+    glitchBand.style.top=`${pct}%`;
+    glitchBand.style.opacity=`${1-glitchTimer/dur}`;
+    screen.style.transform="";
+  }
+  if(glitchTimer>=dur){glitchActive=false;screen.style.transform="";glitchBand.style.display="none";}
+}
+
+function clearScreen(){
+  ctx.fillStyle="rgba(0,0,0,.16)";ctx.fillRect(0,0,W,H);
+}
+
+/* core lissajous — raw waveform X vs lagged Y */
+function lis(ox,oy,rx,ry,lagFrac,alpha,lw){
+  if(!analyser)return;
+  const N=timeData.length,lag=Math.floor(N*lagFrac)&~1;
+  ctx.beginPath();
+  for(let i=0;i<N;i+=2){
+    const a=(timeData[i]-128)/128,b=(timeData[(i+lag)%N]-128)/128;
+    if(i===0)ctx.moveTo(ox+a*rx,oy+b*ry);
+    else ctx.lineTo(ox+a*rx,oy+b*ry);
+  }
+  ctx.strokeStyle=`rgba(0,255,65,${alpha})`;
+  ctx.lineWidth=lw||1;ctx.lineCap="round";
+  ctx.shadowBlur=alpha>.35?8:2;ctx.shadowColor="#00ff41";
+  ctx.stroke();ctx.shadowBlur=0;
+}
+
+/* ═══════════════════════════════════════════════════
+   FROZEN — rigid self-similar grid + lissajous
+   Fractal: Cantor-dust subdivision of canvas into
+   a fixed grid. Each cell tries to copy the base
+   lissajous but freezes progressively — cells stop
+   updating when their "freeze timer" fires, leaving
+   ghost replicas of past states stuck in the grid.
+   The live trace fights through the frozen copies.
+═══════════════════════════════════════════════════ */
+const FROZEN_CELLS=16;
+const frozenGrid=Array.from({length:FROZEN_CELLS},(_,i)=>{
+  const col=i%4,row=Math.floor(i/4);
+  return{
+    ox:cx+(col-1.5)*W*.22,
+    oy:cy+(row-1.5)*W*.22,
+    r:W*.09,
+    frozen:false,
+    freezeFrame:0,
+    lagOffset: i*.011,
+    frozenData:new Uint8Array(2048)
+  };
+});
+let frozenCount=0;
+
+function drawFrozen(){
+  // occasionally freeze another cell
+  if(frame%55===0&&frozenCount<FROZEN_CELLS-1){
+    const unfrozen=frozenGrid.filter(c=>!c.frozen);
+    if(unfrozen.length>0&&analyser){
+      const c=unfrozen[Math.floor(Math.random()*unfrozen.length)];
+      c.frozen=true;c.freezeFrame=frame;
+      analyser.getByteTimeDomainData(c.frozenData);
+      frozenCount++;
+    }
+  }
+
+  // draw each cell
+  if(!timeData) return;
+  frozenGrid.forEach(c=>{
+    const data=c.frozen?c.frozenData:timeData;
+    const N=data.length,lag=Math.floor(N*(.25+c.lagOffset))&~1;
+    const alpha=c.frozen?.10:.30+mid*.12;
+    ctx.beginPath();
+    for(let i=0;i<N;i+=4){
+      const a=(data[i]-128)/128,b=(data[(i+lag)%N]-128)/128;
+      if(i===0)ctx.moveTo(c.ox+a*c.r,c.oy+b*c.r);
+      else ctx.lineTo(c.ox+a*c.r,c.oy+b*c.r);
+    }
+    ctx.strokeStyle=`rgba(0,255,65,${alpha})`;
+    ctx.lineWidth=c.frozen?.5:.9;
+    ctx.stroke();
+    // frozen marker — tiny dot at cell origin
+    if(c.frozen){
+      ctx.beginPath();ctx.arc(c.ox,c.oy,1.5,0,Math.PI*2);
+      ctx.fillStyle="rgba(0,255,65,.18)";ctx.fill();
+    }
+  });
+
+  // live master trace over everything
+  lis(cx,cy,W*.28,W*.28,.25,.55+mid*.2,1.6);
+}
+
+/* ═══════════════════════════════════════════════════
+   REPAIR — IFS branching lissajous
+   Fractal: iterated function system — each frame
+   the lissajous point cloud is run through 3 affine
+   contractions to generate self-similar sub-traces.
+   Gaps appear (collapsed distinctions) and bright
+   repair arcs fill them in. The IFS gives the trace
+   fractal dimension; repair events restore missing branches.
+═══════════════════════════════════════════════════ */
+const repairEvents=[];
+
+function ifs(x,y,depth,alpha){
+  if(depth===0||alpha<.015)return;
+  // three contractions: scale .5, rotated
+  const s=.50;
+  const branches=[
+    {dx:-W*.12,dy:-W*.10,rot:.4},
+    {dx: W*.12,dy:-W*.10,rot:-.4},
+    {dx:     0,dy: W*.14,rot:.0}
+  ];
+  branches.forEach(b=>{
+    const rx=x*Math.cos(b.rot)-y*Math.sin(b.rot);
+    const ry=x*Math.sin(b.rot)+y*Math.cos(b.rot);
+    const nx=rx*s+b.dx,ny=ry*s+b.dy;
+    ctx.beginPath();ctx.arc(cx+nx,cy+ny,1,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,255,65,${alpha})`;ctx.fill();
+    ifs(nx,ny,depth-1,alpha*s);
+  });
+}
+
+function drawRepair(){
+  // base lissajous — samples provide IFS seed points
+  const N=timeData.length,lag=Math.floor(N*.25)&~1;
+  for(let i=0;i<N;i+=6){
+    const a=(timeData[i]-128)/128,b=(timeData[(i+lag)%N]-128)/128;
+    const x=a*W*.22,y=b*W*.22;
+    ifs(x,y,3,.18+mid*.08);
+  }
+
+  // base trace on top
+  lis(cx,cy,W*.22,W*.22,.25,.45+mid*.2,1.4);
+
+  // repair events — bass-triggered bright arcs bridging gaps
+  if(bass>.18&&Math.random()<.08){
+    const a=Math.random()*Math.PI*2;
+    repairEvents.push({a,r:W*(.14+Math.random()*.16),t:0,life:28});
+  }
+  repairEvents.forEach(e=>{e.t++;});
+  repairEvents.filter(e=>e.t<e.life).forEach(e=>{
+    const prog=e.t/e.life;
+    const sweep=Math.PI*.6*prog;
+    ctx.beginPath();
+    ctx.arc(cx,cy,e.r,e.a,e.a+sweep);
+    ctx.strokeStyle=`rgba(0,255,65,${(1-prog)*.7})`;
+    ctx.lineWidth=1.5*(1-prog);
+    ctx.shadowBlur=8*(1-prog);ctx.shadowColor="#00ff41";
+    ctx.stroke();ctx.shadowBlur=0;
+  });
+  // remove expired events
+  for(let i=repairEvents.length-1;i>=0;i--){ if(repairEvents[i].t>=repairEvents[i].life) repairEvents.splice(i,1); }
+}
+
+/* ═══════════════════════════════════════════════════
+   GEOMETRY — recursive subdivision lissajous
+   Fractal: the lissajous is redrawn at 4 scales
+   simultaneously, each nested inside the previous
+   at 60% scale and rotated by frame*.002 cumulative.
+   Actions are shown as sudden scale-jumps — a brief
+   expansion ripples through all levels simultaneously.
+═══════════════════════════════════════════════════ */
+let geoActionT=0;
+
+function drawGeometry(){
+  if(!analyser) return;
+  const levels=4;
+  // action trigger — bass pulse expands all levels briefly
+  if(bass>.25&&geoActionT<=0) geoActionT=22;
+  if(geoActionT>0) geoActionT--;
+  const actionBulge=geoActionT>0?(geoActionT/22)*.18:0;
+
+  for(let l=0;l<levels;l++){
+    const scale=Math.pow(.62,l)*(1+actionBulge*(levels-l)/levels);
+    const rot=frame*.002*l;
+    const alpha=.55-l*.10+mid*.08;
+    const lw=1.6-l*.28;
+    const N=timeData.length,lag=Math.floor(N*(.22+l*.04))&~1;
+
+    ctx.save();
+    ctx.translate(cx,cy);ctx.rotate(rot);
+    ctx.beginPath();
+    for(let i=0;i<N;i+=2){
+      const a=(timeData[i]-128)/128,b=(timeData[(i+lag)%N]-128)/128;
+      if(i===0)ctx.moveTo(a*W*.28*scale,b*W*.28*scale);
+      else ctx.lineTo(a*W*.28*scale,b*W*.28*scale);
+    }
+    ctx.strokeStyle=`rgba(0,255,65,${Math.max(0,alpha)})`;
+    ctx.lineWidth=Math.max(.4,lw);ctx.lineCap="round";
+    ctx.shadowBlur=l===0?6:0;ctx.shadowColor="#00ff41";
+    ctx.stroke();ctx.shadowBlur=0;
+    ctx.restore();
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   MEMORY — over-dense recursive trace
+   Fractal: Rössler-attractor-inspired feedback.
+   Each new lissajous point is mixed with a decaying
+   memory buffer — past points exert gravitational pull
+   on the current trace. At low memory pressure the
+   trace is clean; as memory fills, the attractor
+   basin becomes overdetermined and the trace buries
+   itself in its own past, losing new signal.
+═══════════════════════════════════════════════════ */
+const memBuf=new Float32Array(512*2); // x,y pairs
+let memHead=0,memFill=0;
+const MEM_MAX=512;
+let memPressure=0; // 0=empty 1=full
+
+function drawMemory(){
+  if(!analyser) return;
+  memPressure+=(memFill/MEM_MAX - memPressure)*.02;
+
+  const N=timeData.length,lag=Math.floor(N*(.25+memPressure*.12))&~1;
+
+  // draw memory buffer — all past points, dim and gravitating
+  const drawMem=Math.min(memFill,MEM_MAX);
+  for(let i=0;i<drawMem;i++){
+    const idx=((memHead-drawMem+i+MEM_MAX)%MEM_MAX)*2;
+    const age=i/drawMem;
+    ctx.beginPath();
+    ctx.arc(cx+memBuf[idx],cy+memBuf[idx+1],1,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,255,65,${.04+age*.06})`;
+    ctx.fill();
+  }
+
+  // live trace — pulled toward memory centroids when pressure is high
+  ctx.beginPath();
+  for(let i=0;i<N;i+=2){
+    const a=(timeData[i]-128)/128,b=(timeData[(i+lag)%N]-128)/128;
+    let lx=a*W*.26,ly=b*W*.26;
+    // memory gravity — high pressure drags new signal toward old centroids
+    if(memPressure>.3&&memFill>10){
+      const gi=(memHead-Math.floor(memFill*.5)+MEM_MAX)%MEM_MAX*2;
+      const gx=memBuf[gi],gy=memBuf[gi+1];
+      const pull=memPressure*.35;
+      lx=lx*(1-pull)+gx*pull;
+      ly=ly*(1-pull)+gy*pull;
+    }
+    if(i===0)ctx.moveTo(cx+lx,cy+ly);
+    else ctx.lineTo(cx+lx,cy+ly);
+    // record to memory
+    if(i%8===0){
+      const idx=(memHead%MEM_MAX)*2;
+      memBuf[idx]=lx;memBuf[idx+1]=ly;
+      memHead=(memHead+1)%MEM_MAX;
+      if(memFill<MEM_MAX)memFill++;
+    }
+  }
+  ctx.strokeStyle=`rgba(0,255,65,${.55-memPressure*.25})`;
+  ctx.lineWidth=1.4;ctx.lineCap="round";
+  ctx.shadowBlur=4;ctx.shadowColor="#00ff41";
+  ctx.stroke();ctx.shadowBlur=0;
+
+  // pressure indicator — faint outer ring that fills
+  ctx.beginPath();
+  ctx.arc(cx,cy,W*.32,0,Math.PI*2*memPressure);
+  ctx.strokeStyle="rgba(0,255,65,.08)";
+  ctx.lineWidth=1;ctx.stroke();
+}
+
+/* ═══════════════════════════════════════════════════
+   ARCHIVES — rematching rewrite
+   Fractal: dragon-curve-style fold sequence.
+   A base lissajous trace is kept as "archive."
+   A second live trace is the "reindex."
+   Periodically a rematch fires: the archive folds
+   into a new configuration, absorbing the live trace.
+   The fold sequence is a self-similar recursive process —
+   each rematch creates a fractal boundary between
+   what was and what it now means.
+═══════════════════════════════════════════════════ */
+const archiveBuf=new Uint8Array(2048);
+let archiveLag=.25;
+let rematchT=0,rematchActive=false;
+const REMATCH_DUR=40;
+
+function foldStep(pts,depth){
+  if(depth===0||pts.length<2)return pts;
+  const mid2=[];
+  for(let i=0;i<pts.length-1;i++){
+    const a=pts[i],b=pts[i+1];
+    const mx=(a.x+b.x)/2+(b.y-a.y)*.28;
+    const my=(a.y+b.y)/2-(b.x-a.x)*.28;
+    mid2.push(a,{x:mx,y:my});
+  }
+  mid2.push(pts[pts.length-1]);
+  return depth>1?foldStep(mid2,depth-1):mid2;
+}
+
+function drawArchives(){
+  if(!analyser) return;
+  // live trace
+  lis(cx,cy,W*.24,W*.24,.25+mid*.04,.35+mid*.15,1.0);
+
+  // archive trace
+  const N=archiveBuf.length,lag=Math.floor(N*archiveLag)&~1;
+  let pts=[];
+  for(let i=0;i<N;i+=16){
+    const a=(archiveBuf[i]-128)/128,b=(archiveBuf[(i+lag)%N]-128)/128;
+    pts.push({x:cx+a*W*.22,y:cy+b*W*.22});
+  }
+
+  // if rematch active, fold the archive
+  if(rematchActive){
+    const t=rematchT/REMATCH_DUR;
+    const depth=Math.ceil(t*3);
+    pts=foldStep(pts,depth);
+    rematchT++;
+    if(rematchT>=REMATCH_DUR){
+      rematchActive=false;rematchT=0;
+      if(analyser)analyser.getByteTimeDomainData(archiveBuf);
+      archiveLag=.25+Math.random()*.20;
+    }
+  }
+
+  ctx.beginPath();
+  pts.forEach((p,i)=>{if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);});
+  ctx.strokeStyle="rgba(0,255,65,.22)";
+  ctx.lineWidth=.8;ctx.stroke();
+
+  // trigger rematch on bass spike
+  if(!rematchActive&&bass>.26&&Math.random()<.06){
+    rematchActive=true;rematchT=0;
+  }
+
+  // fold boundary flash at rematch start
+  if(rematchActive&&rematchT<8){
+    const f=1-rematchT/8;
+    ctx.beginPath();ctx.arc(cx,cy,W*.25,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(0,255,65,${f*.35})`;
+    ctx.lineWidth=2*f;ctx.shadowBlur=10*f;
+    ctx.shadowColor="#00ff41";ctx.stroke();ctx.shadowBlur=0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   FLATTEN — dimensional collapse
+   Fractal: Sierpiński-carpet progressive erasure.
+   Starts with a full lissajous occupying 2D space.
+   Periodically a "flattening" pass erases the middle
+   third of each dimension — like a Sierpiński carpet
+   being applied to the signal's possibility space.
+   Each pass leaves a sparser, lower-dimensional trace.
+   The process is irreversible per cycle; resets rarely.
+═══════════════════════════════════════════════════ */
+let flatDepth=0;         // current carpet depth
+let flatTimer=0;
+let flatResetT=0;
+
+function sierpinskiMask(x,y,depth){
+  // returns false if (x,y) falls in an erased region
+  // x,y normalised 0..1
+  for(let d=0;d<depth;d++){
+    const tx=((x*(3**d))%1),ty=((y*(3**d))%1);
+    if(tx>1/3&&tx<2/3&&ty>1/3&&ty<2/3)return false;
+  }
+  return true;
+}
+
+function drawFlatten(){
+  if(!analyser) return;
+  flatTimer++;
+  // deepen flattening every ~180 frames
+  if(flatTimer%180===0&&flatDepth<4) flatDepth++;
+  // rare full reset
+  if(flatTimer%900===0){flatDepth=0;}
+
+  const N=timeData.length,lag=Math.floor(N*.25)&~1;
+
+  ctx.beginPath();
+  let started=false;
+  for(let i=0;i<N;i+=2){
+    const a=(timeData[i]-128)/128,b=(timeData[(i+lag)%N]-128)/128;
+    // normalise to 0..1 for mask
+    const nx=(a+1)/2,ny=(b+1)/2;
+    if(!sierpinskiMask(nx,ny,flatDepth)){
+      started=false;continue; // erased region — break the line
+    }
+    const px=cx+a*W*.27,py=cy+b*W*.27;
+    if(!started){ctx.moveTo(px,py);started=true;}
+    else ctx.lineTo(px,py);
+  }
+  ctx.strokeStyle=`rgba(0,255,65,${.55-flatDepth*.08+mid*.1})`;
+  ctx.lineWidth=1.3;ctx.lineCap="round";
+  ctx.shadowBlur=flatDepth===0?6:2;
+  ctx.shadowColor="#00ff41";ctx.stroke();ctx.shadowBlur=0;
+
+  // depth indicator — tiny row of segments bottom of canvas
+  for(let d=0;d<4;d++){
+    ctx.beginPath();
+    ctx.rect(cx-30+d*16,cy+W*.30,12,2);
+    ctx.fillStyle=`rgba(0,255,65,${d<flatDepth?.35:.07})`;
+    ctx.fill();
+  }
+}
+
+/* ── main loop ── */
+function draw(){
+  frame++;updateEnergy();maybeGlitch();applyGlitch();clearScreen();
+  ctx.save();
+  if(mode==="frozen")   drawFrozen();
+  if(mode==="repair")   drawRepair();
+  if(mode==="geometry") drawGeometry();
+  if(mode==="memory")   drawMemory();
+  if(mode==="archives") drawArchives();
+  if(mode==="flatten")  drawFlatten();
+  ctx.restore();
+  debugEl.textContent=`F:${frame} E:${entropy.toFixed(2)} V:${vol.toFixed(2)} B:${bass.toFixed(2)}`;
+  requestAnimationFrame(draw);
+}
+
+buildButtons();loadTrack(0,false);draw();
+</script>
+</body>
+</html>

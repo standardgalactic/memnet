@@ -1,5 +1,7 @@
 # MEMNET
 
+[Perspectives](https://github.com/standardgalactic/memnet/tree/main/perspectives/README.md)
+
 [Reachable History](https://github.com/standardgalactic/memnet/tree/main/derivatives/README.md)
 
 [Hydra — Hybrid Dynamic Reasoning Architecture](https://standardgalactic.github.io/memnet/operator-logic/hydra.pdf)
