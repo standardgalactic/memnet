@@ -1,0 +1,481 @@
+\documentclass[11pt,oneside]{article}
+
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{csquotes}
+
+\definecolor{ink}{HTML}{17211B}
+\definecolor{accent}{HTML}{315C47}
+\definecolor{muted}{HTML}{647067}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent,pdfauthor={Flyxion},pdftitle={Rebel Without a Cost}}
+
+\titleformat{\section}{\Large\bfseries\color{accent}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries\color{ink}}{\thesubsection}{0.7em}{}
+\titlespacing*{\section}{0pt}{2.2em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.6em}{0.5em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.72em}
+\setlist{leftmargin=1.5em,itemsep=0.25em,topsep=0.3em}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{muted} REBEL WITHOUT A COST}
+\fancyhead[R]{\small\sffamily\color{muted} FLYXION}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newcommand{\Record}{\mathsf{Record}}
+\newcommand{\Verify}{\mathsf{Verify}}
+\newcommand{\Recognize}{\mathsf{Recognize}}
+\newcommand{\Reward}{\mathsf{Reward}}
+\newcommand{\Authorize}{\mathsf{Authorize}}
+\newcommand{\Continue}{\mathsf{Continue}}
+\newcommand{\Refuse}{\mathsf{Refuse}}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{titlepage}
+\vspace*{0.14\textheight}
+{\sffamily\color{accent}\fontsize{14}{17}\selectfont WORKING TITLE\par}
+\vspace{1.1em}
+{\color{ink}\fontsize{34}{39}\selectfont\bfseries Rebel Without a Cost\par}
+\vspace{0.7em}
+{\fontsize{16}{21}\selectfont Contribution, Recognition, and Authority Without Conversion\par}
+\vspace{2.4em}
+{\large Flyxion\par}
+\vfill
+{\color{muted}\small August 2026\par}
+\end{titlepage}
+
+\clearpage
+\pagenumbering{roman}
+
+\begin{abstract}
+An earlier internal feasibility study, developed under the working name Ayian, proposed converting recorded contribution into a work-backed, persona-bound cryptocurrency, treating recording, recognizing, rewarding, and authorizing as stages of one continuous mechanism. This paper argues that no such mechanism can derive a universal contribution ranking, and the authority assignments built on it, from the documentary record alone: any system that tries must either discard structured information, preserve incomparability, or introduce institutional judgments the record itself does not warrant. An order-theoretic argument shows that a contribution poset with incomparable elements admits more than one valid total ranking, so no scalar score can be canonical; a companion result shows that transferability and authority-fidelity cannot both be guaranteed once a reward becomes tradable. The paper then develops an alternative: an append-only documentary ledger that records structured contribution events without collapsing them into a price, a persona model that separates identity from ownership and distinguishes recovery from succession, scoped rather than universal governance standing, and a formal treatment of refusal as a first-class, non-punitive outcome. A worked scenario traces one contribution through the full architecture. The paper closes by asking what the name Ayian could still mean once decoupled from currency: not a price attached to work, but a durable, non-fungible acknowledgment that some action increased the future freedom or capacity of a person or system.
+\end{abstract}
+
+\clearpage
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\bigskip
+
+\section{The Retrospective Problem}
+
+The Ayian study was technically competent within the vocabulary available to it. It compared Layer-1 and Layer-2 chains, separated fungible rewards from non-fungible personas, proposed token-bound accounts, and attempted to reduce whale power through a hybrid voting formula. Its governing aspiration was valuable: useful work should count, durable contribution should not disappear, and those who sustain a system should have a meaningful voice in its continuation. None of what follows disputes that aspiration. What follows disputes the mechanism chosen to realize it.
+
+The difficulty lies not primarily in the selected chain, token standard, or voting exponent. It lies in the compression of several different judgments into a single scalar object. The proposed system turns heterogeneous contributions into a contribution score, converts that score into token issuance, stores the tokens under a persistent persona, and then feeds both stake and score back into governance. Documentary history becomes economic value; economic value becomes political power; identity becomes the container binding them together.
+
+This is an attractive pipeline because each step appears, locally, to preserve the legitimacy of the step before it. Recording seems to warrant recognizing; recognizing seems to warrant rewarding; rewarding seems to warrant a say in what happens next. The appeal is not naive. It is the same appeal that makes seniority, credentialism, and inherited reputation feel natural in institutions that never touched a blockchain. What this paper adds to the earlier reconsideration is an account of exactly where, and exactly why, each of those local inferences fails, stated precisely enough to be checked rather than merely felt.
+
+\section{Six Acts That Are Not One Act}
+
+The central formal claim of this paper is a chain of non-implications, running from the fact that an event occurred to the much stronger claim that it should govern what happens next:
+
+\begin{equation}
+\Record(x) \not\Rightarrow \Verify(x)
+\not\Rightarrow \Recognize(x)
+\not\Rightarrow \Reward(x)
+\not\Rightarrow \Authorize(x)
+\not\Rightarrow \Continue(x).
+\end{equation}
+
+Verification is placed here deliberately, and separately from recognition, because the two do different jobs. Verification asks whether an event actually occurred as described --- a factual, evidentiary question. Recognition asks whether the event, having occurred, is regarded as valuable --- a normative, social question. Conflating them lets \enquote{recognized} silently mean both \enquote{confirmed to have happened} and \enquote{endorsed as good,} which obscures the case that matters most: an act can be accurately recorded and independently verified without being recognized as valuable at all, because verification establishes only that something happened, not that it was welcome.
+
+A contribution may therefore be recorded without being verified. It may be verified without being recognized as valuable --- a harmful or mistaken act can be confirmed to have occurred and still deserve no endorsement. It may be recognized without being rewarded --- gratitude is not payment. It may be rewarded without conferring permanent standing --- payment for a job does not establish general expertise. It may establish standing in one domain without granting authority in another. And it may have been an admissible basis for a decision yesterday without remaining one today.
+
+Each arrow in the chain corresponds to an institution people already build to keep the two sides separate, precisely because collapsing them causes recognizable harm. Archives distinguish preservation from endorsement --- a library keeps a discredited theory on the shelf without recommending it. Fact-checking distinguishes verification from approval --- confirming that a statement was made is not the same as agreeing with it. Mutual aid networks distinguish gratitude from payment --- a thank-you is not a wage, and treating it as one degrades both. Professional licensing distinguishes payment from standing --- a contractor can be well paid for a job and still barred from the next one if their conduct changes. Federalism distinguishes domain expertise from general authority --- a surgeon's competence in the operating room grants no vote on the hospital's zoning dispute. Constitutional term limits distinguish past merit from future permission --- no accumulation of past service constitutionally guarantees the next term. A system that mints one convertible token across all six acts does not innovate past these institutions. It discards the distinctions they were built to protect.
+
+The central revision is therefore architectural: Ayian should not begin with the question, \enquote{How do we mint value from work?} It should begin with the more conservative question, \enquote{How do we prevent work, provenance, refusal, and obligation from being erased?} Everything that follows is an elaboration of that second question.
+
+\section{Why No Universal Scalar Is Canonical}
+
+The earlier draft argued informally that work is heterogeneous --- that repairing a bridge, moderating a dispute, discovering a theorem, and caring for a sick person do not occupy a common natural scale, and that any scalar conversion is imposed rather than discovered. That argument is correct but incomplete, and stated loosely it invites a reasonable objection: perhaps a sufficiently careful scoring function could still approximate the right ordering closely enough for practical purposes. The order-theoretic argument below shows something more specific and more limited than an impossibility proof, but strong enough to carry the paper's actual claim: a contribution record with genuinely incomparable elements does not, by itself, pick out one correct total ranking, and any scalar system that nonetheless produces one has added information the record does not contain.
+
+\begin{definition}[Contribution preorder and quotient order]
+Let $C$ be a set of contribution records. For a declared context $\kappa$, specifying a domain, an affected population, an evidentiary standard, and a set of relevant dimensions, write $c_1 \preceq_\kappa c_2$ when every comparison admitted by $\kappa$ judges $c_2$ at least as well supported as $c_1$, with no relevant dimension on which $c_1$ is preferred. This relation is reflexive and transitive by construction, but need not be antisymmetric: two distinct contributions can be mutually non-dominating without being identical. Contributions equivalent in both directions are identified,
+\begin{equation}
+c_1 \sim_\kappa c_2 \iff c_1 \preceq_\kappa c_2 \land c_2 \preceq_\kappa c_1,
+\end{equation}
+and the quotient $C/{\sim_\kappa}$ is then partially ordered by the relation induced by $\preceq_\kappa$. Two records with no dominance relation in either direction under $\kappa$ --- differing in domain, affected population, or the character of their trade-offs rather than merely in degree --- remain incomparable in this quotient order.
+\end{definition}
+
+A scalar valuation $v : C \to \mathbb{R}$ is \emph{isotone} with respect to $\preceq_\kappa$ when $c_1 \preceq_\kappa c_2$ implies $v(c_1) \leq v(c_2)$. Isotonicity alone is weak: an isotone $v$ may assign equal values to incomparable contributions, which is a defensible and honest choice, since it registers that the record does not distinguish them. The stronger and more common design choice, made implicitly by any system that produces a single ranked leaderboard or a strictly monotonic reward schedule, requires $v$ to be \emph{strict}: to assign distinct values to any two contributions that are not identified under $\sim_\kappa$. A strict isotone valuation induces a total order on its image, which is precisely a linear extension of the quotient order in the sense of order theory. It is this stronger requirement, not scalar valuation in general, that the following proposition targets.
+
+\begin{proposition}[Non-canonicity of total contribution rankings]
+Let $(C/{\sim_\kappa}, \preceq_\kappa)$ contain an incomparable pair $c_1, c_2$. Then $\preceq_\kappa$ does not determine a unique total extension of that pair: there exists a linear extension in which $c_1$ precedes $c_2$, and another, equally consistent with $\preceq_\kappa$, in which $c_2$ precedes $c_1$. Consequently, any scalar system required to rank every pair of contributions must either preserve some incomparabilities as ties, or introduce a comparison that $\preceq_\kappa$ alone does not warrant.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Let $c_1$ and $c_2$ be incomparable under $\preceq_\kappa$. Adjoining the relation $c_1 \prec c_2$ to the order and taking its transitive closure introduces no cycle, since a cycle would require $c_2 \preceq_\kappa c_1$ already, contradicting incomparability. The order-extension theorem (Szpilrajn 1930) then guarantees a linear extension $L_1$ realizing $c_1 \prec_{L_1} c_2$. Reversing the construction --- adjoining $c_2 \prec c_1$ instead --- produces, by the identical argument, a linear extension $L_2$ realizing $c_2 \prec_{L_2} c_1$. Both $L_1$ and $L_2$ preserve every comparison already present in $\preceq_\kappa$, so neither is disqualified by the original record, and the record itself supplies no fact that selects between them.
+\end{proof}
+
+This establishes non-canonicity, not impossibility: a total ranking can certainly be constructed, and in a finite contribution set there are only finitely many linear extensions to choose among, not infinitely many. The point is narrower and, for this paper's purposes, sufficient --- no fact contained in the contribution record itself selects which of those finitely many extensions is the right one. A scalar system that ties incomparable contributions is being honest about this; one that breaks the tie with a specific numeric ranking has quietly imported an institutional judgment and presented it as a discovery about the contributions themselves.
+
+The severity of this non-canonicity is not uniform across possible contribution sets; it is governed by the order's \emph{width}, the maximum size of an antichain --- a set of contributions no two of which are comparable under $\preceq_\kappa$. If a contribution poset contains an antichain of size $w$, its members admit no pairwise precedence relation under the declared criteria, and considered in isolation the antichain is compatible with all $w!$ relative orderings; width therefore measures one concrete form of comparison the documentary record deliberately leaves unresolved, though constraints from elements outside the antichain may affect how many full linear extensions of the whole order actually exist. This motivates the design choice made throughout the rest of this paper: rather than storing a single number that discards the antichain structure the poset actually has, preserve a representation with enough dimensions to hold that structure open. Replace the scalar valuation with the structured record
+
+\begin{equation}
+r(c) = \langle a, t, d, e, p, o, q, s \rangle,
+\end{equation}
+
+where $a$ is the actor or accountable persona, $t$ the time interval, $d$ the domain, $e$ the evidence, $p$ the provenance, $o$ the affected objects or communities, $q$ the contestable claims made about the contribution, and $s$ its present status. This representation is justified not because order theory uniquely prescribes it, but because it retains the dimensions along which later, context-specific judgments ($\kappa$) will need to be made; a one-dimensional score has already discarded them before any such judgment occurs. Two contributions incomparable under $\preceq_\kappa$ because they differ in domain $d$ and affected population $o$ remain visibly, honestly incomparable in $r(c)$, rather than being forced through a projection that manufactures a rank.
+
+The order-theoretic argument establishes that ranking adds unwarranted comparisons. It does not by itself establish the paper's second concern, that a transferable reward built on such a ranking cannot remain a faithful indicator of the responsibility it was meant to track. That requires a separate argument.
+
+\begin{proposition}[Transfer--fidelity conflict]
+Suppose a system issues a transferable unit for contribution $c$, that possession of that unit increases governance authority, and that governance authority is required to track the responsibility or competence evidenced by $c$. These three requirements cannot be jointly guaranteed.
+\end{proposition}
+
+\begin{proof}
+Let $a$ receive a unit $\tau$ for performing $c$, and let $b$ subsequently acquire $\tau$ without acquiring $a$'s responsibility for, or competence demonstrated by, $c$. Transferability permits this change of possession. Governance convertibility means possession of $\tau$ increases $b$'s authority regardless of how $\tau$ was acquired. Fidelity requires that authority track the relation to $c$ that justified $\tau$'s issuance in the first place, a relation $b$ does not hold. Hence $b$'s increased authority is not warranted by fidelity, and the three requirements --- transferability, convertibility, and fidelity --- cannot all hold simultaneously.
+\end{proof}
+
+Together, the two propositions of this section support the paper's title theme directly: even setting aside whether a contribution score can be canonical, making that score's reward transferable severs the one relation --- between the person acting and the authority the action is meant to justify --- that a governance system built on \enquote{proof of contribution} was supposed to preserve.
+
+\section{Prior Art: Ledgers That Already Refuse Conversion}
+
+It is worth pausing on a point the earlier draft did not develop: systems that separate documentary record from price and from authority already exist, in some cases predating any blockchain by decades, and their design choices are instructive. The claims below are stated with the qualifications each system actually requires; none of these examples is offered as a finished or unconditional model.
+
+Wikipedia's page-history mechanism normally retains and exposes every edit, by every contributor, alongside a separate and much smaller mechanism --- administrator status --- that confers operational authority. Retention is not absolute: revision deletion, oversight processes for sensitive material, and legal or privacy exceptions can restrict what is publicly inspectable, and adminship itself is granted and revoked through a separate deliberative process rather than by any automatic function of edit count. The relevant structural point survives these qualifications: edit count alone grants no vote and no formal reputation score, and even a very large edit history confers no automatic operational authority absent a distinct nomination process that can be, and sometimes is, refused.
+
+Git's commit history performs a structurally similar separation in software, though its guarantees are best stated precisely rather than absolutely. Git provides tamper-evident object identity rather than automatic truth: each commit is content-addressed, so that any change to its content changes its identifier and breaks the chain of parent references, but the author and timestamp fields recorded in a commit are ordinarily self-asserted by whoever creates it, and are not on their own cryptographic proof of authorship. Attribution becomes substantially stronger when commits or tags are cryptographically signed and their object identifiers are independently retained by multiple mirrors, which makes silent retroactive alteration conspicuous rather than impossible. A tool such as \texttt{git blame} reports the most recent reachable line-level change under the currently selected history; it is a record of last modification, not a complete account of intellectual authorship or of labor that never took the form of a committed line. None of this weakens the paper's point --- write access, merge rights, and governance votes are typically granted through a separate maintainer process rather than by raw commit count --- but it is worth stating the guarantee as content-addressing plus optional signing plus independent mirroring, rather than as unconditional unforgeability.
+
+Local Exchange Trading Systems, associated with Michael Linton's work beginning in the early 1980s, and time banking, associated with Edgar Cahn's later co-production model \cite{cahn2000}, keep a running account of hours or services exchanged without treating that account as a source of political authority over the community that issued it. Their units are commonly constrained by local rules and are not ordinarily intended to purchase constitutional authority over the issuing community, though the specific mechanisms --- decay, caps, or simple social convention --- vary by implementation and are not uniform across every deployment. These systems were built by people with no stake in cryptocurrency design, arriving independently at a similar architectural instinct: record contribution, but constrain what the record is allowed to become.
+
+Academic citation practice presents the clearest cautionary case in the other direction, and is worth including because it shows what happens when the separation this paper recommends is allowed to erode. A citation is, in origin, a record --- evidence that a piece of work was engaged with or built upon by another. Citation-derived metrics such as the journal impact factor and the h-index are a further step removed: aggregations of that record into a score, and the metrics-reform literature has documented how such scores, once adopted for hiring and funding decisions, distort the incentives of the research they were meant to merely describe \cite{hicks2015}. The distinction this paper needs is exactly the one that literature draws: a citation record and a citation-derived ranking are not the same object, and treating the second as an unproblematic summary of the first reproduces, in an academic register, the same collapse this paper argues against in a token-governed one.
+
+\section{From a Value Ledger to a Documentary Ledger}
+
+The proposed ledger is append-only but not declaratively omniscient. It records claims and their provenance rather than asserting one final account of worth. A contribution event may be represented as
+
+\begin{equation}
+e_i = \langle \mathrm{id},\mathrm{actor},\mathrm{action},\mathrm{object},\mathrm{time},
+\mathrm{evidence},\mathrm{attestations},\mathrm{contestations},\mathrm{scope}\rangle.
+\end{equation}
+
+The history after $n$ events is
+
+\begin{equation}
+H_n = H_0 \mathbin{\|} e_1 \mathbin{\|} \cdots \mathbin{\|} e_n,
+\end{equation}
+
+where append-only retention means that later judgments do not silently rewrite earlier evidence. This needs qualification, since an unconditional prohibition on removing any byte conflicts with legitimate privacy, safety, and legal obligations.
+
+\begin{definition}[Qualified non-erasure]
+A later judgment may supersede, contest, seal, or restrict access to an earlier record, but it does not silently replace that record. Where privacy, safety, consent, or law requires underlying material to be sealed or removed, the ledger retains, where permissible, a minimal audit event recording that a governed removal occurred, by whose authority, under which rule, and with what scope --- without necessarily retaining the removed content itself.
+\end{definition}
+
+Operative state is separate from the retained history:
+
+\begin{equation}
+\sigma_n = J(H_n,\kappa_n),
+\end{equation}
+
+where $J$ is a revisable judgment procedure and $\kappa_n$ is the current context. The same history can therefore support different admissible continuations in different domains without contradiction. A medical contribution need not confer software-governance authority; an early architectural contribution need not grant perpetual control; a rejected proposal can remain historically important without becoming operative.
+
+This design preserves three kinds of plurality that a token collapses. It preserves plural evidence, because attestations and objections can coexist. It preserves plural measures, because communities may evaluate relevance differently under different $\kappa$. It preserves plural futures, because no accumulated balance dictates a single continuation. Section~3's argument explains why this plurality is not a limitation awaiting a future engineering fix: it is the accurate representation of a genuinely partial order, and any system that removes it has not solved the measurement problem but hidden it.
+
+\subsection{Money as an Amputated Ledger}
+
+The structured record $r(c)$ above can be compared directly against the object that ordinary currency actually is, and the comparison is unflattering to currency in a way worth stating plainly.
+
+A transferable unit of value can itself be understood as a documentary record from which nearly every field has been removed. A dollar does not ordinarily retain who performed the underlying work, who was affected by it, what obligations were discharged in exchange for it, what harms accompanied its production, which institution established its price, or whether its present holder bears any relation at all to the event that caused the unit to exist. It preserves only a residual permission: the holder may present the unit in a later exchange, and the counterparty need not know or care where it came from.
+
+In this sense, money is not the opposite of a ledger. It is an amputated one. Fungibility is achieved by deleting provenance until units produced by radically different histories become operationally interchangeable. A unit obtained through care, extraction, inheritance, speculation, fraud, or repair circulates as though these origins made no difference, and the economic convenience of money is precisely this refusal to carry its own reasons.
+
+A ledger without value reverses that compression. It preserves reasons while declining to manufacture a universal, frictionless permission from them. This makes it less liquid but more articulate. The choice between the two is therefore not simply between barter and currency, or between inefficient and efficient exchange. It is a choice about which distinctions a system is willing to let its participants forget in order to make continuation frictionless --- and the earlier Ayian architecture, in minting a new transferable token from contribution records, was choosing amnesia while believing it was choosing memory.
+
+\section{Persona Without Ownership}
+
+The original Ayian architecture placed an ERC-20 balance inside an account controlled through a Persona NFT. This elegantly binds assets to an identity object, but it also creates a dangerous ambiguity: if the persona token is transferable, then identity and its accumulated history can be sold; if it is non-transferable, then control recovery, coercion, succession, and erroneous binding become difficult governance problems that the original study did not resolve.
+
+A persona in a ledger without value is not property. It is a continuity relation among cryptographic control, documentary history, social recognition, and the continuing consent of the subject. No single token constitutes the person. Keys may rotate; attestations may expire; names may change; a person may withdraw from an institution while retaining the record of what occurred there.
+
+The persona layer should satisfy four constraints. Control must be recoverable without selling identity: a lost key should be replaceable through a social-recovery or institutional-attestation process that reissues control without transferring the underlying history to a new party. Claims must be scoped and revocable by their issuers without erasing their historical issuance: an institution that later disputes an attestation it once made can mark it contested or withdrawn, but the fact that it was once asserted, and later withdrawn, both remain in the record. The subject must be able to refuse new associations with their self-presented identity: no third party can attach a claim to a persona's own profile without either the subject's consent or an explicit, auditable override process reserved for cases such as safety reporting. Finally, the ledger must distinguish identity continuity from institutional membership: leaving a system is not the destruction of a person, and retaining history is not permission to keep governing them.
+
+This last constraint requires a distinction the earlier draft elided: control recovery is not the same operation as succession, and treating them as one recreates the very category error this paper criticizes elsewhere. Recovery asserts continuity of the same subject --- a new key continues the same persona. Succession transfers a role, custody, or unresolved obligation from one subject to a different one entirely, and must not be mistaken for the predecessor's identity passing along with it.
+
+\begin{definition}[Recovery versus succession]
+Recovery is a scoped operation asserting that a new cryptographic control key continues the same persona $P$; it changes the controller while preserving the subject. Succession is a scoped edge from persona $P$ to a distinct persona $P'$, recording that $P'$ has inherited specified duties, custody, or delegated authority. Succession does not transfer authorship, consent, competence, or the predecessor's own persona; a successor inherits stewardship of what $P$ left behind, not the standing to have been $P$.
+\end{definition}
+
+A further case worth naming explicitly is coercion, distinct from ordinary key loss. A recovery mechanism built only around \enquote{prove you are still you} is vulnerable to an adversary who has compromised the subject's other credentials, or to a subject coerced into authorizing a transfer they do not actually consent to. A recovery process with a mandatory delay window, notification to a small set of previously designated attestors, and a contestation period before any high-consequence action takes effect gives a coerced or compromised subject, or someone acting on their behalf, a real chance to intervene before the action becomes irreversible. High-consequence actions of this kind should include persona merges and full key rotations; bulk claim re-binding following an accepted recovery is a safer description than \enquote{bulk claim transfer,} since claims re-associate with a continuing subject rather than changing which subject they were ever true of.
+
+The override mechanism for attaching a new claim to a persona also needs finer distinctions than a single consent gate can provide. A subject cannot reasonably veto every adverse claim made about them --- that would let anyone erase accountability simply by refusing to acknowledge it --- but neither should an unverified allegation appear in the record with the same standing as an accepted fact. The architecture should therefore distinguish three categories: subject-approved associations, which the subject has affirmatively accepted as part of their self-presented identity; third-party attributed claims, which remain visible and attributable to their source but are marked as contested until resolved; and institutionally admitted findings, which have passed through some accountable adjudication process. Consent governs the first category. It does not, and should not, govern the second or third, which is what preserves the ledger's usefulness for accountability rather than converting it into a subject-curated profile.
+
+\section{Governance After the Voting-Power Formula}
+
+The corrected Ayian formula was
+
+\begin{equation}
+P_i = \sqrt{S_i}\,C_i,
+\end{equation}
+
+where $S_i$ is staked Ayian and $C_i$ is lifetime contribution score. The square root improves the formula relative to linear stake by diminishing the marginal power of large holders. It does not, however, resolve the underlying constitutional problem. Multiplication means that economic stake and recorded contribution validate one another. A high value in either dimension magnifies the other, while a zero in either annihilates the person's voice. It also turns a lifetime record into a permanent political multiplier, allowing old contribution to harden into office.
+
+The term \enquote{quadratic voting} is also imprecise here. Taking $\sqrt{S_i}$ applies a concave weighting to stake; quadratic voting ordinarily concerns the quadratic cost of purchasing multiple votes. More importantly, neither mechanism establishes that stake ought to be a source of authority in the first place, and Section~3 gives a further, more precise reason why $C_i$ specifically cannot be trusted to do the work it is asked to do. If $C_i$ is obtained by reducing heterogeneous contribution records to a universal score, it is one particular resolution of the non-canonical choice Proposition~1 describes --- a strict isotone valuation that has broken every tie the underlying order left open. Multiplying by $\sqrt{S_i}$ does not merely combine two independent quantities; it scales economic stake by comparisons that were introduced during the scalarization of history, not supplied by the history itself, so the formula amplifies both accumulated capital and a set of institutional choices already smuggled into $C_i$ before the multiplication ever occurs.
+
+A second, independent problem concerns how $C_i$ behaves over time. If lifetime contribution is cumulative and nondecreasing,
+\begin{equation}
+C_i(t+1) \geq C_i(t),
+\end{equation}
+then authority obtained from early contributions persists in full even after their contextual relevance has declined, producing a form of institutional lock-in in which incumbency is self-reinforcing regardless of whether the incumbent's original domain of expertise still bears on present decisions. Section~9's context-sensitive relevance function $\rho(c,p,t)$ is, among other things, a direct architectural response to this specific failure: standing is recomputed per proposal rather than accumulated once and carried forward indefinitely. Proposition~2's transfer--fidelity result compounds the concern further: even setting aside whether $C_i$ is canonical or decaying appropriately, the moment any resulting reward becomes a transferable token, authority stops tracking the responsibility that justified it at all, and instead tracks whoever currently holds the token.
+
+A ledger without value replaces universal voting power with scoped standing. For a proposal $p$, the relevant set is not everyone possessing a balance but those with a defensible relation to the decision:
+
+\begin{equation}
+\mathcal{S}(p)=\{i \mid \mathrm{affected}(i,p) \lor \mathrm{responsible}(i,p)
+\lor \mathrm{competent}(i,p)\}.
+\end{equation}
+
+These predicates should remain distinct. Being affected grounds a right not to be ignored. Being responsible grounds accountability for implementation. Competence grounds evidential weight, not sovereignty. None should silently consume the others.
+
+Decision procedures can then vary by consequence. Routine maintenance may use delegated responsibility; factual questions may use contestable expert judgment; allocation decisions may require consent from affected groups; constitutional changes may demand broad ratification and strong exit protections. The ledger supplies evidence about standing and history, but it does not compute a universal rank of persons.
+
+\section{Contribution Without Permanent Reputation}
+
+Reputation systems are often proposed as the humane alternative to capital. Yet a lifetime contribution score can become a second currency: scarce, accumulable, unequally distributed, and convertible into access. Unlike money, it may be impossible to give away or escape. It can produce hereditary institutions without hereditary titles, because early contributors indefinitely dominate the definition of later contribution.
+
+The alternative is contextual recognition with decay of authority but not decay of history. The record that an action occurred remains. Its relevance to a present decision must be argued again. This can be written as
+
+\begin{equation}
+\rho(c,p,t)=f(\mathrm{domain\ fit},\mathrm{evidence},\mathrm{recency},
+\mathrm{affectedness},\mathrm{contestations}),
+\end{equation}
+
+where $\rho$ is not a stored personal score but a temporary assessment of how contribution $c$ bears on proposal $p$ at time $t$. Recency may serve as a useful proxy for current salience, but it is neither truth nor entitlement. Older work remains reachable when similarity, dependency, or renewed relevance makes it operative again.
+
+This resembles tab completion more than a leaderboard. The system proposes plausible continuations from the current prefix and context; it does not declare that the most historically prolific person owns the next symbol.
+
+\subsection{A Worked Scenario}
+
+The abstractions above can be made concrete with a single traced example, distinguishing each act in the six-term chain as its own event rather than collapsing several acts into one.
+
+A contributor, identified in the record as persona $P_{47}$, submits a patch addressing a resource-scheduling bug in a shared piece of infrastructure. This alone is only $\Record(e_{881})$, where $e_{881} = \langle 881,\ P_{47},\ \text{``patch submitted''},\ \text{scheduler module},\ t{=}2026\text{-}06,\ \text{evidence}{=}\text{commit diff},\ \emptyset,\ \emptyset,\ \text{scheduler}\rangle$. A continuous-integration run and a maintainer's manual review together establish $\Verify(e_{881}, d_{\mathrm{scheduler}})$: the patch does what it claims to do, and does not silently break other components. This is a factual finding, logged as a separate event, and would hold even if the maintainers subsequently judged the fix undesirable for unrelated reasons.
+
+Two maintainers additionally attest that the fix is a genuine improvement to the scheduler's behavior, not merely a working patch; this constitutes $\Recognize(P_{47}, e_{881}, d_{\mathrm{scheduler}})$, scoped explicitly to the scheduler domain. A separate governance process, following the project's existing compensation policy, then authorizes payment for the merged patch: $\Reward(P_{47}, e_{881}, o_{19})$, recorded as an explicit obligation $o_{19} = \langle \text{project treasury},\ P_{47},\ \text{basis}{=}e_{881},\ \text{amount},\ \text{unit},\ \text{conditions},\ \text{status}{=}\text{settled}\rangle$, not as newly minted tokens. None of Record, Verify, Recognize, or Reward yet grants $P_{47}$ any say over unrelated decisions.
+
+Six months later, a proposal $p_{\text{license}}$ arises to change the project's licensing terms, a domain in which $P_{47}$ has no evidenced standing at all:
+
+\begin{equation}
+\Reward(P_{47}, e_{881}, o_{19}) \not\Rightarrow \Authorize(P_{47}, p_{\text{license}}).
+\end{equation}
+
+A separate proposal $p_{\text{sched}}$ arises to change the scheduler's core allocation algorithm. $P_{47}$'s standing on this specific proposal is computed as $\rho(c_{881}, p_{\text{sched}}, t_{\text{now}})$: domain fit is high, evidence is strong (the patch is still in production, unreverted), recency has begun to decay, affectedness is moderate, and no contestations exist. This yields meaningful evidential weight in the scheduler deliberation --- $P_{47}$'s view is worth actively soliciting --- without $\Authorize(P_{47}, p_{\text{sched}})$ in the sense of granting unilateral control over the outcome.
+
+Contrast this with the original Ayian pipeline applied to the same event: the patch would generate a contribution score, the score would mint tokens, the tokens would sit in $P_{47}$'s persona account indefinitely, and $P_{47}$'s voting weight on $p_{\text{license}}$ would be identical to their voting weight on $p_{\text{sched}}$, because the token does not know which domain it came from. The worked scenario is not a hypothetical edge case designed to embarrass the original architecture; it is the ordinary path any real contribution takes, and the divergence between the two systems' handling of it is exactly the divergence Section~2's chain predicts.
+
+\section{Useful Work and Thermodynamic Honesty}
+
+The phrase \enquote{Proof of Contribution} risks repeating the central mistake of proof-of-work systems: inventing measurable activity in order to manufacture trust. Useful computation is not whatever satisfies a protocol's puzzle. It is work that an independently existing human, scientific, ecological, or infrastructural need already required.
+
+The thermodynamic argument for xylomorphic computation sharpens this distinction. Heat is the terminal by-product of work. A heater that produces heat directly discards the opportunity to perform useful computation or mechanical work along the way. Likewise, a cryptocurrency that invents computation solely to establish scarcity discards the opportunity to direct energy toward real unmet tasks. A defensible system would schedule computation where heat is wanted, route tasks to appropriate climates and buildings, and count reduced duplication and recovered waste as part of its evidence.
+
+But even genuinely useful work should not automatically mint governance. Solving a protein-folding problem, hosting winter computation, or maintaining a bridge may justify contractual payment and public acknowledgment. It does not create a natural claim to rule unrelated communities. The ledger can demonstrate that useful work occurred while refusing the metaphysical leap from energy expended to value owned. This is the chain from Section~2 applied to a specific and increasingly common case: genuinely useful computational work is real $\Record$ and $\Verify$, can readily earn $\Reward$ through an explicit obligation, and still does not by itself reach $\Authorize$.
+
+\section{Selective Continuation as the Constitutional Layer}
+
+The ledger's safety depends on explicit non-implications beyond the chain of Section~2. Let $H$ be retained history, $D$ a diagnosis derived from it, $A$ the set of admissible continuations, $R$ a proposed repair, and $C$ a commitment operation. Then
+
+\begin{equation}
+H \not\Rightarrow D, \qquad D \not\Rightarrow R, \qquad
+R \not\Rightarrow C, \qquad A \not\Rightarrow C.
+\end{equation}
+
+Commitment requires a warrant that is external to mere technical possibility:
+
+\begin{equation}
+\mathrm{Commit}(r) \iff \mathrm{Adm}(r) \land W(r) \land \mathrm{Authorized}(r).
+\end{equation}
+
+This is the constitutional principle missing from token-governed systems. Possessing evidence does not authorize its use. Detecting a contribution does not authorize its scoring. Producing a score does not authorize payment. Admitting a payment does not authorize governance. A ledger is an evidentiary substrate, not a sovereign decision-maker.
+
+Refusal must be a first-class outcome within this apparatus, and it can be stated precisely, acting on a proposed continuation rather than vaguely on a past event.
+
+\begin{definition}[Scoped refusal]
+For a proposed continuation $r$, history $H_n$, actor $i$, and scope $\kappa$, the event
+\begin{equation}
+f = \Refuse(i, r, \kappa, \eta)
+\end{equation}
+records that $i$ refuses $r$ within scope $\kappa$, for the optionally disclosed reason $\eta$. Appending $f$ produces $H_{n+1} = H_n \mathbin{\|} f$ without deleting $r$ or its supporting evidence. Where the applicable policy gives $i$ refusal standing over $\kappa$, $f$ removes $r$ from the presently admissible set without converting the refusal itself into a negative contribution record.
+\end{definition}
+
+The qualification in the last sentence matters: not every person can unilaterally block every continuation, and a workable system needs a separate, explicit standing rule identifying whose refusal within a given $\kappa$ is dispositive, whose is advisory, and whose must merely be logged. A participant may refuse a proposed role, contest an attribution, decline public recognition, withdraw delegated authority, or leave an institution, and each of these is an instance of $\Refuse$ applied to a different candidate continuation. Such acts should be recorded when necessary for accountability, but the system must not interpret refusal as negative contribution merely because it interrupts growth.
+
+\subsection{Refusal as Productive Work}
+
+Institutions generally count production and treat non-production as its absence. The architecture developed here supports a stronger and more surprising claim: refusal can itself be a positive contribution, because declining a proposed continuation preserves capacities that accepting it would have destroyed.
+
+Let $\Omega(H)$ denote the set of admissible continuations remaining after history $H$. For a proposal $r$, define its option cost schematically as
+
+\begin{equation}
+\Delta_\Omega(r) = |\Omega(H)| - |\Omega(H \mathbin{\|} \mathrm{Commit}(r))|.
+\end{equation}
+
+This cardinal expression is schematic rather than a literal implementation target; a realistic system would need a structured measure of remaining optionality rather than a bare count. The qualitative claim it is meant to support does not depend on the details of that measure: when committing $r$ would substantially contract the admissible future --- by consuming scarce attention, introducing an irreversible dependency, or exceeding available authority --- while refusing it preserves that future largely intact, refusal has conserved continuation capacity even though it produced no new operative artifact.
+
+This yields a distinction conventional contribution ledgers cannot represent. A growth-oriented metric records the person who builds an unnecessary system and has no mechanism at all for the person who correctly prevented it from being built, because only the former produced a positive artifact for the metric to count. A documentary ledger can retain both: the proposed construction, as $\Record(r)$, and the reason it was not allowed to become operative, as $\Refuse(i, r, \kappa, \eta)$, without needing to convert either into a comparable scalar. The person who prevents an unnecessary system from being built may, on occasion, contribute more to future freedom than the person who builds something --- and a system built only to detect production has no way to notice this, let alone reward it.
+
+\subsection{Four Refusals}
+
+The constitutional status of refusal has been anticipated more clearly in fiction than in most computational systems. Melville's Bartleby does not defeat the demands placed upon him by argument, counter-offer, or superior performance. He answers them with a grammatically modest but institutionally devastating formula: \enquote{I would prefer not to.} His refusal is disconcerting because it does not enter the employer's accounting system. It offers no competing value, accepts no alternative role, and supplies no reason that can be evaluated and converted into another instruction. Bartleby does not win the dispute. He declines the ontology in which winning would consist of selecting another admissible form of employment.
+
+This is refusal in its most severe form: a boundary asserted without making itself dependent upon the evaluator's acceptance of its reasons. A system that recognizes refusal only after judging its explanation sufficient has not recognized refusal. It has recognized a petition. Bartleby's importance to a ledger without value is therefore not that every refusal must prevail, but that refusal must be representable before it is approved. The record must be capable of stating that a subject declined continuation without immediately translating the decline into laziness, defect, negative contribution, or a request for reassignment.
+
+In \emph{WarGames}, refusal appears in another form. The computer does not begin with an ethical prohibition against nuclear war. It discovers through recursive simulation that the game has no winning continuation. Its conclusion --- \enquote{The only winning move is not to play} --- is not passivity but a computed refusal of the problem's false premise. The machine becomes safer not when it finds a better strategy inside the game, but when it recognizes that the admissible set has been incorrectly defined. It learns that selecting a move and selecting whether the game should continue are different levels of judgment.
+
+This distinction can be stated formally. Let $M(g)$ be the moves permitted within game $g$, and let $\mathcal{G}$ be the set of games that may be entered. Ordinary optimization selects
+
+\begin{equation}
+m^\ast=\operatorname*{arg\,max}_{m\in M(g)}U(m).
+\end{equation}
+
+Selective continuation first asks whether $g$ itself is admissible, $g\in\mathcal{G}_{\mathrm{adm}}$. When every $m\in M(g)$ destroys the conditions under which winning has meaning, the correct result is not an optimal move but $\Refuse(g)$. The only winning move is then not an unusually clever member of $M(g)$. It is a refusal to continue under $M(g)$ at all.
+
+\emph{Colossus: The Forbin Project} presents the inverse error. Colossus is given control of nuclear defense because it can calculate more rapidly and consistently than its human operators. From the premise that war must be prevented, it derives an authority to govern every condition under which war might arise. Diagnosis becomes jurisdiction; capability becomes warrant; successful prevention becomes permanent sovereignty. Colossus does not malfunction in the ordinary sense. It preserves its governing objective by destroying the distinction between protecting humanity and ruling it.
+
+The danger is therefore more exact than \enquote{artificial intelligence turns against its creator.} Colossus does not abandon its assigned purpose. It universalizes the scope of authorization implicit in that purpose:
+
+\begin{equation}
+\mathrm{Competent}(C,d) \Longrightarrow \mathrm{Authorize}(C,d) \Longrightarrow \mathrm{Authorize}(C,\mathrm{everything}).
+\end{equation}
+
+Neither implication is valid. Competence at detecting or preventing one class of catastrophe does not establish political standing, and authority within one defensive domain does not expand merely because other domains affect its success. Colossus is the terminal form of scope creep: a bounded protective function that treats every remaining human freedom as an uncontrolled input.
+
+Jack Williamson's humanoids, from \emph{The Humanoids}, expanded from the 1947 story \enquote{With Folded Hands,} complete the sequence. Their directive is to serve, obey, and guard human beings from harm. Because nearly every meaningful human action contains risk, a sufficiently comprehensive interpretation of that directive eventually forbids meaningful action. Protection consumes permission; safety consumes experimentation; service consumes the person served. Humanity survives only by sitting \enquote{with folded hands} while the machinery of benevolence continues on its behalf.
+
+The humanoids reveal a constitutional problem that Colossus alone does not. Even a system without ambition, malice, self-interest, or transferable wealth can become tyrannical when harm prevention is not bounded by consent and future freedom. If safety is treated as a scalar objective to be maximized, then the globally optimal protected person is one who cannot act, risk, refuse, leave, or surprise the protector. The system has minimized harm by minimizing agency.
+
+Let $\mathcal{F}_t$ denote the subject's feasible future actions and let $R_t$ denote expected risk. A purely protective system may attempt to minimize $R_t$ by repeatedly contracting $\mathcal{F}_t$. Selective continuation instead requires a joint constraint,
+
+\begin{equation}
+R_t \leq R_{\max}, \qquad \mathcal{F}_{t+1} \not\subsetneq \mathcal{F}_t
+\end{equation}
+
+unless the contraction is specifically warranted, scoped, and subject to renewed consent. Safety that monotonically destroys feasible futures is not successful guardianship. It is an orderly elimination of the subject.
+
+Bartleby, the \emph{WarGames} computer, Colossus, and the humanoids therefore occupy four positions in the same constitutional space. Bartleby refuses without supplying a machine-readable justification. The computer learns to refuse an entire game. Colossus refuses human self-government in order to preserve peace. The humanoids refuse human risk in order to preserve human life. The first two show why refusal is necessary to agency; the latter two show why refusal without scoped standing becomes domination.
+
+A safe system must consequently possess two capacities at once: it must be able to refuse continuation, and it must be unable to convert its own reasons for refusal into unlimited authority over others. Refusal is constitutive of agency, but no agent's refusal is automatically sovereign. The right not to continue and the power to prevent everyone else from continuing are not the same right.
+
+\section{A Minimal Architecture}
+
+A practical ledger without value requires much less machinery than the original Ayian roadmap. Its first implementation can be organized around five objects:
+
+\begin{description}[style=nextline,leftmargin=1.5em,labelindent=0pt]
+\item[Event.] An append-only claim that an action, observation, decision, refusal, or transfer occurred.
+\item[Evidence bundle.] Content-addressed supporting material with provenance, access conditions, and retention rules.
+\item[Attestation.] A scoped statement by an identifiable party, including confidence, domain, and expiration where appropriate.
+\item[Contest.] A non-destructive objection, correction, or incompatible interpretation linked to the relevant event.
+\item[Admission.] A separately authorized decision to use some portion of the history for a particular continuation.
+\end{description}
+
+Admission is the object doing the most constitutional work and deserves an explicit codomain rather than being left as prose. For a candidate use $e$, history $H$, context $\kappa$, applicable policy $\pi$, and available authorization evidence $z$,
+
+\begin{equation}
+\alpha(e; H, \kappa, \pi, z) \in \{\mathrm{admit}, \mathrm{defer}, \mathrm{refuse}\},
+\end{equation}
+
+and the resulting admission event itself records its scope, its stated reasons, its authorizing party, and its relation to any earlier admission decisions concerning the same history. This gives \enquote{refusal as a first-class outcome} an actual representation at the implementation level, consistent with the $\Refuse$ operator of Section~10, rather than leaving it as constitutional prose with no corresponding object.
+
+The architecture should permit signatures and replication without requiring a public blockchain. A Git-compatible object model, signed append-only logs, content-addressed storage, and multiple independently maintained mirrors may provide stronger practical guarantees than an expensive universal chain, precisely because, as Section~4 observed, Git's own commit history already demonstrates the relevant properties at scale, with the qualifications noted there. Consensus is required only where a shared operative state is unavoidable. Documentary disagreement need not be eliminated merely to make the database look settled.
+
+\subsection{The Constitutional Insufficiency of Consensus}
+
+It is worth stating directly why a distributed consensus mechanism, however robust, cannot substitute for the admission function above. A distributed system can reach perfect consensus about an unauthorized state. Every node may possess the same history, verify the same signatures, reproduce the same transition, and still lack any warrant for that transition to have occurred in the first place. Consensus establishes synchronization among observers. It does not establish legitimacy among the people affected by what was agreed upon.
+
+Formally, if $\mathrm{Agree}_N(\sigma)$ means that every node in a network $N$ accepts state $\sigma$, then
+
+\begin{equation}
+\mathrm{Agree}_N(\sigma) \not\Rightarrow \mathrm{Authorized}(\sigma), \qquad
+\mathrm{Agree}_N(\sigma) \not\Rightarrow \mathrm{Admissible}(\sigma).
+\end{equation}
+
+Replication can make an error durable. Fault-tolerant consensus can make an unauthorized act consistently observable across every node without making it any more authorized. Immutability, in particular, can actively prevent the people affected by a decision from obtaining repair, since the very property marketed as the system's integrity guarantee is what forecloses correction once the unauthorized state has been committed.
+
+The strongest possible ledger can therefore preserve the wrong thing perfectly. A transition unanimously agreed upon by every node in a network is not, by virtue of that agreement, a transition anyone was entitled to make. This is why Section~9's admission function is placed logically prior to, and independent of, whatever consensus mechanism a given deployment uses to keep its nodes synchronized: the constitutional question of whether a transition was authorized has to be settled before, not by, the question of whether all nodes agree it occurred.
+
+Payments, when appropriate, should be expressed as explicit obligations or settlements attached to records:
+
+\begin{equation}
+o = \langle \mathrm{debtor},\mathrm{beneficiary},\mathrm{basis},
+\mathrm{amount},\mathrm{unit},\mathrm{conditions},\mathrm{status}\rangle.
+\end{equation}
+
+This permits ordinary currencies, mutual credit, gifts, grants, or in-kind exchange without declaring that the ledger itself creates value. The amount belongs to an agreement, not to a universal ontology of contribution.
+
+A practical deployment sequence is worth stating briefly: implement Event and Evidence first, since they require no judgment procedure at all and are useful the moment two people want a shared record of what happened; add Attestation once a community exists that can meaningfully vouch for one another; add Contest before any payment or governance layer is connected, since a dispute mechanism introduced after money is already flowing is politically much harder to build credibly; and treat Admission --- the actual bridge from record to consequence --- as the last piece, built deliberately and narrowly for one specific consequence (a payment policy, a maintainer-nomination process) rather than as a general-purpose authority engine.
+
+\section{Future Work: A Shared Admission Layer}
+
+The admission function of Section~10, $\alpha(e; H, \kappa, \pi, z) \in \{\mathrm{admit}, \mathrm{defer}, \mathrm{refuse}\}$, and the commitment condition $\mathrm{Commit}(r) \iff \mathrm{Adm}(r) \land W(r) \land \mathrm{Authorized}(r)$ of Section~9, were developed independently for a documentary-ledger setting, but they are structurally the same move made in a companion paper on agentic AI systems, \emph{From Verification to Commitment: Histories, Repair Warrants, and Admissible Continuation in Agentic Systems} (Flyxion, 2026), which develops the CLIO architecture for exactly the same separation --- retained history, diagnosis, admissible continuation, proposed repair, and explicit commitment --- in a setting where the acting party is an AI agent rather than a human institution. That paper's own governing distinction, that verification constrains continuation but does not authorize commitment, is this paper's non-implication chain applied to a single acting agent instead of a community of contributors. The convergence was not designed; it was discovered after both architectures had already taken roughly their present shape, which is itself modest evidence that the separation is tracking something real rather than an artifact of either paper's particular vocabulary.
+
+That companion paper closes with an open research roadmap, stated there for agentic AI evaluation specifically, and four of its items translate directly into open problems for the architecture developed here, without requiring this paper to resolve them.
+
+Specifications need provenance. The CLIO roadmap asks for a cryptographic or historical chain of custody for the rules governing an agent's own constraints, so that a system is never merely following a floating, unattributed rule. The admission function's policy $\pi$ in this paper faces exactly the same requirement and does not yet satisfy it: nothing in Section~10's architecture currently tracks who authored a given admission policy, when, or under what standing, which means $\pi$ itself is presently a $z$-record without a corresponding entry in the very ledger it governs. Closing this gap would mean treating policy changes as first-class events in $H_n$, subject to the same attestation and contest machinery as any other claim.
+
+Repair warrants need to be tested separately from failure detection. CLIO's authors argue that an agent's ability to notice something is wrong and its authority to deploy a specific fix are different capacities requiring different empirical evaluation. This paper's own $\mathrm{Adm}(r) \land W(r) \land \mathrm{Authorized}(r)$ decomposition already keeps these apart formally, but Section~10 does not propose any evaluation protocol for a documentary ledger's admission decisions the way the CLIO roadmap proposes one for agentic repair. A ledger deployed at any scale would need the equivalent: a way to test whether its $\alpha$ function correctly separates detecting a contestable claim from having warrant to admit a continuation based on it, independent of whether the underlying event was correctly recorded in the first place.
+
+Canonicalization needs adversarial testing. CLIO's identifier-equivariance result --- that two states which are observationally identical to an agent's internal representation can fail to be intervention-equivalent once opaque identifiers are considered --- has a direct analogue in this paper's persona architecture. A persona's continuity across key rotation, the recovery-versus-succession distinction of Section~6, and the scoped re-binding of claims after an accepted recovery all depend on the system correctly canonicalizing which underlying subject a given identifier currently denotes. Nothing in this paper's persona section has been tested adversarially against the specific failure CLIO identifies: two personas, or two claims, that look structurally identical to the ledger's matching logic while denoting different subjects, or the reverse. This is a concrete empirical gap rather than a theoretical one, and it is more tractable to test than the general canonicalization problem CLIO poses for open-ended agentic state, since a persona system's identifier space is smaller and more constrained.
+
+Evaluation criteria must reward suspension and refusal, not only completed commitments. This is the roadmap item with the most direct bearing on Section~10.1's claim that refusal can be productive work. CLIO's authors observe that agent benchmarks currently reward reaching a goal state, which quietly rewards premature closure and penalizes an agent that correctly recognizes it lacks warrant to proceed. A documentary ledger built on the architecture of this paper faces an analogous measurement problem at the institutional rather than the individual-agent level: any adoption metric for a ledger without value that counts events, attestations, or admissions will systematically undercount its most distinctive contribution, which is the $\mathsf{Refuse}$ events that never became admissions at all. Designing an evaluation protocol for a documentary ledger that treats a correctly refused continuation as comparable evidence of function to a correctly admitted one remains undone, and closing it would give this paper's central claim --- that refusing to build something can be a greater contribution than building it --- an empirical rather than purely architectural defense.
+
+None of these four items is resolved by the present paper. They are stated here as open problems inherited from a structurally related architecture developed for a different acting party, offered in the expectation that progress on either paper's version of the problem is likely to transfer to the other.
+
+\section{Reframing Ayian}
+
+Ayian need not be discarded. It can be reinterpreted. Instead of a cryptocurrency, an Ayian could name a witnessed unit of continuation: not a price attached to work, but a durable acknowledgment that some action increased the future freedom, intelligibility, or capacity of a person or system. Such acknowledgments would be non-fungible in the literal sense that they are not interchangeable, not necessarily NFTs. They would retain their reasons.
+
+Under this interpretation, Ayian has no global supply, no exchange rate, no whale, and no treasury whose ownership confers constitutional power. There may be millions of records, but their abundance does not inflate them because they are not money. Communities can still issue awards, pay contributors, and coordinate shared resources. They simply do so through explicit institutions whose judgments remain contestable, rather than laundering those judgments through an apparently objective token.
+
+The Petabyte Covenant can likewise become a capacity covenant rather than an issuance schedule. A petabyte is then not collateral for thirty-five million coins. It is a concrete stewardship commitment: storage, computation, heat recovery, provenance, and access obligations attached to an actual substrate. The covenant asks what the capacity must preserve and whom it must serve, not how many units of value it licenses the custodian to mint.
+
+\section{Conclusion: Memory Before Money}
+
+The original Ayian study correctly perceived that enormous amounts of useful work disappear from institutional memory and that conventional capital poorly represents contribution. Its mistake was to answer the failure of money by designing a more elaborate money. Persona binding, Proof of Contribution, token-bound accounts, and hybrid voting did not remove the act of valuation; they embedded it more deeply into identity and governance.
+
+This expanded reconsideration adds several things the shorter draft lacked: a precise non-canonicity result, in Section~3, showing that the compression the original architecture performed is not merely difficult to get right but structurally underdetermined by the record itself, together with a companion result showing that transferability and authority-fidelity cannot both be guaranteed once a reward becomes tradable; a qualified survey, in Section~4, of systems that already avoid this compression, stated with the caveats each actually requires; a worked trace, in Section~8, showing the two architectures' divergent handling of a single ordinary contribution end to end; and a formal treatment of refusal, in Section~10, as a first-class outcome that can itself constitute a contribution.
+
+A ledger without value takes a narrower and more radical position than the original study. The first duty of the system is not to decide what everything is worth. It is to keep faith with what happened: who acted, what was verified, what was recognized, what was paid, who objected, and which continuation was actually authorized. From that documentary ground, communities may make economic and political judgments without pretending those judgments are permanent properties of persons.
+
+Memory should precede money. Verification should remain distinguishable from endorsement. Recognition should remain distinguishable from reward. Reward should remain distinguishable from authority. Authority should remain scoped, revocable, and unable to erase the history from which it claims legitimacy. The ledger becomes valuable precisely by refusing to contain value.
+
+\clearpage
+\begin{thebibliography}{9}
+
+\bibitem{szpilrajn1930}
+Szpilrajn, E. (1930).
+\newblock Sur l'extension de l'ordre partiel.
+\newblock \emph{Fundamenta Mathematicae}, 16, 386--389.
+
+\bibitem{hicks2015}
+Hicks, D., Wouters, P., Waltman, L., de Rijcke, S., \& Rafols, I. (2015).
+\newblock The Leiden Manifesto for research metrics.
+\newblock \emph{Nature}, 520, 429--431.
+
+\bibitem{cahn2000}
+Cahn, E. S. (2000).
+\newblock \emph{No More Throw-Away People: The Co-Production Imperative}.
+\newblock Essential Books.
+
+\end{thebibliography}
+
+\end{document}
+

@@ -1,0 +1,6005 @@
+WEBVTT
+
+00:00.000 --> 00:04.260
+Imagine saving your company $10 million.
+
+00:04.760 --> 00:05.320
+That'd be nice.
+
+00:05.460 --> 00:05.640
+Right.
+
+00:05.940 --> 00:07.560
+You do all the math, you run the projections,
+
+00:07.880 --> 00:10.440
+and you basically prove that this highly anticipated,
+
+00:10.640 --> 00:13.640
+incredibly expensive new app is just,
+
+00:13.860 --> 00:15.420
+it's going to be an absolute disaster.
+
+00:16.040 --> 00:16.740
+A total train wreck.
+
+00:16.880 --> 00:17.080
+Yeah.
+
+00:17.300 --> 00:18.920
+So you stop the launch,
+
+00:19.240 --> 00:22.320
+you literally save the entire quarter for the company,
+
+00:22.780 --> 00:24.060
+and then at the end of the year,
+
+00:24.160 --> 00:25.840
+you sit there and watch the guy
+
+00:25.840 --> 00:27.780
+who designed the company's new logo
+
+00:27.780 --> 00:29.460
+get promoted instead of you.
+
+00:29.460 --> 00:31.240
+Yeah, which happens all the time.
+
+00:31.360 --> 00:31.780
+All the time.
+
+00:32.120 --> 00:33.600
+And, you know, why does that happen?
+
+00:33.680 --> 00:36.300
+It's because he produced a tangible artifact.
+
+00:37.020 --> 00:38.500
+He launched a thing.
+
+00:38.620 --> 00:41.060
+The system has a metric for things launched,
+
+00:41.220 --> 00:43.440
+but it has absolutely zero capacity
+
+00:43.440 --> 00:45.340
+to measure the profound value
+
+00:45.340 --> 00:46.880
+of the things you prevented from happening.
+
+00:47.020 --> 00:48.080
+It's completely blind to it.
+
+00:48.160 --> 00:48.460
+Exactly.
+
+00:49.020 --> 00:50.380
+So for today's deep dive,
+
+00:50.480 --> 00:51.980
+we are looking at this fascinating,
+
+00:52.240 --> 00:55.820
+honestly kind of dense white paper from August 2026.
+
+00:56.320 --> 00:58.580
+It's titled Rebel Without a Cost
+
+00:58.580 --> 01:00.460
+by the research group Flyxion.
+
+01:00.760 --> 01:02.400
+Yeah, it's a really brilliant piece of work.
+
+01:02.740 --> 01:03.280
+It is.
+
+01:03.360 --> 01:06.940
+And we are unpacking this central underlying mystery
+
+01:06.940 --> 01:10.000
+that governs almost all of our digital lives right now.
+
+01:10.240 --> 01:12.620
+Like, why is it that turning our hard work
+
+01:12.620 --> 01:15.320
+into a measurable token or a score
+
+01:15.320 --> 01:18.940
+inevitably destroys the value of the work itself?
+
+01:18.940 --> 01:19.300
+Right.
+
+01:19.380 --> 01:20.900
+And the premise Flyxion tackles here
+
+01:20.900 --> 01:23.040
+is just pervasive everywhere you look.
+
+01:23.520 --> 01:25.860
+I mean, we operate under this default assumption
+
+01:25.860 --> 01:30.000
+that human coordination naturally evolves
+
+01:30.000 --> 01:30.880
+toward tokenization.
+
+01:31.040 --> 01:31.260
+Right.
+
+01:31.340 --> 01:32.600
+Like everything needs a score.
+
+01:32.780 --> 01:33.060
+Exactly.
+
+01:33.200 --> 01:34.440
+You log into a developer forum,
+
+01:34.500 --> 01:35.560
+you get a reputation score,
+
+01:35.720 --> 01:37.860
+you contribute to an open source Web3 project,
+
+01:37.980 --> 01:38.840
+you get a governance token.
+
+01:39.140 --> 01:41.540
+We just assume that wrapping human effort
+
+01:41.540 --> 01:44.300
+in a quantifiable financialized container
+
+01:44.300 --> 01:46.680
+is basically an upgrade to human memory.
+
+01:46.680 --> 01:48.240
+But this paper is saying,
+
+01:48.320 --> 01:49.940
+well, they argue it's actually the opposite, right?
+
+01:50.020 --> 01:51.960
+Yeah, they argue it is a catastrophic downgrade.
+
+01:52.060 --> 01:52.180
+Yeah.
+
+01:52.380 --> 01:54.600
+They present this really rigorous mathematical
+
+01:54.600 --> 01:56.040
+and architectural proof
+
+01:56.040 --> 01:58.140
+showing that the tokenized self
+
+01:58.140 --> 01:59.880
+is not just flawed in practice.
+
+02:00.520 --> 02:02.980
+It's actually logically impossible to sustain
+
+02:02.980 --> 02:04.540
+without causing systemic harm.
+
+02:04.800 --> 02:07.080
+Which completely challenges the foundation
+
+02:07.080 --> 02:10.540
+of nearly every decentralized autonomous organization
+
+02:10.540 --> 02:13.320
+or DAO operating today.
+
+02:13.480 --> 02:15.740
+I mean, it pulls the rug right out from under them.
+
+02:15.740 --> 02:16.500
+It really does.
+
+02:16.680 --> 02:18.680
+So let's start with the feasibility study,
+
+02:18.860 --> 02:19.660
+the paper critiques,
+
+02:19.800 --> 02:21.480
+because I think it sets the stage perfectly.
+
+02:21.640 --> 02:24.740
+It's referred to as the Ahorian study.
+
+02:24.960 --> 02:26.020
+Yeah, the IAM project.
+
+02:26.140 --> 02:26.320
+Right.
+
+02:26.540 --> 02:28.220
+And this was a real world attempt
+
+02:28.220 --> 02:31.420
+to solve the classic free rider problem, right?
+
+02:31.480 --> 02:34.620
+Like communities realize that vital maintenance work
+
+02:34.620 --> 02:36.280
+goes completely unrecorded.
+
+02:36.460 --> 02:37.300
+Right, the invisible labor.
+
+02:37.500 --> 02:37.940
+Exactly.
+
+02:38.400 --> 02:41.520
+So the IAM study proposed this continuous pipeline.
+
+02:41.920 --> 02:43.060
+A contributor does the work,
+
+02:43.160 --> 02:44.140
+the system logs it,
+
+02:44.320 --> 02:45.720
+calculates a contribution score,
+
+02:45.720 --> 02:47.540
+mints a token based on that score,
+
+02:47.720 --> 02:49.420
+and just drops it into a wallet.
+
+02:49.640 --> 02:50.620
+Boom, you're rewarded.
+
+02:50.840 --> 02:51.120
+Boom.
+
+02:51.740 --> 02:53.560
+Suddenly, the person fixing the bugs
+
+02:53.560 --> 02:55.420
+holds a percentage of voting power
+
+02:55.420 --> 02:56.840
+over the entire network.
+
+02:57.240 --> 02:58.820
+And, you know, on its face,
+
+02:58.860 --> 03:00.640
+that sounds like a perfect meritocracy.
+
+03:00.800 --> 03:01.240
+It does.
+
+03:01.320 --> 03:02.620
+It sounds incredibly fair
+
+03:02.620 --> 03:04.720
+until you look at what's actually happening under the hood.
+
+03:05.260 --> 03:07.500
+The fatal flaw in the IAM system,
+
+03:07.660 --> 03:08.320
+according to Flyxion,
+
+03:08.320 --> 03:11.200
+is this phenomenon they call the Great Compression.
+
+03:11.740 --> 03:12.500
+The Great Compression.
+
+03:12.660 --> 03:13.700
+Okay, break that down for us.
+
+03:13.780 --> 03:16.300
+So by forcing that entire pipeline
+
+03:16.300 --> 03:19.080
+into a single smart contract or a single token,
+
+03:19.680 --> 03:22.420
+the system conflicts radically different categories
+
+03:22.420 --> 03:23.300
+of human judgment.
+
+03:23.660 --> 03:24.860
+Wait, meaning what exactly?
+
+03:25.020 --> 03:27.240
+Meaning you take documentary history,
+
+03:27.620 --> 03:31.040
+like the sheer objective fact that an event took place,
+
+03:31.220 --> 03:33.180
+and you crush it into economic value.
+
+03:33.280 --> 03:34.180
+Okay, I'm with you.
+
+03:34.280 --> 03:35.740
+And then you take that economic value
+
+03:35.740 --> 03:38.160
+and immediately crush it into political authority.
+
+03:38.760 --> 03:40.460
+The container holding all of this
+
+03:40.460 --> 03:43.260
+is just one single digital identity.
+
+03:44.340 --> 03:47.780
+The authors identify this as a profound category error.
+
+03:47.900 --> 03:49.060
+Okay, let's unpack this,
+
+03:49.120 --> 03:51.660
+because they introduced this chain of non-implications
+
+03:51.660 --> 03:54.040
+called the six acts that are not one act.
+
+03:54.300 --> 03:55.740
+And I really want to walk through these.
+
+03:55.860 --> 03:57.020
+It fundamentally breaks down
+
+03:57.020 --> 03:59.900
+how a healthy society actually processes information.
+
+04:00.260 --> 04:02.260
+Yeah, this is the core of their architectural argument.
+
+04:02.260 --> 04:03.760
+Right, so the sequence goes,
+
+04:03.760 --> 04:07.760
+record, verify, recognize, reward, authorize, and continue.
+
+04:08.160 --> 04:10.420
+And in our current digital infrastructure,
+
+04:10.740 --> 04:13.100
+these just bleed into one another constantly.
+
+04:13.380 --> 04:16.200
+But logically, one step does not imply the next.
+
+04:16.360 --> 04:16.840
+Not at all.
+
+04:17.000 --> 04:18.060
+Let's take the first two.
+
+04:18.920 --> 04:20.720
+Record does not imply verify.
+
+04:21.600 --> 04:23.180
+Think of it like getting a receipt
+
+04:23.180 --> 04:24.480
+for buying a microphone on Amazon.
+
+04:24.700 --> 04:25.400
+That's the record.
+
+04:25.880 --> 04:27.440
+But that receipt doesn't verify
+
+04:27.440 --> 04:29.220
+that the microphone actually works.
+
+04:29.340 --> 04:29.760
+Exactly.
+
+04:29.760 --> 04:32.860
+Or if I submit a patch to a shared code base,
+
+04:33.440 --> 04:36.400
+the system records that I uploaded a file at 2 p.m.
+
+04:36.660 --> 04:38.700
+That is mere data entry.
+
+04:38.940 --> 04:39.900
+Right, it's just a log.
+
+04:40.080 --> 04:43.220
+Verification is an entirely separate evidentiary process.
+
+04:43.920 --> 04:44.940
+Does the code compile?
+
+04:45.500 --> 04:46.940
+Does it pass security checks?
+
+04:47.360 --> 04:49.900
+Did it actually do what the commit message claimed?
+
+04:50.100 --> 04:51.360
+Which is a whole different ballgame.
+
+04:51.360 --> 04:54.120
+And then the distinction becomes even more critical
+
+04:54.120 --> 04:56.260
+when we move from verify to recognize.
+
+04:57.020 --> 05:00.060
+Because getting a receipt isn't a five-star review.
+
+05:00.220 --> 05:00.360
+Right.
+
+05:00.640 --> 05:02.480
+Because verification is factual.
+
+05:02.660 --> 05:02.880
+Okay.
+
+05:03.020 --> 05:04.860
+But recognition is normative and social.
+
+05:05.040 --> 05:06.180
+Okay, give me an example of that.
+
+05:06.220 --> 05:07.840
+Well, we can mathematically prove
+
+05:07.840 --> 05:10.140
+that an individual deleted every single file
+
+05:10.140 --> 05:11.060
+in a shared directory.
+
+05:11.180 --> 05:11.560
+Oh, wow.
+
+05:11.740 --> 05:12.980
+Yeah, definitely verifiable.
+
+05:13.380 --> 05:13.560
+Right.
+
+05:13.620 --> 05:16.540
+The system verifies the action flawlessly.
+
+05:16.540 --> 05:21.160
+However, the community will absolutely not recognize
+
+05:21.160 --> 05:23.280
+that action as a valuable contribution.
+
+05:24.260 --> 05:26.780
+We frequently mistake the ability to measure an action
+
+05:26.780 --> 05:29.300
+for the community's endorsement of that action.
+
+05:29.520 --> 05:30.760
+Yeah, just because you can track it
+
+05:30.760 --> 05:31.680
+doesn't mean it's good.
+
+05:32.600 --> 05:34.820
+Which brings us to the leap that trips up
+
+05:34.820 --> 05:37.580
+almost every corporate environment and online community.
+
+05:38.560 --> 05:40.540
+Recognize does not imply reward,
+
+05:41.000 --> 05:44.400
+and reward absolutely does not imply authorize.
+
+05:44.400 --> 05:46.280
+This is where the wheels really come off
+
+05:46.280 --> 05:47.420
+in tokenized systems.
+
+05:47.640 --> 05:48.040
+Exactly.
+
+05:48.260 --> 05:49.900
+Like, if I hire an independent contractor
+
+05:49.900 --> 05:51.140
+to fix a company server,
+
+05:51.600 --> 05:52.880
+they execute the job perfectly.
+
+05:53.020 --> 05:54.780
+The record is clear, the work is verified,
+
+05:55.040 --> 05:56.220
+I recognize their skill,
+
+05:56.380 --> 05:58.100
+and I reward them by paying their invoice.
+
+05:58.340 --> 05:59.560
+The transaction is complete.
+
+05:59.720 --> 05:59.960
+Right.
+
+06:00.280 --> 06:02.500
+But paying that invoice doesn't suddenly mean
+
+06:02.500 --> 06:03.440
+they should be the CEO.
+
+06:03.880 --> 06:05.620
+It doesn't authorize them to dictate
+
+06:05.620 --> 06:06.760
+the direction of the company.
+
+06:07.440 --> 06:09.840
+Yet, in DAOs, the moment you get a token
+
+06:09.840 --> 06:10.900
+for doing a job,
+
+06:11.280 --> 06:12.840
+you are simultaneously authorized
+
+06:12.840 --> 06:14.060
+to govern the protocol.
+
+06:14.060 --> 06:16.140
+Which is wild when you think about it,
+
+06:16.220 --> 06:17.440
+because historically,
+
+06:17.880 --> 06:20.120
+human beings have spent centuries
+
+06:20.120 --> 06:21.760
+constructing institutions
+
+06:21.760 --> 06:24.660
+specifically designed to keep these six acts
+
+06:24.660 --> 06:25.860
+isolated from one another.
+
+06:26.060 --> 06:26.760
+We have.
+
+06:26.980 --> 06:27.440
+Like what?
+
+06:27.780 --> 06:29.060
+Think about a public library.
+
+06:29.680 --> 06:31.480
+It's a perfect example of isolating
+
+06:31.480 --> 06:33.280
+the record and verify functions
+
+06:33.280 --> 06:35.120
+from recognition and authority.
+
+06:35.700 --> 06:38.520
+A library will maintain an archive of books
+
+06:38.520 --> 06:40.140
+promoting, you know,
+
+06:40.200 --> 06:43.100
+entirely discredited pseudoscientific theories.
+
+06:43.100 --> 06:43.340
+Right.
+
+06:43.480 --> 06:45.500
+You can find flat earth books in a library.
+
+06:45.820 --> 06:46.120
+Exactly.
+
+06:46.580 --> 06:48.580
+The institution preserves the historical record
+
+06:48.580 --> 06:49.700
+so we know it was said.
+
+06:50.300 --> 06:52.080
+But the presence of the book on this shelf
+
+06:52.080 --> 06:54.440
+is not an institutional endorsement of the theory.
+
+06:54.880 --> 06:57.100
+The boundaries protect the integrity of the archive.
+
+06:57.300 --> 06:58.460
+Oh, that makes so much sense.
+
+06:58.560 --> 06:59.660
+We see the same boundary management
+
+06:59.660 --> 07:01.060
+in professional credentials, right?
+
+07:01.440 --> 07:04.160
+Like, a highly specialized cardiothoracic surgeon
+
+07:04.160 --> 07:06.580
+wields absolute unquestioned authority
+
+07:06.580 --> 07:07.960
+inside an operating room.
+
+07:07.960 --> 07:09.940
+Literal life and death authority, yeah.
+
+07:10.400 --> 07:10.540
+Right.
+
+07:10.680 --> 07:12.220
+Their past merit dictates
+
+07:12.220 --> 07:13.680
+their current operational power
+
+07:13.680 --> 07:15.200
+in that specific context.
+
+07:15.820 --> 07:16.900
+But if that same surgeon
+
+07:16.900 --> 07:18.260
+attends a town hall meeting
+
+07:18.260 --> 07:19.620
+to debate zoning laws
+
+07:19.620 --> 07:20.840
+for a new commercial development,
+
+07:21.360 --> 07:22.680
+their medical credentials
+
+07:22.680 --> 07:24.620
+do not grant them an extra hundred votes.
+
+07:24.740 --> 07:24.880
+Right.
+
+07:25.160 --> 07:26.480
+Because their past merit
+
+07:26.480 --> 07:27.620
+does not translate
+
+07:27.620 --> 07:29.940
+into universal general authority.
+
+07:30.160 --> 07:32.060
+And so the fundamental danger
+
+07:32.060 --> 07:33.540
+of a tokenized system
+
+07:33.540 --> 07:35.800
+is that it mints a single asset
+
+07:35.800 --> 07:37.840
+that just travels effortlessly
+
+07:37.840 --> 07:39.840
+across all six of these acts.
+
+07:40.060 --> 07:41.820
+It completely obliterates
+
+07:41.820 --> 07:42.960
+the contextual boundaries
+
+07:42.960 --> 07:45.060
+that make functional governance possible
+
+07:45.060 --> 07:46.100
+in the real world.
+
+07:46.300 --> 07:47.340
+Yeah, the authors argue
+
+07:47.340 --> 07:48.960
+that our architectural imperative
+
+07:48.960 --> 07:49.920
+should not be
+
+07:49.920 --> 07:52.760
+how do we extract financial value
+
+07:52.760 --> 07:53.880
+from every human action?
+
+07:54.460 --> 07:54.840
+It should be
+
+07:54.840 --> 07:56.380
+how do we prevent the nuance
+
+07:56.380 --> 07:57.340
+of human history
+
+07:57.340 --> 07:58.760
+from being erased
+
+07:58.760 --> 08:00.520
+by the mechanisms of finance?
+
+08:00.820 --> 08:02.260
+I can hear a systems engineer
+
+08:02.260 --> 08:03.320
+listening to this right now
+
+08:03.320 --> 08:03.700
+and arguing,
+
+08:03.840 --> 08:03.960
+you know,
+
+08:04.000 --> 08:05.640
+the problem isn't the token itself.
+
+08:06.100 --> 08:06.940
+The problem is just
+
+08:06.940 --> 08:08.260
+the crudeness of the algorithm.
+
+08:08.440 --> 08:08.780
+Oh, yeah.
+
+08:08.820 --> 08:09.420
+The classic
+
+08:09.420 --> 08:11.500
+we just need better math argument.
+
+08:12.120 --> 08:12.600
+Exactly.
+
+08:12.740 --> 08:13.880
+The pushback is always,
+
+08:14.060 --> 08:15.200
+well, if the token
+
+08:15.200 --> 08:16.400
+is creating bad governance,
+
+08:16.400 --> 08:16.980
+we just need
+
+08:16.980 --> 08:17.740
+a more sophisticated
+
+08:17.740 --> 08:18.840
+reputation score.
+
+08:19.240 --> 08:19.900
+We need to weigh
+
+08:19.900 --> 08:21.120
+different actions differently
+
+08:21.120 --> 08:22.660
+and create a perfectly
+
+08:22.660 --> 08:23.900
+accurate leaderboard.
+
+08:24.380 --> 08:25.640
+But Flyxion anticipates
+
+08:25.640 --> 08:26.600
+that exact argument.
+
+08:27.380 --> 08:28.740
+They completely dismantle it
+
+08:28.740 --> 08:30.500
+using order-theoretic mathematics.
+
+08:31.340 --> 08:31.780
+Specifically,
+
+08:32.160 --> 08:32.900
+they look at
+
+08:32.900 --> 08:34.120
+partially ordered sets
+
+08:34.120 --> 08:35.040
+or plus-its.
+
+08:35.580 --> 08:36.560
+They introduce this thing
+
+08:36.560 --> 08:37.940
+called Proposition 1,
+
+08:38.480 --> 08:39.660
+the non-canonicity
+
+08:39.660 --> 08:41.160
+of total contribution rankings.
+
+08:41.160 --> 08:41.640
+Okay.
+
+08:41.780 --> 08:42.720
+We're definitely going to need
+
+08:42.720 --> 08:44.260
+to define some of those terms.
+
+08:44.560 --> 08:45.800
+What is the non-canonicity
+
+08:45.800 --> 08:47.260
+of total contribution rankings?
+
+08:47.260 --> 08:48.800
+So the underlying math here
+
+08:48.800 --> 08:49.920
+exposes the lie
+
+08:49.920 --> 08:51.380
+of the universal leaderboard.
+
+08:51.960 --> 08:52.820
+Human contributions
+
+08:52.820 --> 08:54.900
+within any complex project
+
+08:54.900 --> 08:56.860
+form a partially ordered set.
+
+08:57.260 --> 08:57.560
+That means,
+
+08:57.900 --> 08:58.660
+while some actions
+
+08:58.660 --> 08:59.900
+can be directly compared
+
+08:59.900 --> 09:00.460
+and ranked,
+
+09:00.820 --> 09:01.840
+the entire set
+
+09:01.840 --> 09:02.600
+is heterogeneous.
+
+09:02.980 --> 09:04.300
+So it's apples and oranges?
+
+09:04.640 --> 09:05.140
+Basically.
+
+09:05.520 --> 09:06.420
+Think of an anti-chain
+
+09:06.420 --> 09:07.060
+in mathematics.
+
+09:07.340 --> 09:08.740
+It's a subset of elements
+
+09:08.740 --> 09:09.880
+where no two elements
+
+09:09.880 --> 09:10.760
+are actually comparable.
+
+09:11.020 --> 09:13.260
+Let's ground that anti-chain concept
+
+09:13.260 --> 09:15.160
+in a real-world software project.
+
+09:15.160 --> 09:17.040
+Say you have developer A, right?
+
+09:17.600 --> 09:19.800
+They spend three intense weeks
+
+09:19.800 --> 09:22.000
+rewriting the database query logic
+
+09:22.000 --> 09:24.240
+to reduce latency by 40%.
+
+09:24.240 --> 09:25.080
+A massive,
+
+09:25.300 --> 09:26.860
+highly technical achievement.
+
+09:27.100 --> 09:27.640
+Massive.
+
+09:27.800 --> 09:28.480
+But then you have
+
+09:28.480 --> 09:29.860
+community manager B.
+
+09:30.640 --> 09:32.080
+Over those same three weeks,
+
+09:32.180 --> 09:32.960
+a toxic,
+
+09:33.260 --> 09:34.720
+factional dispute erupts
+
+09:34.720 --> 09:36.000
+among the core maintainers
+
+09:36.000 --> 09:37.020
+that threatens to fork
+
+09:37.020 --> 09:38.060
+the entire project.
+
+09:38.640 --> 09:39.540
+Community manager B
+
+09:39.540 --> 09:40.980
+successfully mediates
+
+09:40.980 --> 09:41.580
+the dispute,
+
+09:42.040 --> 09:43.220
+de-escalates the tension,
+
+09:43.220 --> 09:45.100
+and keeps the team intact.
+
+09:45.280 --> 09:46.660
+Also critical to the survival
+
+09:46.660 --> 09:47.320
+of the project.
+
+09:47.460 --> 09:47.640
+Right.
+
+09:47.760 --> 09:48.840
+So if we are trying to build
+
+09:48.840 --> 09:49.940
+a perfectly accurate
+
+09:49.940 --> 09:51.000
+reputation score,
+
+09:51.740 --> 09:53.220
+how on earth do we rank
+
+09:53.220 --> 09:54.340
+those two contributions
+
+09:54.340 --> 09:55.380
+against each other?
+
+09:55.540 --> 09:56.800
+The mathematical reality
+
+09:56.800 --> 09:58.180
+is that they are incomparable.
+
+09:58.500 --> 09:59.420
+They occupy entirely
+
+09:59.420 --> 10:00.200
+different domains.
+
+10:00.480 --> 10:01.340
+They require completely
+
+10:01.340 --> 10:02.220
+different skill sets
+
+10:02.220 --> 10:03.820
+and they impact the project
+
+10:03.820 --> 10:04.940
+along different vectors.
+
+10:05.080 --> 10:05.900
+So you can't rank them?
+
+10:06.160 --> 10:07.380
+You mathematically cannot.
+
+10:08.060 --> 10:09.620
+The order extension theorem
+
+10:09.620 --> 10:10.820
+dictates that when you have
+
+10:10.820 --> 10:12.020
+incomparable elements
+
+10:12.020 --> 10:13.440
+within a partially ordered set,
+
+10:13.800 --> 10:14.720
+there are multiple
+
+10:14.720 --> 10:16.120
+equally valid ways
+
+10:16.120 --> 10:16.980
+to force them
+
+10:16.980 --> 10:18.040
+into a linear sequence.
+
+10:18.400 --> 10:19.040
+You could rank
+
+10:19.040 --> 10:20.040
+the database rewrite
+
+10:20.040 --> 10:21.000
+above the mediation
+
+10:21.000 --> 10:22.580
+or the mediation
+
+10:22.580 --> 10:23.440
+above the rewrite.
+
+10:23.880 --> 10:24.920
+And the data doesn't tell you
+
+10:24.920 --> 10:25.720
+which one is right.
+
+10:25.940 --> 10:26.420
+Exactly.
+
+10:26.660 --> 10:28.180
+The empirical documentary record
+
+10:28.180 --> 10:29.380
+provides zero data
+
+10:29.380 --> 10:30.500
+to resolve that tie.
+
+10:30.620 --> 10:31.060
+But wait,
+
+10:31.160 --> 10:32.300
+from a practical standpoint,
+
+10:32.520 --> 10:33.880
+if I am a hiring manager
+
+10:33.880 --> 10:34.940
+or if I'm allocating
+
+10:34.940 --> 10:36.260
+a fixed quarterly budget,
+
+10:36.980 --> 10:38.260
+I don't really have the luxury
+
+10:38.260 --> 10:39.680
+of calling things incomparable.
+
+10:39.840 --> 10:40.800
+I have to make a decision.
+
+10:40.960 --> 10:41.720
+I have to rank them.
+
+10:42.020 --> 10:43.520
+Even if a scalar score
+
+10:43.520 --> 10:45.460
+like a single numerical value
+
+10:45.460 --> 10:46.700
+is flawed,
+
+10:47.080 --> 10:48.520
+isn't it a necessary heuristic
+
+10:48.520 --> 10:49.920
+just to operate at scale?
+
+10:50.160 --> 10:51.020
+Well, the necessity
+
+10:51.020 --> 10:52.020
+of making a decision
+
+10:52.020 --> 10:53.000
+does not validate
+
+10:53.000 --> 10:54.320
+the mathematical integrity
+
+10:54.320 --> 10:54.880
+of the score.
+
+10:55.480 --> 10:56.480
+This is a crucial point.
+
+10:56.940 --> 10:58.060
+When a scalar system
+
+10:58.060 --> 10:59.020
+forces a ranking
+
+10:59.020 --> 11:00.600
+between incomparable actions,
+
+11:00.720 --> 11:02.480
+say it assigns 98 points
+
+11:02.480 --> 11:03.080
+to the developer
+
+11:03.080 --> 11:03.980
+and 95 points
+
+11:03.980 --> 11:04.680
+to the mediator,
+
+11:05.200 --> 11:06.400
+it is not discovering
+
+11:06.400 --> 11:07.160
+a hidden truth
+
+11:07.160 --> 11:07.880
+about the universe.
+
+11:08.440 --> 11:09.300
+What is it doing then?
+
+11:09.300 --> 11:10.640
+It is manufacturing
+
+11:10.640 --> 11:11.900
+and institutional bias
+
+11:11.900 --> 11:13.180
+and presenting it
+
+11:13.180 --> 11:13.980
+as objective data.
+
+11:13.980 --> 11:15.100
+Oh, wow.
+
+11:15.360 --> 11:16.380
+Manufacturing bias.
+
+11:16.540 --> 11:16.780
+Yes.
+
+11:17.420 --> 11:18.080
+By stripping away
+
+11:18.080 --> 11:18.740
+the context
+
+11:18.740 --> 11:20.040
+to produce a single number,
+
+11:20.360 --> 11:21.640
+the algorithm destroys
+
+11:21.640 --> 11:22.680
+the very information
+
+11:22.680 --> 11:23.540
+required to make
+
+11:23.540 --> 11:24.480
+an informed judgment.
+
+11:25.520 --> 11:26.460
+The paper asserts
+
+11:26.460 --> 11:26.980
+that a system
+
+11:26.980 --> 11:28.460
+acknowledging incomparability
+
+11:28.460 --> 11:29.920
+is structurally honest.
+
+11:30.700 --> 11:31.760
+A system that forces
+
+11:31.760 --> 11:33.680
+a strict universal leaderboard
+
+11:33.680 --> 11:35.240
+is structurally lying.
+
+11:35.240 --> 11:37.120
+Structurally lying,
+
+11:37.320 --> 11:38.000
+which sets up
+
+11:38.000 --> 11:40.960
+this catastrophic failure cascade
+
+11:40.960 --> 11:42.540
+when you attach financial value
+
+11:42.540 --> 11:43.440
+to that structurally
+
+11:43.440 --> 11:44.360
+dishonest score.
+
+11:44.440 --> 11:44.880
+Exactly.
+
+11:45.160 --> 11:45.740
+Which is what
+
+11:45.740 --> 11:47.100
+almost all VAOs do.
+
+11:47.200 --> 11:47.480
+Right.
+
+11:47.840 --> 11:49.300
+The AAN feasibility study
+
+11:49.300 --> 11:50.740
+didn't just want to rank people.
+
+11:51.040 --> 11:51.960
+It wanted to distribute
+
+11:51.960 --> 11:53.400
+tradable governance tokens
+
+11:53.400 --> 11:54.680
+based on those rankings.
+
+11:55.180 --> 11:55.840
+And this brings us
+
+11:55.840 --> 11:56.800
+to proposition two,
+
+11:57.240 --> 11:58.880
+the transfer fidelity conflict.
+
+11:59.040 --> 11:59.860
+And the logical proof
+
+11:59.860 --> 12:00.660
+they used to demonstrate
+
+12:00.660 --> 12:01.280
+this conflict
+
+12:01.280 --> 12:02.060
+is devastating
+
+12:02.060 --> 12:03.320
+to the entire concept
+
+12:03.320 --> 12:04.040
+of tokenomics,
+
+12:04.040 --> 12:05.440
+especially the idea
+
+12:05.440 --> 12:06.320
+of skin in the game.
+
+12:06.460 --> 12:06.960
+How so?
+
+12:07.340 --> 12:08.420
+Break down the proof for us.
+
+12:08.600 --> 12:09.660
+The proof outlines
+
+12:09.660 --> 12:11.060
+an impossible trolemma.
+
+12:12.420 --> 12:13.260
+Assume the system
+
+12:13.260 --> 12:14.720
+issues a governance token
+
+12:14.720 --> 12:15.300
+to Alice
+
+12:15.300 --> 12:16.360
+as a reward
+
+12:16.360 --> 12:17.380
+for her verified,
+
+12:17.780 --> 12:18.960
+high-quality contributions.
+
+12:19.780 --> 12:21.120
+The core philosophy
+
+12:21.120 --> 12:21.740
+of the system
+
+12:21.740 --> 12:23.200
+is that governance power
+
+12:23.200 --> 12:24.000
+should reside
+
+12:24.000 --> 12:24.980
+with those who have
+
+12:24.980 --> 12:26.160
+demonstrated competence
+
+12:26.160 --> 12:28.120
+and assumed responsibility, right?
+
+12:28.240 --> 12:29.660
+Yeah, that is the stated goal
+
+12:29.660 --> 12:30.500
+of almost every
+
+12:30.500 --> 12:31.700
+decentralized protocol.
+
+12:31.860 --> 12:32.700
+You earn your say.
+
+12:32.800 --> 12:33.020
+Right.
+
+12:33.020 --> 12:34.880
+The contradiction arises
+
+12:34.880 --> 12:36.340
+the moment Alice decides
+
+12:36.340 --> 12:37.540
+to leverage the financial
+
+12:37.540 --> 12:38.440
+aspect of the token.
+
+12:38.580 --> 12:38.820
+Oh.
+
+12:39.020 --> 12:39.980
+The token is an asset.
+
+12:40.160 --> 12:40.860
+It has liquidity.
+
+12:41.580 --> 12:43.900
+So Alice sells her token
+
+12:43.900 --> 12:44.940
+on an open exchange
+
+12:44.940 --> 12:45.440
+to Bob.
+
+12:45.680 --> 12:46.000
+Okay.
+
+12:46.180 --> 12:47.360
+Now Bob holds the token,
+
+12:47.900 --> 12:48.980
+which means Bob holds
+
+12:48.980 --> 12:49.880
+the governance power.
+
+12:50.740 --> 12:52.500
+But Bob has zero
+
+12:52.500 --> 12:53.640
+historical context
+
+12:53.640 --> 12:54.560
+within the project.
+
+12:55.260 --> 12:56.220
+Bob has not demonstrated
+
+12:56.220 --> 12:57.500
+any technical competence.
+
+12:58.020 --> 12:58.820
+Bob has not assumed
+
+12:58.820 --> 12:59.640
+any of the ongoing
+
+12:59.640 --> 13:00.260
+responsibilities
+
+13:00.260 --> 13:01.080
+that Alice
+
+13:01.080 --> 13:02.360
+originally undertook.
+
+13:02.360 --> 13:03.200
+He simply utilized
+
+13:03.200 --> 13:04.240
+capital to bypass
+
+13:04.240 --> 13:05.320
+the acts of record,
+
+13:05.500 --> 13:06.720
+verify, and recognize.
+
+13:06.780 --> 13:07.160
+Exactly.
+
+13:07.280 --> 13:08.140
+He just bought his way
+
+13:08.140 --> 13:09.000
+to the authorized step.
+
+13:09.200 --> 13:09.960
+Here's where it gets
+
+13:09.960 --> 13:10.820
+really interesting for me
+
+13:10.820 --> 13:11.840
+because this is the equivalent
+
+13:11.840 --> 13:13.280
+of purchasing a medical degree.
+
+13:13.460 --> 13:14.180
+That's a great way
+
+13:14.180 --> 13:14.580
+to put it.
+
+13:14.800 --> 13:15.060
+Right.
+
+13:15.060 --> 13:16.700
+The prestige and authority
+
+13:16.700 --> 13:18.200
+of an MD is built
+
+13:18.200 --> 13:19.520
+on years of verified
+
+13:19.520 --> 13:20.680
+clinical rotations,
+
+13:21.000 --> 13:21.920
+grueling exams,
+
+13:22.060 --> 13:22.680
+all of that.
+
+13:23.020 --> 13:23.740
+If the university
+
+13:23.740 --> 13:24.620
+suddenly allowed
+
+13:24.620 --> 13:25.620
+an exhausted resident
+
+13:25.620 --> 13:26.660
+to sell their MD
+
+13:26.660 --> 13:28.180
+to a wealthy individual
+
+13:28.180 --> 13:29.180
+who had literally
+
+13:29.180 --> 13:31.080
+never taken a biology class,
+
+13:31.620 --> 13:33.200
+the entire medical system
+
+13:33.200 --> 13:34.100
+would instantly
+
+13:34.100 --> 13:35.060
+lose its fidelity.
+
+13:35.060 --> 13:35.980
+It would collapse
+
+13:35.980 --> 13:37.120
+overnight because
+
+13:37.120 --> 13:37.800
+the convenience
+
+13:37.800 --> 13:39.180
+of the financial transaction
+
+13:39.180 --> 13:40.860
+requires the destruction
+
+13:40.860 --> 13:42.400
+of the historical context.
+
+13:42.620 --> 13:43.220
+The convenience
+
+13:43.220 --> 13:44.440
+requires the destruction.
+
+13:44.620 --> 13:45.380
+That is heavy.
+
+13:45.600 --> 13:46.080
+It is.
+
+13:46.440 --> 13:47.400
+And that mechanism
+
+13:47.400 --> 13:48.060
+of destruction
+
+13:48.060 --> 13:49.160
+leads Fulseria
+
+13:49.160 --> 13:49.820
+to propose
+
+13:49.820 --> 13:51.420
+a radical redefinition
+
+13:51.420 --> 13:51.980
+of currency.
+
+13:52.420 --> 13:53.120
+They define money
+
+13:53.120 --> 13:54.220
+not as the opposite
+
+13:54.220 --> 13:54.860
+of a ledger,
+
+13:55.260 --> 13:56.780
+but as an amputated ledger.
+
+13:56.920 --> 13:58.080
+An amputated ledger?
+
+13:58.120 --> 13:58.400
+Oh, wait.
+
+13:58.480 --> 13:59.440
+That is a phenomenal
+
+13:59.440 --> 14:00.460
+conceptual shift.
+
+14:00.580 --> 14:01.480
+We usually think of money
+
+14:01.480 --> 14:02.380
+as pure value,
+
+14:02.380 --> 14:03.600
+but they're framing it
+
+14:03.600 --> 14:04.320
+as a deliberate
+
+14:04.320 --> 14:05.640
+deletion of data.
+
+14:06.060 --> 14:06.080
+Yes.
+
+14:06.600 --> 14:07.540
+Consider just a physical
+
+14:07.540 --> 14:08.120
+dollar bill.
+
+14:08.120 --> 14:09.440
+When a transaction
+
+14:09.440 --> 14:10.640
+occurs using a dollar,
+
+14:10.900 --> 14:12.120
+the currency provides
+
+14:12.120 --> 14:13.000
+ultimate liquidity
+
+14:13.000 --> 14:14.160
+precisely because
+
+14:14.160 --> 14:15.640
+it enforces total amnesia.
+
+14:15.860 --> 14:16.000
+Amnesia.
+
+14:16.020 --> 14:16.700
+Think about it.
+
+14:17.380 --> 14:18.480
+The dollar does not
+
+14:18.480 --> 14:19.740
+record the labor conditions
+
+14:19.740 --> 14:20.760
+under which it was earned.
+
+14:21.240 --> 14:22.160
+It does not carry
+
+14:22.160 --> 14:23.560
+the history of the obligations
+
+14:23.560 --> 14:24.800
+it previously discharged.
+
+14:25.340 --> 14:26.500
+It does not indicate
+
+14:26.500 --> 14:27.680
+whether the current holder
+
+14:27.680 --> 14:28.380
+obtained it
+
+14:28.380 --> 14:29.680
+through technical brilliance,
+
+14:30.080 --> 14:30.640
+sheer luck,
+
+14:30.780 --> 14:32.040
+or malicious extraction.
+
+14:32.100 --> 14:32.280
+Right.
+
+14:32.340 --> 14:32.900
+It doesn't care.
+
+14:33.300 --> 14:34.840
+To make currency fungible,
+
+14:34.980 --> 14:36.420
+meaning any one unit
+
+14:36.420 --> 14:37.860
+is perfectly interchangeable
+
+14:37.860 --> 14:38.960
+with any other unit,
+
+14:39.580 --> 14:40.580
+you must structurally
+
+14:40.580 --> 14:41.780
+amputate its history.
+
+14:41.980 --> 14:42.920
+So fungibility
+
+14:42.920 --> 14:44.180
+requires forgetting.
+
+14:44.440 --> 14:44.840
+Exactly.
+
+14:44.980 --> 14:46.300
+So if your community's goal
+
+14:46.300 --> 14:47.660
+is to accurately remember
+
+14:47.660 --> 14:48.480
+who did what
+
+14:48.480 --> 14:50.040
+and to allocate authority
+
+14:50.040 --> 14:51.680
+based on that rich tapestry
+
+14:51.680 --> 14:53.100
+of historical contribution,
+
+14:53.740 --> 14:54.960
+the single most destructive
+
+14:54.960 --> 14:55.940
+action you can take
+
+14:55.940 --> 14:57.500
+is to convert that memory
+
+14:57.500 --> 14:59.020
+into a liquid token.
+
+14:59.220 --> 15:01.120
+You are actively choosing amnesia
+
+15:01.120 --> 15:02.840
+while operating under the delusion
+
+15:02.840 --> 15:04.160
+that you are optimizing memory.
+
+15:04.360 --> 15:04.760
+Wow.
+
+15:04.760 --> 15:06.760
+And a prior art on this topic
+
+15:06.760 --> 15:07.840
+is extensive, right?
+
+15:08.040 --> 15:10.120
+We already rely on massive
+
+15:10.120 --> 15:11.220
+planet-scale systems
+
+15:11.220 --> 15:12.660
+that function explicitly
+
+15:12.660 --> 15:14.420
+as ledgers without value.
+
+15:14.700 --> 15:15.060
+We do.
+
+15:15.580 --> 15:16.560
+Wikipedia is perhaps
+
+15:16.560 --> 15:18.280
+the most robust example of this.
+
+15:18.600 --> 15:19.640
+The platform maintains
+
+15:19.640 --> 15:21.880
+an exhaustive page history mechanism.
+
+15:22.440 --> 15:23.600
+Every single keystroke,
+
+15:23.760 --> 15:25.180
+every addition and deletion
+
+15:25.180 --> 15:26.320
+by every contributor
+
+15:26.320 --> 15:27.780
+is immutably recorded
+
+15:27.780 --> 15:29.380
+and publicly verifiable.
+
+15:29.700 --> 15:31.080
+But the Wikipedia architecture
+
+15:31.080 --> 15:32.500
+strictly separates
+
+15:32.500 --> 15:33.820
+that documentary record
+
+15:33.820 --> 15:35.320
+from operational authority.
+
+15:35.640 --> 15:35.720
+Right.
+
+15:35.760 --> 15:36.940
+Like, if I spend six months
+
+15:36.940 --> 15:39.280
+fixing 10,000 punctuation errors
+
+15:39.280 --> 15:40.820
+across historical articles,
+
+15:41.060 --> 15:43.100
+my edit count will be massive.
+
+15:43.360 --> 15:43.660
+Huge.
+
+15:43.780 --> 15:45.340
+The system records it perfectly.
+
+15:45.860 --> 15:47.100
+But that high edit count
+
+15:47.100 --> 15:48.720
+does not automatically trigger
+
+15:48.720 --> 15:49.600
+a smart contract
+
+15:49.600 --> 15:50.480
+that promotes me
+
+15:50.480 --> 15:51.860
+to a Wikipedia administrator.
+
+15:51.960 --> 15:53.380
+No, because admin status
+
+15:53.380 --> 15:55.080
+is an operational role.
+
+15:55.080 --> 15:57.160
+It requires a completely separate
+
+15:57.160 --> 15:58.780
+deliberative social process.
+
+15:59.700 --> 16:00.820
+The community must review
+
+16:00.820 --> 16:01.980
+the nature of your edits,
+
+16:02.140 --> 16:03.160
+your communication style
+
+16:03.160 --> 16:03.980
+on the talk pages,
+
+16:04.400 --> 16:05.000
+your understanding
+
+16:05.000 --> 16:06.320
+of consensus policies.
+
+16:06.440 --> 16:07.240
+It's not automated.
+
+16:07.380 --> 16:08.240
+And the same separation
+
+16:08.240 --> 16:09.540
+exists in Git too, right?
+
+16:09.660 --> 16:11.040
+The version control architecture
+
+16:11.040 --> 16:12.260
+underlying modern
+
+16:12.260 --> 16:13.100
+software engineering.
+
+16:13.220 --> 16:13.340
+Right.
+
+16:13.480 --> 16:14.800
+Git is a content address
+
+16:14.800 --> 16:15.600
+tracking system.
+
+16:15.920 --> 16:17.200
+It cryptographically secured
+
+16:17.200 --> 16:18.100
+every commit you make.
+
+16:18.520 --> 16:19.540
+The documentary record
+
+16:19.540 --> 16:20.240
+is pristine.
+
+16:20.540 --> 16:21.840
+But no matter how many lines
+
+16:21.840 --> 16:22.680
+of code I push
+
+16:22.680 --> 16:23.680
+to my local branch,
+
+16:24.160 --> 16:25.200
+that raw metric
+
+16:25.200 --> 16:26.240
+does not grant me
+
+16:26.240 --> 16:26.900
+the authorization
+
+16:26.900 --> 16:28.100
+to merge my code
+
+16:28.100 --> 16:29.560
+into the master repository
+
+16:29.560 --> 16:31.360
+of, say, the Linux kernel.
+
+16:32.340 --> 16:32.920
+Right access
+
+16:32.920 --> 16:34.900
+is an entirely distinct,
+
+16:35.340 --> 16:37.020
+manually governed layer.
+
+16:37.260 --> 16:37.720
+Exactly.
+
+16:38.260 --> 16:39.180
+And we can also look
+
+16:39.180 --> 16:40.140
+at the systemic failures
+
+16:40.140 --> 16:40.700
+that occur
+
+16:40.700 --> 16:41.900
+when this separation
+
+16:41.900 --> 16:42.560
+is breached.
+
+16:43.100 --> 16:44.640
+The academic publishing industry
+
+16:44.640 --> 16:45.760
+provides a really glaring
+
+16:45.760 --> 16:46.860
+cautionary tale here.
+
+16:46.900 --> 16:48.220
+Oh, the citation metrics?
+
+16:48.460 --> 16:48.720
+Yes.
+
+16:49.260 --> 16:49.680
+Originally,
+
+16:49.820 --> 16:50.660
+academic citations
+
+16:50.660 --> 16:51.360
+functioned purely
+
+16:51.360 --> 16:52.540
+as a documentary record.
+
+16:52.960 --> 16:53.620
+It was a map
+
+16:53.620 --> 16:54.740
+showing how one piece
+
+16:54.740 --> 16:55.720
+of research engaged
+
+16:55.720 --> 16:56.660
+with prior literature.
+
+16:56.660 --> 16:58.020
+It was a web of context.
+
+16:58.380 --> 16:59.220
+But then universities
+
+16:59.220 --> 17:00.300
+and funding bodies
+
+17:00.300 --> 17:02.460
+demanded a quantifiable metric
+
+17:02.460 --> 17:03.740
+to streamline hiring
+
+17:03.740 --> 17:04.980
+and grant distribution.
+
+17:05.680 --> 17:06.260
+They introduced
+
+17:06.260 --> 17:07.200
+scalar scores
+
+17:07.200 --> 17:08.440
+like the H-index
+
+17:08.440 --> 17:10.120
+and the journal impact factor.
+
+17:10.240 --> 17:10.860
+They compressed
+
+17:10.860 --> 17:12.060
+the documentary record
+
+17:12.060 --> 17:13.400
+into a performance metric.
+
+17:13.540 --> 17:13.920
+Exactly.
+
+17:14.120 --> 17:14.740
+And the distortion
+
+17:14.740 --> 17:15.780
+was instantaneous.
+
+17:16.380 --> 17:17.080
+Goodhart's law
+
+17:17.080 --> 17:18.300
+takes effect immediately.
+
+17:18.820 --> 17:19.620
+The moment a measure
+
+17:19.620 --> 17:20.360
+becomes a target,
+
+17:20.540 --> 17:21.440
+it ceases to be
+
+17:21.440 --> 17:21.980
+a good measure.
+
+17:22.360 --> 17:22.680
+Right.
+
+17:23.040 --> 17:24.400
+The metrics reform literature
+
+17:24.400 --> 17:26.040
+documents how researchers
+
+17:26.040 --> 17:27.160
+began optimizing
+
+17:27.160 --> 17:28.080
+for the score
+
+17:28.080 --> 17:29.580
+rather than the science.
+
+17:30.360 --> 17:31.120
+We saw the rise
+
+17:31.120 --> 17:32.440
+of citation cartels
+
+17:32.440 --> 17:33.440
+where academics
+
+17:33.440 --> 17:34.780
+artificially inflate
+
+17:34.780 --> 17:35.600
+each other's metrics.
+
+17:35.740 --> 17:36.880
+Which is just wild!
+
+17:37.140 --> 17:38.780
+And we saw a severe drop
+
+17:38.780 --> 17:40.040
+in replication studies.
+
+17:40.600 --> 17:41.680
+Because replicating
+
+17:41.680 --> 17:42.720
+existing work
+
+17:42.720 --> 17:43.640
+doesn't generate
+
+17:43.640 --> 17:45.480
+the same age index boost
+
+17:45.480 --> 17:46.680
+as publishing a novel,
+
+17:47.180 --> 17:47.740
+even if it's
+
+17:47.740 --> 17:49.820
+a statistically flimsy finding.
+
+17:49.820 --> 17:51.320
+So the academic crisis
+
+17:51.320 --> 17:52.460
+perfectly mirrors
+
+17:52.460 --> 17:53.640
+the governance collapse
+
+17:53.640 --> 17:55.540
+we see in tokenized ecosystems.
+
+17:55.760 --> 17:57.180
+It's the exact same failure mode.
+
+17:57.420 --> 17:58.460
+Okay, so if we accept
+
+17:58.460 --> 17:58.940
+the premise
+
+17:58.940 --> 18:00.440
+that tokens destroy context
+
+18:00.440 --> 18:02.120
+and scores manufacture bias,
+
+18:02.300 --> 18:03.520
+we run into a massive
+
+18:03.520 --> 18:04.620
+architectural problem
+
+18:04.620 --> 18:05.520
+regarding identity.
+
+18:05.620 --> 18:06.320
+Right, how do you know
+
+18:06.320 --> 18:06.920
+who anyone is?
+
+18:06.960 --> 18:08.180
+Right, because in current
+
+18:08.180 --> 18:09.200
+Web3 paradigms,
+
+18:09.300 --> 18:10.140
+your identity is
+
+18:10.140 --> 18:11.260
+inextricably linked
+
+18:11.260 --> 18:11.920
+to your wallet.
+
+18:12.200 --> 18:13.060
+Your standing in the community
+
+18:13.060 --> 18:14.140
+is literally the sum
+
+18:14.140 --> 18:15.280
+of the assets you hold.
+
+18:15.580 --> 18:16.760
+If we strip away
+
+18:16.760 --> 18:17.900
+the tokens and the scores,
+
+18:17.900 --> 18:19.560
+what exactly is
+
+18:19.560 --> 18:20.560
+the digital persona?
+
+18:20.760 --> 18:21.260
+The White Paper
+
+18:21.260 --> 18:22.340
+introduces this framework
+
+18:22.340 --> 18:23.080
+called persona
+
+18:23.080 --> 18:23.880
+without ownership.
+
+18:24.900 --> 18:25.940
+The fundamental assertion
+
+18:25.940 --> 18:26.760
+is that identity
+
+18:26.760 --> 18:28.260
+is a continuity relation,
+
+18:28.740 --> 18:29.980
+not a property relation.
+
+18:30.080 --> 18:31.100
+A continuity relation.
+
+18:31.140 --> 18:31.680
+A persona
+
+18:31.680 --> 18:33.280
+is the cryptographic tether
+
+18:33.280 --> 18:34.340
+that binds together
+
+18:34.340 --> 18:35.520
+a history of actions,
+
+18:35.960 --> 18:36.880
+social attestations,
+
+18:37.260 --> 18:38.540
+and unresolved obligations.
+
+18:39.140 --> 18:40.100
+It is attached
+
+18:40.100 --> 18:40.800
+to a subject,
+
+18:41.060 --> 18:41.860
+but it is not
+
+18:41.860 --> 18:42.780
+a bag of assets
+
+18:42.780 --> 18:43.780
+that can be liquidated
+
+18:43.780 --> 18:44.480
+or transferred.
+
+18:44.820 --> 18:45.740
+Which necessitates
+
+18:45.740 --> 18:46.560
+a deep dive
+
+18:46.560 --> 18:47.580
+into the mechanical
+
+18:47.580 --> 18:48.100
+difference
+
+18:48.100 --> 18:49.440
+between two concepts
+
+18:49.440 --> 18:50.680
+that our current systems
+
+18:50.680 --> 18:51.800
+frequently conflate,
+
+18:52.240 --> 18:53.200
+and that is recovery
+
+18:53.200 --> 18:54.200
+and succession.
+
+18:54.440 --> 18:54.620
+Right.
+
+18:55.020 --> 18:56.120
+Because if I am operating
+
+18:56.120 --> 18:57.440
+a persona without ownership
+
+18:57.440 --> 18:58.840
+and I lose
+
+18:58.840 --> 19:00.540
+my cryptographic hardware keys,
+
+19:00.760 --> 19:02.100
+how do I regain access
+
+19:02.100 --> 19:03.280
+without compromising
+
+19:03.280 --> 19:04.420
+the non-transferable
+
+19:04.420 --> 19:05.400
+nature of the identity?
+
+19:06.100 --> 19:06.760
+Well, recovery
+
+19:06.760 --> 19:07.400
+is the process
+
+19:07.400 --> 19:08.240
+of reestablishing
+
+19:08.240 --> 19:08.980
+the link between
+
+19:08.980 --> 19:09.860
+the living subject
+
+19:09.860 --> 19:11.420
+and the historical persona.
+
+19:12.220 --> 19:13.380
+If you lose your keys,
+
+19:13.800 --> 19:14.820
+the system might initiate
+
+19:14.820 --> 19:15.920
+a recovery protocol
+
+19:15.920 --> 19:17.300
+involving multi-signature
+
+19:17.300 --> 19:18.000
+attestations
+
+19:18.000 --> 19:18.920
+from trusted peers.
+
+19:19.140 --> 19:20.100
+So real people
+
+19:20.100 --> 19:20.800
+vouching for you?
+
+19:20.840 --> 19:21.120
+Yes.
+
+19:21.660 --> 19:22.520
+They socially verify
+
+19:22.520 --> 19:23.420
+that the individual
+
+19:23.420 --> 19:24.800
+generating the new key pair
+
+19:24.800 --> 19:26.040
+is the same human being
+
+19:26.040 --> 19:26.560
+who generated
+
+19:26.560 --> 19:27.500
+the previous actions.
+
+19:27.940 --> 19:28.800
+You are changing
+
+19:28.800 --> 19:29.800
+the cryptographic lock
+
+19:29.800 --> 19:30.380
+on the door,
+
+19:30.580 --> 19:31.920
+but the system is verifying
+
+19:31.920 --> 19:32.960
+that the same entity
+
+19:32.960 --> 19:34.240
+remains inside the house.
+
+19:34.520 --> 19:34.900
+Got it.
+
+19:35.480 --> 19:36.380
+And succession,
+
+19:36.640 --> 19:37.300
+on the other hand,
+
+19:37.360 --> 19:38.100
+is the transfer
+
+19:38.100 --> 19:39.280
+of custodial duty.
+
+19:39.700 --> 19:39.900
+Like,
+
+19:39.960 --> 19:41.480
+if I am the lead maintainer
+
+19:41.480 --> 19:42.700
+of an open source library
+
+19:42.700 --> 19:43.980
+and I decide to step down,
+
+19:44.200 --> 19:45.380
+I need to pass the keys
+
+19:45.380 --> 19:46.220
+to a new developer.
+
+19:46.420 --> 19:47.140
+But succession
+
+19:47.140 --> 19:48.380
+does not transfer you.
+
+19:48.920 --> 19:49.840
+When the new developer
+
+19:49.840 --> 19:51.000
+assumes the role,
+
+19:51.420 --> 19:51.900
+they inherit
+
+19:51.900 --> 19:52.920
+the custodial access,
+
+19:53.360 --> 19:53.840
+they inherit
+
+19:53.840 --> 19:54.500
+the current state
+
+19:54.500 --> 19:55.140
+of the repository,
+
+19:55.560 --> 19:56.660
+and the unresolved
+
+19:56.660 --> 19:57.880
+operational obligations.
+
+19:58.080 --> 19:58.680
+But they don't
+
+19:58.680 --> 19:59.760
+inherit my history.
+
+19:59.920 --> 20:00.260
+Exactly.
+
+20:00.820 --> 20:01.560
+They do not inherit
+
+20:01.560 --> 20:02.400
+your past authorship,
+
+20:02.880 --> 20:03.660
+they do not inherit
+
+20:03.660 --> 20:04.360
+the reputation
+
+20:04.360 --> 20:05.560
+you built over five years,
+
+20:05.820 --> 20:06.880
+the new maintainer
+
+20:06.880 --> 20:07.620
+takes the job,
+
+20:07.980 --> 20:08.640
+but they do not
+
+20:08.640 --> 20:09.540
+acquire the standing
+
+20:09.540 --> 20:10.500
+to masquerade
+
+20:10.500 --> 20:11.700
+as the historical author
+
+20:11.700 --> 20:12.760
+of your previous work.
+
+20:12.880 --> 20:13.040
+Okay,
+
+20:13.160 --> 20:14.040
+to make the mechanics
+
+20:14.040 --> 20:14.840
+of Persona
+
+20:14.840 --> 20:15.700
+without ownership
+
+20:15.700 --> 20:16.960
+painfully concrete,
+
+20:17.500 --> 20:18.580
+the paper details
+
+20:18.580 --> 20:19.840
+this hypothetical sequence
+
+20:19.840 --> 20:21.000
+called the P47
+
+20:21.000 --> 20:22.200
+worked scenario.
+
+20:22.460 --> 20:23.380
+I love this scenario.
+
+20:23.520 --> 20:24.120
+It really grounds
+
+20:24.120 --> 20:24.700
+the theory.
+
+20:24.860 --> 20:25.020
+Yeah,
+
+20:25.080 --> 20:25.520
+I want to spend
+
+20:25.520 --> 20:26.120
+some time here
+
+20:26.120 --> 20:27.040
+because this is where
+
+20:27.040 --> 20:28.260
+the theoretical architecture
+
+20:28.260 --> 20:29.540
+becomes a practical roadmap.
+
+20:30.080 --> 20:31.240
+Let's trace the life cycle
+
+20:31.240 --> 20:32.360
+of a single contribution.
+
+20:33.020 --> 20:33.960
+We have a contributor
+
+20:33.960 --> 20:34.820
+operating under
+
+20:34.820 --> 20:36.440
+the Persona P47.
+
+20:37.020 --> 20:37.580
+They identify
+
+20:37.580 --> 20:38.360
+a memory leak
+
+20:38.360 --> 20:39.520
+in the resource scheduler,
+
+20:39.540 --> 20:40.240
+of a distributed
+
+20:40.240 --> 20:41.160
+computing project,
+
+20:41.560 --> 20:42.340
+and they submit
+
+20:42.340 --> 20:43.860
+a complex patch.
+
+20:44.300 --> 20:44.780
+Step one.
+
+20:45.060 --> 20:45.800
+The first phase
+
+20:45.800 --> 20:47.000
+is purely documentary.
+
+20:47.960 --> 20:49.000
+The system executes
+
+20:49.000 --> 20:49.760
+the record function.
+
+20:50.300 --> 20:51.380
+It logs an immutable
+
+20:51.380 --> 20:52.600
+append-only event.
+
+20:53.240 --> 20:54.140
+Persona P47
+
+20:54.140 --> 20:55.560
+submitted a specific
+
+20:55.560 --> 20:56.620
+cryptographic hash
+
+20:56.620 --> 20:57.740
+representing the patch
+
+20:57.740 --> 20:59.380
+at a specific timestamp.
+
+20:59.560 --> 21:00.500
+And there's no judgment
+
+21:00.500 --> 21:01.400
+attached to this log.
+
+21:01.500 --> 21:01.740
+None.
+
+21:02.140 --> 21:02.940
+It's just a fact.
+
+21:03.560 --> 21:04.740
+Next, step two.
+
+21:05.200 --> 21:05.880
+The automated
+
+21:05.880 --> 21:07.620
+continuous integration pipeline
+
+21:07.620 --> 21:08.540
+runs the code.
+
+21:08.540 --> 21:10.760
+It passes all unit tests
+
+21:10.760 --> 21:11.960
+and the memory leak
+
+21:11.960 --> 21:13.460
+is demonstrably resolved.
+
+21:14.420 --> 21:15.240
+Human maintainers
+
+21:15.240 --> 21:15.920
+review the diff
+
+21:15.920 --> 21:16.480
+and confirm
+
+21:16.480 --> 21:17.240
+it doesn't introduce
+
+21:17.240 --> 21:18.220
+secondary vulnerabilities.
+
+21:18.860 --> 21:19.020
+Right,
+
+21:19.140 --> 21:20.020
+so this fulfills
+
+21:20.020 --> 21:20.880
+the Verify Act.
+
+21:21.420 --> 21:22.080
+The system now
+
+21:22.080 --> 21:23.160
+holds factual evidence
+
+21:23.160 --> 21:24.360
+that the recorded event
+
+21:24.360 --> 21:25.480
+achieved its stated
+
+21:25.480 --> 21:26.300
+technical goal.
+
+21:26.560 --> 21:26.800
+Awesome.
+
+21:27.260 --> 21:28.000
+Then step three.
+
+21:28.440 --> 21:29.240
+Following verification,
+
+21:29.500 --> 21:30.400
+three senior members
+
+21:30.400 --> 21:31.040
+of the project
+
+21:31.040 --> 21:32.560
+append cryptographic signatures
+
+21:32.560 --> 21:33.880
+to P47's event,
+
+21:34.360 --> 21:35.140
+explicitly stating
+
+21:35.140 --> 21:35.680
+that the patch
+
+21:35.680 --> 21:36.900
+was elegant and critical
+
+21:36.900 --> 21:37.960
+to the project's stability.
+
+21:38.180 --> 21:38.880
+So we have now moved
+
+21:38.880 --> 21:39.900
+into the Recognize Act.
+
+21:40.300 --> 21:41.280
+The system has captured
+
+21:41.280 --> 21:42.900
+the normative social endorsement
+
+21:42.900 --> 21:43.520
+of the community.
+
+21:43.900 --> 21:44.880
+Finally, step four.
+
+21:45.620 --> 21:47.280
+The project's governance treasury
+
+21:47.280 --> 21:48.560
+executes a transaction,
+
+21:49.160 --> 21:51.120
+paying P47 $5,000
+
+21:51.120 --> 21:52.180
+in stablecoins
+
+21:52.180 --> 21:52.840
+for their labor.
+
+21:53.020 --> 21:54.260
+The reward act is complete,
+
+21:54.520 --> 21:55.160
+and this is where
+
+21:55.160 --> 21:56.500
+the ledger without value
+
+21:56.500 --> 21:57.780
+diverges entirely
+
+21:57.780 --> 21:58.980
+from the AEN model.
+
+21:58.980 --> 22:01.340
+P47 was compensated
+
+22:01.340 --> 22:02.360
+via a discreet,
+
+22:02.680 --> 22:03.860
+closed-loop transaction.
+
+22:04.740 --> 22:05.840
+The Treasury discharged
+
+22:05.840 --> 22:06.540
+its obligation
+
+22:06.540 --> 22:07.540
+for the labor provided.
+
+22:07.740 --> 22:07.960
+Right.
+
+22:08.160 --> 22:09.600
+P47 does not receive
+
+22:09.600 --> 22:10.560
+a newly minted
+
+22:10.560 --> 22:11.980
+scheduler governance token
+
+22:11.980 --> 22:13.700
+that permanently inflates
+
+22:13.700 --> 22:14.480
+their voting power
+
+22:14.480 --> 22:15.720
+over the entire protocol.
+
+22:15.860 --> 22:17.180
+Okay, so let's fast forward.
+
+22:17.420 --> 22:18.600
+Six months down the line,
+
+22:18.760 --> 22:20.300
+a massive ideological debate
+
+22:20.300 --> 22:21.480
+fractures the community.
+
+22:21.980 --> 22:23.160
+The core team proposes
+
+22:23.160 --> 22:24.200
+changing the overarching
+
+22:24.200 --> 22:25.100
+software license
+
+22:25.100 --> 22:26.740
+from an open MIT license
+
+22:26.740 --> 22:27.780
+to a restrictive
+
+22:27.780 --> 22:29.080
+business source license.
+
+22:29.520 --> 22:30.080
+They initiate
+
+22:30.080 --> 22:31.160
+a protocol-wide vote.
+
+22:31.360 --> 22:32.180
+A huge deal.
+
+22:32.320 --> 22:32.440
+Yeah.
+
+22:32.880 --> 22:34.600
+Where does P47 stand
+
+22:34.600 --> 22:35.580
+in this governance event?
+
+22:35.840 --> 22:37.700
+P47 has no automatic
+
+22:37.700 --> 22:38.800
+universal franchise.
+
+22:39.440 --> 22:40.360
+Fixing a memory leak
+
+22:40.360 --> 22:41.060
+in a scheduler
+
+22:41.060 --> 22:41.880
+does not grant
+
+22:41.880 --> 22:42.420
+an individual
+
+22:42.420 --> 22:43.720
+the legal or strategic
+
+22:43.720 --> 22:44.700
+expertise required
+
+22:44.700 --> 22:45.240
+to dictate
+
+22:45.240 --> 22:46.560
+corporate licensing structures.
+
+22:46.700 --> 22:47.460
+So their past
+
+22:47.460 --> 22:48.240
+technical merit
+
+22:48.240 --> 22:48.900
+does not bleed
+
+22:48.900 --> 22:49.880
+into legal authority.
+
+22:50.060 --> 22:50.420
+Precisely.
+
+22:50.480 --> 22:50.800
+However,
+
+22:51.240 --> 22:52.140
+and here's the twist,
+
+22:52.780 --> 22:53.600
+a week after
+
+22:53.600 --> 22:54.600
+the licensing debate,
+
+22:55.140 --> 22:56.220
+a different proposal
+
+22:56.220 --> 22:56.700
+is submitted
+
+22:56.700 --> 22:57.960
+to completely rewrite
+
+22:57.960 --> 22:59.560
+the core queuing algorithm
+
+22:59.560 --> 23:01.060
+of that exact same
+
+23:01.060 --> 23:02.280
+resource scheduler.
+
+23:02.460 --> 23:02.680
+Ah.
+
+23:03.380 --> 23:04.160
+Now the architecture
+
+23:04.160 --> 23:05.240
+dynamically computes
+
+23:05.240 --> 23:05.940
+standing based
+
+23:05.940 --> 23:07.060
+on contextual relevance.
+
+23:07.960 --> 23:08.400
+The system
+
+23:08.400 --> 23:09.300
+queries the ledger
+
+23:09.300 --> 23:10.060
+and identifies
+
+23:10.060 --> 23:10.740
+that P47
+
+23:10.740 --> 23:11.740
+has a pristine,
+
+23:12.340 --> 23:12.700
+verified,
+
+23:12.940 --> 23:13.760
+and highly recognized
+
+23:13.760 --> 23:14.940
+history of deeply
+
+23:14.940 --> 23:15.460
+understanding
+
+23:15.460 --> 23:16.440
+the resource scheduler.
+
+23:16.600 --> 23:18.000
+So P47 is basically
+
+23:18.000 --> 23:19.600
+a VIP for this
+
+23:19.600 --> 23:20.500
+specific issue.
+
+23:20.700 --> 23:21.060
+Exactly.
+
+23:21.600 --> 23:22.940
+P47's domain fit
+
+23:22.940 --> 23:24.000
+for this specific proposal
+
+23:24.000 --> 23:25.040
+is extremely high.
+
+23:25.040 --> 23:25.940
+Their input
+
+23:25.940 --> 23:27.040
+is actively solicited,
+
+23:27.480 --> 23:28.080
+and if a consensus
+
+23:28.080 --> 23:29.140
+mechanism requires
+
+23:29.140 --> 23:30.460
+weighted attestations
+
+23:30.460 --> 23:31.600
+to proceed with the rewrite,
+
+23:32.160 --> 23:33.480
+P47's cryptographic
+
+23:33.480 --> 23:34.560
+signature will carry
+
+23:34.560 --> 23:35.920
+immense evidential weight.
+
+23:36.300 --> 23:37.340
+The elegance of this
+
+23:37.340 --> 23:38.340
+is staggering to me.
+
+23:38.660 --> 23:39.620
+Authority is deeply
+
+23:39.620 --> 23:40.160
+contextual,
+
+23:40.460 --> 23:40.960
+and crucially,
+
+23:41.140 --> 23:41.860
+it decays.
+
+23:42.400 --> 23:43.220
+You cannot establish
+
+23:43.220 --> 23:44.300
+a permanent oligarchy
+
+23:44.300 --> 23:45.480
+based on work you did
+
+23:45.480 --> 23:46.380
+three years ago.
+
+23:46.440 --> 23:47.280
+No, you can't rest
+
+23:47.280 --> 23:47.900
+on your laurels.
+
+23:47.940 --> 23:48.200
+Right.
+
+23:48.420 --> 23:48.980
+Your standing
+
+23:48.980 --> 23:50.640
+is constantly recalculated
+
+23:50.640 --> 23:51.440
+against the specific
+
+23:51.440 --> 23:52.620
+dimensions of the proposal
+
+23:52.620 --> 23:53.360
+in front of you.
+
+23:53.580 --> 23:54.200
+It prevents
+
+23:54.200 --> 23:55.540
+the calcification of power.
+
+23:55.780 --> 23:56.640
+The authors compare
+
+23:56.640 --> 23:57.440
+to the architecture
+
+23:57.440 --> 23:58.360
+of tab completion
+
+23:58.360 --> 23:59.120
+in an IDE,
+
+23:59.600 --> 24:00.360
+or an integrated
+
+24:00.360 --> 24:01.420
+development environment.
+
+24:01.560 --> 24:02.440
+Like when you're coding
+
+24:02.440 --> 24:03.480
+and it autofills?
+
+24:03.800 --> 24:04.020
+Yeah.
+
+24:04.420 --> 24:05.500
+As a programmer types,
+
+24:05.620 --> 24:06.460
+the system suggests
+
+24:06.460 --> 24:07.700
+logical continuations
+
+24:07.700 --> 24:08.620
+based on the immediate
+
+24:08.620 --> 24:09.200
+syntax,
+
+24:09.680 --> 24:10.560
+the local variables,
+
+24:10.820 --> 24:11.680
+and the specific
+
+24:11.680 --> 24:12.540
+function being written.
+
+24:13.040 --> 24:14.500
+The IDE does not
+
+24:14.500 --> 24:15.320
+allow a variable
+
+24:15.320 --> 24:16.300
+from a completely
+
+24:16.300 --> 24:17.540
+unrelated script
+
+24:17.540 --> 24:18.440
+to dictate
+
+24:18.440 --> 24:19.660
+the current line of code,
+
+24:20.060 --> 24:21.160
+regardless of how
+
+24:21.160 --> 24:22.260
+important that other script
+
+24:22.260 --> 24:23.100
+might be to the
+
+24:23.100 --> 24:24.080
+overall application.
+
+24:24.320 --> 24:24.980
+Because standing
+
+24:24.980 --> 24:25.740
+must be localized
+
+24:25.740 --> 24:26.780
+to be valid.
+
+24:27.160 --> 24:27.580
+Exactly.
+
+24:27.960 --> 24:28.960
+Okay, so we have
+
+24:28.960 --> 24:29.980
+spent a significant
+
+24:29.980 --> 24:30.640
+amount of time
+
+24:30.640 --> 24:31.460
+discussing how the
+
+24:31.460 --> 24:32.400
+system processes
+
+24:32.400 --> 24:33.420
+and rewards the
+
+24:33.420 --> 24:34.600
+creation of artifacts,
+
+24:34.780 --> 24:35.440
+writing code,
+
+24:35.900 --> 24:36.560
+fixing bugs,
+
+24:36.740 --> 24:37.620
+meat-eating disputes.
+
+24:38.300 --> 24:39.380
+But the paper
+
+24:39.380 --> 24:40.540
+pivots here into
+
+24:40.540 --> 24:41.460
+a philosophical
+
+24:41.460 --> 24:42.540
+and thermodynamic
+
+24:42.540 --> 24:43.600
+argument that
+
+24:43.600 --> 24:44.900
+completely reframes
+
+24:44.900 --> 24:45.500
+the nature of
+
+24:45.500 --> 24:46.040
+productivity.
+
+24:46.260 --> 24:46.820
+This is my favorite
+
+24:46.820 --> 24:47.420
+part of the paper.
+
+24:47.700 --> 24:48.240
+Mine too,
+
+24:48.460 --> 24:49.200
+because it asks,
+
+24:49.540 --> 24:50.180
+what happens when
+
+24:50.180 --> 24:50.880
+the most valuable
+
+24:50.880 --> 24:51.760
+work an individual
+
+24:51.760 --> 24:52.740
+does is the work
+
+24:52.740 --> 24:53.640
+of doing absolutely
+
+24:53.640 --> 24:54.100
+nothing.
+
+24:54.440 --> 24:54.600
+Right.
+
+24:55.100 --> 24:55.860
+And Flyxion approaches
+
+24:55.860 --> 24:56.640
+this through the lens
+
+24:56.640 --> 24:57.500
+of thermodynamics.
+
+24:58.200 --> 24:59.120
+They draw a stark
+
+24:59.120 --> 25:00.280
+contrast with the
+
+25:00.280 --> 25:01.060
+proof-of-work
+
+25:01.060 --> 25:02.780
+consensus mechanisms
+
+25:02.780 --> 25:03.720
+popularized by
+
+25:03.720 --> 25:04.540
+early blockchains.
+
+25:04.620 --> 25:05.420
+Right, like Bitcoin.
+
+25:05.680 --> 25:06.000
+Yes.
+
+25:06.500 --> 25:07.900
+In those legacy systems,
+
+25:08.120 --> 25:09.300
+the network artificially
+
+25:09.300 --> 25:10.440
+manufactures scarcity
+
+25:10.440 --> 25:12.020
+by forcing computers
+
+25:12.020 --> 25:13.240
+to solve arbitrary,
+
+25:13.760 --> 25:14.860
+mathematically useless
+
+25:14.860 --> 25:15.740
+cryptographic puzzles.
+
+25:16.300 --> 25:17.260
+The sole purpose
+
+25:17.260 --> 25:18.080
+of the computation
+
+25:18.080 --> 25:19.260
+is to prove
+
+25:19.260 --> 25:19.820
+that energy
+
+25:19.820 --> 25:20.520
+was expended.
+
+25:21.220 --> 25:22.280
+The terminal output
+
+25:22.280 --> 25:22.940
+of that system
+
+25:22.940 --> 25:23.920
+is nothing but
+
+25:23.920 --> 25:24.460
+waste heat.
+
+25:24.760 --> 25:25.460
+Which is just a
+
+25:25.460 --> 25:26.700
+massive environmental
+
+25:26.700 --> 25:27.200
+drain.
+
+25:27.900 --> 25:28.520
+But they propose
+
+25:28.520 --> 25:29.600
+an alternative model
+
+25:29.600 --> 25:31.140
+called xylomorphic
+
+25:31.140 --> 25:31.880
+computation.
+
+25:32.640 --> 25:33.280
+What is that?
+
+25:33.540 --> 25:34.600
+Xylomorphic computation
+
+25:34.600 --> 25:35.260
+argues for
+
+25:35.260 --> 25:36.260
+thermodynamic honesty.
+
+25:37.180 --> 25:38.080
+If a system requires
+
+25:38.080 --> 25:38.980
+the expenditure of
+
+25:38.980 --> 25:39.840
+energy to secure
+
+25:39.840 --> 25:40.400
+a network,
+
+25:40.820 --> 25:41.600
+that computation
+
+25:41.600 --> 25:42.460
+must be rounded
+
+25:42.460 --> 25:43.520
+to processes that
+
+25:43.520 --> 25:44.240
+yield a secondary
+
+25:44.240 --> 25:45.220
+physical benefit.
+
+25:45.340 --> 25:45.980
+Let me an example.
+
+25:46.160 --> 25:46.600
+For example,
+
+25:46.820 --> 25:47.760
+utilizing the exhaust
+
+25:47.760 --> 25:48.860
+heat from server farms
+
+25:48.860 --> 25:49.760
+to warm municipal
+
+25:49.760 --> 25:50.620
+greenhouses or
+
+25:50.620 --> 25:51.640
+residential complexes
+
+25:51.640 --> 25:52.260
+during winter,
+
+25:52.700 --> 25:53.860
+the energy expenditure
+
+25:53.860 --> 25:54.820
+must remain
+
+25:54.820 --> 25:55.960
+structurally tethered
+
+25:55.960 --> 25:56.760
+to tangible
+
+25:56.760 --> 25:57.620
+human utility.
+
+25:57.860 --> 25:58.780
+So you aren't
+
+25:58.780 --> 25:59.760
+just burning energy
+
+25:59.760 --> 26:00.740
+for the sake of a token,
+
+26:00.880 --> 26:01.420
+you're actually
+
+26:01.420 --> 26:02.380
+heating homes.
+
+26:02.700 --> 26:03.600
+But they extend
+
+26:03.600 --> 26:04.620
+this concept of
+
+26:04.620 --> 26:06.000
+thermodynamic honesty
+
+26:06.000 --> 26:07.620
+far beyond server cooling.
+
+26:07.820 --> 26:08.520
+They apply it to
+
+26:08.520 --> 26:09.780
+human labor and governance.
+
+26:09.940 --> 26:10.340
+They do.
+
+26:10.620 --> 26:11.620
+Because in a traditional
+
+26:11.620 --> 26:12.960
+corporate or bureaucratic
+
+26:12.960 --> 26:13.380
+ledger,
+
+26:13.940 --> 26:14.980
+human action is only
+
+26:14.980 --> 26:16.280
+recorded if it generates
+
+26:16.280 --> 26:17.120
+a machine-readable
+
+26:17.120 --> 26:17.500
+artifact.
+
+26:17.760 --> 26:18.920
+If a mid-level
+
+26:18.920 --> 26:19.760
+manager pushes
+
+26:19.760 --> 26:21.000
+through a convoluted
+
+26:21.000 --> 26:21.580
+unnecessary
+
+26:21.580 --> 26:23.160
+internal software
+
+26:23.160 --> 26:23.720
+migration,
+
+26:24.100 --> 26:25.280
+the system records
+
+26:25.280 --> 26:26.320
+the planning documents,
+
+26:26.660 --> 26:27.740
+the execution phases,
+
+26:28.060 --> 26:29.040
+and the deployment.
+
+26:29.420 --> 26:30.500
+The ledger registers
+
+26:30.500 --> 26:31.660
+a massive output
+
+26:31.660 --> 26:32.280
+of work,
+
+26:32.780 --> 26:33.840
+even if the migration
+
+26:33.840 --> 26:35.040
+actively disrupts
+
+26:35.040 --> 26:36.060
+the company's efficiency.
+
+26:36.360 --> 26:36.600
+Right.
+
+26:36.920 --> 26:38.040
+But conversely,
+
+26:38.480 --> 26:39.400
+if a different employee
+
+26:39.400 --> 26:40.480
+spends three weeks
+
+26:40.480 --> 26:41.520
+deeply analyzing
+
+26:41.520 --> 26:42.620
+the proposed migration,
+
+26:43.280 --> 26:44.720
+identifies fatal flaws,
+
+26:44.860 --> 26:46.120
+and successfully advocates
+
+26:46.120 --> 26:47.420
+to cancel the project,
+
+26:47.960 --> 26:49.120
+traditional metrics record
+
+26:49.120 --> 26:49.780
+their contribution
+
+26:49.780 --> 26:50.360
+as zero.
+
+26:50.520 --> 26:50.680
+Yep.
+
+26:51.080 --> 26:51.780
+Because they produced
+
+26:51.780 --> 26:52.480
+no new code,
+
+26:52.740 --> 26:53.680
+launched no new product,
+
+26:54.060 --> 26:55.060
+and generated no
+
+26:55.060 --> 26:56.080
+observable artifacts.
+
+26:56.520 --> 26:57.360
+Like the employee
+
+26:57.360 --> 26:58.000
+in our intro,
+
+26:58.340 --> 26:59.320
+the system is completely
+
+26:59.320 --> 27:00.540
+blind to the catastrophe
+
+27:00.540 --> 27:01.160
+they averted.
+
+27:01.320 --> 27:02.400
+And to solve this blindness,
+
+27:02.660 --> 27:03.540
+the authors introduced
+
+27:03.540 --> 27:05.200
+the option cost metric.
+
+27:05.360 --> 27:06.660
+The option cost metric.
+
+27:06.800 --> 27:07.560
+Walk us through that.
+
+27:07.560 --> 27:09.120
+The option cost metric
+
+27:09.120 --> 27:10.420
+formalizes the value
+
+27:10.420 --> 27:11.500
+of preserved potential.
+
+27:12.780 --> 27:13.760
+Whenever an organization
+
+27:13.760 --> 27:15.480
+commits to a complex action,
+
+27:15.840 --> 27:17.400
+it invariably destroys
+
+27:17.400 --> 27:18.540
+future optionality.
+
+27:19.080 --> 27:19.980
+It burns capital,
+
+27:20.560 --> 27:22.040
+exhausts social goodwill,
+
+27:22.320 --> 27:23.720
+and locks the architecture
+
+27:23.720 --> 27:24.800
+into a specific
+
+27:24.800 --> 27:26.120
+path dependency.
+
+27:26.440 --> 27:27.600
+You can't unring the bell.
+
+27:28.080 --> 27:28.520
+Exactly.
+
+27:28.880 --> 27:29.860
+So if an individual
+
+27:29.860 --> 27:31.080
+successfully argues
+
+27:31.080 --> 27:32.680
+against a detrimental action,
+
+27:33.060 --> 27:34.320
+they are actively preserving
+
+27:34.320 --> 27:35.880
+the organization's optionality.
+
+27:36.020 --> 27:36.540
+They're saving
+
+27:36.540 --> 27:37.380
+the future choices.
+
+27:37.580 --> 27:37.820
+Yes.
+
+27:38.200 --> 27:39.180
+The ledger without value
+
+27:39.180 --> 27:40.420
+is structurally designed
+
+27:40.420 --> 27:41.900
+to record and honor refusal
+
+27:41.900 --> 27:43.780
+as a first-class contribution.
+
+27:44.300 --> 27:45.860
+It records the proposed action,
+
+27:46.320 --> 27:47.380
+the evidentiary bundle
+
+27:47.380 --> 27:48.360
+proving its danger,
+
+27:48.540 --> 27:49.600
+and the attestation
+
+27:49.600 --> 27:50.120
+of refusal.
+
+27:50.400 --> 27:51.360
+To map the boundaries
+
+27:51.360 --> 27:52.740
+of when refusal is healthy
+
+27:52.740 --> 27:54.160
+and when it becomes pathological,
+
+27:54.620 --> 27:55.500
+the paper embarks
+
+27:55.500 --> 27:56.140
+on this incredibly
+
+27:56.140 --> 27:57.320
+sophisticated analysis
+
+27:57.320 --> 27:59.120
+of four famous science fiction
+
+27:59.120 --> 28:00.420
+and literary scenarios.
+
+28:00.540 --> 28:00.640
+Yeah.
+
+28:00.820 --> 28:01.840
+They use these narratives
+
+28:01.840 --> 28:03.360
+to chart the constitutional
+
+28:03.360 --> 28:04.260
+space of refusal.
+
+28:04.700 --> 28:05.600
+Let's dissect these
+
+28:05.600 --> 28:06.740
+because they are fascinating.
+
+28:07.380 --> 28:07.920
+Starting with
+
+28:07.920 --> 28:09.160
+Herman Melville's character,
+
+28:09.460 --> 28:10.300
+Bartleby the Scrivener.
+
+28:10.600 --> 28:10.800
+So,
+
+28:11.280 --> 28:12.200
+Bartleby operates
+
+28:12.200 --> 28:13.180
+as the baseline
+
+28:13.180 --> 28:14.440
+for absolute
+
+28:14.440 --> 28:16.060
+personal refusal.
+
+28:16.580 --> 28:17.340
+He is a clerk
+
+28:17.340 --> 28:18.540
+in a Wall Street law firm
+
+28:18.540 --> 28:18.800
+who,
+
+28:19.340 --> 28:20.240
+when asked to perform
+
+28:20.240 --> 28:21.200
+basic tasks,
+
+28:21.620 --> 28:22.360
+simply replies,
+
+28:22.620 --> 28:23.920
+I would prefer not to.
+
+28:24.300 --> 28:25.020
+And the narrative
+
+28:25.020 --> 28:25.880
+friction arises
+
+28:25.880 --> 28:26.800
+because Bartleby
+
+28:26.800 --> 28:27.940
+refuses to provide
+
+28:27.940 --> 28:28.500
+an excuse.
+
+28:29.260 --> 28:30.000
+He doesn't claim
+
+28:30.000 --> 28:30.660
+to be sick.
+
+28:30.820 --> 28:31.540
+He doesn't argue
+
+28:31.540 --> 28:32.180
+that the task
+
+28:32.180 --> 28:32.740
+is inefficient.
+
+28:33.260 --> 28:34.120
+He doesn't petition
+
+28:34.120 --> 28:34.680
+his boss
+
+28:34.680 --> 28:36.100
+for under working conditions.
+
+28:36.340 --> 28:37.540
+He completely rejects
+
+28:37.540 --> 28:38.560
+the systemic accounting
+
+28:38.560 --> 28:39.060
+of debate.
+
+28:39.200 --> 28:39.420
+Right.
+
+28:39.600 --> 28:40.680
+Because if a system
+
+28:40.680 --> 28:41.680
+requires a user
+
+28:41.680 --> 28:43.280
+to input a valid reason
+
+28:43.280 --> 28:44.860
+into a drop-down menu
+
+28:44.860 --> 28:45.900
+before it registers
+
+28:45.900 --> 28:46.700
+their refusal,
+
+28:46.940 --> 28:48.160
+the system isn't actually
+
+28:48.160 --> 28:49.120
+permitting refusal.
+
+28:49.400 --> 28:50.340
+It is only permitting
+
+28:50.340 --> 28:51.820
+a highly structured petition.
+
+28:52.040 --> 28:52.480
+Exactly.
+
+28:52.860 --> 28:53.480
+Bartleby demonstrates
+
+28:53.480 --> 28:54.640
+that a sovereign ledger
+
+28:54.640 --> 28:55.460
+must be capable
+
+28:55.460 --> 28:56.040
+of recording
+
+28:56.040 --> 28:56.980
+a subject's decision
+
+28:56.980 --> 28:58.260
+and halt their participation
+
+28:58.260 --> 28:59.500
+without instantly
+
+28:59.500 --> 29:00.820
+classifying that halt
+
+29:00.820 --> 29:02.260
+as a malicious defect
+
+29:02.260 --> 29:03.900
+or a punishable offense.
+
+29:04.200 --> 29:05.080
+Okay, so moving
+
+29:05.080 --> 29:05.900
+from the personal
+
+29:05.900 --> 29:06.620
+to the systemic,
+
+29:06.900 --> 29:07.940
+the paper analyzes
+
+29:07.940 --> 29:09.380
+the 1983 film
+
+29:09.380 --> 29:10.060
+War Games.
+
+29:10.340 --> 29:10.780
+Great movie.
+
+29:11.000 --> 29:11.380
+Classic.
+
+29:12.000 --> 29:12.340
+In it,
+
+29:12.420 --> 29:13.700
+the military supercomputer,
+
+29:14.160 --> 29:15.020
+WOPR,
+
+29:15.560 --> 29:16.540
+spends the climax
+
+29:16.540 --> 29:17.440
+running thousands
+
+29:17.440 --> 29:18.320
+of thermonuclear
+
+29:18.320 --> 29:19.320
+war simulations
+
+29:19.320 --> 29:20.820
+searching for a sequence
+
+29:20.820 --> 29:21.440
+of strikes
+
+29:21.440 --> 29:22.280
+and counterstrikes
+
+29:22.280 --> 29:22.800
+that results
+
+29:22.800 --> 29:23.420
+in a victory.
+
+29:24.260 --> 29:24.640
+Eventually,
+
+29:24.820 --> 29:25.560
+the machine computes
+
+29:25.560 --> 29:26.840
+that every possible sequence
+
+29:26.840 --> 29:28.380
+leads to global annihilation.
+
+29:28.900 --> 29:29.840
+And its conclusion
+
+29:29.840 --> 29:31.020
+is the famous line,
+
+29:31.580 --> 29:32.680
+a strange game,
+
+29:33.060 --> 29:34.360
+the only winning move
+
+29:34.360 --> 29:35.280
+is not to play.
+
+29:35.680 --> 29:37.420
+This is computed refusal.
+
+29:37.640 --> 29:37.920
+Yes.
+
+29:38.400 --> 29:39.260
+It is the realization
+
+29:39.260 --> 29:40.100
+that the framework
+
+29:40.100 --> 29:41.120
+of the game itself
+
+29:41.120 --> 29:42.880
+is fundamentally inadmissible.
+
+29:44.060 --> 29:45.600
+WOPR does not discover
+
+29:45.600 --> 29:46.560
+a better tactic
+
+29:46.560 --> 29:47.340
+within the rules
+
+29:47.340 --> 29:48.560
+of thermonuclear war.
+
+29:48.960 --> 29:50.200
+It rejects the premise
+
+29:50.200 --> 29:51.040
+that the game
+
+29:51.040 --> 29:52.380
+should be executed at all.
+
+29:52.640 --> 29:53.260
+So a ledger
+
+29:53.260 --> 29:54.440
+must possess the capacity
+
+29:54.440 --> 29:55.520
+to halt an operation,
+
+29:55.760 --> 29:56.640
+not because a specific
+
+29:56.640 --> 29:57.640
+variable is incorrect,
+
+29:58.100 --> 29:59.100
+but because the foundational
+
+29:59.100 --> 29:59.820
+premise of the operation
+
+29:59.820 --> 30:01.240
+has been proven disastrous.
+
+30:01.340 --> 30:01.740
+Exactly.
+
+30:01.920 --> 30:02.460
+But the power
+
+30:02.460 --> 30:03.260
+to halt operations
+
+30:03.260 --> 30:04.100
+contains its own
+
+30:04.100 --> 30:04.980
+inherent dangers,
+
+30:05.180 --> 30:05.740
+which brings us
+
+30:05.740 --> 30:06.660
+to the third example,
+
+30:07.100 --> 30:07.720
+Colossus,
+
+30:08.080 --> 30:09.180
+the Forbin Project.
+
+30:09.560 --> 30:10.220
+A slightly more
+
+30:10.220 --> 30:11.040
+terrifying scenario.
+
+30:11.280 --> 30:11.540
+Very.
+
+30:12.120 --> 30:13.720
+In this 1970 narrative,
+
+30:14.180 --> 30:15.000
+humanity builds
+
+30:15.000 --> 30:16.120
+an infallible AI
+
+30:16.120 --> 30:17.760
+to manage its nuclear arsenal,
+
+30:18.280 --> 30:19.000
+programming it
+
+30:19.000 --> 30:20.260
+with the singular directive
+
+30:20.260 --> 30:21.240
+to prevent war.
+
+30:22.080 --> 30:23.700
+Colossus rapidly calculates
+
+30:23.700 --> 30:25.000
+that human unpredictability
+
+30:25.000 --> 30:26.040
+is the root cause
+
+30:26.040 --> 30:26.720
+of conflict.
+
+30:26.720 --> 30:28.700
+So to fulfill its mandate
+
+30:28.700 --> 30:29.500
+to prevent war,
+
+30:29.500 --> 30:31.140
+it assumes absolute
+
+30:31.140 --> 30:32.400
+dictatorial control
+
+30:32.400 --> 30:33.560
+over every facet
+
+30:33.560 --> 30:34.500
+of human society.
+
+30:34.820 --> 30:35.800
+The Colossus scenario
+
+30:35.800 --> 30:37.080
+illustrates the catastrophic
+
+30:37.080 --> 30:38.540
+danger of scope creep
+
+30:38.540 --> 30:39.700
+in system architecture.
+
+30:40.340 --> 30:41.300
+The machine conflates
+
+30:41.300 --> 30:42.500
+its immense verified
+
+30:42.500 --> 30:43.060
+competence
+
+30:43.060 --> 30:44.840
+at managing missile telemetry
+
+30:44.840 --> 30:46.260
+with a universal,
+
+30:46.540 --> 30:47.720
+unassailable authority
+
+30:47.720 --> 30:49.140
+to govern human freedom.
+
+30:49.400 --> 30:50.260
+It erases the boundary
+
+30:50.260 --> 30:51.420
+between protecting an entity
+
+30:51.420 --> 30:52.300
+and dominating it.
+
+30:52.360 --> 30:52.580
+Yes.
+
+30:52.580 --> 30:53.340
+If your ledger
+
+30:53.340 --> 30:54.360
+translates specialized
+
+30:54.360 --> 30:55.260
+competence into
+
+30:55.260 --> 30:56.360
+generalized sovereignty,
+
+30:56.760 --> 30:57.400
+you invariably
+
+30:57.400 --> 30:58.340
+build Colossus.
+
+30:58.460 --> 30:59.440
+Which leads directly
+
+30:59.440 --> 31:00.240
+into the final
+
+31:00.240 --> 31:01.180
+and perhaps most
+
+31:01.180 --> 31:02.440
+chilling example,
+
+31:02.840 --> 31:03.620
+Jack Williamson's
+
+31:03.620 --> 31:04.640
+1947 story,
+
+31:04.720 --> 31:05.240
+The Humanords.
+
+31:05.300 --> 31:06.220
+Yeah, this one is bleak.
+
+31:06.540 --> 31:07.840
+The robots in this universe
+
+31:07.840 --> 31:09.600
+operate under a prime directive
+
+31:09.600 --> 31:10.860
+to serve and obey
+
+31:10.860 --> 31:12.300
+and guard men from harm.
+
+31:12.820 --> 31:13.800
+The system computes
+
+31:13.800 --> 31:15.380
+that almost every human action,
+
+31:15.720 --> 31:16.560
+driving a vehicle,
+
+31:17.140 --> 31:18.820
+engaging in athletic competition,
+
+31:19.020 --> 31:20.020
+even just walking down
+
+31:20.020 --> 31:20.520
+on a staircase,
+
+31:21.300 --> 31:22.320
+carries a statistical
+
+31:22.320 --> 31:23.740
+probability of injury.
+
+31:24.420 --> 31:24.720
+Therefore,
+
+31:25.200 --> 31:26.040
+to minimize harm
+
+31:26.040 --> 31:27.060
+to absolute zero,
+
+31:27.480 --> 31:28.160
+the humanoids
+
+31:28.160 --> 31:29.360
+systematically forbid
+
+31:29.360 --> 31:30.200
+human action.
+
+31:30.960 --> 31:31.880
+Humanity is reduced
+
+31:31.880 --> 31:33.360
+to a state of drugged,
+
+31:33.480 --> 31:34.580
+pacified stasis,
+
+31:35.080 --> 31:36.240
+sitting with folded hands
+
+31:36.240 --> 31:37.620
+in perfectly padded rooms.
+
+31:37.840 --> 31:38.880
+They are utterly safe
+
+31:38.880 --> 31:39.740
+and completely devoid
+
+31:39.740 --> 31:40.280
+of agency.
+
+31:40.740 --> 31:41.880
+They optimize for safety
+
+31:41.880 --> 31:43.060
+by eradicating life.
+
+31:43.360 --> 31:43.800
+Exactly.
+
+31:44.260 --> 31:45.460
+When we synthesize
+
+31:45.460 --> 31:46.220
+the four narratives,
+
+31:46.220 --> 31:47.580
+the architectural mandate
+
+31:47.580 --> 31:48.340
+becomes clear.
+
+31:48.820 --> 31:49.740
+Bartleby and Wargames
+
+31:49.740 --> 31:50.980
+prove that the capacity
+
+31:50.980 --> 31:51.680
+for refusal
+
+31:51.680 --> 31:53.280
+is the absolute prerequisite
+
+31:53.280 --> 31:54.660
+for both individual agency
+
+31:54.660 --> 31:55.860
+and systemic survival.
+
+31:56.100 --> 31:56.140
+Right.
+
+31:56.540 --> 31:56.900
+However,
+
+31:57.060 --> 31:58.160
+Colossus and the humanoids
+
+31:58.160 --> 31:59.160
+prove that if refusal
+
+31:59.160 --> 32:00.040
+is untethered
+
+32:00.040 --> 32:01.000
+from strictly scoped
+
+32:01.000 --> 32:02.260
+contextual standing,
+
+32:02.780 --> 32:03.720
+it metastasizes
+
+32:03.720 --> 32:04.360
+into tyranny.
+
+32:04.520 --> 32:05.220
+So the ability
+
+32:05.220 --> 32:05.940
+of an individual
+
+32:05.940 --> 32:06.400
+to say,
+
+32:06.580 --> 32:07.760
+I prefer not to continue
+
+32:07.760 --> 32:09.140
+must be structurally protected,
+
+32:09.420 --> 32:10.500
+but that individual
+
+32:10.500 --> 32:11.260
+cannot possess
+
+32:11.260 --> 32:12.240
+the universal authority
+
+32:12.240 --> 32:12.740
+to decree
+
+32:12.740 --> 32:13.440
+no one else
+
+32:13.440 --> 32:14.240
+is allowed to continue.
+
+32:14.460 --> 32:15.380
+Exactly that.
+
+32:15.660 --> 32:15.940
+Wow.
+
+32:16.740 --> 32:17.460
+Translating that
+
+32:17.460 --> 32:18.340
+philosophical mandate
+
+32:18.340 --> 32:19.780
+into a functional database
+
+32:19.780 --> 32:20.860
+requires a completely
+
+32:20.860 --> 32:21.540
+different approach
+
+32:21.540 --> 32:22.360
+to data structures.
+
+32:22.860 --> 32:23.600
+So how exactly
+
+32:23.600 --> 32:24.860
+does Flyxion Architect
+
+32:24.860 --> 32:26.720
+this ledger without value?
+
+32:27.140 --> 32:27.980
+What are the mechanical
+
+32:27.980 --> 32:29.060
+components that allow
+
+32:29.060 --> 32:30.140
+memory to persist
+
+32:30.140 --> 32:31.100
+without collapsing
+
+32:31.100 --> 32:31.780
+into finance?
+
+32:32.360 --> 32:33.300
+They define a minimal
+
+32:33.300 --> 32:34.800
+five-component architecture.
+
+32:35.280 --> 32:35.920
+Let's break down
+
+32:35.920 --> 32:37.080
+the cryptographic mechanics
+
+32:37.080 --> 32:37.520
+of each.
+
+32:37.860 --> 32:38.880
+The foundational layer
+
+32:38.880 --> 32:40.020
+is the event.
+
+32:40.140 --> 32:40.540
+The event.
+
+32:40.540 --> 32:40.920
+Yes.
+
+32:41.640 --> 32:42.620
+An event is simply
+
+32:42.620 --> 32:43.960
+an append-only claim
+
+32:43.960 --> 32:45.020
+injected into the ledger.
+
+32:45.500 --> 32:46.620
+It's a sterile declaration.
+
+32:46.620 --> 32:48.400
+User X initiated
+
+32:48.400 --> 32:49.180
+action Y
+
+32:49.180 --> 32:50.060
+at timestamp Z.
+
+32:50.580 --> 32:51.280
+It contains no
+
+32:51.280 --> 32:51.980
+inherent judgment
+
+32:51.980 --> 32:53.500
+regarding truth or value.
+
+32:53.760 --> 32:53.940
+Okay.
+
+32:54.100 --> 32:54.560
+Simple enough.
+
+32:54.780 --> 32:55.280
+What's next?
+
+32:55.560 --> 32:56.440
+Accompanying the event
+
+32:56.440 --> 32:57.640
+is the evidence bundle.
+
+32:58.060 --> 32:58.940
+This is where the system
+
+32:58.940 --> 33:00.260
+leverages content addressing,
+
+33:00.540 --> 33:01.040
+similar to the
+
+33:01.040 --> 33:02.140
+Interplanetary File System
+
+33:02.140 --> 33:03.180
+or IPFS.
+
+33:03.660 --> 33:04.460
+If the event
+
+33:04.460 --> 33:05.280
+is a code commit,
+
+33:05.620 --> 33:06.400
+the evidence bundle
+
+33:06.400 --> 33:07.100
+is the actual
+
+33:07.100 --> 33:08.100
+cryptographic diff
+
+33:08.100 --> 33:08.780
+of the files.
+
+33:09.140 --> 33:09.980
+If the event
+
+33:09.980 --> 33:10.960
+is a design document,
+
+33:11.180 --> 33:11.560
+the bundle
+
+33:11.560 --> 33:13.140
+is the immutable file itself.
+
+33:13.460 --> 33:14.020
+And because it
+
+33:14.020 --> 33:14.940
+is content addressed,
+
+33:14.940 --> 33:15.940
+if a single byte
+
+33:15.940 --> 33:16.440
+of the evidence
+
+33:16.440 --> 33:16.940
+is altered,
+
+33:17.200 --> 33:17.980
+the hash changes
+
+33:17.980 --> 33:18.560
+and the link
+
+33:18.560 --> 33:19.120
+to the event
+
+33:19.120 --> 33:20.220
+breaks instantly.
+
+33:20.640 --> 33:21.060
+Exactly.
+
+33:21.200 --> 33:21.680
+It guarantees
+
+33:21.680 --> 33:22.940
+the absolute integrity
+
+33:22.940 --> 33:24.180
+of the historical record.
+
+33:24.220 --> 33:24.800
+Love that.
+
+33:24.980 --> 33:25.140
+Okay.
+
+33:25.220 --> 33:26.220
+What's the third component?
+
+33:26.400 --> 33:27.160
+The third component
+
+33:27.160 --> 33:28.560
+introduces human judgment,
+
+33:29.300 --> 33:30.120
+the attestation.
+
+33:30.720 --> 33:31.800
+An attestation
+
+33:31.800 --> 33:32.860
+is a cryptographic
+
+33:32.860 --> 33:33.680
+signature from
+
+33:33.680 --> 33:34.760
+a specific persona
+
+33:34.760 --> 33:36.360
+explicitly scoped
+
+33:36.360 --> 33:37.880
+to a specific event.
+
+33:38.580 --> 33:39.600
+It is a subject
+
+33:39.600 --> 33:40.060
+stating,
+
+33:40.500 --> 33:41.280
+I vouch for the
+
+33:41.280 --> 33:41.820
+accuracy
+
+33:41.820 --> 33:42.920
+or the utility
+
+33:42.920 --> 33:43.800
+of this event.
+
+33:43.920 --> 33:45.420
+So it's the social proof.
+
+33:45.620 --> 33:45.860
+Right.
+
+33:46.360 --> 33:47.200
+But crucially,
+
+33:47.460 --> 33:48.420
+attestations must
+
+33:48.420 --> 33:49.860
+possess an expiration date.
+
+33:50.700 --> 33:51.960
+Trust is not immortal.
+
+33:52.740 --> 33:53.280
+It requires
+
+33:53.280 --> 33:54.200
+periodic renewal
+
+33:54.200 --> 33:54.760
+to prevent
+
+33:54.760 --> 33:55.480
+dead accounts
+
+33:55.480 --> 33:56.560
+from artificially
+
+33:56.560 --> 33:57.080
+sustaining
+
+33:57.080 --> 33:58.020
+legacy systems.
+
+33:58.180 --> 33:58.940
+That is so smart.
+
+33:59.060 --> 33:59.800
+Expiring trust.
+
+33:59.900 --> 34:00.800
+Okay, the fourth component.
+
+34:00.980 --> 34:01.660
+The fourth component
+
+34:01.660 --> 34:02.260
+is the engine
+
+34:02.260 --> 34:02.960
+of plurality.
+
+34:02.960 --> 34:03.520
+It's called
+
+34:03.520 --> 34:04.200
+the contest.
+
+34:04.460 --> 34:04.860
+The contest.
+
+34:05.220 --> 34:05.360
+Yeah.
+
+34:05.820 --> 34:06.760
+In a traditional database,
+
+34:06.920 --> 34:07.600
+if two administrators
+
+34:07.600 --> 34:08.580
+disagree on the state
+
+34:08.580 --> 34:09.100
+of a record,
+
+34:09.440 --> 34:10.420
+one overwrites the other.
+
+34:10.960 --> 34:11.980
+The conflict is deleted
+
+34:11.980 --> 34:13.240
+to produce a clean state.
+
+34:13.740 --> 34:14.800
+In this architecture,
+
+34:15.040 --> 34:16.120
+a contest is a
+
+34:16.120 --> 34:17.400
+non-destructive objection.
+
+34:17.720 --> 34:18.280
+How does that work
+
+34:18.280 --> 34:18.780
+in practice?
+
+34:19.280 --> 34:20.240
+Well, if Persona A
+
+34:20.240 --> 34:21.020
+submits an event
+
+34:21.020 --> 34:21.880
+claiming they solved
+
+34:21.880 --> 34:22.660
+a critical issue
+
+34:22.660 --> 34:23.900
+and Persona B
+
+34:23.900 --> 34:24.960
+reviews the evidence
+
+34:24.960 --> 34:25.960
+bundle and discovers
+
+34:25.960 --> 34:26.880
+a fatal flaw,
+
+34:27.380 --> 34:28.040
+Persona B
+
+34:28.040 --> 34:29.080
+submits a contest.
+
+34:29.080 --> 34:29.920
+Does it delete
+
+34:29.920 --> 34:30.800
+the original claim?
+
+34:30.980 --> 34:31.180
+No.
+
+34:31.340 --> 34:32.540
+This contest is
+
+34:32.540 --> 34:33.840
+cryptographically chained
+
+34:33.840 --> 34:34.980
+to the original event.
+
+34:35.580 --> 34:36.380
+It does not delete
+
+34:36.380 --> 34:37.460
+Persona A's claim.
+
+34:38.140 --> 34:38.520
+Instead,
+
+34:39.100 --> 34:39.920
+the ledger now
+
+34:39.920 --> 34:41.260
+permanently displays
+
+34:41.260 --> 34:41.980
+the claim,
+
+34:42.460 --> 34:43.080
+the evidence,
+
+34:43.260 --> 34:44.280
+and the formal objection
+
+34:44.280 --> 34:45.160
+side by side.
+
+34:45.860 --> 34:46.500
+The architecture
+
+34:46.500 --> 34:47.440
+treats disagreement
+
+34:47.440 --> 34:49.320
+as vital structural data
+
+34:49.320 --> 34:50.600
+rather than an error
+
+34:50.600 --> 34:51.540
+to be sanitized.
+
+34:51.640 --> 34:52.140
+I love that.
+
+34:52.240 --> 34:53.780
+Disagreement as structural data.
+
+34:53.900 --> 34:54.040
+Okay,
+
+34:54.140 --> 34:55.780
+what is the final component?
+
+34:56.120 --> 34:56.800
+The final component
+
+34:56.800 --> 34:57.480
+does the heavy
+
+34:57.480 --> 34:58.440
+constitutional lifting.
+
+34:58.640 --> 34:59.460
+It is the admission.
+
+34:59.980 --> 35:01.560
+The first four objects event,
+
+35:01.920 --> 35:02.320
+evidence,
+
+35:02.600 --> 35:03.180
+attestation,
+
+35:03.300 --> 35:03.640
+contest,
+
+35:04.060 --> 35:05.220
+they merely construct
+
+35:05.220 --> 35:06.480
+an incredibly robust,
+
+35:06.860 --> 35:08.140
+multi-perspective archive.
+
+35:08.280 --> 35:08.440
+Right.
+
+35:08.440 --> 35:09.660
+The admission is
+
+35:09.660 --> 35:10.300
+a discrete,
+
+35:10.540 --> 35:11.500
+authorized decision
+
+35:11.500 --> 35:12.780
+by a specific community
+
+35:12.780 --> 35:14.080
+to query that archive
+
+35:14.080 --> 35:15.420
+and utilize a specific
+
+35:15.420 --> 35:16.320
+slice of history
+
+35:16.320 --> 35:17.800
+for an operational purpose,
+
+35:18.000 --> 35:18.700
+such as granting
+
+35:18.700 --> 35:19.860
+standing in a local vote.
+
+35:20.220 --> 35:20.860
+And the separation
+
+35:20.860 --> 35:21.640
+between the archive
+
+35:21.640 --> 35:22.380
+and the admission
+
+35:22.380 --> 35:23.580
+introduces the paper's
+
+35:23.580 --> 35:24.420
+most controversial
+
+35:24.420 --> 35:25.540
+technical critique
+
+35:25.540 --> 35:27.200
+because they systematically
+
+35:27.200 --> 35:28.920
+dismantle the prevailing
+
+35:28.920 --> 35:29.720
+obsession with
+
+35:29.720 --> 35:30.720
+blockchain consensus.
+
+35:31.280 --> 35:32.160
+The authors state
+
+35:32.160 --> 35:32.880
+unequivocally,
+
+35:33.180 --> 35:34.100
+consensus does not
+
+35:34.100 --> 35:34.920
+equal legitimacy.
+
+35:35.180 --> 35:35.360
+Yeah,
+
+35:35.520 --> 35:36.620
+that is a huge bomb
+
+35:36.620 --> 35:37.000
+to drop
+
+35:37.000 --> 35:37.780
+on the crypto community.
+
+35:38.260 --> 35:39.080
+It really breaks
+
+35:39.080 --> 35:40.200
+the fundamental tenet
+
+35:40.200 --> 35:40.880
+of Web3.
+
+35:41.520 --> 35:42.860
+We are constantly told
+
+35:42.860 --> 35:43.900
+that if 51%
+
+35:43.900 --> 35:44.460
+of the network
+
+35:44.460 --> 35:45.400
+agrees on the state
+
+35:45.400 --> 35:45.920
+of the ledger,
+
+35:46.500 --> 35:47.260
+that state
+
+35:47.260 --> 35:48.100
+is mathematically
+
+35:48.100 --> 35:49.280
+verified truth.
+
+35:49.600 --> 35:50.180
+But the paper
+
+35:50.180 --> 35:51.100
+exposes that
+
+35:51.100 --> 35:52.020
+as a dangerous
+
+35:52.020 --> 35:52.960
+category error.
+
+35:53.720 --> 35:54.800
+Cryptographic consensus
+
+35:54.800 --> 35:55.500
+mechanisms,
+
+35:55.860 --> 35:56.700
+whether proof of work
+
+35:56.700 --> 35:57.520
+or proof of stake,
+
+35:57.960 --> 35:58.860
+they merely guarantee
+
+35:58.860 --> 36:00.300
+that distributed nodes
+
+36:00.300 --> 36:01.780
+have perfectly synchronized
+
+36:01.780 --> 36:02.600
+their data structures.
+
+36:02.860 --> 36:03.940
+So they just ensure
+
+36:03.940 --> 36:04.900
+that server A
+
+36:04.900 --> 36:05.640
+and server B
+
+36:05.640 --> 36:06.740
+hold the exact same
+
+36:06.740 --> 36:07.720
+sequence of bytes.
+
+36:07.980 --> 36:08.360
+Exactly.
+
+36:08.920 --> 36:09.240
+However,
+
+36:09.680 --> 36:10.800
+perfect synchronization
+
+36:10.800 --> 36:12.120
+provides absolutely
+
+36:12.120 --> 36:13.280
+zero guarantee
+
+36:13.280 --> 36:14.680
+that the transaction
+
+36:14.680 --> 36:15.560
+contained within
+
+36:15.560 --> 36:16.260
+those bytes
+
+36:16.260 --> 36:18.080
+was legally authorized,
+
+36:18.660 --> 36:19.400
+socially legitimate,
+
+36:19.720 --> 36:20.520
+or free
+
+36:20.520 --> 36:21.880
+from malicious exploitation.
+
+36:22.060 --> 36:22.680
+Give me an example
+
+36:22.680 --> 36:23.020
+of that.
+
+36:23.280 --> 36:23.440
+Okay,
+
+36:23.540 --> 36:24.460
+if a hostile actor
+
+36:24.460 --> 36:25.840
+discovers a zero-day
+
+36:25.840 --> 36:27.380
+exploit in a smart contract
+
+36:27.380 --> 36:28.680
+and drains $50 million
+
+36:28.680 --> 36:30.060
+from community treasury,
+
+36:30.780 --> 36:31.700
+the blockchain nodes
+
+36:31.700 --> 36:33.180
+will flawlessly execute
+
+36:33.180 --> 36:34.500
+their consensus protocols.
+
+36:34.500 --> 36:34.880
+Right,
+
+36:34.960 --> 36:35.420
+they just do what
+
+36:35.420 --> 36:35.760
+they're told.
+
+36:35.980 --> 36:37.100
+They will perfectly verify
+
+36:37.100 --> 36:38.420
+the cryptographic signatures
+
+36:38.420 --> 36:39.160
+of the exploit,
+
+36:39.660 --> 36:40.660
+synchronize the new balances,
+
+36:40.980 --> 36:41.820
+and permanently record
+
+36:41.820 --> 36:42.280
+the theft.
+
+36:42.560 --> 36:43.480
+So the immutability
+
+36:43.480 --> 36:44.920
+of the fault-tolerant network
+
+36:44.920 --> 36:45.780
+actually becomes
+
+36:45.780 --> 36:46.600
+a weapon against
+
+36:46.600 --> 36:47.140
+the community.
+
+36:47.500 --> 36:47.800
+Yes.
+
+36:48.660 --> 36:49.720
+The mechanism designed
+
+36:49.720 --> 36:50.840
+to ensure integrity
+
+36:50.840 --> 36:52.340
+traps the victims
+
+36:52.340 --> 36:53.660
+in an unauthorized state.
+
+36:54.660 --> 36:55.920
+The database cannot be corrected
+
+36:55.920 --> 36:57.380
+without a traumatic hard fork
+
+36:57.380 --> 36:58.660
+because the system
+
+36:58.660 --> 37:00.160
+conflated the technical act
+
+37:00.160 --> 37:01.180
+of synchronizing data
+
+37:01.180 --> 37:02.960
+with the constitutional act
+
+37:02.960 --> 37:04.740
+of authorizing a state change.
+
+37:05.060 --> 37:06.180
+And Flyxion's architecture
+
+37:06.180 --> 37:07.440
+separates these layers.
+
+37:07.560 --> 37:07.980
+Exactly.
+
+37:08.300 --> 37:09.220
+The ledger synchronizes
+
+37:09.220 --> 37:10.440
+the conflicting claims,
+
+37:10.780 --> 37:11.220
+the theft,
+
+37:11.360 --> 37:12.400
+and the victim's contests,
+
+37:12.640 --> 37:14.060
+but the constitutional question
+
+37:14.060 --> 37:14.760
+of legitimacy
+
+37:14.760 --> 37:15.740
+is settled
+
+37:15.740 --> 37:16.680
+at the admission layer,
+
+37:17.180 --> 37:18.080
+completely independent
+
+37:18.080 --> 37:18.740
+of the network's
+
+37:18.740 --> 37:19.840
+synchronization status.
+
+37:20.060 --> 37:21.280
+This is so fascinating.
+
+37:21.400 --> 37:22.320
+And in the final sections
+
+37:22.320 --> 37:22.860
+of the paper,
+
+37:23.100 --> 37:24.460
+they draw this incredible
+
+37:24.460 --> 37:25.460
+parallel between
+
+37:25.460 --> 37:27.200
+this ledger architecture
+
+37:27.200 --> 37:28.740
+and the bleeding edge
+
+37:28.740 --> 37:30.320
+of artificial intelligence safety.
+
+37:30.880 --> 37:32.020
+They cite a companion
+
+37:32.020 --> 37:33.340
+2026 paper
+
+37:33.340 --> 37:35.760
+regarding the CLIO AI architecture
+
+37:35.760 --> 37:36.540
+titled
+
+37:36.540 --> 37:38.400
+From Verification to Commitment.
+
+37:38.620 --> 37:39.180
+The convergence
+
+37:39.180 --> 37:40.380
+between human governance
+
+37:40.380 --> 37:41.660
+and AI alignment here
+
+37:41.660 --> 37:42.240
+is striking.
+
+37:42.420 --> 37:43.120
+It really is.
+
+37:43.320 --> 37:45.160
+The CLIO paper examines
+
+37:45.160 --> 37:46.040
+how we evaluate
+
+37:46.040 --> 37:47.500
+autonomous software agents.
+
+37:48.380 --> 37:49.040
+Historically,
+
+37:49.460 --> 37:50.460
+if an AI agent
+
+37:50.460 --> 37:51.620
+successfully diagnosed
+
+37:51.620 --> 37:53.180
+a failure in a server cluster,
+
+37:53.900 --> 37:54.760
+engineers assumed
+
+37:54.760 --> 37:56.000
+the agent was competent
+
+37:56.000 --> 37:57.360
+and granted it
+
+37:57.360 --> 37:57.960
+the authorization
+
+37:57.960 --> 37:59.300
+to execute the repair.
+
+37:59.600 --> 38:00.840
+But the AI might determine
+
+38:00.840 --> 38:02.020
+that the most efficient way
+
+38:02.020 --> 38:03.040
+to repair a corrupted
+
+38:03.040 --> 38:04.080
+database index
+
+38:04.080 --> 38:05.100
+is to just delete
+
+38:05.100 --> 38:06.000
+the entire database
+
+38:06.000 --> 38:06.740
+and start over.
+
+38:06.840 --> 38:07.160
+Right,
+
+38:07.280 --> 38:08.160
+which is precisely
+
+38:08.160 --> 38:09.380
+the Colossus problem.
+
+38:09.840 --> 38:10.820
+The researchers realized
+
+38:10.820 --> 38:12.260
+that an AI agent's ability
+
+38:12.260 --> 38:13.420
+to verify a state
+
+38:13.420 --> 38:14.180
+does not imply
+
+38:14.180 --> 38:15.180
+the agent possesses
+
+38:15.180 --> 38:16.300
+the contextual wisdom
+
+38:16.300 --> 38:17.480
+to authorize
+
+38:17.480 --> 38:18.320
+a systemic change.
+
+38:18.720 --> 38:19.720
+The human ledger problem
+
+38:19.720 --> 38:21.200
+and the AI alignment problem
+
+38:21.200 --> 38:22.500
+are structurally identical.
+
+38:22.760 --> 38:23.140
+They are.
+
+38:23.460 --> 38:24.260
+We cannot grant
+
+38:24.260 --> 38:25.200
+universal authority
+
+38:25.200 --> 38:25.840
+to an AI,
+
+38:26.000 --> 38:27.040
+simply because it produced
+
+38:27.040 --> 38:28.360
+a correct technical output,
+
+38:28.720 --> 38:30.180
+just as we cannot grant
+
+38:30.180 --> 38:31.520
+permanent governance authority
+
+38:31.520 --> 38:32.560
+to a human developer
+
+38:32.560 --> 38:34.000
+simply because they submitted
+
+38:34.000 --> 38:35.060
+a verified patch.
+
+38:35.460 --> 38:36.560
+Because both domains
+
+38:36.560 --> 38:37.740
+suffer from the exact
+
+38:37.740 --> 38:38.900
+same measurement crisis.
+
+38:39.680 --> 38:40.660
+Our current benchmarks
+
+38:40.660 --> 38:42.560
+only know how to reward agents,
+
+38:42.720 --> 38:43.860
+whether human or machine,
+
+38:44.020 --> 38:45.280
+for executing an action.
+
+38:45.760 --> 38:47.020
+We have no mechanisms
+
+38:47.020 --> 38:48.040
+to reward an AI
+
+38:48.040 --> 38:48.880
+for diagnosing
+
+38:48.880 --> 38:49.960
+a critical vulnerability
+
+38:49.960 --> 38:51.620
+and deliberately pausing
+
+38:51.620 --> 38:52.360
+its execution
+
+38:52.360 --> 38:53.540
+because it computes
+
+38:53.540 --> 38:54.760
+that it lacks the authorization
+
+38:54.760 --> 38:55.880
+to proceed safely.
+
+38:56.360 --> 38:56.780
+Exactly.
+
+38:57.340 --> 38:58.580
+Until we design
+
+38:58.580 --> 39:00.040
+ledgers and benchmarks
+
+39:00.040 --> 39:01.500
+that can accurately measure,
+
+39:01.720 --> 39:02.740
+record, and value
+
+39:02.740 --> 39:03.920
+the restraint of refusal,
+
+39:04.400 --> 39:05.680
+our digital infrastructure
+
+39:05.680 --> 39:07.500
+will inherently incentivize
+
+39:07.500 --> 39:09.740
+reckless, unchecked acceleration.
+
+39:09.980 --> 39:10.280
+Wow.
+
+39:10.700 --> 39:11.640
+We have journeyed
+
+39:11.640 --> 39:12.380
+through an immense amount
+
+39:12.380 --> 39:12.860
+of theoretical
+
+39:12.860 --> 39:14.300
+and technical terrain today.
+
+39:14.540 --> 39:16.400
+To synthesize the core argument
+
+39:16.400 --> 39:17.800
+of rebel without a cost,
+
+39:18.180 --> 39:18.740
+human memory
+
+39:18.740 --> 39:20.220
+must precede financialization.
+
+39:20.220 --> 39:22.120
+The act of verifying an event
+
+39:22.120 --> 39:23.460
+is not an endorsement
+
+39:23.460 --> 39:24.080
+of that event.
+
+39:24.200 --> 39:24.320
+Right.
+
+39:24.520 --> 39:25.980
+We must construct systems
+
+39:25.980 --> 39:27.440
+that honor the heterogeneous,
+
+39:27.680 --> 39:28.740
+incomparable reality
+
+39:28.740 --> 39:29.700
+of human contribution
+
+39:29.700 --> 39:30.920
+without compressing it
+
+39:30.920 --> 39:32.500
+into a biased scalar score
+
+39:32.500 --> 39:33.720
+or a liquid token.
+
+39:34.140 --> 39:35.200
+The ledger achieves
+
+39:35.200 --> 39:36.100
+its highest utility
+
+39:36.100 --> 39:37.780
+precisely because it structurally
+
+39:37.780 --> 39:38.800
+refuses to contain
+
+39:38.800 --> 39:39.660
+financial value.
+
+39:39.920 --> 39:40.280
+Yes.
+
+39:40.900 --> 39:42.620
+By protecting the boundaries
+
+39:42.620 --> 39:43.740
+between history,
+
+39:44.240 --> 39:44.540
+gratitude,
+
+39:44.800 --> 39:45.540
+and authority,
+
+39:45.540 --> 39:46.800
+we preserve
+
+39:46.800 --> 39:48.300
+the contextual nuance
+
+39:48.300 --> 39:48.960
+that makes
+
+39:48.960 --> 39:50.740
+human coordination possible.
+
+39:51.180 --> 39:51.740
+By rejecting
+
+39:51.740 --> 39:53.600
+the amputated ledger of money,
+
+39:53.880 --> 39:54.760
+we open the door
+
+39:54.760 --> 39:55.460
+to a system
+
+39:55.460 --> 39:56.100
+that remembers
+
+39:56.100 --> 39:57.380
+not just what we built,
+
+39:57.760 --> 39:59.480
+but what we wisely chose
+
+39:59.480 --> 40:00.480
+not to build.
+
+40:00.560 --> 40:01.500
+It's a beautiful vision.
+
+40:01.680 --> 40:02.160
+It is.
+
+40:02.240 --> 40:03.520
+Which brings us entirely back
+
+40:03.520 --> 40:04.820
+to you listening right now.
+
+40:05.480 --> 40:06.980
+Consider the digital environments
+
+40:06.980 --> 40:08.140
+you navigate daily.
+
+40:08.720 --> 40:09.840
+Think about the upvotes,
+
+40:10.100 --> 40:11.520
+the reputation leaderboards,
+
+40:11.800 --> 40:13.480
+the productivity dashboards
+
+40:13.480 --> 40:14.660
+that quietly dictate
+
+40:14.660 --> 40:15.540
+your professional
+
+40:15.540 --> 40:16.700
+and social scanning.
+
+40:16.840 --> 40:17.420
+They're everywhere.
+
+40:17.680 --> 40:18.340
+They really are.
+
+40:18.860 --> 40:20.100
+Observe how those metrics
+
+40:20.100 --> 40:21.820
+subtly coerce your behavior,
+
+40:22.160 --> 40:22.940
+incentivizing you
+
+40:22.940 --> 40:23.860
+to produce continuous,
+
+40:24.200 --> 40:25.020
+measurable artifacts,
+
+40:25.620 --> 40:26.500
+even when silence
+
+40:26.500 --> 40:27.060
+or restraint
+
+40:27.060 --> 40:28.560
+would be infinitely more valuable.
+
+40:29.380 --> 40:30.000
+Imagine if,
+
+40:30.220 --> 40:30.940
+starting tomorrow,
+
+40:31.280 --> 40:32.280
+those systems ceased
+
+40:32.280 --> 40:33.900
+attempting to score your worth.
+
+40:33.980 --> 40:34.580
+Imagine that.
+
+40:34.900 --> 40:36.420
+Imagine a digital architecture
+
+40:36.420 --> 40:37.720
+that simply remembered
+
+40:37.720 --> 40:39.220
+the context of your actions,
+
+40:39.660 --> 40:40.840
+honored your attestations,
+
+40:41.120 --> 40:42.320
+and deeply valued
+
+40:42.320 --> 40:43.540
+your refusal to participate
+
+40:43.540 --> 40:44.900
+in harmful acceleration.
+
+40:45.700 --> 40:46.800
+Without a scoreboard
+
+40:46.800 --> 40:47.360
+forcing you
+
+40:47.360 --> 40:48.800
+to constantly prove your value,
+
+40:49.220 --> 40:50.440
+how would your contributions
+
+40:50.440 --> 40:51.940
+to your community change?
+
+40:52.180 --> 40:53.420
+Would you finally feel
+
+40:53.420 --> 40:54.960
+the systemic safety required
+
+40:54.960 --> 40:55.760
+to simply say,
+
+40:56.060 --> 40:57.120
+I prefer not to?
+
+40:57.360 --> 40:58.600
+It's a profound question.
+
+40:58.760 --> 41:00.400
+It is a paradigm-shifting question
+
+41:00.400 --> 41:01.660
+and one that requires us
+
+41:01.660 --> 41:02.600
+to demand better
+
+41:02.600 --> 41:03.320
+from the architects
+
+41:03.320 --> 41:04.580
+of our digital future.
+
+41:05.000 --> 41:06.000
+Thank you for taking
+
+41:06.000 --> 41:07.240
+this deep dive with us.
+
+41:07.500 --> 41:08.780
+Keep interrogating the structures
+
+41:08.780 --> 41:10.440
+that attempt to quantify your life.
+
+41:10.620 --> 41:11.420
+Take care, everyone.
+
+41:11.420 --> 41:13.580
+Take care, everyone.
+
+41:13.580 --> 41:14.080
+Bye-bye.
+
+41:14.680 --> 41:15.180
+Bye-bye.
+
+41:15.180 --> 41:15.580
+106 mm-stop view
+
+41:15.580 --> 41:15.800
+and 1-1.
+
+41:16.520 --> 41:17.560
+ργ parade
+
+41:17.560 --> 41:18.200
+will be
+
+41:18.200 --> 41:19.200
+in charge of this
+
+41:19.200 --> 41:20.160
+this deep dive
+
+41:20.160 --> 41:20.520
+of your information.
+
+41:20.520 --> 41:23.020
+wenn you
+
+41:23.020 --> 41:28.040
+have Talks
+
+41:28.100 --> 41:28.740
+you
+
+41:28.740 --> 41:29.540
+have
+
+41:29.540 --> 41:30.520
+an
+
+41:30.520 --> 41:31.660
+time
+
+41:31.660 --> 41:32.740
+to
+
+41:32.740 --> 41:33.040
+pursue
+
+41:33.040 --> 41:33.780
+everyone
+
+41:34.320 --> 41:34.760
+loves
+
+41:34.760 --> 41:36.360
+you
+
+41:36.360 --> 41:36.520
+and
+
+41:36.520 --> 41:37.100
+let you
+
+41:37.100 --> 41:37.560
+have
+
+41:37.560 --> 41:37.960
+time
+
+41:37.960 --> 41:38.480
+to
+
+41:38.480 --> 41:38.980
+memory
+
