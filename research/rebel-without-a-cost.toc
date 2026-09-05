@@ -1,19 +1,20 @@
 \contentsline {section}{\numberline {1}The Retrospective Problem}{1}{section.1}%
 \contentsline {section}{\numberline {2}Six Acts That Are Not One Act}{1}{section.2}%
 \contentsline {section}{\numberline {3}Why No Universal Scalar Is Canonical}{2}{section.3}%
-\contentsline {section}{\numberline {4}Prior Art: Ledgers That Already Refuse Conversion}{4}{section.4}%
-\contentsline {section}{\numberline {5}From a Value Ledger to a Documentary Ledger}{5}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Money as an Amputated Ledger}{6}{subsection.5.1}%
-\contentsline {section}{\numberline {6}Persona Without Ownership}{7}{section.6}%
-\contentsline {section}{\numberline {7}Governance After the Voting-Power Formula}{8}{section.7}%
-\contentsline {section}{\numberline {8}Contribution Without Permanent Reputation}{9}{section.8}%
-\contentsline {subsection}{\numberline {8.1}A Worked Scenario}{10}{subsection.8.1}%
-\contentsline {section}{\numberline {9}Useful Work and Thermodynamic Honesty}{11}{section.9}%
-\contentsline {section}{\numberline {10}Selective Continuation as the Constitutional Layer}{11}{section.10}%
-\contentsline {subsection}{\numberline {10.1}Refusal as Productive Work}{12}{subsection.10.1}%
-\contentsline {subsection}{\numberline {10.2}Four Refusals}{13}{subsection.10.2}%
-\contentsline {section}{\numberline {11}A Minimal Architecture}{14}{section.11}%
-\contentsline {subsection}{\numberline {11.1}The Constitutional Insufficiency of Consensus}{15}{subsection.11.1}%
-\contentsline {section}{\numberline {12}Future Work: A Shared Admission Layer}{16}{section.12}%
-\contentsline {section}{\numberline {13}Reframing Ayian}{18}{section.13}%
-\contentsline {section}{\numberline {14}Conclusion: Memory Before Money}{18}{section.14}%
+\contentsline {section}{\numberline {4}The Grammar of Contribution}{4}{section.4}%
+\contentsline {section}{\numberline {5}Prior Art: Ledgers That Already Refuse Conversion}{6}{section.5}%
+\contentsline {section}{\numberline {6}From a Value Ledger to a Documentary Ledger}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Money as an Amputated Ledger}{8}{subsection.6.1}%
+\contentsline {section}{\numberline {7}Persona Without Ownership}{9}{section.7}%
+\contentsline {section}{\numberline {8}Governance After the Voting-Power Formula}{10}{section.8}%
+\contentsline {section}{\numberline {9}Contribution Without Permanent Reputation}{11}{section.9}%
+\contentsline {subsection}{\numberline {9.1}A Worked Scenario}{12}{subsection.9.1}%
+\contentsline {section}{\numberline {10}Useful Work and Thermodynamic Honesty}{12}{section.10}%
+\contentsline {section}{\numberline {11}Selective Continuation as the Constitutional Layer}{13}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Refusal as Productive Work}{14}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Four Refusals}{14}{subsection.11.2}%
+\contentsline {section}{\numberline {12}A Minimal Architecture}{16}{section.12}%
+\contentsline {subsection}{\numberline {12.1}The Constitutional Insufficiency of Consensus}{17}{subsection.12.1}%
+\contentsline {section}{\numberline {13}Future Work: A Shared Admission Layer}{18}{section.13}%
+\contentsline {section}{\numberline {14}Reframing Ayian}{20}{section.14}%
+\contentsline {section}{\numberline {15}Conclusion: Memory Before Money}{20}{section.15}%
