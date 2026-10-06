@@ -1,0 +1,141 @@
+\chapter{A Negative Result as Method}
+\label{ch:negative}
+
+The preceding chapters describe what a verified result owes the reader. This chapter describes what a \emph{negative} result owes, using as its worked case a reported simulation study in which a proposed decomposition of a physical phenomenon was tested and did not earn its place \cite{flyxion-mips}. The study concerns the onset of motility-induced phase separation and tests whether features named capacity and dissipation add predictive information beyond density. The findings reported there, which are simulation findings and not physical laboratory replication, are three: the simulation engine was validated; the decomposition supplied no incremental predictive value beyond density that survived replication; and an intervention pilot was underpowered, leaving causal content unresolved. Numbers from that study are not reproduced here. The chapter proves what each of the three statements does and does not license, in a form independent of the particular system.
+
+\section{Two questions that must not be merged}
+
+Let $\theta$ range over parameters of a simulated system and let $E(\theta)$ be an outcome produced by the engine. Let $b(\theta)$ be a baseline feature (here, density) and $\phi(\theta)$ a proposed additional feature.
+
+\begin{definition}[Engine validation and decomposition evaluation]
+\label{def:two-questions}
+\emph{Engine validation} is the claim that $E$ computes the intended model: on a benchmark set $\mathcal B$ of problems with independently known answers, $E$ agrees with them to a declared tolerance. This is a claim of the layers $\mathrm O1$ and $\mathrm O2$ of Chapter~\ref{ch:obligations} for the engine. \emph{Decomposition evaluation} is the claim that the features $(b,\phi)$ stand in a declared relation to the outcome, here that $\phi$ adds predictive information about $E$ beyond $b$.
+\end{definition}
+
+\begin{proposition}[The two are independent]
+\label{prop:two-q-indep}
+Engine validation neither implies nor is implied by a positive decomposition claim. In particular a validated engine can yield a decomposition that adds nothing, and an engine failing validation can yield a decomposition that appears to add predictive value.
+\end{proposition}
+
+\begin{proof}
+Validation concerns the map $\theta\mapsto E(\theta)$ against $\mathcal B$. The decomposition claim concerns the joint law of $(E(\theta),b(\theta),\phi(\theta))$ under a sampling distribution of $\theta$. Take an engine that computes $E(\theta)=g(b(\theta))$ exactly: it is validated by construction against any benchmark that $g$ solves, and $\phi$ adds nothing under every distribution. Take an engine with a bug that makes $E(\theta)=g(b(\theta))+\phi(\theta)$ though the model prescribes $g(b(\theta))$: it fails validation and $\phi$ adds predictive value.
+\end{proof}
+
+The separation is not a courtesy. A negative decomposition result is informative only if the engine is trusted, and a positive one is informative only if the same holds; but neither follows from the other, and a report that merges them cannot be read.
+
+\section{Incremental predictive value}
+
+Fix a loss $\ell$ and a class $\mathcal F_b$ of predictors using $b$ only, and a class $\mathcal F_{b,\phi}\supseteq\mathcal F_b$ using both. The \emph{incremental value} is
+\[
+\Delta(\mathcal F_b,\mathcal F_{b,\phi})=\inf_{f\in\mathcal F_b}\mathbb E\,\ell(y,f(b))-\inf_{f\in\mathcal F_{b,\phi}}\mathbb E\,\ell(y,f(b,\phi))\ \ge0,
+\]
+the inequality holding because the second infimum is over a larger class. For the squared loss and unrestricted classes it has a closed form.
+
+\begin{theorem}[Incremental value under squared loss]
+\label{thm:incremental}
+Let $y$ have finite variance and let $\mathcal F_b,\mathcal F_{b,\phi}$ be all square-integrable functions of $b$, respectively of $(b,\phi)$. Then
+\[
+\Delta=\mathbb E\big[(\mathbb E[y\mid b,\phi]-\mathbb E[y\mid b])^2\big],
+\]
+and $\Delta=0$ if and only if $\mathbb E[y\mid b,\phi]=\mathbb E[y\mid b]$ almost surely.
+\end{theorem}
+
+\begin{proof}
+The minimizers over the two classes are the conditional expectations. Write $\mu_b=\mathbb E[y\mid b]$ and $\mu_{b\phi}=\mathbb E[y\mid b,\phi]$. Then $y-\mu_b=(y-\mu_{b\phi})+(\mu_{b\phi}-\mu_b)$ and the cross term has expectation $\mathbb E[(\mu_{b\phi}-\mu_b)\,\mathbb E[y-\mu_{b\phi}\mid b,\phi]]=0$ since $\mu_{b\phi}-\mu_b$ is a function of $(b,\phi)$. Hence $\mathbb E(y-\mu_b)^2=\mathbb E(y-\mu_{b\phi})^2+\mathbb E(\mu_{b\phi}-\mu_b)^2$, which is the formula. The second term vanishes iff $\mu_{b\phi}=\mu_b$ a.s.
+\end{proof}
+
+The condition $\mathbb E[y\mid b,\phi]=\mathbb E[y\mid b]$ is the distribution-level form of the factorization criterion of Chapter~\ref{ch:proof-systems}: the task ``predict the mean of $y$'' factors through $b$. A null result in the sense of the theorem is a statement of $b$-sufficiency for that task. It is a statement about \emph{conditional means}, and about all functions of $b$ and $(b,\phi)$.
+
+\begin{proposition}[A null in a restricted class is not a null]
+\label{prop:restricted-null}
+Let $b,\phi$ be independent, mean zero, with finite nonzero variances $\sigma_b^2,\sigma_\phi^2$, and let $y=b\phi$. Let $\mathcal F_b^{\mathrm{lin}}$ and $\mathcal F_{b\phi}^{\mathrm{lin}}$ be the affine predictors. Then $\Delta^{\mathrm{lin}}=0$, while the incremental value over unrestricted classes is $\Delta=\sigma_b^2\sigma_\phi^2>0$.
+\end{proposition}
+
+\begin{proof}
+$\mathbb E[y]=0$, $\mathrm{Cov}(y,b)=\mathbb E[b^2\phi]=\mathbb E[b^2]\mathbb E[\phi]=0$ and $\mathrm{Cov}(y,\phi)=\mathbb E[b\phi^2]=0$. So the best affine predictors with and without $\phi$ are both the constant $0$, and the risks coincide. For unrestricted classes, $\mathbb E[y\mid b]=b\,\mathbb E[\phi]=0$ and $\mathbb E[y\mid b,\phi]=b\phi$, so by Theorem~\ref{thm:incremental} $\Delta=\mathbb E[(b\phi)^2]=\sigma_b^2\sigma_\phi^2$.
+\end{proof}
+
+The proposition shows that ``no incremental predictive value'' is a statement relative to the predictor class and to the range over which $(b,\phi)$ was sampled, in the sense of declared task families in Chapter~\ref{ch:sufficiency}. It is exactly the situation of Chapter~\ref{ch:history-repair}: a representation that is sufficient for one family (affine prediction) is not sufficient for another. A negative result is therefore reported with its class, loss and range, and what it excludes is the incremental value \emph{for that class and range}.
+
+\subsection*{Replication and preregistration}
+
+An estimate $\widehat\Delta$ computed on a finite sample can be negative, since the fitted larger class need not beat the fitted smaller class on held-out data. A claim that $\phi$ adds value therefore needs a decision rule: a threshold $\tau>0$ and a number of independent replicate datasets, fixed in advance (Definition~\ref{def:corr-claim}). The claim \emph{survives replication} if $\widehat\Delta>\tau$ on every replicate; it \emph{fails} otherwise. By Proposition~\ref{prop:fail-content}, the same data evaluated under a different threshold or a different number of replicates is a different claim.
+
+\section{Underpowered interventions}
+
+Prediction is not intervention. That $\phi$ adds no predictive value beyond $b$ does not say whether setting $\phi$ would change the outcome, and the reverse also holds. The causal question requires an intervention experiment, and the following statement shows what a small one can say.
+
+\begin{definition}[Two-arm intervention estimate]
+\label{def:two-arm}
+Two arms of $n$ independent runs each set $\phi$ to two values; outcomes in each arm are independent with variance $\sigma^2$, and let the effect be $\delta=\mu_1-\mu_0$. Let $\widehat\delta$ be the difference of sample means, and for $z>0$ the interval $\mathrm{CI}=[\widehat\delta-w,\ \widehat\delta+w]$ with $w=z\sigma\sqrt{2/n}$. Under normality with known $\sigma$ and $z=1.96$, this has coverage $0.95$.
+\end{definition}
+
+\begin{definition}[Three-valued verdict for an effect]
+\label{def:three-effect}
+Fix a preregistered margin $\varepsilon>0$ of practically relevant effect. The verdict is
+\begin{itemize}[nosep]
+\item $\textsf{SUPPORTED}$ if $\mathrm{CI}\subseteq(\varepsilon,\infty)$ or $\mathrm{CI}\subseteq(-\infty,-\varepsilon)$;
+\item $\textsf{EXCLUDED\_AT\_MARGIN}$ if $\mathrm{CI}\subseteq(-\varepsilon,\varepsilon)$;
+\item $\textsf{UNRESOLVED}$ otherwise.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[What a small intervention can decide]
+\label{thm:power}
+(a) The three verdicts are mutually exclusive and exhaustive. (b) If the interval covers $\delta$, then $\textsf{SUPPORTED}$ implies $|\delta|>\varepsilon$ and $\textsf{EXCLUDED\_AT\_MARGIN}$ implies $|\delta|<\varepsilon$. (c) $\textsf{EXCLUDED\_AT\_MARGIN}$ is impossible unless $w<\varepsilon$, that is, unless
+\[
+n>2\Big(\frac{z\sigma}{\varepsilon}\Big)^2;
+\]
+and $\textsf{SUPPORTED}$ is impossible unless $|\widehat\delta|>w$. In particular for $n\le2(z\sigma/\varepsilon)^2$ the verdict is never $\textsf{EXCLUDED\_AT\_MARGIN}$.
+\end{theorem}
+
+\begin{proof}
+(a) A nonempty interval contained in $(-\varepsilon,\varepsilon)$ cannot lie in $(\varepsilon,\infty)$ or $(-\infty,-\varepsilon)$, and those two are disjoint, so the first two verdicts exclude each other; \textsf{UNRESOLVED} is defined as the complement. (b) If $\delta\in\mathrm{CI}$ and $\mathrm{CI}\subseteq(\varepsilon,\infty)$ then $\delta>\varepsilon$; similarly for the others. (c) $\mathrm{CI}\subseteq(-\varepsilon,\varepsilon)$ requires its length $2w<2\varepsilon$, and $w=z\sigma\sqrt{2/n}<\varepsilon$ iff $n>2(z\sigma/\varepsilon)^2$. $\mathrm{CI}$ avoiding $0$ requires $|\widehat\delta|>w$.
+\end{proof}
+
+The theorem formalizes ``underpowered'': a pilot with $n\le2(z\sigma/\varepsilon)^2$ runs per arm cannot decide that the effect is negligible at the margin $\varepsilon$, whatever its outcome, and can support an effect only by observing one larger than $w$. A pilot of that size that fails to reach \textsf{SUPPORTED} has produced the verdict \textsf{UNRESOLVED}, and that verdict is a result: it excludes the effects outside $\mathrm{CI}$ and no others. Reporting it as ``no effect'' would be the error of treating the failure to certify as certification of failure.
+
+\begin{example}[Arithmetic]
+With $z=1.96$, $\sigma=1$ and $\varepsilon=0.5$ the bound is $n>2\cdot(1.96/0.5)^2=2\cdot15.37\approx30.7$, so at least $31$ runs per arm are required before a null can be declared negligible at that margin. At $n=10$ per arm, $w=1.96\sqrt{0.2}\approx0.877>0.5$, so the verdict cannot be \textsf{EXCLUDED\_AT\_MARGIN}. The numbers illustrate the formula and are not those of any study.
+\end{example}
+
+\section{The ledger of a negative result}
+
+Table~\ref{tab:negative-ledger} records the claims of the reported study in the vocabulary of this book. The statuses are those reported by the author for the simulations, and they are listed by type of claim and not by magnitude.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}p{4.1cm}p{4.0cm}p{4.0cm}@{}}
+\toprule
+Claim & Status & Governing result\\
+\midrule
+The simulation engine implements the intended model & validated against benchmarks (reported) & Definition~\ref{def:two-questions}\\
+Capacity and dissipation add predictive value beyond density & not supported; null survived replication within the tested class and range (reported) & Thm.~\ref{thm:incremental}, Prop.~\ref{prop:restricted-null}\\
+Intervening on the proposed features changes the outcome & unresolved; pilot underpowered (reported) & Thm.~\ref{thm:power}\\
+Results hold for physical systems & outside the scope of the study; simulation only (reported) & Chapter~\ref{ch:correspondence}\\
+\bottomrule
+\end{tabular}
+\caption{Ledger for the reported study. The statuses distinguish validated, not supported, unresolved and out of scope.}
+\label{tab:negative-ledger}
+\end{table}
+
+The ledger shows four distinct outcomes in a single study, none of which is a plain success or failure. A result of this kind constrains the framework that proposed the decomposition, and the way to keep it as evidence is the way Chapter~\ref{ch:mutation} keeps a miss: retain it in the record, under the model that produced the prediction, and treat later reformulations as new claims requiring new data.
+
+\section{What this chapter fixes}
+
+\begin{principal}
+(1) Validation of the engine and evaluation of the decomposition are independent claims (Proposition~\ref{prop:two-q-indep}). (2) Under squared loss, the incremental value of a feature is the second moment of the change in the conditional mean, and a null means $b$-sufficiency for that task (Theorem~\ref{thm:incremental}); in a restricted class, a null does not exclude value (Proposition~\ref{prop:restricted-null}). (3) A pilot below the sample size $2(z\sigma/\varepsilon)^2$ per arm cannot exclude an effect of size $\varepsilon$, and the verdict \textsf{UNRESOLVED} is a legitimate and informative outcome (Theorem~\ref{thm:power}). (4) A negative result is retained as evidence and is not removed by reformulating the claim.
+\end{principal}
+
+\begin{exercise}
+Show that Theorem~\ref{thm:incremental} also holds when $\phi$ is vector valued, and state what changes if $y$ is vector valued with a quadratic loss $\|y-f\|_M^2$ for a positive definite matrix $M$.
+\end{exercise}
+
+\begin{exercise}
+For two arms of unequal sizes $n_0,n_1$ show that $w=z\sigma\sqrt{1/n_0+1/n_1}$, and find the allocation of a fixed total $n_0+n_1$ that minimizes $w$.
+\end{exercise}
+
+\begin{exercise}
+Construct, in the setting of Proposition~\ref{prop:restricted-null}, a nonlinear class $\mathcal F_{b\phi}$ of two parameters under which $\Delta>0$, and compute it.
+\end{exercise}

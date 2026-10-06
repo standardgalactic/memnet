@@ -1,0 +1,175 @@
+\chapter{Search Spaces and Strategies}
+\label{ch:search}
+
+Chapter~\ref{ch:proof-systems} treated a producer as a black box. This chapter opens it. A producer that is a search has a space it explores, a strategy that orders the exploration, and a guarantee, when there is one, that every derivation that exists will eventually be reached. The guarantee is called \emph{fairness}, and the main theorem below shows that fairness is the only thing a strategy must add to a refutationally complete calculus to obtain a semi-decision procedure. The second half of the chapter records, with proofs from Church's theorem, three limits that no strategy escapes: there is no computable bound on derivation size, there is no terminating completion of the search, and no combination of derivation-finding and finite-countermodel-finding settles every statement.
+
+\section{Inference systems and saturation}
+
+The calculi of automated reasoning share a skeleton that is independent of the logic. Objects are generated from earlier objects by rules, and one distinguished object is contradictory.
+
+\begin{definition}[Inference system]
+\label{def:inference-system}
+An \emph{inference system} is a tuple $\mathsf{I}=(X,\mathcal{M},\models,\bot,\mathcal{R})$ where $X$ is a set of \emph{objects} (formulas, clauses, sequents), $\mathcal{M}$ is a set of \emph{models}, ${\models}\subseteq\mathcal{M}\times X$ is a satisfaction relation, $\bot\in X$ is an object satisfied by no model, and $\mathcal{R}$ is a set of \emph{rule instances} $(Q,c)$ with $Q\subseteq X$ finite and $c\in X$. A rule instance is \emph{sound} if every model satisfying all of $Q$ satisfies $c$; $\mathsf{I}$ is sound if all its rule instances are.
+
+For $N\subseteq X$, write $m\models N$ if $m\models x$ for all $x\in N$, and call $N$ \emph{unsatisfiable} if no model satisfies it. $N$ is \emph{saturated} if $(Q,c)\in\mathcal{R}$ and $Q\subseteq N$ imply $c\in N$. $\mathsf{I}$ is \emph{refutationally complete} if every saturated unsatisfiable set contains $\bot$.
+\end{definition}
+
+\begin{definition}[Derivation, fairness]
+\label{def:derivation}
+A \emph{derivation} from $N_0\subseteq X$ is a sequence $N_0\subseteq N_1\subseteq N_2\subseteq\cdots$ in which $N_{i+1}\setminus N_i$ consists of conclusions of rule instances whose premises lie in $N_i$. Put $N_\infty=\bigcup_i N_i$. The derivation is \emph{fair} if every rule instance $(Q,c)$ with $Q\subseteq N_i$ for some $i$ has $c\in N_j$ for some $j$.
+\end{definition}
+
+Because premise sets are finite and the chain is increasing, $Q\subseteq N_\infty$ holds if and only if $Q\subseteq N_i$ for some $i$. Hence fairness is exactly saturation of the limit.
+
+\begin{lemma}[Fairness is limit saturation]
+\label{lem:fair-sat}
+A derivation is fair if and only if $N_\infty$ is saturated.
+\end{lemma}
+
+\begin{proof}
+Suppose the derivation is fair and $(Q,c)\in\mathcal{R}$ with $Q\subseteq N_\infty$. Since $Q$ is finite and the chain increasing, $Q\subseteq N_i$ for some $i$, so $c\in N_j\subseteq N_\infty$ for some $j$. Conversely, if $N_\infty$ is saturated and $Q\subseteq N_i$, then $Q\subseteq N_\infty$ so $c\in N_\infty$, hence $c\in N_j$ for some $j$.
+\end{proof}
+
+\begin{theorem}[Fair derivations decide refutability]
+\label{thm:fair}
+Let $\mathsf{I}$ be sound and refutationally complete, and let $N_0,N_1,\dots$ be a fair derivation from $N_0$. Then $N_0$ is unsatisfiable if and only if $\bot\in N_i$ for some $i$.
+\end{theorem}
+
+\begin{proof}
+($\Leftarrow$) By induction on $i$, every model of $N_0$ is a model of $N_i$: the base case is trivial, and for the step each new element is the conclusion of a sound rule instance with premises in $N_i$, hence satisfied by every model of $N_i$. If $\bot\in N_i$ then a model of $N_0$ would satisfy $\bot$, which no model does. So $N_0$ is unsatisfiable.
+
+($\Rightarrow$) Suppose $N_0$ is unsatisfiable. Since $N_0\subseteq N_\infty$, any model of $N_\infty$ would be a model of $N_0$, so $N_\infty$ is unsatisfiable. By Lemma~\ref{lem:fair-sat} it is saturated, so by refutational completeness $\bot\in N_\infty$, hence $\bot\in N_i$ for some $i$.
+\end{proof}
+
+The ($\Rightarrow$) direction is what makes search \emph{complete}: if a contradiction is derivable, a fair strategy reaches it. The ($\Leftarrow$) direction is soundness. Neither direction says anything about how long the search takes, nor about what happens when $N_0$ is satisfiable.
+
+\begin{corollary}[Non-refutation is silent]
+\label{cor:silent}
+If $N_0$ is satisfiable and the derivation is fair, then $\bot\notin N_i$ for all $i$. If the derivation is stopped at a finite stage $k$ without $\bot$, then nothing follows about the satisfiability of $N_0$ unless $N_k$ is saturated.
+\end{corollary}
+
+\begin{proof}
+The first claim is the contrapositive of the ($\Leftarrow$) direction of Theorem~\ref{thm:fair}. For the second, a finite stage that is not saturated is a prefix of a derivation that may still produce $\bot$, so its silence is uninformative. If instead $N_k$ is saturated and $\bot\notin N_k$, then $N_k$ is satisfiable by the contrapositive of refutational completeness, and so is $N_0\subseteq N_k$.
+\end{proof}
+
+\section{Implementing fairness: the given-clause loop}
+\label{sec:given-clause}
+
+Fairness is a property of an infinite derivation. A strategy must achieve it by a local rule for choosing what to do next. The standard device is a \emph{given-clause loop}, with a processed set $P$ and an unprocessed queue $U$.
+
+\begin{definition}[Given-clause strategy]
+\label{def:given-clause}
+Assume that for every finite $Q\subseteq X$ only finitely many rule instances have premises inside $Q$. Fix $k\ge1$. Start with $P_0=\varnothing$ and $U_0=N_0$ (finite), each element stamped with its time of entry. At step $t$:
+\begin{enumerate}[nosep]
+\item select $u\in U_t$: if $k\mid t$, take the element with the oldest time stamp; otherwise any element;
+\item set $P_{t+1}=P_t\cup\{u\}$;
+\item add to the queue every conclusion $c$ of a rule instance $(Q,c)$ with $u\in Q\subseteq P_{t+1}$ that is not already present, stamped $t$.
+\end{enumerate}
+If $U_t=\varnothing$ the loop halts.
+\end{definition}
+
+\begin{proposition}[The loop is fair]
+\label{prop:given-clause-fair}
+The derivation $N_t=P_t\cup U_t$ produced by a given-clause strategy is fair.
+\end{proposition}
+
+\begin{proof}
+Each step adds finitely many elements by the finiteness assumption, so for each element $e$ only finitely many elements enter before $e$. Let $\mathrm{rk}_t(e)$ be the number of queue elements older than $e$ at time $t$. Newly arriving elements are younger than $e$ and do not increase $\mathrm{rk}_t(e)$; at every $k$-th step the oldest element is removed, so while $\mathrm{rk}_t(e)>0$ it decreases by $1$ at least once in every $k$ steps. Hence $e$ is selected within $k(\mathrm{rk}_{t_0}(e)+1)$ steps of its entry at time $t_0$, so every element of $N_\infty$ is eventually moved to $P$.
+
+Now let $(Q,c)$ be a rule instance with $Q\subseteq N_\infty$. Every element of $Q$ is eventually processed. Let $u$ be the element of $Q$ processed last, at some step $t$. Then $Q\subseteq P_{t+1}$ and $u\in Q$, so $c$ is added to the queue (or was already present) by step~3. Thus $c\in N_\infty$, and $N_\infty$ is saturated. If the loop halts with $U=\varnothing$ the same argument applies to the finite set $N_\infty=P$. By Lemma~\ref{lem:fair-sat} the derivation is fair.
+\end{proof}
+
+The role of the age-based selection is to defeat starvation. A strategy that always prefers the element with the best heuristic score can postpone an old clause forever; the periodic oldest-first selection is a minimal concession to fairness, and it is the reason a heuristic guiding a fair loop can change the \emph{order} in which derivations are found without changing \emph{which} derivations are eventually found. Chapter~\ref{ch:guidance} makes this the basis of a general statement about learned guidance.
+
+\section{Existence versus discovery}
+\label{sec:existence}
+
+A transition system with a goal may have a run without any particular search finding it. Let $\mathsf{R}=(\Sigma,\to,\iota,F,\mathrm{ext})$ be as in Definition~\ref{def:search} of Chapter~\ref{ch:proof-systems} and call $s$ \emph{live} if there is a path from $s$ to $F$.
+
+\begin{proposition}[Iterative deepening finds a run when one exists]
+\label{prop:ids}
+Suppose the set of successors of a state is finite and effectively computable from the state (finite branching together with a decidable edge relation is not enough, since it need not yield a terminating enumeration of the successors), and that $F$ is decidable. Let $\mathrm{DFS}_L(\varphi)$ be depth-first search from $\iota(\varphi)$ that explores all paths of length at most $L$. Then the procedure that runs $\mathrm{DFS}_1,\mathrm{DFS}_2,\dots$ in turn halts with a run on $\varphi$ if and only if $\iota(\varphi)$ is live, and then returns a run of minimal length.
+\end{proposition}
+
+\begin{proof}
+Finite branching makes the tree of paths of length at most $L$ finite, so $\mathrm{DFS}_L$ terminates. If $\iota(\varphi)$ is live with a shortest run of length $n$, then $\mathrm{DFS}_L$ fails for $L<n$ and succeeds for $L=n$, returning a run of length $n$. If $\iota(\varphi)$ is not live no $\mathrm{DFS}_L$ succeeds and the iteration does not halt.
+\end{proof}
+
+Plain depth-first search without a bound is not complete in this sense: on a system with an infinite path from $\iota(\varphi)$ that precedes the useful branch in its ordering it never returns. The proposition also exhibits the asymmetry that Chapter~\ref{ch:proof-systems} named: on a non-live initial state the procedure does not halt, and cannot, without an additional argument, report that no run exists.
+
+\section{Three limits}
+\label{sec:limits}
+
+Fix a proof system $\mathsf{S}$ for first-order logic: $\Phi$ is the set of first-order sentences over a finite signature containing at least one binary relation symbol, $\mathrm{Val}$ is the set of valid sentences, and $\mathsf{S}$ is sound and complete with decidable $\Chk$. Gödel's completeness theorem guarantees such systems exist, and we use:
+
+\begin{theorem}[Church 1936, Turing 1936]
+\label{thm:church}
+\cited{Church, Turing} For a signature with at least one binary relation symbol, the set $\mathrm{Val}$ of valid first-order sentences is undecidable.
+\end{theorem}
+
+\begin{proposition}[No computable bound on derivation size]
+\label{prop:no-bound}
+There is no computable total function $f:\N\to\N$ such that every valid $\varphi$ has a derivation $d$ with $\Chk(d,\varphi)$ and $|d|\le f(|\varphi|)$.
+\end{proposition}
+
+\begin{proof}
+Suppose $f$ exists. Given $\varphi$, compute $f(|\varphi|)$, list the finitely many strings $d$ with $|d|\le f(|\varphi|)$, and run the decidable relation $\Chk$ on each pair $(d,\varphi)$. Accept if some check succeeds, otherwise reject. If $\varphi$ is valid then by assumption and completeness some $d$ within the bound passes. If some $d$ passes then $\varphi$ is valid by soundness. This decides $\mathrm{Val}$, contradicting Theorem~\ref{thm:church}.
+\end{proof}
+
+The proposition has an immediate bearing on the theme of this book. Because no computable function bounds the length of the shortest derivation, no procedure can promise that the compressed object of Chapter~\ref{ch:proof-systems} is small relative to the statement it certifies. The residue discarded in extraction, or the derivation itself, may be larger than any bound one could state in advance.
+
+\begin{definition}[Finite countermodel]
+\label{def:finite-countermodel}
+A sentence $\varphi$ has a \emph{finite countermodel} if some finite structure for the signature satisfies $\neg\varphi$. Let $\mathrm{FM}$ be the set of such sentences.
+\end{definition}
+
+\begin{proposition}[Two witnesses, two enumerations]
+\label{prop:two-enum}
+Both $\mathrm{Val}$ and $\mathrm{FM}$ are recursively enumerable and disjoint.
+\end{proposition}
+
+\begin{proof}
+$\mathrm{Val}$ is recursively enumerable by Proposition~\ref{prop:re} of Chapter~\ref{ch:proof-systems}. For $\mathrm{FM}$, enumerate pairs of a finite structure and a sentence and evaluate the sentence in the structure; evaluation in a finite structure is decidable. Disjointness is immediate: a structure falsifying $\varphi$ shows $\varphi$ is not valid.
+\end{proof}
+
+\begin{corollary}[Neither proved nor finitely refuted]
+\label{cor:neither}
+$\mathrm{Val}\cup\mathrm{FM}\ne\Phi$. Equivalently, there exist sentences that are not valid and have no finite countermodel; every such sentence is rejected by every combination of a sound derivation-finder and a sound finite-model-finder.
+\end{corollary}
+
+\begin{proof}
+If $\mathrm{Val}\cup\mathrm{FM}=\Phi$, then given $\varphi$ run the enumerations of $\mathrm{Val}$ and $\mathrm{FM}$ in parallel; exactly one eventually produces $\varphi$, and the answer is read off. This decides $\mathrm{Val}$, contradicting Theorem~\ref{thm:church}.
+\end{proof}
+
+\section{Outcomes of a bounded search}
+\label{sec:outcomes}
+
+The proposition and corollary above justify a three-valued reading of the result of any practical attempt on a first-order goal.
+
+\begin{definition}[Outcomes]
+\label{def:outcomes}
+An attempt on $\varphi$ with a prover and a finite-model finder returns one of
+\begin{itemize}[nosep]
+\item $\textsf{Proved}(d)$ with $\Chk(d,\varphi)$, from which $\varphi\in\mathrm{Val}$ follows;
+\item $\textsf{Refuted}(m)$ with $m$ a finite structure and $m\models\neg\varphi$, from which $\varphi\notin\mathrm{Val}$ follows;
+\item $\textsf{Undetermined}$, from which nothing follows.
+\end{itemize}
+\end{definition}
+
+By Corollary~\ref{cor:neither}, the third outcome cannot be eliminated by waiting longer or by adding a finite-model finder. It is a structural feature of first-order automated reasoning, and the discipline of non-certification of Chapter~\ref{ch:proof-systems} is its operational consequence. Chapter~\ref{ch:inheritance} extends this three-valued vocabulary from statements to \emph{transformations of verified artifacts}, where an analogous undetermined outcome has a different cause (leaving a certified fragment rather than exhausting a budget) and, as we will argue, a different meaning.
+
+\section{Summary}
+
+Fair strategies make refutationally complete calculi into semi-decision procedures (Theorem~\ref{thm:fair}). Fairness is implemented, not assumed, by age-based selection (Proposition~\ref{prop:given-clause-fair}). Existence of a run and discovery of a run are different properties (Proposition~\ref{prop:ids}). Three barriers survive any such implementation: no bound on derivation size (Proposition~\ref{prop:no-bound}), non-termination on satisfiable inputs (Corollary~\ref{cor:silent}), and an irreducible undetermined region (Corollary~\ref{cor:neither}).
+
+\begin{exercise}
+Show that Theorem~\ref{thm:fair} fails without the soundness hypothesis, and that it fails without refutational completeness. In each case give an inference system and a fair derivation with the stated defect.
+\end{exercise}
+
+\begin{exercise}
+In Definition~\ref{def:given-clause}, replace oldest-first selection every $k$-th step by selection of the element with minimal heuristic score at every step. Construct an infinite derivation in which some element is never selected, and explain what this does to Lemma~\ref{lem:fair-sat} and to the ($\Rightarrow$) direction of Theorem~\ref{thm:fair}.
+\end{exercise}
+
+\begin{exercise}
+Prove that Proposition~\ref{prop:no-bound} remains true if $|\varphi|$ is replaced by any computable measure of $\varphi$ that takes finitely many sentences to each value.
+\end{exercise}

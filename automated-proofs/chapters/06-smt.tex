@@ -1,0 +1,172 @@
+\chapter{Theories, Congruence, and Combination}
+\label{ch:smt}
+
+Propositional search proves facts about Boolean structure. Most of the questions asked of automated provers in verification, planning, and scientific computing involve arithmetic, equality, arrays, and data types, and the solvers that answer them are propositional solvers wrapped around decision procedures for theories. The wrapping is logically simple, since it amounts to adding \emph{theory lemmas} to a resolution proof, but its consequences for what a certificate means are substantial. A certificate now has two parts, a Boolean skeleton and a collection of theory facts, each checked by a different mechanism, and the correctness of the whole depends on the agreement of each mechanism with the intended meaning of the theory. This chapter proves correctness for the three components that matter for certificates: the lazy architecture, congruence closure for equality, and Farkas certificates for linear arithmetic; it states the combination theorem of Nelson and Oppen and proves the half of it that explains its hypothesis.
+
+\section{Theories and the lazy architecture}
+\label{sec:lazy}
+
+\begin{definition}[Theory, T-validity]
+\label{def:theory}
+A \emph{theory} $T$ is a class of structures over a signature $\Sigma$ (its \emph{models}), closed under isomorphism. A formula is \emph{$T$-valid}, written $\models_T\varphi$, if every model of $T$ satisfies it under every assignment, and \emph{$T$-satisfiable} if some model of $T$ and some assignment satisfy it. A \emph{$T$-lemma} is a $T$-valid clause of ground literals.
+\end{definition}
+
+A quantifier-free formula in conjunctive normal form over $\Sigma$-atoms is a set of clauses whose atoms are $\Sigma$-literals (equalities, inequalities, applications of predicate symbols). The \emph{Boolean abstraction} replaces each distinct atom by a propositional variable. The lazy architecture couples the CDCL system of Chapter~\ref{ch:sat} to a procedure that decides $T$-satisfiability of conjunctions of literals.
+
+\begin{definition}[DPLL($T$)]
+\label{def:dpllt}
+The rules are those of Definition~\ref{def:cdcl} with one addition, in which entailment is replaced by $T$-entailment, and with the abstraction understood:
+\begin{description}[leftmargin=1.5em,nosep]
+\item[TheoryLearn] $\langle M\,\|\,F\rangle\Rightarrow\langle M\,\|\,F\cup\{C\}\rangle$ if $C$ is a $T$-lemma over atoms occurring in $F$ or $M$.
+\item[Backjump] as before, with the side condition $F\models_T C'$ in place of $F\models C'$.
+\end{description}
+\end{definition}
+
+The theory solver communicates with the Boolean engine only through \textsf{TheoryLearn}: when the literals on the trail are jointly $T$-unsatisfiable, it returns a clause $\neg\ell_1\vee\cdots\vee\neg\ell_k$ built from an unsatisfiable subset $\{\ell_1,\dots,\ell_k\}$ of the trail, which is a $T$-lemma, and the next \textsf{Conflict} analysis proceeds as in the propositional case.
+
+\begin{theorem}[Soundness of DPLL($T$)]
+\label{thm:dpllt-sound}
+If a run from $\langle\varepsilon\,\|\,F_0\rangle$ reaches $\mathsf{Fail}$ then $F_0$ is $T$-unsatisfiable. Moreover $F_0\cup L$ has a resolution refutation, where $L$ is the set of clauses added by \textsf{TheoryLearn}, and each member of $L$ is $T$-valid.
+\end{theorem}
+
+\begin{proof}
+The proof of Lemma~\ref{lem:cdcl-inv} goes through with ``$F$ and $F_0$ have the same models'' replaced by ``$F$ and $F_0$ have the same $T$-models'' and with $\models_T$ in place of $\models$ throughout. \textsf{TheoryLearn} adds a $T$-lemma, which every $T$-model satisfies, so it preserves $T$-models. The remaining cases are verbatim. At $\mathsf{Fail}$ the argument of Theorem~\ref{thm:cdcl-sound} shows that $F_0\models_T\overline{c}$ for every $c\in C$ and $F_0\models_T C$, which no $T$-model can satisfy. The second claim follows from Theorem~\ref{thm:cdcl-resolution}, regarding each member of $L$ as an additional input clause: the analysis uses only clauses of the current $F$, which consists of $F_0$, members of $L$, and clauses learned by resolution.
+\end{proof}
+
+Theorem~\ref{thm:dpllt-sound} gives the shape of a certificate for a theory-unsatisfiable result: a resolution (or RUP) refutation from $F_0\cup L$, together with a proof for each member of $L$ that it is $T$-valid. The first part is checked as in Chapter~\ref{ch:sat}. The second part is where theory-specific certificate formats enter.
+
+\section{Equality: congruence closure}
+\label{sec:cc}
+
+The theory $\mathrm{EUF}$ of equality with uninterpreted functions has as models all structures for a signature of function symbols (constants being $0$-ary symbols). A \emph{ground term} is a term without variables, where free variables are treated as constants. Let $S$ be a finite set of ground terms closed under subterms and $E\subseteq S\times S$ a set of equations.
+
+\begin{definition}[Congruence closure]
+\label{def:cc}
+The \emph{congruence closure} of $E$ on $S$ is the smallest equivalence relation $\equiv$ on $S$ such that $E\subseteq{\equiv}$ and, whenever $f(s_1,\dots,s_n),f(t_1,\dots,t_n)\in S$ with $s_i\equiv t_i$ for all $i$, we have $f(s_1,\dots,s_n)\equiv f(t_1,\dots,t_n)$.
+\end{definition}
+
+\begin{theorem}[Correctness of congruence closure]
+\label{thm:cc}
+For $s,t\in S$: $E\models_{\mathrm{EUF}}s\approx t$ if and only if $s\equiv t$. Consequently a conjunction $E\wedge\bigwedge_j s_j\not\approx t_j$ with all terms in $S$ is $\mathrm{EUF}$-unsatisfiable if and only if $s_j\equiv t_j$ for some $j$.
+\end{theorem}
+
+\begin{proof}
+($\Leftarrow$) We show every pair of $\equiv$ is entailed by $E$ by induction on the generation of $\equiv$ as a closure: the pairs of $E$ are entailed; reflexivity, symmetry and transitivity of $=$ are sound; and congruence is sound, since in any structure equal arguments give equal values of $f$.
+
+($\Rightarrow$) Suppose $s\not\equiv t$. Build a structure $\mathcal{A}$ with domain $S/{\equiv}$. For an $n$-ary symbol $f$ and classes $c_1,\dots,c_n$: if there are representatives $t_i\in c_i$ with $f(t_1,\dots,t_n)\in S$, put $f^{\mathcal{A}}(c_1,\dots,c_n)=[f(t_1,\dots,t_n)]$; otherwise put $f^{\mathcal{A}}(c_1,\dots,c_n)=c_0$ for a fixed class $c_0$. The first clause is well defined: if $t_i,t_i'\in c_i$ and both $f(\vec t),f(\vec t')\in S$ then $t_i\equiv t_i'$, so $f(\vec t)\equiv f(\vec t')$ by the congruence clause. By induction on terms in $S$, which is subterm-closed, $[\![u]\!]^{\mathcal{A}}=[u]$ for every $u\in S$. Hence $\mathcal{A}$ satisfies every equation of $E$ (as its sides are $\equiv$) and falsifies $s\approx t$ because $[s]\ne[t]$. So $E\not\models s\approx t$.
+
+For the consequence: if some $s_j\equiv t_j$ then $E\models s_j\approx t_j$ contradicts the disequality, so the conjunction is unsatisfiable. If no $s_j\equiv t_j$ then $\mathcal{A}$ satisfies $E$ and every disequality.
+\end{proof}
+
+\begin{proposition}[The merging algorithm]
+\label{prop:cc-alg}
+Start from the identity relation on $S$. Repeat: merge the classes of $s,t$ for some $(s\approx t)\in E$ with $s\not\equiv t$, or for some $f(\vec s),f(\vec t)\in S$ with $s_i\equiv t_i$ for all $i$ and $f(\vec s)\not\equiv f(\vec t)$. This halts after at most $|S|-1$ merges, and the final relation is the congruence closure.
+\end{proposition}
+
+\begin{proof}
+Each merge reduces the number of classes by one, so at most $|S|-1$ merges occur. At the end no merge is applicable, so the relation contains $E$ and is closed under congruence; hence it contains the congruence closure. Conversely, by induction on the number of merges performed, each merged pair belongs to the congruence closure, since it follows from $E$ and congruence from pairs already in the closure. So the final relation equals it.
+\end{proof}
+
+With union-find and a signature table the algorithm runs in time $O(n\log n)$ (cited: Downey, Sethi, Tarjan 1980). For certificates the important feature is that the algorithm can record \emph{why} each merge occurred, either because of an input equation or because of congruence on earlier merges. The record is a derivation in the equational calculus with rules for hypotheses, reflexivity, symmetry, transitivity, and congruence, and the checking relation for such derivations is a simple tree check.
+
+\begin{proposition}[Equality lemmas have checkable explanations]
+\label{prop:cc-explain}
+If a congruence closure computation derives $s_j\equiv t_j$ then it yields a subset $E'\subseteq E$ and a derivation of $s_j\approx t_j$ from $E'$ in the equational calculus, and the clause $\bigvee_{e\in E'}\neg e\ \vee\ s_j\approx t_j$ is an $\mathrm{EUF}$-lemma.
+\end{proposition}
+
+\begin{proof}
+Associate with each merge the set of input equations used in its justification, which is finite and defined by recursion on the order of merges. The derivation is assembled from the recorded justifications, and soundness of the calculus rules gives $E'\models s_j\approx t_j$, so the clause is valid.
+\end{proof}
+
+\begin{example}[Explanations are not unique]
+\label{ex:explanations}
+Let $E=\{a\approx b,\ b\approx c,\ a\approx c\}$. Both $E'=\{a\approx c\}$ and $E''=\{a\approx b,b\approx c\}$ explain $a\approx c$. A run that processes the third equation first records $E'$, and one that processes the first two records $E''$. Both are valid lemmas. They yield different clauses in the Boolean engine and so different subsequent behavior, with the same verdict.
+\end{example}
+
+\section{Linear arithmetic: Farkas certificates}
+\label{sec:farkas}
+
+For linear arithmetic over the rationals the natural lemma certificate is a nonnegative combination of the inequalities that contradicts itself. Let $A\in\mathbb{Q}^{m\times n}$ and $b\in\mathbb{Q}^m$.
+
+\begin{proposition}[Farkas certificates are sound]
+\label{prop:farkas-sound}
+If $y\in\mathbb{Q}^m$ satisfies $y\ge0$, $y^{\top}A=0$ and $y^{\top}b<0$, then the system $Ax\le b$ has no solution $x\in\mathbb{Q}^n$.
+\end{proposition}
+
+\begin{proof}
+If $Ax\le b$ and $y\ge0$ then $y^{\top}Ax\le y^{\top}b$. But $y^{\top}Ax=0$ and $y^{\top}b<0$, giving $0<0$.
+\end{proof}
+
+\begin{theorem}[Farkas' lemma]
+\label{thm:farkas}
+\cited{Farkas 1902} The system $Ax\le b$ over $\mathbb{Q}$ is unsatisfiable if and only if there is $y\ge0$ with $y^{\top}A=0$ and $y^{\top}b<0$.
+\end{theorem}
+
+Together these make the Farkas vector $y$ a complete certificate for the linear-rational theory $\mathrm{LRA}$ (non-strict case), checkable in exact rational arithmetic by one matrix-vector multiplication. The checker is tiny and the certificate says nothing about \emph{how} it was found: simplex pivots, bound propagation, and branching on disequalities are all absent from it. For linear integer arithmetic no certificate with comparable simplicity is complete in the same way, because deciding integer feasibility is $\mathrm{NP}$-hard and the certificates involve cuts and case splits, whose format we do not develop here.
+
+\begin{remark}[Exactness]
+\label{rem:exact}
+A certificate $y$ is a rational vector and the check is an equation in $\mathbb{Q}$. A solver that finds $y$ in floating point is free to do so; the check, however, must be exact. A claim certified with floating-point arithmetic is a different claim, about a different structure. This is the first appearance of the translation of Section~\ref{sec:translation} of Chapter~\ref{ch:proof-systems} in the context of theories, where the choice of the structure (rationals, integers with unbounded range, machine integers with overflow, floating-point numbers) is the content of $\tau$.
+\end{remark}
+
+\section{Combining theories}
+\label{sec:no}
+
+Real problems mix theories. The classical method of Nelson and Oppen combines decision procedures for theories $T_1,T_2$ over disjoint signatures, first purifying a formula so that each literal belongs to one signature (introducing fresh variables for foreign subterms), and then exchanging equalities among the shared variables.
+
+\begin{definition}[Stably infinite, arrangement]
+\label{def:stably-infinite}
+A theory $T$ is \emph{stably infinite} if every $T$-satisfiable quantifier-free formula is satisfiable in an infinite model of $T$. Let $V$ be a finite set of variables. An \emph{arrangement} of $V$ is an equivalence relation on $V$; write $\delta_{\sim}$ for the conjunction of the equalities $x=y$ for $x\sim y$ and the disequalities $x\ne y$ for $x\not\sim y$.
+\end{definition}
+
+\begin{theorem}[Nelson--Oppen]
+\label{thm:no}
+\cited{Nelson and Oppen 1979; Tinelli and Harandi 1996} Let $T_1,T_2$ be stably infinite theories over disjoint signatures, $\varphi_1,\varphi_2$ conjunctions of literals over $\Sigma_1$ and $\Sigma_2$ respectively, and $V$ the set of variables occurring in both. Then $\varphi_1\wedge\varphi_2$ is satisfiable in $T_1\cup T_2$ if and only if there is an arrangement $\sim$ of $V$ such that $\varphi_i\wedge\delta_{\sim}$ is $T_i$-satisfiable for $i=1,2$.
+\end{theorem}
+
+The direction ($\Rightarrow$) holds without any hypothesis and has a one-line proof: a model of $T_1\cup T_2$ satisfying $\varphi_1\wedge\varphi_2$ determines the arrangement $x\sim y$ iff $x,y$ have equal values, and each reduct is a model of $T_i$ satisfying $\varphi_i\wedge\delta_{\sim}$. The direction ($\Leftarrow$) is where stable infinity is used: given models $\mathcal{A}_1,\mathcal{A}_2$ satisfying the two parts, one uses the Löwenheim--Skolem theorem and stable infinity to make both of the same infinite cardinality, builds a bijection between their domains that respects the arrangement on $V$, and transports one structure along the bijection to form a model of the union. The next example shows the hypothesis cannot be dropped.
+
+\begin{example}[Stable infinity is necessary]
+\label{ex:not-stably-infinite}
+Let $T_1$ over the empty signature (equality only) have as its models exactly the structures with exactly two elements. $T_1$ is not stably infinite. Let $T_2=\mathrm{EUF}$ over a signature $\{f\}$. Take $\varphi_2=f(x)\not\approx f(y)\wedge f(y)\not\approx f(z)\wedge f(x)\not\approx f(z)$ and $\varphi_1$ the empty conjunction. Then $V=\varnothing$ since $\varphi_1$ mentions no variables, so the unique arrangement is the empty relation. The formula $\varphi_1$ is $T_1$-satisfiable and $\varphi_2$ is $T_2$-satisfiable. Nevertheless $\varphi_1\wedge\varphi_2$ is unsatisfiable in $T_1\cup T_2$: in every model there are exactly two elements, while $\varphi_2$ requires three pairwise distinct values $f(x),f(y),f(z)$. The combination procedure would answer \emph{satisfiable}, which is wrong, and the error is silent.
+\end{example}
+
+The example is a concrete instance of the discipline that runs through this book. A procedure's verdict is correct relative to hypotheses about its inputs (here, stable infinity), and a certificate that does not carry those hypotheses can be valid in the checker's sense and misleading in the user's.
+
+\section{Certificates for theory results and the growth of the trusted base}
+\label{sec:smt-certificates}
+
+Combining the pieces: an SMT unsatisfiability result is certified by a resolution proof over the Boolean abstraction together with a certificate for each theory lemma (Theorem~\ref{thm:dpllt-sound}). The checker for the whole is the union of checkers: a clause-level proof checker, a derivation checker for $\mathrm{EUF}$ lemmas (Proposition~\ref{prop:cc-explain}), an exact-arithmetic checker for $\mathrm{LRA}$ (Proposition~\ref{prop:farkas-sound}), and so on for each theory.
+
+\begin{theorem}[Soundness of the combined checker]
+\label{thm:smt-checker}
+Let $\Chk_{\mathrm{res}}$ be a sound checker for resolution refutations, and for each theory $T_i$ let $\Chk_{T_i}$ be a sound checker for $T_i$-lemmas, in the sense that $\Chk_{T_i}(c,C)$ implies $\models_{T_i}C$. Define $\Chk_{\mathrm{SMT}}((\vec c,d),F)$ to hold if $d$ is a resolution refutation of $F\cup\{C_1,\dots,C_k\}$ and $\Chk_{T_{i_j}}(c_j,C_j)$ for each $j$. Suppose in addition that every clause valid in some $T_i$ is valid in the combined theory $T$ (the models of $T$ are structures whose reducts to each component signature are models of that component). Then $\Chk_{\mathrm{SMT}}((\vec c,d),F)$ implies that $F$ is unsatisfiable in $T$.
+\end{theorem}
+
+\begin{proof}
+A model of $T$ and an assignment satisfying $F$ would satisfy each $C_j$, which is $T$-valid by the additional hypothesis and the soundness of $\Chk_{T_{i_j}}$. It would therefore satisfy all of $F\cup\{C_1,\dots,C_k\}$, contradicting the soundness of the resolution refutation.
+\end{proof}
+
+The additional hypothesis is not automatic. It is exactly what fails if a component is stated for a different structure than the one the combined problem intends. The trusted base therefore grows with each theory, and in two ways: the checker for each theory must be trusted, and the \emph{intended structure} of each theory must be correctly described. The second is the translation of Proposition~\ref{prop:composition} again.
+
+\begin{remark}[Quantifiers and the third outcome]
+\label{rem:quantifiers}
+Solvers also accept quantified formulas, and treat quantifiers by instantiation. A refutation found this way is certified by the instances used, which are ground and so fall under the preceding theorem. A failure to find a refutation is not a model: it supports only the answer \emph{unknown}. The three-valued outcome of Definition~\ref{def:outcomes} appears here for the same reason as in first-order logic, and the discipline of non-certification forbids reading unknown as satisfiable.
+\end{remark}
+
+\section{What an SMT result discards}
+\label{sec:smt-residue}
+
+The structure of the residue is now visible in miniature. A result is a Boolean skeleton plus lemmas, and discarded are: the order of theory conflicts; which of several valid explanations was chosen (Example~\ref{ex:explanations}); how a Farkas vector was found; the arrangement guesses made during combination; and, for quantified input, which instantiations were tried and abandoned. None of this affects the soundness of the verdict. A task that depends on any of it, for instance diagnosing why a verification condition failed to prove, or porting a proof to a slightly different theory, cannot be served by the certificate alone. Chapter~\ref{ch:kernels} turns to the case where the certificate is checked by a small kernel and the same questions arise at the level of tactics and proof terms.
+
+\begin{exercise}
+Compute the congruence closure for $E=\{f(f(f(a)))\approx a,\ f(f(f(f(f(a)))))\approx a\}$ and show that $f(a)\equiv a$. Give the derivation of $f(a)\approx a$ in the equational calculus and the set $E'$ of Proposition~\ref{prop:cc-explain}.
+\end{exercise}
+
+\begin{exercise}
+Show that Theorem~\ref{thm:cc} fails if $S$ is not subterm-closed, by giving $E$, $S$, $s,t\in S$ with $E\models_{\mathrm{EUF}}s\approx t$ but $s\not\equiv t$ for the congruence closure computed on $S$.
+\end{exercise}
+
+\begin{exercise}
+Verify Proposition~\ref{prop:farkas-sound} on the system $x\le0$, $-x\le-1$ by exhibiting $y$.
+\end{exercise}

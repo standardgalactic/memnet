@@ -1,0 +1,153 @@
+\chapter{Mutation of Verified Artifacts}
+\label{ch:mutation}
+
+Chapters~\ref{ch:history-repair} and~\ref{ch:inheritance} derived, from the structure of a checker, predictions about which dependents of a verified development survive a change. A prediction is a claim, and the way to test it is to change the development and see. This chapter formalizes that experiment: what a mutation is, what a preregistered prediction is, how predictions are scored and retained, and why a model that sees a dependency graph without edge types is not merely less accurate but \emph{insufficient} for the task. It also treats the two audit rules that protect the experiment from a failure specific to proof assistants, namely that an artifact can be accepted while resting on a placeholder.
+
+The experimental work that motivated this chapter, a frozen Lean~4 development, a preregistered matrix of twenty mutants over twelve operator classes, and a batch run over all of them, is described in the author's separate manuscripts \cite{flyxion-mutation}. Per-mutant outcome tables are not reproduced here. What is established in this chapter is the mathematics of the experimental design and what the design can and cannot support.
+
+\section{Specimens, operators, outcomes}
+
+\begin{definition}[Specimen, mutation, blast set]
+\label{def:specimen}
+A \emph{specimen} is a well-formed environment $\Gamma$ in the sense of Section~\ref{sec:typed-edges}, together with a set $\mathrm{Ax}_0$ of \emph{declared} axioms. A \emph{mutation operator} is a partial function $\mu$ taking a specimen and a target constant to a new environment $\Gamma'=\mu(\Gamma,c)$. The \emph{blast set} of the mutant is
+\[
+B(\Gamma,\Gamma')=\{e\ \text{a constant of }\Gamma':\ e\text{ does not check in }\Gamma'\},
+\]
+where ``checks'' is as in Lemma~\ref{lem:interface}. The \emph{footprint change} is $\Delta\mathrm{Ax}(e)=\mathrm{Ax}_{\Gamma'}(e)\,\triangle\,\mathrm{Ax}_{\Gamma}(e)$ for each constant $e$ that checks in both.
+\end{definition}
+
+An \emph{operator class} groups operators by the kind of change: replacing a theorem body by another proof of the same type, replacing a definition body, changing a declared type, renaming, reordering, normalizing associativity, and so on.
+
+\begin{definition}[Prediction, correctness, soundness, precision]
+\label{def:prediction}
+A \emph{predictor} is a function $\widehat B$ from (specimen, operator, target) to a set of constants. On a mutant it is \emph{sound} if $B\subseteq\widehat B$, \emph{precise} if $\widehat B\subseteq B$, and \emph{correct} if both. A prediction concerning footprint is a prediction of $\Delta\mathrm{Ax}$ for each surviving constant.
+\end{definition}
+
+Soundness and precision are independent: a predictor that always returns every constant is sound and imprecise, and one that always returns the empty set is precise whenever $B=\emptyset$ and unsound otherwise. The experimental question is whether a model yields predictions that are both.
+
+\section{Preregistration and retention}
+
+\begin{definition}[Prediction log]
+\label{def:log}
+A \emph{prediction log} is an append-only sequence of entries $(\mathsf{id},\mathsf{model},\mathsf{pred},\mathsf{time}_p,\mathsf{out},\mathsf{time}_o)$, where $\mathsf{pred}$ is a prediction made under the model $\mathsf{model}$ at time $\mathsf{time}_p$, and $\mathsf{out}$ is an observed outcome recorded at $\mathsf{time}_o$. An entry is \emph{preregistered} if $\mathsf{time}_p<\mathsf{time}_{\mathrm{mut}}$, the time at which the mutant artifact first existed. An entry is \emph{falsified under its model} if $\mathsf{pred}\ne\mathsf{out}$ (for the exact notion), and \emph{retained} if it remains in the log unchanged. A \emph{model amendment} adds a new model identifier; it never modifies existing entries.
+\end{definition}
+
+\begin{proposition}[Retention prevents retroactive correction]
+\label{prop:retention}
+In a prediction log satisfying the append-only rule:
+\begin{enumerate}[label=(\alph*),nosep]
+\item the set of entries falsified under their models is nondecreasing in time;
+\item for each mutant, the score of a model amended after $\mathsf{time}_o$ on that mutant is a \emph{retrodiction}, not a prediction: its $\mathsf{time}_p$ is later than $\mathsf{time}_o$, so the entry is not preregistered;
+\item the proportion of preregistered predictions that were correct under model $m$ is defined only for mutants whose entries for $m$ precede the mutant artifact, and is therefore not affected by later amendments.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Entries are never modified or deleted, and falsification is a property of a single entry. (b) The amended model has $\mathsf{time}_p>\mathsf{time}_o\ge\mathsf{time}_{\mathrm{mut}}$. (c) is the definition of preregistration restricted to a model.
+\end{proof}
+
+The proposition states, in the form of an invariant, the practice of preserving a miss as a miss. An amended model may correctly describe the mutants that falsified its predecessor; that correct description is evidence of fit and not of predictive ability. Evidence of predictive ability for the amended model requires \emph{new} preregistered mutants.
+
+\section{A flat dependency graph is insufficient}
+
+The central methodological finding of the experimental work, as reported in the manuscripts cited above, is that a dependency representation that merges the relations of Definition~\ref{def:typed-edges} into one cannot support the predictions. This is a statement of Chapter~\ref{ch:sufficiency}, and it is provable.
+
+\begin{definition}[Flat and typed predictors]
+\label{def:flat-typed}
+For the replacement of the body of a constant $D$ by a term $v'$ that checks at $D$'s type, define
+\[
+\widehat B_{\mathrm{typed}}(D)=\begin{cases}\emptyset&D\text{ a theorem}\\ \{c:\ D\in\mathrm{Cons}(c)\}&D\text{ a definition}\end{cases}
+\qquad
+\widehat B_{\mathrm{flat}}(D)=\{c:\ D\in\mathrm{cl}(c)\}\setminus\{D\},
+\]
+with $\mathrm{cl}$ the flat dependency closure of Chapter~\ref{ch:kernels} and $\mathrm{Cons}$ the consulted set of Definition~\ref{def:consulted}.
+\end{definition}
+
+\begin{proposition}[Soundness and relation of the predictors]
+\label{prop:flat-typed}
+Assume Convention~\ref{conv:kernel}. For body replacements that check at their type, $B\subseteq\widehat B_{\mathrm{typed}}(D)\subseteq\widehat B_{\mathrm{flat}}(D)$, with $B$ the blast set excluding $D$. Both predictors are sound; $\widehat B_{\mathrm{typed}}$ is at least as precise as $\widehat B_{\mathrm{flat}}$ on every mutant, and strictly more precise on some.
+\end{proposition}
+
+\begin{proof}
+$B\subseteq\widehat B_{\mathrm{typed}}$ is Theorem~\ref{thm:blast}. $\mathrm{Cons}(c)\subseteq\mathrm{cl}(c)$ gives the second inclusion. For strictness, let $D$ be a definition, $T$ a theorem whose \emph{value} mentions $D$, and $c$ a constant that mentions $T$ in its value but not otherwise $D$. Then $D\in\mathrm{cl}(c)$ (flat) while $D\notin\mathrm{Cons}(c)$ if $D$ does not occur in the type of $T$ or $c$, and $c$ checks after the replacement by Lemma~\ref{lem:interface}.
+\end{proof}
+
+The soundness half assumes that the specimen is checked by a kernel satisfying the convention. Both predictors err only in the direction of over-prediction in this setting; a flat predictor that applied some rule \emph{other} than ``all reachable constants break'', for instance treating some edge types as safe, is not covered by the proposition, and the next result shows that no rule on the undifferentiated graph is right.
+
+\begin{proposition}[No predictor on the flat graph is correct]
+\label{prop:flat-insufficient}
+There are two specimens $\Gamma_1,\Gamma_2$ with the same flat dependency graph, a constant $c$ checking in both that depends on a constant $X$, and body replacements of $X$ in each, such that $c\notin B(\Gamma_1,\Gamma_1')$ and $c\in B(\Gamma_2,\Gamma_2')$. Hence no function of the flat dependency graph alone, and of the identity of the mutated constant, is a correct predictor.
+\end{proposition}
+
+\begin{proof}
+Let $\Gamma_1$ contain a theorem $X:\ 0=0$ with value $\mathsf{rfl}$ and a constant $c:\ 0=0$ whose value is $X$. Let $\Gamma_2$ contain a definition $X:\mathbb N:=0$ and $c:\ X=0$ with value $\mathsf{rfl}$ In both specimens the flat graph consists of the single edge $c\to X$. Replace the body of $X$ in $\Gamma_1$ by another proof of $0=0$, and in $\Gamma_2$ the body $0$ by $1$. The first replacement leaves $c$ checking (Lemma~\ref{lem:interface}); the second breaks $c$, since $\mathsf{rfl}:X=0$ requires $X\equiv0$ and $1\not\equiv0$. The two flat graphs are isomorphic by a relabelling that preserves the mutated node and the dependent, so a predictor depending only on the flat graph assigns $c$ the same prediction in both.
+\end{proof}
+
+In the vocabulary of Chapter~\ref{ch:sufficiency}, the flat graph is a representation whose kernel identifies mutants with different outcomes, and the outcome task is not served. The typed graph distinguishes the two by the edge label ($\to_{\mathrm{int}}$ in $\Gamma_1$, $\to_{\mathrm{sem}}$ in the type of $c$ in $\Gamma_2$), and Theorem~\ref{thm:blast} shows that the typed edges are sufficient for the \emph{safe} direction. The author attributes two preregistration misses in the reported matrix (M09 and M16) to the flat model's conflation of the three edge types, and the retention rule of the preceding section keeps them in the record as falsified under that model.
+
+\begin{remark}[Exactness is not claimed]
+Proposition~\ref{prop:flat-typed} establishes soundness of $\widehat B_{\mathrm{typed}}$, not precision: a definition in $\mathrm{Cons}(c)$ whose replacement body is convertible with the old need not break anything. Whether a replacement body is convertible with the old one is a question about the checker's conversion relation, and answering it in general requires running the checker.
+\end{remark}
+
+\section{Footprints and the placeholder audit}
+
+Proof assistants admit a state that has no analogue in the logical systems of Part~I: a declaration may be accepted while resting on a placeholder. In Lean, an elaborator that cannot complete a proof may insert $\mathsf{sorryAx}$, a constant of every type, and report a warning while the declaration is added to the environment with a value (Chapter~\ref{ch:kernels}, Proposition~\ref{prop:sorry}). Hence the presence of a value for a theorem is not evidence that it has been proved.
+
+\begin{definition}[Audited verification]
+\label{def:audited}
+A constant $c$ is \emph{audited-verified} in $\Gamma$ relative to the declared axioms $\mathrm{Ax}_0$ if (i) $c$ checks in $\Gamma$, and (ii) $\mathrm{Ax}_\Gamma(c)\subseteq\mathrm{Ax}_0$, where $\mathsf{sorryAx}\notin\mathrm{Ax}_0$ and any axiom of native reduction is counted only if it is in $\mathrm{Ax}_0$.
+\end{definition}
+
+\begin{proposition}[Properties of the audit]
+\label{prop:audit}
+\begin{enumerate}[label=(\alph*),nosep]
+\item If $c$ is audited-verified and $e\in\mathrm{cl}(c)$ is a theorem or definition, then $\mathrm{Ax}_\Gamma(e)\subseteq\mathrm{Ax}_0$.
+\item The audit must be computed on the final environment's closure. A syntactic scan of the declaration $c$ alone, or the observation that $c$ has a value, is not sufficient: the constants $c$ depends on may carry placeholders that $c$'s own text does not mention.
+\item Replacing the body of a theorem $T$ by another proof of the same type does not change whether the dependents of $T$ \emph{check} (Lemma~\ref{lem:interface}), but can change whether they are audited-verified.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) $\mathrm{cl}(e)\subseteq\mathrm{cl}(c)$ for $e\in\mathrm{cl}(c)$, so $\mathrm{Ax}(e)\subseteq\mathrm{Ax}(c)\subseteq\mathrm{Ax}_0$. (b) Take $c$ whose text mentions only a theorem $T$ with value mentioning $\mathsf{sorryAx}$; $\mathrm{Ax}(c)\ni\mathsf{sorryAx}$ while the text of $c$ does not. (c) This is Proposition~\ref{prop:trust-edges}.
+\end{proof}
+
+The proposition is the reason the audit in the experimental work reads axiom footprints through the environment rather than extracting dependencies from declaration data, and reports footprint changes as a separate outcome from the check.
+
+\section{A model-level example: associative normalization}
+
+The experimental matrix contains an operator class that rewrites a statement by associative normalization. The reported outcome, in the author's words, is that the \textsf{PRESERVED} verdict of Chapter~\ref{ch:inheritance} concerns \emph{semantic} correspondence and never survival of the proof term: the same proof breaks, though the claim is logically equivalent. The general form of this is already proved.
+
+\begin{proposition}[Semantic preservation does not give term survival]
+\label{prop:preserved-not-surviving}
+Let $R$ be a transformation with $\mathrm{Vd}(R,P)=\textsf{PRESERVED}$ in a certified fragment and let $t$ be a proof term with $\Chk(t,P)$. If $\NF(R(P))\ne\NF(P)$ then $\neg\Chk(t,R(P))$.
+\end{proposition}
+
+\begin{proof}
+Proposition~\ref{prop:term-region}.
+\end{proof}
+
+\begin{example}[Commuting a conjunction]
+$p\wedge q\leftrightarrow q\wedge p$ is a tautology, and the transformation $R(p\wedge q)=q\wedge p$ is \textsf{PRESERVED} in the fragment of Example~\ref{ex:conj-fragment}. The pair term $\langle h_p,h_q\rangle$ has type $p\wedge q$, and $p\wedge q\not\equiv q\wedge p$ definitionally, since the two types are distinct normal forms; so the term is not a proof of $R(p\wedge q)$, and a new term $\langle h_q,h_p\rangle$ is needed.
+\end{example}
+
+\section{What a matrix of this size can support}
+
+A preregistered matrix of $n$ mutants partitions its operator classes into at most $n$ cells. A predictor that agrees with the observed outcomes on all $n$ mutants is indistinguishable, by this matrix, from every other predictor with the same values on those mutants, and a class represented by a single mutant is represented by a single point: agreement on it cannot separate a model that is right for the class from one that is right for the instance. In the language of Chapter~\ref{ch:sufficiency}, the matrix is a task family, and its closure is exactly the set of functions of the $n$ outcomes. Claims about a class that go beyond the mutants of that class are not supported by the matrix, whatever its size elsewhere. No numerical statistic over the twenty mutants is computed in this book.
+
+\section{What this chapter fixes}
+
+\begin{principal}
+(1) A mutation experiment is a function from mutants to blast sets, and a prediction is sound, precise or correct (Definition~\ref{def:prediction}). (2) Retention of falsified predictions is an invariant of an append-only log, and a model amended after the fact is evaluated by retrodiction (Proposition~\ref{prop:retention}). (3) The flat dependency graph does not determine the outcome of body replacements, so no flat predictor is correct; typed edges give a sound predictor (Propositions~\ref{prop:flat-typed} and~\ref{prop:flat-insufficient}). (4) Placeholder audits read footprints on the final environment and treat footprint change as a distinct outcome (Proposition~\ref{prop:audit}). (5) Semantic preservation of a statement does not carry the proof term (Proposition~\ref{prop:preserved-not-surviving}).
+\end{principal}
+
+\begin{exercise}
+Prove that in Proposition~\ref{prop:flat-insufficient} the two specimens can be chosen with literally identical flat graphs, including the label of the mutated node.
+\end{exercise}
+
+\begin{exercise}
+State and prove the analogue of Theorem~\ref{thm:blast} for mutations that change the \emph{type} of a constant, and use it to define a typed predictor for type mutations.
+\end{exercise}
+
+\begin{exercise}
+For every $n$, give a predictor that is correct on all $n$ mutants of a given matrix and incorrect on some mutant outside it, and explain what this says about the use of agreement on a fixed matrix as evidence of a model.
+\end{exercise}

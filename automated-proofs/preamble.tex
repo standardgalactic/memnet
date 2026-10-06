@@ -1,0 +1,67 @@
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+\usepackage{amsmath,amssymb,amsthm,mathtools,centernot}
+\usepackage[a4paper,margin=1.15in]{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0.2em}
+\linespread{1.06}
+
+% theorem environments, numbered within chapters
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{convention}[theorem]{Convention}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{exercise}{Exercise}[chapter]
+
+% boxed statement of a principal result
+\newtcolorbox{principal}[1][]{breakable,colback=white,colframe=black!70,boxrule=0.5pt,arc=0pt,left=6pt,right=6pt,top=4pt,bottom=4pt,#1}
+
+% external theorem marker: stated and cited, not proved here
+\newcommand{\cited}[1]{\textsc{[cited: #1]}}
+
+% operators and notation
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\Pop}{\mathsf{Pop}}
+\newcommand{\Refuse}{\mathsf{Refuse}}
+\newcommand{\Bind}{\mathsf{Bind}}
+\newcommand{\Collapse}{\mathsf{Collapse}}
+\newcommand{\Verify}{\mathsf{Verify}}
+\newcommand{\Hist}{\mathcal{H}}
+\newcommand{\Opt}{\Omega}
+\newcommand{\omg}{\omega}
+\newcommand{\vdashS}{\vdash_{\mathsf{S}}}
+\newcommand{\sem}[1]{\llbracket #1 \rrbracket}
+\newcommand{\Th}{\mathrm{Th}}
+\newcommand{\Cn}{\mathrm{Cn}}
+\newcommand{\Proof}{\mathsf{Proof}}
+\newcommand{\Chk}{\mathsf{Chk}}
+\newcommand{\Rew}{\to_{\mathcal{R}}}
+\newcommand{\NF}{\mathrm{NF}}
+\newcommand{\dom}{\mathrm{dom}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\fv}{\mathrm{FV}}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\img}{im}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\pre}{\mathrm{pre}}
+\newcommand{\defeq}{\mathrel{:=}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\emergencystretch=2em

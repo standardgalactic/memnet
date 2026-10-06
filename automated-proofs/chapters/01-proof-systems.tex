@@ -1,0 +1,170 @@
+\chapter{Proof Systems as Transition Systems}
+\label{ch:proof-systems}
+
+Automated reasoning is usually described by what it produces: a verdict that a statement holds, together with some evidence for the verdict. This chapter fixes the minimal vocabulary needed to say precisely what the evidence is, what checks it, and what the process that found it leaves behind. Everything later in the book is a refinement of three objects introduced here: a \emph{checker}, a \emph{producer}, and the \emph{residue} that remains when the producer's work is compressed into a checked derivation.
+
+\section{Proof systems and checkers}
+
+\begin{definition}[Proof system]
+\label{def:proof-system}
+A \emph{proof system} is a quadruple $\mathsf{S}=(\Phi,D,\Chk,\mathrm{Val})$ where
+\begin{enumerate}[label=(\roman*),nosep]
+\item $\Phi$ is a set of \emph{statements}, each a finite string over a fixed finite alphabet;
+\item $D$ is a set of \emph{derivations}, each a finite string over a fixed finite alphabet;
+\item $\Chk\subseteq D\times\Phi$ is a \emph{decidable} relation, the \emph{checking relation}; and
+\item $\mathrm{Val}\subseteq\Phi$ is a set of \emph{valid} statements, defined semantically and not required to be decidable or even recursively enumerable.
+\end{enumerate}
+The system is \emph{sound} if $\Chk(d,\varphi)$ implies $\varphi\in\mathrm{Val}$, and \emph{complete} if $\varphi\in\mathrm{Val}$ implies $\Chk(d,\varphi)$ for some $d\in D$. The set of \emph{theorems} is $\Th(\mathsf{S})=\{\varphi\in\Phi:\exists d\in D.\ \Chk(d,\varphi)\}$.
+\end{definition}
+
+Decidability of $\Chk$ is the single structural requirement, and it is the reason a proof system is useful at all: whoever holds a candidate derivation can settle its status by a terminating computation, regardless of how the candidate was obtained. Validity, by contrast, is a semantic notion. The central role of the gap between $\Th(\mathsf{S})$ and $\mathrm{Val}$ is already visible: soundness says the former is inside the latter, completeness says they coincide.
+
+\begin{proposition}[Theorems are enumerable]
+\label{prop:re}
+If $D$ is effectively enumerable then $\Th(\mathsf{S})$ is recursively enumerable. If in addition $\mathsf{S}$ is sound and complete, $\mathrm{Val}$ is recursively enumerable.
+\end{proposition}
+
+\begin{proof}
+Enumerate the pairs $(d,\varphi)\in D\times\Phi$ in a fixed dovetailed order, run the decision procedure for $\Chk$ on each pair, and output $\varphi$ whenever the check succeeds. This lists exactly $\Th(\mathsf{S})$. If $\mathsf{S}$ is sound and complete then $\Th(\mathsf{S})=\mathrm{Val}$.
+\end{proof}
+
+Proposition~\ref{prop:re} is the formal reason that every complete proof system for first-order validity yields a semi-decision procedure and no more; Chapter~\ref{ch:search} returns to this with Church's theorem.
+
+\begin{example}[An implicational Hilbert system]
+\label{ex:hilbert}
+Let $\Phi$ be the set of formulas built from propositional variables with the connective $\to$. Let a derivation be a finite sequence of formulas, each of which is an instance of one of the schemes
+\[
+\textsf{K}:\ A\to(B\to A),
+\qquad
+\textsf{S}:\ (A\to(B\to C))\to((A\to B)\to(A\to C)),
+\]
+or follows from two earlier lines $A$ and $A\to B$ by modus ponens. Define $\Chk(d,\varphi)$ to hold when $d$ is such a sequence ending in $\varphi$. The relation is plainly decidable. With $\mathrm{Val}$ the set of formulas true under every Boolean valuation, soundness holds: instances of $\textsf{K}$ and $\textsf{S}$ are tautologies, and modus ponens preserves truth under a fixed valuation, so an induction on the length of $d$ shows that every line is a tautology.
+
+A derivation of $p\to p$:
+\begin{center}
+\begin{tabular}{rll}
+1. & $(p\to((p\to p)\to p))\to((p\to(p\to p))\to(p\to p))$ & $\textsf{S}$\\
+2. & $p\to((p\to p)\to p)$ & $\textsf{K}$\\
+3. & $(p\to(p\to p))\to(p\to p)$ & MP 2, 1\\
+4. & $p\to(p\to p)$ & $\textsf{K}$\\
+5. & $p\to p$ & MP 4, 3
+\end{tabular}
+\end{center}
+The five-line certificate is longer than the truth table for $p\to p$, which has two rows. This is the first instance of a pattern that recurs throughout the book: a derivation is not a compact summary of why a statement holds, but a record in a fixed idiom of one way to establish it.
+\end{example}
+
+\section{Producers and the independence of soundness}
+
+\begin{definition}[Producer]
+\label{def:producer}
+A \emph{producer} for $\mathsf{S}$ is any partial function $P:\Phi\rightharpoonup D$. No assumption of computability, correctness, or termination is made. The set of statements \emph{accepted} from $P$ is
+\[
+\mathrm{Acc}(P)\;=\;\{\varphi\in\Phi:\ P(\varphi)\text{ is defined and }\Chk(P(\varphi),\varphi)\}.
+\]
+\end{definition}
+
+\begin{theorem}[Independence of soundness]
+\label{thm:independence}
+Let $\mathsf{S}$ be sound. For every producer $P$, $\mathrm{Acc}(P)\subseteq\mathrm{Val}$. Conversely, if $\mathsf{S}$ is complete then there is a producer $P^\ast$ with $\mathrm{Acc}(P^\ast)=\mathrm{Val}$.
+\end{theorem}
+
+\begin{proof}
+If $\varphi\in\mathrm{Acc}(P)$ then $\Chk(P(\varphi),\varphi)$, hence $\varphi\in\mathrm{Val}$ by soundness. For the converse, by completeness choose for each $\varphi\in\mathrm{Val}$ a derivation $P^\ast(\varphi)$ with $\Chk(P^\ast(\varphi),\varphi)$, and leave $P^\ast$ undefined elsewhere.
+\end{proof}
+
+The theorem is elementary, but its consequences are the organizing principle of the whole subject. The \emph{assurance} attached to an accepted statement depends only on the checker; the producer may be heuristic, learned, probabilistic, buggy, or adversarial without affecting it. The cost is paid in a different currency. A producer's \emph{failure} to deliver a derivation carries no information about validity.
+
+\begin{principal}
+\textbf{Discipline of non-certification.} Let $\varphi\notin\mathrm{Acc}(P)$. Nothing follows about $\varphi\in\mathrm{Val}$ unless a separate argument shows that $P$ is complete on $\varphi$. Failure of certification is not certification of failure.
+\end{principal}
+
+\section{Statements as translations}
+\label{sec:translation}
+
+The statement $\varphi\in\Phi$ that a checker reads is rarely the claim a person intends. A physicist or mathematician states a claim $\psi$ in a vocabulary of their own, and a translation $\tau$ renders it into the checker's language.
+
+\begin{definition}[Adequate translation]
+\label{def:adequate}
+Let $(\Psi,\mathrm{True})$ be a set of intended claims with a truth predicate $\mathrm{True}\subseteq\Psi$. A map $\tau:\Psi\to\Phi$ is \emph{adequate} for $\mathsf{S}$ if $\tau(\psi)\in\mathrm{Val}$ implies $\psi\in\mathrm{True}$.
+\end{definition}
+
+\begin{proposition}[Composition of assurance]
+\label{prop:composition}
+If $\mathsf{S}$ is sound and $\tau$ is adequate, then $\Chk(d,\tau(\psi))$ implies $\psi\in\mathrm{True}$.
+\end{proposition}
+
+\begin{proof}
+Soundness gives $\tau(\psi)\in\mathrm{Val}$, adequacy gives $\psi\in\mathrm{True}$.
+\end{proof}
+
+The proposition has a precise and uncomfortable reading. The checker, however small and trusted, certifies only $\tau(\psi)\in\mathrm{Val}$. Whether this carries over to $\psi$ is a property of $\tau$ and of the notion $\mathrm{True}$, neither of which the checker examines. In the vocabulary of later chapters, $\tau$ is a \emph{bridge hypothesis}, and a verified result is the pair of a checked derivation and an unchecked bridge. Chapter~\ref{ch:obligations} organizes these obligations; for the moment the point is that adequacy of $\tau$ is not a theorem of $\mathsf{S}$, and in general cannot be, since $\mathrm{True}$ may refer to a world outside the system.
+
+\section{Search as a transition system}
+\label{sec:search-ts}
+
+Producers in practice are searches. A producer begins from a goal, repeatedly applies rules that extend or restrict a partial structure, and stops when a derivation can be read off.
+
+\begin{definition}[Search procedure]
+\label{def:search}
+A \emph{search procedure} for $\mathsf{S}$ is a tuple $\mathsf{R}=(\Sigma,\to,\iota,F,\mathrm{ext})$ where $\Sigma$ is a set of \emph{states}, ${\to}\subseteq\Sigma\times\Sigma$ a transition relation, $\iota:\Phi\to\Sigma$ an initialization map, $F\subseteq\Sigma$ the \emph{final} states, and $\mathrm{ext}:F\to D$ an extraction map. A \emph{run} on $\varphi$ is a finite path $\iota(\varphi)=s_0\to s_1\to\dots\to s_n$ with $s_n\in F$; its \emph{trace} is the sequence $(s_0,\dots,s_n)$ and its \emph{output} is $\mathrm{ext}(s_n)$.
+\end{definition}
+
+Define the producer $P_{\mathsf{R}}$ by choosing, for each $\varphi$ that admits a run, the output of some run (the choice is immaterial for what follows). Then $P_{\mathsf{R}}$ falls under Theorem~\ref{thm:independence}. We separate two properties of a procedure.
+
+\begin{definition}[Internal soundness, trace-faithfulness]
+\label{def:internal}
+$\mathsf{R}$ is \emph{internally sound} if for every run on $\varphi$ ending in $s_n$ we have $\Chk(\mathrm{ext}(s_n),\varphi)$. It is \emph{trace-faithful} if the trace can be recovered from the output together with $\varphi$, that is, if the map $\text{(run)}\mapsto(\varphi,\mathrm{ext}(s_n))$ is injective on runs.
+\end{definition}
+
+Internal soundness is a property of the procedure that makes the checker redundant on its outputs; it is what the LCF architecture of Chapter~\ref{ch:kernels} achieves by construction. Trace-faithfulness is the opposite kind of property, and realistic procedures fail it.
+
+\begin{example}[Independent subgoals]
+\label{ex:independent}
+Let states be pairs $(G,T)$ of a list $G$ of open goals and a partial derivation tree $T$. Let the goal be $p\wedge q$ from assumptions $p,q$. The rule $\wedge\mathrm{I}$ replaces the goal by the two subgoals $p$ and $q$, and a closing rule discharges any open goal that is an assumption. After $\wedge\mathrm{I}$, two runs are possible: close $p$ first, then $q$, or close $q$ first, then $p$. Both end in the same final tree $\wedge\mathrm{I}(\mathrm{hyp}_p,\mathrm{hyp}_q)$. The procedure has two distinct traces with equal output, so it is not trace-faithful.
+\end{example}
+
+\section{The residue of a run}
+\label{sec:residue}
+
+Example~\ref{ex:independent} is almost too small to notice. At scale the phenomenon is pervasive: lemmas tried and abandoned, orderings explored, heuristics consulted, and dead branches pruned all appear in the trace and none appears in the output.
+
+\begin{definition}[Residue]
+\label{def:residue}
+Let $\mathrm{Run}(\varphi)$ be the set of runs of $\mathsf{R}$ on $\varphi$ and $\varrho:\mathrm{Run}(\varphi)\to D$ the output map. For $d\in D$ the \emph{residue} of $d$ at $\varphi$ is the fibre $\varrho^{-1}(d)$. Two runs are \emph{output-equivalent} if they lie in the same fibre.
+\end{definition}
+
+A downstream task that can be served by the pair $(\varphi,d)$ alone must be invariant on fibres. A task that must distinguish runs inside a fibre cannot be served by the derivation, however carefully the derivation is checked. This is the earliest and simplest statement of the sufficiency criterion that Chapter~\ref{ch:sufficiency} generalizes: a representation is sufficient for a task precisely when the task factors through it.
+
+\begin{proposition}[Factorization criterion]
+\label{prop:factor}
+Let $\mathrm{Run}(\varphi)\ne\emptyset$ and let $\mathsf{T}:\mathrm{Run}(\varphi)\to Y$ be a task, understood as a function of the full run (so $Y\ne\emptyset$). There is a function $\mathsf{T}':D\to Y$ with $\mathsf{T}=\mathsf{T}'\circ\varrho$ if and only if $\mathsf{T}$ is constant on every fibre of $\varrho$.
+\end{proposition}
+
+\begin{proof}
+If $\mathsf{T}=\mathsf{T}'\circ\varrho$ and $\varrho(r)=\varrho(r')$ then $\mathsf{T}(r)=\mathsf{T}'(\varrho(r))=\mathsf{T}'(\varrho(r'))=\mathsf{T}(r')$. Conversely, if $\mathsf{T}$ is constant on fibres, define $\mathsf{T}'(d)$ as the common value on $\varrho^{-1}(d)$ when this fibre is nonempty and arbitrarily otherwise. Then $\mathsf{T}'\circ\varrho=\mathsf{T}$ by construction.
+\end{proof}
+
+Proposition~\ref{prop:factor} is a restatement of the fact that a function factors through a quotient if and only if it respects the equivalence relation, and its simplicity is deliberate. The substance lies in applying it to tasks that people actually want served by a proof: checking, teaching the method, adapting it to a neighbouring problem, and diagnosing a failed application. These are not functions of $d$ alone, and Chapter~\ref{ch:history-repair} shows this with explicit counterexamples.
+
+\section{What this chapter fixes}
+
+Four points are used throughout.
+\begin{enumerate}[nosep]
+\item Assurance attaches to the checker and the translation, never to the producer (Theorem~\ref{thm:independence}, Proposition~\ref{prop:composition}).
+\item Absence of a derivation is not evidence of invalidity.
+\item A search procedure is a transition system, and its traces carry strictly more information than its outputs in general (Example~\ref{ex:independent}).
+\item A task is served by an output exactly when it factors through the extraction map (Proposition~\ref{prop:factor}).
+\end{enumerate}
+The next chapter studies which transition systems are complete, and what fairness conditions on the transition relation are needed for a search procedure to find every derivation that exists.
+
+\begin{exercise}
+Show that the converse of Proposition~\ref{prop:composition} fails: exhibit a sound system, an adequate $\tau$, and a $\psi\in\mathrm{True}$ with $\Chk(d,\tau(\psi))$ false for all $d$.
+\end{exercise}
+
+\begin{exercise}
+In Example~\ref{ex:hilbert}, show that every derivation of $p\to p$ has at least five lines, or find a derivation with fewer.
+\end{exercise}
+
+\begin{exercise}
+Construct a search procedure that is internally sound but not complete, and one that is complete but not internally sound. Explain why neither is ruled out by Theorem~\ref{thm:independence}.
+\end{exercise}

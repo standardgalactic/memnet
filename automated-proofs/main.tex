@@ -1,0 +1,55 @@
+\documentclass[11pt,openany]{book}
+\input{preamble}
+
+\title{\textbf{The Residue of Proof}\\[0.6em]
+\large Sufficiency, History, and Repair in Automated Reasoning}
+\author{Flyxion\\[0.3em]\normalsize Independent Researcher}
+\date{October 2026}
+
+\newcommand{\chap}[1]{\IfFileExists{chapters/#1.tex}{\input{chapters/#1}}{}}
+
+\begin{document}
+\frontmatter
+\maketitle
+\chap{00-preface}
+\tableofcontents
+\mainmatter
+
+\part{Proof Systems and Search}
+\chap{01-proof-systems}
+\chap{02-search}
+\chap{03-resolution}
+\chap{04-rewriting}
+
+\part{Decision Procedures and Kernels}
+\chap{05-sat}
+\chap{06-smt}
+\chap{07-kernels}
+\chap{08-certificates}
+
+\part{Sufficiency of Verified Results}
+\chap{09-obligations}
+\chap{10-sufficiency}
+\chap{11-history-repair}
+\chap{12-inheritance}
+
+\part{Admissibility of Search}
+\chap{13-search-worlds}
+\chap{14-redundancy}
+\chap{15-guidance}
+\chap{16-lifecycle}
+
+\part{From Verified Theorem to Scientific Claim}
+\chap{17-correspondence}
+\chap{18-mutation}
+\chap{19-negative-result}
+
+\part{Synthesis}
+\chap{20-synthesis}
+
+\appendix
+\chap{A-external}
+
+\backmatter
+\chap{bib}
+\end{document}

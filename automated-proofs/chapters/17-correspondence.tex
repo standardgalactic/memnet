@@ -1,0 +1,137 @@
+\chapter{Correspondence}
+\label{ch:correspondence}
+
+The preceding parts concern what a verified result is and how it is produced, inherited and repaired. This part concerns the step that turns a verified theorem into a statement about the world, the step that Chapter~\ref{ch:obligations} placed at layers $\mathrm O2$ and $\mathrm O3$ and that no kernel can check. The chapter does three things. It states what a correspondence claim consists of and proves that a claim with no preregistered failure condition is compatible with every observation (Section~\ref{sec:claims}). It treats the question of whether parameters can be recovered from observations as a sufficiency question and proves the local and global versions of the answer to be genuinely different (Sections~\ref{sec:ident} and~\ref{sec:loc-glob}). And it works one complete example, the Burgers equation, in which a verifiable theorem has an explicit scope boundary that coincides exactly with the failure of a local-to-global argument (Section~\ref{sec:burgers}).
+
+\section{Correspondence claims and failure conditions}
+\label{sec:claims}
+
+\begin{definition}[Correspondence claim]
+\label{def:corr-claim}
+A \emph{correspondence claim} is a tuple $\mathcal C=(\varphi,\iota,\tau,\mathrm{Obs},\mathrm{Fail})$ where
+\begin{itemize}[nosep]
+\item $\varphi$ is a formal statement with a checked proof (layer $\mathrm O1$ discharged);
+\item $\iota$ is an \emph{interpretation} that assigns to the formal symbols of $\varphi$ quantities of a described system (layer $\mathrm O2$);
+\item $\tau$ is an \emph{operationalization}: a procedure that turns a record of measurements into values of the quantities assigned by $\iota$ (layer $\mathrm O3$);
+\item $\mathrm{Obs}$ is the set of possible \emph{observation records}; and
+\item $\mathrm{Fail}\subseteq\mathrm{Obs}$ is the \emph{failure condition}, a decidable set fixed before observation.
+\end{itemize}
+The claim \emph{survives} a record $r\in\mathrm{Obs}$ if $r\notin\mathrm{Fail}$ and \emph{fails} on $r$ otherwise.
+\end{definition}
+
+\begin{proposition}[Failure conditions carry the empirical content]
+\label{prop:fail-content}
+\begin{enumerate}[label=(\alph*),nosep]
+\item If $\mathrm{Fail}=\emptyset$, the claim survives every record.
+\item Let $\mathcal C$ and $\mathcal C'$ differ only in the failure condition, with $\mathrm{Fail}'\subsetneq\mathrm{Fail}$. Then every record on which $\mathcal C'$ fails is a record on which $\mathcal C$ fails, and any $r\in\mathrm{Fail}\setminus\mathrm{Fail}'$ is a record on which $\mathcal C$ fails and $\mathcal C'$ survives. In particular a failure condition modified after $r$ was seen can convert failure into survival, and the two claims are different claims although the formal theorem $\varphi$ is the same.
+\item The survival relation is a function of the pair $(\mathrm{Fail},r)$; it is not a function of $r$ alone, nor of $\varphi$ alone.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) $r\notin\emptyset$. (b) is immediate from $\mathrm{Fail}'\subseteq\mathrm{Fail}$. (c) Survival is $r\notin\mathrm{Fail}$. Distinct failure conditions give distinct survival functions, and $\varphi$ does not appear in the definition of survival.
+\end{proof}
+
+Part (b) is the formal content of the practice of timestamping the failure condition. A theorem together with an interpretation and an operationalization defines what is claimed only up to the failure condition; changing the latter after the fact changes the claim. This is the same observation as Proposition~\ref{prop:scope} in Chapter~\ref{ch:obligations}, now on the empirical side of the bridge.
+
+\section{Identifiability is sufficiency of the observation}
+\label{sec:ident}
+
+A frequent correspondence claim is that parameters $\theta$ of a model can be recovered from observations $y=F(\theta)$. In the vocabulary of Chapter~\ref{ch:sufficiency}, let $H$ be the parameter space, $F:H\to Y$ the observation map as a representation, and $\mathsf{rec}:H\to H$ the identity, the task of recovering the parameter.
+
+\begin{proposition}[Identifiability]
+\label{prop:ident}
+The task $\mathsf{rec}$ is $F$-computable if and only if $F$ is injective. For a weaker task $T:H\to Z$ (a function of the parameter, such as one coordinate or a derived quantity), $T$ is recoverable from $F$ if and only if $T$ is constant on the fibres of $F$.
+\end{proposition}
+
+\begin{proof}
+Proposition~\ref{prop:factor} applied to the representation $F$. The first statement is the case $T=\mathrm{id}$, for which constancy on fibres means that each fibre is a singleton.
+\end{proof}
+
+Thus a proof that ``the observations determine the parameters'' is a proof of injectivity, and a proof that a particular quantity is determined is a proof of constancy on fibres. The difficulty in practice is that injectivity is a \emph{global} property while the tools that prove it cheaply are local.
+
+\section{Local versus global injectivity}
+\label{sec:loc-glob}
+
+Let $F:\mathbb R^n\to\mathbb R^n$ be $C^1$.
+
+\begin{theorem}[Inverse function theorem]
+\label{thm:ift}
+\cited{any analysis text, e.g.\ Rudin, \emph{Principles of Mathematical Analysis}, Theorem~9.24} If the Jacobian $DF(x_0)$ is invertible, there are open neighbourhoods $U\ni x_0$ and $V\ni F(x_0)$ such that $F|_U:U\to V$ is a $C^1$ diffeomorphism. In particular $F$ is injective on $U$.
+\end{theorem}
+
+\begin{theorem}[Hadamard--Caccioppoli]
+\label{thm:hadamard}
+\cited{Hadamard 1906; Caccioppoli 1932; see Krantz and Parks, \emph{The Implicit Function Theorem}, Section~6.2} Let $F:\mathbb R^n\to\mathbb R^n$ be $C^1$ with $\det DF(x)\ne0$ for all $x$. If $F$ is \emph{proper}, meaning that preimages of compact sets are compact, then $F$ is a $C^1$ diffeomorphism of $\mathbb R^n$ onto $\mathbb R^n$. In particular $F$ is globally injective.
+\end{theorem}
+
+The first theorem is local and requires only a condition at a point. The second is global and requires, in addition to the pointwise condition at every point, a topological condition on the whole map. The hypothesis of properness cannot be dropped, and the following is the standard example.
+
+\begin{proposition}[Everywhere locally invertible but not injective]
+\label{prop:exp}
+Let $F(x,y)=(e^x\cos y,\ e^x\sin y)$ on $\mathbb R^2$. Then $\det DF(x,y)=e^{2x}>0$ for all $(x,y)$, $F$ is injective on every strip $\{y_0<y<y_0+2\pi\}$, and $F(x,y+2\pi)=F(x,y)$ for all $(x,y)$. Hence $F$ is a local diffeomorphism at every point, the task of recovering $y$ is not $F$-computable, and the task of recovering $(x,\ y\bmod2\pi)$ is.
+\end{proposition}
+
+\begin{proof}
+$DF=\begin{pmatrix}e^x\cos y&-e^x\sin y\\ e^x\sin y&e^x\cos y\end{pmatrix}$ has determinant $e^{2x}(\cos^2y+\sin^2y)=e^{2x}$. Writing $F$ as the complex map $z=x+iy\mapsto e^z$, the identity $e^{z+2\pi i}=e^z$ gives periodicity, and $e^{z}=e^{z'}$ forces $z-z'\in2\pi i\mathbb Z$, so $F$ is injective on any strip of height $<2\pi$ (and on any open strip of height exactly $2\pi$). The fibres of $F$ are therefore exactly the sets $\{(x,\ y+2\pi k):k\in\mathbb Z\}$, and a task is $F$-computable if and only if it is constant on these sets (Proposition~\ref{prop:ident}); the coordinate $y$ is not, and $(x,\ y\bmod2\pi)$ is.
+\end{proof}
+
+\begin{corollary}[Properness fails]
+\label{cor:improper}
+The map $F$ of Proposition~\ref{prop:exp} is not proper. In particular a proof that $\det DF\ne0$ everywhere, however carefully verified, establishes no identifiability beyond the local statement of Theorem~\ref{thm:ift}.
+\end{corollary}
+
+\begin{proof}
+If $F$ were proper, Theorem~\ref{thm:hadamard} would make it injective, contradicting periodicity. Directly, $F^{-1}(\{(1,0)\})=\{(0,2\pi k)\}$ is infinite and discrete, hence not compact.
+\end{proof}
+
+A formally verified lemma of the form ``the Jacobian of the observation map is nowhere singular'' is exactly the kind of statement that proof assistants discharge well, and it is also exactly the statement that licenses, wrongly, the global conclusion. This is the paradigm of a scope error: the theorem is correct and the correspondence claim built on it is not. The remedy in the sense of Definition~\ref{def:corr-claim} is to state in the claim which of the two tasks is being asserted, local recovery within a neighbourhood or global recovery, and to attach a failure condition appropriate to it: a record that is consistent with two parameters at distance $2\pi$ in $y$ is a failure of the global claim and not of the local one.
+
+\section{A complete example: the Burgers equation}
+\label{sec:burgers}
+
+The inviscid Burgers equation $u_t+u\,u_x=0$ is the simplest nonlinear conservation law, and it exhibits the whole pattern of this chapter in a form that can be proved in a few lines. Let $u_0:\mathbb R\to\mathbb R$ be $C^1$ and let $m=\inf_\xi u_0'(\xi)$. Assume $m>-\infty$. Put $t^\ast=-1/m$ if $m<0$ and $t^\ast=\infty$ if $m\ge0$.
+
+\begin{theorem}[Classical solutions up to the shock time]
+\label{thm:burgers}
+For $0\le t<t^\ast$, the map $X_t(\xi)=\xi+t\,u_0(\xi)$ is a $C^1$ bijection of $\mathbb R$ with $C^1$ inverse, and $u(x,t)=u_0(X_t^{-1}(x))$ is a $C^1$ solution of $u_t+uu_x=0$ with $u(\cdot,0)=u_0$.
+\end{theorem}
+
+\begin{proof}
+For $t<t^\ast$ we have $X_t'(\xi)=1+tu_0'(\xi)\ge1+tm>0$ when $m<0$ and $X_t'\ge1>0$ when $m\ge0$; write $\kappa=\min(1,1+tm)>0$. For $\xi>\eta$, $X_t(\xi)-X_t(\eta)\ge\kappa(\xi-\eta)$ by the mean value theorem, so $X_t$ is strictly increasing with $X_t(\xi)\to\pm\infty$ as $\xi\to\pm\infty$; hence it is a bijection of $\mathbb R$, and its inverse is $C^1$ by Theorem~\ref{thm:ift}. The function $u(X_t(\xi),t)=u_0(\xi)$ is therefore well defined and $C^1$ in $(x,t)$ as a composition. Differentiating the identity $u(\xi+tu_0(\xi),t)=u_0(\xi)$ with respect to $t$ at fixed $\xi$ gives $u_t+u_x\,u_0(\xi)=0$ at $x=X_t(\xi)$, and $u_0(\xi)=u(x,t)$ there, so $u_t+uu_x=0$.
+\end{proof}
+
+Note that the proof uses the local theorem at each point and, in addition, a global argument (the lower bound $\kappa$, which gives properness) to pass from local to global injectivity, exactly the structure of Theorem~\ref{thm:hadamard}. The bound fails precisely at $t=t^\ast$.
+
+\begin{theorem}[No classical solution beyond the shock time]
+\label{thm:shock}
+Let $u_0(x)=-\tanh x$, so $m=-1$ and $t^\ast=1$. For every $T>1$ there is no $C^1$ solution of $u_t+uu_x=0$ on $\mathbb R\times[0,T]$ with $u(\cdot,0)=u_0$.
+\end{theorem}
+
+\begin{proof}
+Suppose $u$ were such a solution. Along any curve $x'(t)=u(x(t),t)$ one has $\frac{d}{dt}u(x(t),t)=u_t+u_xx'=0$, so $u$ is constant along such curves. The curve starting at $\xi$ at time $0$ carries the value $u_0(\xi)$, hence has constant speed $u_0(\xi)$ and is the line $x=\xi+tu_0(\xi)$ (by uniqueness for the ODE, since $u$ is $C^1$ and hence locally Lipschitz). For $t>1$, $X_t(\xi)=\xi-t\tanh\xi$ has $X_t'(0)=1-t<0$ and $X_t(\xi)\to\pm\infty$ as $\xi\to\pm\infty$. Since $X_t'(0)<0$ there are $a<b$ with $X_t(a)>X_t(b)$. Since $X_t(c)\to+\infty$ as $c\to\infty$, some $c>b$ has $X_t(c)>X_t(a)$, and the intermediate value theorem gives $\xi_2\in(b,c)$ with $X_t(\xi_2)=X_t(a)$. Put $\xi_1=a$; then $\xi_1\neq\xi_2$ and $X_t(\xi_1)=X_t(\xi_2)$. The two characteristics meet at a time $t\le T$ at a point where $u$ would equal both $u_0(\xi_1)$ and $u_0(\xi_2)$. But $u_0=-\tanh$ is injective, a contradiction.
+\end{proof}
+
+The two theorems together say: the formula of Theorem~\ref{thm:burgers} is a correct formal result, it can be checked in a proof assistant, and its hypothesis $t<t^\ast$ is not a technicality but the boundary of the region in which the characteristic map is globally invertible. Beyond $t^\ast$ the object that corresponds to physical experience is a weak solution selected by an entropy condition (Lax, Oleinik), a different mathematical object about which the above theorems say nothing \cite{evans-pde}. A correspondence claim ``the verified formula describes the gas'' therefore needs a scope entry $t<t^\ast$ in its ledger (Chapter~\ref{ch:obligations}), a failure condition that contains records showing a discontinuity, and the bound $t^\ast=-1/m$, whose evaluation from data is an $\mathrm O3$ obligation.
+
+\begin{example}[Numerical value]
+For $u_0=-\tanh$, $u_0'=-\mathrm{sech}^2$ attains $m=-1$ at $\xi=0$, so $t^\ast=1$. At $t=0.5$, $X_t'(\xi)=1-0.5\,\mathrm{sech}^2\xi\ge0.5$, and $X_t$ is a diffeomorphism. At $t=1.5$, $X_t'(0)=-0.5<0$ and $X_t(\xi)=\xi-1.5\tanh\xi$ takes the value $0$ at three points, $\xi=0$ and $\xi=\pm\xi_0$, where $\xi_0\approx1.2878$ is the positive root of $\xi=1.5\tanh\xi$ (found by bisection). The three characteristics through $x=0$ at $t=1.5$ carry the three distinct values $u_0(0)=0$ and $u_0(\pm\xi_0)=\mp\tanh\xi_0\approx\mp0.859$.
+\end{example}
+
+\section{What this chapter fixes}
+
+\begin{principal}
+(1) A correspondence claim consists of a checked formal statement, an interpretation, an operationalization and a preregistered failure condition, and survival is a function of the failure condition (Proposition~\ref{prop:fail-content}). (2) Identifiability of a parameter is injectivity of the observation map, and identifiability of a quantity is constancy on fibres (Proposition~\ref{prop:ident}). (3) A pointwise condition such as a nonvanishing Jacobian proves local identifiability only; global identifiability requires a topological hypothesis in addition (Theorems~\ref{thm:ift} and~\ref{thm:hadamard}, Proposition~\ref{prop:exp}). (4) In the Burgers equation the boundary of validity of the verified formula is exactly the loss of global invertibility of the characteristic map (Theorems~\ref{thm:burgers} and~\ref{thm:shock}).
+\end{principal}
+
+\begin{exercise}
+Compute the unique positive root $\xi_0$ of $\xi=1.5\tanh\xi$ to four decimals and verify that $X_{1.5}$ takes the value $0$ exactly at $\xi=0,\pm\xi_0$.
+\end{exercise}
+
+\begin{exercise}
+Prove that $F(x,y)=(e^x\cos y,e^x\sin y)$ restricted to $\mathbb R\times(0,2\pi)$ is a diffeomorphism onto $\mathbb R^2$ minus the closed positive real axis, and identify what is lost in the corresponding observation task.
+\end{exercise}
+
+\begin{exercise}
+State the analogue of Theorem~\ref{thm:burgers} for $u_t+f(u)_x=0$ with $f$ smooth and $f''>0$, and identify the quantity that replaces $m$.
+\end{exercise}

@@ -1,0 +1,229 @@
+\chapter{Inheritance along Transformations}
+\label{ch:inheritance}
+
+Results are not used where they were proved. A theorem is invoked inside a larger development; a formula is simplified before it is handed to a solver; a formal statement is read as a statement about a physical system. Each of these is a transformation, and each raises the same question: what does the transformed object inherit from the verified original? This chapter separates three things that are routinely conflated under the word ``inherit''. \emph{Validity} is whether a checker accepts the transformed object. \emph{Trust} is which principles the acceptance rests on. \emph{Correspondence} is whether the transformed object still says what the original was meant to say. The three have different logics. Validity is decidable and governed by the structure of the checker (Sections~\ref{sec:defeq} and~\ref{sec:typed-edges}); correspondence is undecidable in general and can be certified only on declared fragments (Sections~\ref{sec:corr-undec} and~\ref{sec:fragments}); trust propagates along a different graph from validity (Proposition~\ref{prop:trust-edges}).
+
+\section{Correspondence under rewriting is undecidable}
+\label{sec:corr-undec}
+
+Let $\Phi_{\mathrm{FO}}$ be the set of sentences of first-order logic over a fixed countable signature containing at least one binary relation symbol, and let $\varphi\equiv\psi$ mean that $\varphi$ and $\psi$ have the same models.
+
+\begin{definition}[Preservation predicate]
+\label{def:pres}
+A \emph{transformation} is a computable function $R:\Phi_{\mathrm{FO}}\to\Phi_{\mathrm{FO}}$ (a rewrite pass, given as a program). The \emph{preservation predicate} is
+\[
+\mathrm{Pres}(R,\varphi)\iff\varphi\equiv R(\varphi).
+\]
+\end{definition}
+
+A transformation that fails $\mathrm{Pres}$ at $\varphi$ changes the meaning of $\varphi$; one that passes preserves it. The predicate is the simplest formal shadow of the correspondence predicate of Chapter~\ref{ch:obligations}: if a formal result about $\varphi$ is to speak for the transformed $R(\varphi)$, then $\mathrm{Pres}(R,\varphi)$ is required.
+
+\begin{theorem}[Undecidability of preservation]
+\label{thm:pres-undec}
+There is a fixed computable transformation $R_\top$ for which $\{\varphi:\mathrm{Pres}(R_\top,\varphi)\}$ is undecidable. Hence there is no algorithm that, given a transformation (as a program) and a sentence, decides $\mathrm{Pres}$.
+\end{theorem}
+
+\begin{proof}
+Let $R_\top(\varphi)=\top$, the constantly true sentence $\forall x\,(x=x)$. Then $\mathrm{Pres}(R_\top,\varphi)$ holds iff $\varphi\equiv\top$, that is, iff $\varphi$ is valid. By Church's theorem (Chapter~\ref{ch:search}, Proposition~\ref{prop:no-bound}), validity of first-order sentences over a signature with a binary relation symbol is undecidable.
+\end{proof}
+
+\begin{remark}
+The statement is about transformations arbitrary enough to include constant maps; it is deliberately weak. The usual reading in practice is stronger: for transformations that are \emph{intended} to be equivalences, such as a simplifier, whether a given application is faithful is again undecidable, as one sees by embedding the above reduction in a rule set that contains a rule with a hard-to-check side condition. By Rice's theorem \cited{Rogers, \emph{Theory of Recursive Functions and Effective Computability}, Section~14.2} the property ``$R$ preserves $\equiv$ at every $\varphi$'' of a program $R$ is also undecidable.
+\end{remark}
+
+\begin{corollary}[No total sound verdict]
+\label{cor:no-total}
+There is no computable function $\mathrm{Vd}(R,\varphi)\in\{\textsf{PRESERVED},\textsf{NOT\_PRESERVED}\}$ that is correct (that is, returns \textsf{PRESERVED} only if $\mathrm{Pres}(R,\varphi)$ and \textsf{NOT\_PRESERVED} only if $\neg\mathrm{Pres}(R,\varphi)$) on all arguments.
+\end{corollary}
+
+\begin{proof}
+Such a function would decide $\mathrm{Pres}$, contradicting Theorem~\ref{thm:pres-undec}.
+\end{proof}
+
+The corollary is the reason that a third value is not a convenience but a necessity. Any honest, computable report of preservation must be allowed to say that it does not know.
+
+\section{Certified fragments and a three-valued verdict}
+\label{sec:fragments}
+
+\begin{definition}[Certified fragment]
+\label{def:fragment}
+A \emph{certified fragment} is a triple $(\mathcal F,\mathcal R,\mathrm{Ev})$ where $\mathcal F\subseteq\Phi_{\mathrm{FO}}$ is a decidable set of sentences, $\mathcal R$ is a decidable set of transformations (given as programs), and $\mathrm{Ev}$ is a computable function that, for $R\in\mathcal R$ and $\varphi\in\mathcal F$ with $R(\varphi)\in\mathcal F$, returns either a \emph{preservation certificate} or a \emph{separation certificate}, such that a decidable relation $\mathsf{ChkP}$ accepts a preservation certificate for $(R,\varphi)$ only if $\varphi\equiv R(\varphi)$, and a decidable relation $\mathsf{ChkN}$ accepts a separation certificate only if $\varphi\not\equiv R(\varphi)$. The fragment is \emph{complete} if $\mathrm{Ev}$ is total on such arguments.
+\end{definition}
+
+The verdict function $\mathrm{Vd}(R,\varphi)$ attached to the fragment has three values:
+\begin{itemize}[nosep]
+\item \textsf{PRESERVED}, if $R\in\mathcal R$, $\varphi,R(\varphi)\in\mathcal F$ and $\mathrm{Ev}(R,\varphi)$ is a preservation certificate accepted by $\mathsf{ChkP}$;
+\item \textsf{NOT\_PRESERVED\_UNDER\_R}, if the same hypotheses hold with a separation certificate accepted by $\mathsf{ChkN}$;
+\item \textsf{OUTSIDE\_CERTIFIED\_FRAGMENT} otherwise.
+\end{itemize}
+
+\begin{theorem}[Soundness and non-collapse of the verdict]
+\label{thm:verdict}
+For every certified fragment:
+\begin{enumerate}[label=(\roman*),nosep]
+\item $\mathrm{Vd}(R,\varphi)=\textsf{PRESERVED}$ implies $\mathrm{Pres}(R,\varphi)$.
+\item $\mathrm{Vd}(R,\varphi)=\textsf{NOT\_PRESERVED\_UNDER\_R}$ implies $\neg\mathrm{Pres}(R,\varphi)$.
+\item $\mathrm{Vd}(R,\varphi)=\textsf{OUTSIDE\_CERTIFIED\_FRAGMENT}$ implies nothing about $\mathrm{Pres}(R,\varphi)$: there are fragments and arguments with this value for which $\mathrm{Pres}$ holds and others for which it fails.
+\end{enumerate}
+If the fragment is complete then $\mathrm{Vd}$ is two-valued on $\mathcal R\times\mathcal F$ restricted to $R(\varphi)\in\mathcal F$.
+\end{theorem}
+
+\begin{proof}
+(i) and (ii) are the soundness of $\mathsf{ChkP}$ and $\mathsf{ChkN}$. For (iii), take the fragment with $\mathcal F=\emptyset$: it is a certified fragment vacuously, $\mathrm{Vd}$ is everywhere \textsf{OUTSIDE\_CERTIFIED\_FRAGMENT}, and the argument $(R_\top,\top)$ has $\mathrm{Pres}$ true while $(R_\top,\bot)$ has it false. The last statement is the definition of completeness.
+\end{proof}
+
+\begin{theorem}[Completeness fails for full first-order logic]
+\label{thm:no-total-fragment}
+Let $(\mathcal F,\mathcal R,\mathrm{Ev})$ be a certified fragment with $R_\top\in\mathcal R$ and $\mathcal F=\Phi_{\mathrm{FO}}$. Then $\mathrm{Ev}(R_\top,\cdot)$ fails to return a certificate on infinitely many sentences. In particular the fragment is not complete, and the verdict takes the third value infinitely often.
+\end{theorem}
+
+\begin{proof}
+Suppose $\mathrm{Ev}(R_\top,\varphi)$ returned a certificate for all but finitely many $\varphi$. Validity of $\varphi$ could then be decided by consulting a finite table for the exceptions and otherwise running $\mathrm{Ev}$ and checking the certificate with $\mathsf{ChkP}$ (valid) or $\mathsf{ChkN}$ (not valid). This contradicts Theorem~\ref{thm:pres-undec}.
+\end{proof}
+
+Complete fragments exist when the underlying equivalence problem is decidable. Two examples follow, one deliberately minimal and one of practical interest.
+
+\begin{example}[Conjunctions modulo associativity, commutativity and idempotence]
+\label{ex:conj-fragment}
+Let $\mathcal F$ be the set of finite nonempty conjunctions $p_{i_1}\wedge\dots\wedge p_{i_r}$ of propositional atoms, with repetitions and order allowed, regarded as formulas over the atoms. Each is equivalent to the conjunction over its \emph{atom set} $\mathrm{at}(\varphi)$, by associativity, commutativity and idempotence of $\wedge$. Let $\mathcal R$ be the computable maps $R$ with $R(\mathcal F)\subseteq\mathcal F$.
+
+\emph{Claim.} $\varphi\equiv\psi$ iff $\mathrm{at}(\varphi)=\mathrm{at}(\psi)$.
+
+If the sets are equal the formulas have the same models. Conversely if $p\in\mathrm{at}(\varphi)\setminus\mathrm{at}(\psi)$ then the assignment that makes the atoms of $\psi$ true and all others false satisfies $\psi$ but not $\varphi$; symmetrically for $\mathrm{at}(\psi)\setminus\mathrm{at}(\varphi)$.
+
+Take as preservation certificate the equality of the two atom sets, and as separation certificate an atom lying in exactly one of them together with the assignment above. Both are checked by a terminating computation, and $\mathrm{Ev}$ is total, so the fragment is complete. For $R(\varphi)=\varphi\wedge\varphi$ the verdict is \textsf{PRESERVED}; for $R(\varphi)=\varphi\wedge q$ with $q\notin\mathrm{at}(\varphi)$ it is \textsf{NOT\_PRESERVED\_UNDER\_R}; for a $\varphi$ containing a disjunction it is \textsf{OUTSIDE\_CERTIFIED\_FRAGMENT}, whatever $R$ does.
+\end{example}
+
+\begin{example}[Propositional formulas with refutation certificates]
+\label{ex:prop-fragment}
+Let $\mathcal F$ be all propositional formulas and $\mathcal R$ all computable maps preserving $\mathcal F$. The equivalence $\varphi\equiv R(\varphi)$ holds iff the formula $\neg(\varphi\leftrightarrow R(\varphi))$ is unsatisfiable, a SAT instance via the Tseitin transformation (equisatisfiable \cited{Tseitin 1968}). A preservation certificate is a DRAT refutation of the Tseitin clause set (Chapter~\ref{ch:sat}), a separation certificate is a satisfying assignment, which is checked by evaluating both formulas. The fragment is complete, since SAT is decidable, although the certificates may be exponentially large (Theorem~\ref{thm:haken}).
+\end{example}
+
+The fragment is declared before the transformation is applied, and the verdict is per pair $(R,\varphi)$, not per transformation: the same pass $R$ is \textsf{PRESERVED} at some formulas and \textsf{NOT\_PRESERVED\_UNDER\_R} at others. Consistent with the discipline of Chapter~\ref{ch:proof-systems}, an \textsf{OUTSIDE\_CERTIFIED\_FRAGMENT} verdict is never reported as a failure and never as a success.
+
+\section{Proof terms inherit along definitional equality}
+\label{sec:defeq}
+
+Validity is inherited by a transformation of the \emph{statement} exactly along the equivalence the checker already identifies. Let $\mathcal R$ be a convergent presentation of the conversion relation $\equiv$ on the types of a calculus, as in Chapter~\ref{ch:rewriting}, so that by Corollary~\ref{cor:nf} $A\equiv B$ iff $\NF(A)=\NF(B)$. Suppose, as in Proposition~\ref{prop:terms-points}, that each term $t$ has a type $\mathrm{ty}(t)$ unique up to $\equiv$ and that $\Chk(t,P)$ holds iff $\mathrm{ty}(t)\equiv P$.
+
+\begin{proposition}[Region of a term]
+\label{prop:term-region}
+$\mathrm{Reg}(t)=\{P:\ \NF(P)=\NF(\mathrm{ty}(t))\}$. In particular a proof term of $P$ is a proof term of $P'$ if and only if $\NF(P)=\NF(P')$, and not merely if $P\leftrightarrow P'$ is provable.
+\end{proposition}
+
+\begin{proof}
+Immediate from the standing hypotheses and Corollary~\ref{cor:nf}. If $P\leftrightarrow P'$ is provable but $\NF(P)\ne\NF(P')$ then $\Chk(t,P)$ and $\Chk(t,P')$ cannot both hold.
+\end{proof}
+
+\begin{example}[Addition by recursion on the second argument]
+\label{ex:plus-second}
+Let $\mathcal R_{+}'$ consist of $\mathit{plus}(x,0)\to x$ and $\mathit{plus}(x,s(y))\to s(\mathit{plus}(x,y))$. With the interpretation $[0]=1$, $[s](x)=x+1$, $[\mathit{plus}](x,y)=x+2y$ both rules strictly decrease: $[\mathit{plus}(x,0)]=x+2>x$, and $[\mathit{plus}(x,s(y))]=x+2y+2>x+2y+1=[s(\mathit{plus}(x,y))]$. The left-hand sides do not overlap, so there are no critical pairs and $\mathcal R_+'$ is convergent. For a variable $n$:
+\begin{itemize}[nosep]
+\item $\mathit{plus}(n,0)\to n$, so $\NF(\mathit{plus}(n,0))=n=\NF(n)$ and $\mathit{plus}(n,0)\equiv n$;
+\item $\mathit{plus}(0,n)$ matches neither rule since the second argument is a variable, so it is a normal form distinct from $n$, and $\mathit{plus}(0,n)\not\equiv n$.
+\end{itemize}
+Consequently the reflexivity proof $\mathsf{rfl}_n$ has type $n=n$, hence also type $\mathit{plus}(n,0)=n$ by conversion, and by Proposition~\ref{prop:term-region} is \emph{not} a proof of $\mathit{plus}(0,n)=n$, for which an inductive argument and hence a different term is required. For each numeral instance $n=s^k(0)$ the term $\mathsf{rfl}$ does check, since $\mathit{plus}(0,s^k(0))\to^{*}s^k(0)$. The two statements agree on every closed instance and differ on the open one, and what the checker certifies depends on that difference.
+\end{example}
+
+Example~\ref{ex:plus-second} is the type-theoretic statement of what Chapter~\ref{ch:obligations} called scope: a transformation of a statement inherits a verified proof only along a relation that the checker already treats as equality, and any other propositionally valid transformation costs a new proof and a new history.
+
+\section{Typed dependency edges and the interface lemma}
+\label{sec:typed-edges}
+
+A development is an environment $\Gamma$, a finite list of constants, each an \emph{axiom} (a type only), a \emph{definition} (a type and a value, transparent to conversion) or a \emph{theorem} (a type and a value, opaque to conversion). This is the structure of Chapter~\ref{ch:kernels}.
+
+\begin{convention}[Kernel discipline]
+\label{conv:kernel}
+The checker is assumed to satisfy the following design properties, which hold for the kernels considered in Chapter~\ref{ch:kernels} and are not proved here:
+\begin{enumerate}[label=(K\arabic*),nosep]
+\item Checking a constant $c$ consults, for each constant $e$ occurring in the derivation, the type of $e$, and the value of $e$ only if $e$ is a definition that conversion unfolds.
+\item Conversion never unfolds a theorem.
+\end{enumerate}
+\end{convention}
+
+\begin{definition}[Typed dependency edges]
+\label{def:typed-edges}
+For constants $c,e$ of $\Gamma$:
+\begin{itemize}[nosep]
+\item $c\to_{\mathrm{sem}}e$ if $e$ occurs in the \emph{type} of $c$ (a \emph{semantic} edge);
+\item $c\to_{\mathrm{int}}e$ if $e$ is a theorem occurring in the \emph{value} of $c$ (an \emph{interface} edge);
+\item $c\to_{\mathrm{prf}}e$ if $e$ is a non-theorem constant occurring in the value of $c$ (a \emph{proof-term} edge).
+\end{itemize}
+The \emph{flat graph} is the union of the three relations with their labels forgotten.
+\end{definition}
+
+\begin{definition}[Consulted set]
+\label{def:consulted}
+The \emph{consulted set} $\mathrm{Cons}(c)$ is the smallest set of constants such that
+\begin{enumerate}[label=(\alph*),nosep]
+\item if $c\to e$ for any of the three edge kinds then $e\in\mathrm{Cons}(c)$;
+\item if $e\in\mathrm{Cons}(c)$ and $e\to_{\mathrm{sem}}e'$ then $e'\in\mathrm{Cons}(c)$;
+\item if $e\in\mathrm{Cons}(c)$ is a \emph{definition} and $e\to_{\mathrm{prf}}e'$ or $e\to_{\mathrm{int}}e'$ then $e'\in\mathrm{Cons}(c)$.
+\end{enumerate}
+\end{definition}
+
+In words: from the declaration being checked, any dependency is followed; from a consulted constant the type is always read, and the value is read only for definitions. The value of a theorem, once reached, is not read.
+
+\begin{lemma}[Interface lemma]
+\label{lem:interface}
+Assume Convention~\ref{conv:kernel}. Let $T$ be a theorem of $\Gamma$ with type $\varphi$ and value $v$, and let $\Gamma'$ be obtained by replacing $v$ with a term $v'$ such that $T:\varphi:=v'$ checks in the prefix of $\Gamma$ before $T$. Then every constant $c\ne T$ that checks in $\Gamma$ also checks in $\Gamma'$.
+\end{lemma}
+
+\begin{proof}
+Here ``$c$ checks in $\Gamma$'' means that the typing derivation of the declaration $c$ is valid relative to the constants preceding it. A constant before $T$ is unchanged and cannot mention $T$. For a constant $c$ after $T$, a derivation of $c$ in $\Gamma$ uses, for each occurrence of $T$, only the type $\varphi$ by (K1) and (K2), since $T$ is a theorem and is never unfolded; and for any other constant $e$ it uses data identical in $\Gamma$ and $\Gamma'$ (types always, and values of definitions, which are unchanged). The same derivation is therefore a derivation in $\Gamma'$.
+\end{proof}
+
+\begin{theorem}[Typed blast radius]
+\label{thm:blast}
+Assume Convention~\ref{conv:kernel}. Let $\Gamma'$ be obtained from $\Gamma$ by replacing the value of the constant $D$ by one that checks at $D$'s type. Let $c\ne D$ be a constant after $D$ that checks in $\Gamma$.
+\begin{enumerate}[label=(\alph*),nosep]
+\item If $D$ is a theorem then $c$ checks in $\Gamma'$.
+\item If $D$ is a definition and $D\notin\mathrm{Cons}(c)$ then $c$ checks in $\Gamma'$.
+\item If $D$ is a definition and $D\in\mathrm{Cons}(c)$, then $c$ need not check in $\Gamma'$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) is Lemma~\ref{lem:interface}. (b) By Definition~\ref{def:consulted} and (K1), the derivation of $c$ reads the value only of definitions in $\mathrm{Cons}(c)$ and the type of constants in $\mathrm{Cons}(c)$, and $c$'s own data; $D$ is not among them, so the derivation transfers unchanged. (c) Let $D:\mathbb{N}:=0$ and $c:D=0:=\mathsf{rfl}$, checks since $D$ unfolds to $0$. Replace the value of $D$ by $1$. Then $c$ no longer type-checks, since $1\not\equiv0$.
+\end{proof}
+
+Theorem~\ref{thm:blast} gives a \emph{prediction rule} for mutations of a verified development: replacing the value of a theorem breaks nothing, replacing the value of a definition can break only constants for which the definition is consulted, and in the flat graph the second set is overestimated by paths through theorem bodies and the first is overestimated entirely. A prediction made with the flat graph that treats a path through a theorem body as a dependency will predict breakage that does not occur; a prediction that treats an edge to a definition in a \emph{type} as opaque will miss breakage that does. Chapter~\ref{ch:mutation} records the preregistered mutation matrix in which two mutants, M09 and M16, had outcomes that contradicted the prediction of the flat model; the typed edges above are the amendment, and the two mutants are retained there as falsified under the earlier model, not corrected after the fact.
+
+\subsection*{Trust does not follow the same edges}
+
+Replacing a theorem's value does not alter validity of dependents (Lemma~\ref{lem:interface}). It can alter what they rest on.
+
+\begin{proposition}[Footprint follows value edges through theorems]
+\label{prop:trust-edges}
+Let $\mathrm{cl}(c)$ be the dependency closure of Chapter~\ref{ch:kernels}, taken in the flat graph, and $\mathrm{Ax}(c)$ its axiom footprint. If $c\to_{\mathrm{int}}T$ then $\mathrm{Ax}(T)\subseteq\mathrm{Ax}(c)$. Under the replacement of Lemma~\ref{lem:interface}, the check of $c$ is unchanged and $\mathrm{Ax}(c)$ may change, in particular so that it contains $\mathsf{sorryAx}$ when $v'$ does.
+\end{proposition}
+
+\begin{proof}
+The inclusion holds since $\mathrm{cl}(c)\supseteq\mathrm{cl}(T)$ when $T\in\mathrm{cl}(c)$, and $\mathrm{cl}$ includes values by definition. For the second statement let $T$ be a theorem proved by an elementary argument, and let $v'$ be a proof of the same statement containing $\mathsf{sorryAx}$. Lemma~\ref{lem:interface} gives that $c$ checks in $\Gamma'$ whenever it did in $\Gamma$, and $\mathrm{cl}(c)$ in $\Gamma'$ includes $\mathsf{sorryAx}$.
+\end{proof}
+
+Hence a successful kernel check of $c$ after replacing the body of $T$ is not evidence that the replacement is harmless: it certifies validity only relative to the footprint, and the footprint is the object that must be audited. Proposition~\ref{prop:sorry} is the corresponding observation for a single declaration; here it is stated for the dependents. In the language of Chapter~\ref{ch:sufficiency}: the family of tasks ``does $c$ check'' factors through the statement of each theorem it uses, which is the proof-irrelevant representation (Proposition~\ref{prop:pirrel}(i)), and the family of tasks ``on what does $c$ rest'' does not (Proposition~\ref{prop:pirrel}(iii)).
+
+\section{What this chapter fixes}
+
+\begin{principal}
+\textbf{Validity, trust and correspondence inherit along different relations.} (1) Preservation of meaning under a transformation is undecidable in general, so any computable report must have a third value, and a failure to certify must not be reported as a certified failure (Theorem~\ref{thm:pres-undec}, Corollary~\ref{cor:no-total}, Theorem~\ref{thm:verdict}). (2) A proof term inherits to a transformed statement exactly along definitional equality (Proposition~\ref{prop:term-region}). (3) The consulted set of a constant is computed from typed dependency edges; the body of a theorem is invisible to dependents for validity but visible for trust (Theorem~\ref{thm:blast}, Proposition~\ref{prop:trust-edges}).
+\end{principal}
+
+This closes the treatment of results as static objects subjected to change. The next part turns to the process that produces them and asks which of its states the preceding structure applies to.
+
+\begin{exercise}
+Show that in Example~\ref{ex:conj-fragment} the preservation certificate for $(R,\varphi)$ may be taken to be a pair of lists of atom positions witnessing mutual inclusion of the atom sets, and describe a linear-time check.
+\end{exercise}
+
+\begin{exercise}
+Give a convergent presentation of the conversion relation in which $\mathit{plus}(0,n)\equiv n$ and $\mathit{plus}(n,0)\equiv n$ both hold, and show that its normal forms of closed terms agree with those of $\mathcal R_+'$.
+\end{exercise}
+
+\begin{exercise}
+Prove, assuming Convention~\ref{conv:kernel}, that $\mathrm{Cons}(c)\subseteq\mathrm{cl}(c)$ and that the inclusion can be strict even when $c$ is well-formed.
+\end{exercise}
+
+\begin{exercise}
+Replace the value of a definition $D$ by one that is \emph{propositionally} but not definitionally equal to the old. Show by an example of the kind in the proof of Theorem~\ref{thm:blast}(c) that $c$ with $D\in\mathrm{Cons}(c)$ can fail, and state a sufficient condition on the new value under which no $c$ fails.
+\end{exercise}

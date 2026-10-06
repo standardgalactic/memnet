@@ -1,0 +1,182 @@
+\chapter{Search States as Worlds}
+\label{ch:search-worlds}
+
+Part~III asked what a finished result retains. Part~IV asks the corresponding question of the process that produces results, at the level of individual steps. A search procedure repeatedly selects an item, derives new items from it, discards items it judges unnecessary, and sometimes replaces its whole state by a smaller one. Each of these is an operation on a state, and the correctness of a prover lives in which of the operations preserve which of the state's distinctions. This chapter gives the operations names and the state a precise structure, and proves four things: the option space of a search is changed only by refusal (Proposition~\ref{prop:dynamics}); a refusal is lossless exactly when the refused item is redundant (Proposition~\ref{prop:dynamics}(c)); the extensional state is the minimal representation that supports every future of the search (Theorem~\ref{thm:future}); and proofs are not recoverable from that state (Proposition~\ref{prop:prov-not-state}).
+
+The vocabulary of four operations, \emph{pop}, \emph{refuse}, \emph{bind} and \emph{collapse}, follows the author's earlier work on binding and on disposition calculi \cite{flyxion-binding,flyxion-disposition}. Nothing from those works is assumed. Every definition is restated for search, and every result below is proved from the definitions given here.
+
+\section{Closure systems and option spaces}
+
+Fix a set $\mathfrak F$ of items, for instance clauses, and an inference system $\mathsf I$ over $\mathfrak F$ in the sense of Definition~\ref{def:inference-system}.
+
+\begin{definition}[Option closure]
+\label{def:closure}
+A \emph{closure operator} on $2^{\mathfrak F}$ is a map $\mathrm{Cn}$ that is extensive ($S\subseteq\mathrm{Cn}(S)$), monotone ($S\subseteq S'$ implies $\mathrm{Cn}(S)\subseteq\mathrm{Cn}(S')$) and idempotent ($\mathrm{Cn}(\mathrm{Cn}(S))=\mathrm{Cn}(S)$). It \emph{respects $\mathsf I$} if $\mathrm{Cn}(S)$ is saturated for every $S$: whenever $(Q,c)$ is a rule instance with $Q\subseteq\mathrm{Cn}(S)$ then $c\in\mathrm{Cn}(S)$.
+\end{definition}
+
+\begin{example}[Derivation closure]
+\label{ex:dercl}
+Let $\mathrm{Cn}_{\mathsf I}(S)$ be the set of items having a derivation tree from $S$: leaves in $S$, internal nodes instances of rules of $\mathsf I$. It is extensive (a one-node tree), monotone, and idempotent (a tree over leaves from $\mathrm{Cn}_{\mathsf I}(S)$ is grafted onto trees from $S$). It respects $\mathsf I$ by the same grafting. For resolution, Chapter~\ref{ch:resolution} writes this as the set of clauses derivable from $S$.
+\end{example}
+
+The closure is the \emph{option closure}: $\mathrm{Cn}(S)$ is everything still obtainable from the premises $S$. A second closure, adapted to redundancy, is introduced in Chapter~\ref{ch:redundancy}.
+
+\section{Worlds}
+
+\begin{definition}[Events, histories, state]
+\label{def:world}
+Fix an initial set $S_0\subseteq\mathfrak F$. An \emph{event} is one of
+\begin{itemize}[nosep]
+\item $\Pop(f)$: select the item $f$ for processing;
+\item $\Refuse(f)$: declare $f$ inadmissible as a premise from now on;
+\item $\Bind(r;f_1,\dots,f_n\vdash f)$: derive $f$ from $f_1,\dots,f_n$ by a rule instance $r=(\{f_1,\dots,f_n\},f)\in\mathcal R$.
+\end{itemize}
+A \emph{history} is a finite sequence of events. To each history $H$ attach a triple $\rho(H)=(D,R,P)$ of sets of items, the \emph{extensional state}, by recursion: $\rho(\varepsilon)=(S_0,\emptyset,\emptyset)$ and, writing $\rho(H)=(D,R,P)$,
+\begin{itemize}[nosep]
+\item $\Pop(f)$ is \emph{well formed} iff $f\in D\setminus(R\cup P)$, and $\rho(H\cdot\Pop(f))=(D,R,P\cup\{f\})$;
+\item $\Refuse(f)$ is well formed iff $f\in D\setminus R$, and $\rho(H\cdot\Refuse(f))=(D,R\cup\{f\},P)$;
+\item $\Bind(r;\vec f\vdash f)$ is well formed iff $\vec f\subseteq P\setminus R$ and $f\notin D$, and $\rho(H\cdot\Bind(r;\vec f\vdash f))=(D\cup\{f\},R,P)$.
+\end{itemize}
+A history is well formed if every event is well formed at its point. Write $D(H),R(H),P(H)$ for the components; $D$ is the set of \emph{derived} items, $R$ the \emph{refused}, $P$ the \emph{popped}. The \emph{available} items are $\mathrm{Av}(H)=D(H)\setminus R(H)$, the \emph{option space} is $\Omega(H)=\mathrm{Cn}(\mathrm{Av}(H))$, and the \emph{provenance} $\pi(H)$ is the set of $\Bind$ events occurring in $H$. A \emph{world} is a well-formed history regarded together with its option space.
+\end{definition}
+
+A world is the pair that the framework calls (history, option space). The history is append-only: nothing is removed from $D$ or $R$, and the option space is a derived quantity that can shrink. Two features of the definition matter below. A refused item is never un-refused. And a $\Bind$ derives only items not already derived, so $D$ is a set and an item has exactly one recorded justification, the first.
+
+\begin{example}[The given-clause loop as a history]
+\label{ex:gcl-history}
+In the given-clause algorithm of Section~\ref{sec:given-clause}, one iteration selects a clause $g$ from the unprocessed pool ($\Pop(g)$), derives conclusions between $g$ and the processed clauses (a sequence of $\Bind$ events), and removes clauses found redundant ($\Refuse$ events). The sequence of all events of a run is a well-formed history whose extensional state at each point is the triple (all clauses ever generated, all clauses discarded, all clauses selected). The loop of Chapter~\ref{ch:search} is thus a particular strategy for extending histories, and the transition system of Definition~\ref{def:given-clause} is the transition system of worlds restricted to that strategy.
+\end{example}
+
+\section{The option space moves only under refusal}
+
+\begin{proposition}[Dynamics of the option space]
+\label{prop:dynamics}
+Let $\mathrm{Cn}$ be a closure operator respecting $\mathsf I$, and let $H$ be well formed.
+\begin{enumerate}[label=(\alph*),nosep]
+\item $\Omega(H\cdot\Pop(f))=\Omega(H)$ whenever the event is well formed.
+\item $\Omega(H\cdot\Bind(r;\vec f\vdash f))=\Omega(H)$ whenever the event is well formed.
+\item $\Omega(H\cdot\Refuse(f))\subseteq\Omega(H)$ whenever the event is well formed, with equality if and only if $f\in\mathrm{Cn}(\mathrm{Av}(H)\setminus\{f\})$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Write $A=\mathrm{Av}(H)$. (a) $\Pop$ changes only $P$, so $A$ is unchanged. (b) The premises $\vec f$ lie in $A$, hence in $\mathrm{Cn}(A)$ by extensivity, and $\mathrm{Cn}(A)$ is saturated, so $f\in\mathrm{Cn}(A)$. The new set of available items is $A\cup\{f\}\subseteq\mathrm{Cn}(A)$. By monotonicity and idempotence $\mathrm{Cn}(A)\subseteq\mathrm{Cn}(A\cup\{f\})\subseteq\mathrm{Cn}(\mathrm{Cn}(A))=\mathrm{Cn}(A)$.
+
+(c) The new available set is $A\setminus\{f\}$ (here $f\in A$ by well-formedness), so containment follows from monotonicity. If $f\in\mathrm{Cn}(A\setminus\{f\})$ then $A\subseteq\mathrm{Cn}(A\setminus\{f\})$ by extensivity, so $\mathrm{Cn}(A)\subseteq\mathrm{Cn}(\mathrm{Cn}(A\setminus\{f\}))=\mathrm{Cn}(A\setminus\{f\})$, which is equality. Conversely if the two closures coincide then $f\in A\subseteq\mathrm{Cn}(A)=\mathrm{Cn}(A\setminus\{f\})$.
+\end{proof}
+
+\begin{corollary}[Search is movement within a fixed space]
+\label{cor:fixed-space}
+For every well-formed $H$, $\Omega(H)\subseteq\Omega(\varepsilon)=\mathrm{Cn}(S_0)$, and $\Omega(H)=\mathrm{Cn}(S_0)$ if $H$ contains no $\Refuse$ event. In particular, in a refusal-free history every item that will ever be derived already lies in the option space at the start, and progress consists of making items derived (members of $D$), not of enlarging what is obtainable.
+\end{corollary}
+
+\begin{proof}
+Induct on the length of $H$ using Proposition~\ref{prop:dynamics}. The base case is the definition, since $\mathrm{Av}(\varepsilon)=S_0$.
+\end{proof}
+
+The corollary has a practical meaning that is seldom stated. Every time a prover discards an item, it makes a bet about the option space, because discarding is the only operation that can change it; and conversely every efficiency gain from deletion is paid for by the possibility that the bet is wrong. Proposition~\ref{prop:dynamics}(c) says exactly when it is not.
+
+\begin{definition}[Lossless refusal]
+\label{def:lossless}
+A well-formed event $\Refuse(f)$ at $H$ is \emph{lossless} if $\Omega(H\cdot\Refuse(f))=\Omega(H)$, and \emph{lossless for a goal} $g\in\mathfrak F$ if $g\in\Omega(H)$ implies $g\in\Omega(H\cdot\Refuse(f))$.
+\end{definition}
+
+Proposition~\ref{prop:dynamics}(c) characterizes lossless refusal: \emph{the refused item must already be obtainable from the other available items}. This is the semantic notion of redundancy that the next chapter specialises. A refusal that is lossy for some goals may still be admissible if the goals are not asked for, which is the task-relative notion of Chapter~\ref{ch:sufficiency} and is the content of the next section.
+
+\section{The extensional state is the minimal state for all futures}
+
+\begin{theorem}[Future equivalence]
+\label{thm:future}
+Let $H,H'$ be well-formed histories with $\rho(H)=\rho(H')$. Then for every event $e$, $e$ is well formed after $H$ if and only if it is after $H'$, and $\rho(H\cdot e)=\rho(H'\cdot e)$. Consequently, with $\mathcal F_{\mathrm{fut}}=\{H\mapsto\rho(H\cdot w):w\text{ an event sequence}\}$ (defined where $H\cdot w$ is well formed, and by a fixed symbol $\ast$ elsewhere), one has $\ker\mathcal F_{\mathrm{fut}}=\ker\rho$, so $\rho$ is the minimal $\mathcal F_{\mathrm{fut}}$-sufficient representation of well-formed histories (Theorem~\ref{thm:suff-refine}).
+\end{theorem}
+
+\begin{proof}
+Well-formedness and the state update in Definition~\ref{def:world} refer only to the current triple and the event. Hence equal triples treat every event identically, and induction on the length of $w$ gives equal behaviour on all continuations. For the kernel: taking $w=\varepsilon$ shows $\ker\mathcal F_{\mathrm{fut}}\subseteq\ker\rho$, and the first part shows $\ker\rho\subseteq\ker\mathcal F_{\mathrm{fut}}$.
+\end{proof}
+
+The option space is a function of the extensional state, $\Omega=\mathrm{Cn}(D\setminus R)$, so any representation sufficient for all futures determines it. The theorem has a converse in spirit: a collapse of worlds that identifies two histories with different extensional states changes the set of continuations that are well formed or the states they lead to, so the collapse is not a congruence for the dynamics. The exact formulation follows.
+
+\begin{definition}[Collapse, two conditions]
+\label{def:collapse}
+A \emph{collapse} is a representation $\sigma:\mathcal W\to Q$ on the set $\mathcal W$ of well-formed histories. Let $\mathcal F$ be a task family on $\mathcal W$. $\sigma$ is \emph{$\mathcal F$-sufficient} if it satisfies the condition of Definition~\ref{def:suff} for $\mathcal F$. $\sigma$ is \emph{refusal-respecting} if $\ker\sigma\subseteq\ker\mathrm{Av}$, that is, if $\sigma(H)=\sigma(H')$ implies $\mathrm{Av}(H)=\mathrm{Av}(H')$. It is \emph{admissible for $\mathcal F$} if it is both.
+\end{definition}
+
+By Theorem~\ref{thm:suff-refine}, admissibility for $\mathcal F$ is sufficiency for $\mathcal F\cup\{\mathrm{Av}\}$, and by Theorem~\ref{thm:closure} it is automatic exactly when $\mathrm{Av}$ is computable from $\mathcal F$. The two conditions are in general independent, and each is violated by natural collapses.
+
+\begin{proposition}[Independence of the two conditions]
+\label{prop:two-conditions}
+There are a task $\mathsf{prov}$ and collapses $\sigma_1,\sigma_2$ of well-formed histories such that $\sigma_1$ is $\{\mathsf{prov}\}$-sufficient but not refusal-respecting, and $\sigma_2$ is refusal-respecting but not $\{\mathsf{prov}\}$-sufficient. Moreover there is a collapse that is sufficient for the verdict task $\mathsf{unsat}(H)=[\bot\in\Omega(H)]$ but not for continuation.
+\end{proposition}
+
+\begin{proof}
+Take the task $\mathsf{prov}(H)=\pi(H)$. Let $\sigma_1=\pi$; it is $\{\mathsf{prov}\}$-sufficient trivially. It is not refusal-respecting: for $S_0=\{a,b\}$ with no rules, the histories $\varepsilon$ and $\Refuse(a)$ have the same provenance $\emptyset$ and different available sets. Let $\sigma_2=\mathrm{Av}$, trivially refusal-respecting. It is not $\{\mathsf{prov}\}$-sufficient: with $S_0=\{p,q,r\}$ and rules $r_1=(\{p,q\},c)$, $r_2=(\{p,r\},c)$, the histories $H_1=\Pop(p),\Pop(q),\Bind(r_1;p,q\vdash c)$ and $H_2=\Pop(p),\Pop(r),\Bind(r_2;p,r\vdash c)$ have $\mathrm{Av}=\{p,q,r,c\}$ in both and different provenance. For the last statement take $\sigma_3=\mathsf{unsat}$ and $S_0=\{a,b\}$ without rules. Neither $\varepsilon$ nor $\Refuse(a)$ derives $\bot$, so $\sigma_3$ identifies them, yet $\Pop(a)$ is well formed after the first and not after the second.
+\end{proof}
+
+The proof is deliberately elementary. The significance lies in the pattern it exhibits: a representation that is exactly sufficient for the question being asked now (the verdict, the proof, the count) is generally insufficient for \emph{continuation}, and continuation is what a search is. The standing recommendation of the chapter is therefore the following.
+
+\begin{principal}
+\textbf{A collapse in search is admissible only relative to a declared task and a declared continuation.} Preserve $\mathcal F$ for the present question (Chapter~\ref{ch:sufficiency}); preserve $\mathrm{Av}$ if later events are to behave as they would have; preserve the full extensional state $\rho$ if the search is to be resumed exactly (Theorem~\ref{thm:future}); and preserve provenance $\pi$ if proofs are to be extracted (Proposition~\ref{prop:prov-not-state}).
+\end{principal}
+
+\section{Provenance is not in the state}
+
+\begin{proposition}[Proofs are not a function of the extensional state]
+\label{prop:prov-not-state}
+There are well-formed histories $H_1,H_2$ with $\rho(H_1)=\rho(H_2)$ and $\pi(H_1)\ne\pi(H_2)$ in which the two recorded justifications of the item $c$ yield derivation trees of $c$ with different sets of leaves. Hence the task ``return a derivation of $c$ from $S_0$'' is not $\rho$-sufficient, and by Theorem~\ref{thm:future} the extensional state, which suffices for all future behaviour of the search, does not suffice for extracting a proof.
+\end{proposition}
+
+\begin{proof}
+The histories of the preceding proof have equal $\rho=(\{p,q,r,c\},\emptyset,\{p,q,r\})$ only if both pop all of $p,q,r$; extend $H_1$ by $\Pop(r)$ and $H_2$ by $\Pop(q)$. Then $\rho(H_1)=\rho(H_2)$, while the derivation of $c$ read from $\pi$ has leaves $\{p,q\}$ in $H_1$ and $\{p,r\}$ in $H_2$.
+\end{proof}
+
+This is the world-level counterpart of the residue of Chapter~\ref{ch:proof-systems}: the proof extracted from a run is a function of $\pi$, the extensional state is a function of the run, and neither determines the other. In particular a prover that collapses its state to $\rho$ after every iteration, for memory, can continue indefinitely and can still report that $\bot$ was derived, but cannot say how.
+
+\section{Outcomes, and two guarantees that must not be conflated}
+
+The tasks of the preceding sections ask about the state. A search is also judged by its \emph{outcomes}.
+
+\begin{definition}[Attainable outcomes]
+\label{def:outcomes-worlds}
+A \emph{continuation} of a well-formed $H$ is an event sequence $w$ with $H\cdot w$ well formed. It is \emph{terminal} if $H\cdot w$ is saturating (Lemma~\ref{lem:maximal} in Chapter~\ref{ch:guidance} makes this precise for finite clause universes; in general it means that no $\Pop$ or $\Bind$ is well formed). The \emph{outcome} of a terminal $H\cdot w$ is $\mathsf{refuted}$ if $\bot\in D\setminus R$ and $\mathsf{saturated}$ otherwise. The set of \emph{attainable outcomes} of $H$ is
+\[
+\mathcal C(H)=\{\mathrm{out}(H\cdot w):\ w\text{ a terminal continuation of }H\}.
+\]
+\end{definition}
+
+A collapse or refusal $q$ is then judged against a declared outcome task. For refutation the condition is $\mathsf{refuted}\in\mathcal C(H)\iff\mathsf{refuted}\in\mathcal C(q(H))$, which Chapter~\ref{ch:redundancy} establishes for the admissible refusals. For repair and diagnosis the condition is too weak: it says that a certificate remains obtainable, not that the distinctions needed to explain or adjust the search remain recorded, and those are the tasks of Chapter~\ref{ch:history-repair}. The two kinds of requirement correspond to two different representations, the first through $\Omega$ and the second through $(\rho,\pi)$.
+
+Two properties of an execution are easily conflated and are logically independent. Define a \emph{raw history} to be a sequence of events with no well-formedness requirement, with the state updates of Definition~\ref{def:world} applied unconditionally.
+
+\begin{definition}[Logical soundness and refusal-respect]
+\label{def:two-guarantees}
+A raw history is \emph{logically sound} if every item added to $D$ by a $\Bind$ event is entailed by the items it was derived from (for an inference system with a semantics, as in Definition~\ref{def:inference-system}). It is \emph{refusal-respecting} if no event uses, as a premise of a $\Bind$ or as the target of a $\Pop$, an item that is in $R$ at that time.
+\end{definition}
+
+\begin{proposition}[Independence]
+\label{prop:two-guarantees}
+There are raw histories that are logically sound but not refusal-respecting, and raw histories that are refusal-respecting but not logically sound. A well-formed history over a sound inference system is both.
+\end{proposition}
+
+\begin{proof}
+Let $S_0=\{p,\ p\to q\}$ with $\to$-elimination as the only rule. The raw history $\Pop(p),\Pop(p\to q),\Refuse(p),\Bind(\to\mathrm{E};p,\,p\to q\vdash q)$ derives only valid consequences and uses the refused $p$ as a premise. For the converse let the rule set contain the unsound instance $(\{p\},q)$ with $S_0=\{p\}$; $\Pop(p),\Bind(\{p\}\vdash q)$ respects every refusal and adds $q$, which is not entailed. For the last statement, well-formedness is the refusal-respecting condition by definition, and logical soundness follows from soundness of the rule instances.
+\end{proof}
+
+Logical soundness is a property of the rule set, assured by a checker for the rules. Refusal-respect is a property of the execution, assured by the gate of Chapter~\ref{ch:guidance}. A proof produced by a run that used a refused premise is a valid proof and a violation of the run's recorded restrictions; a run that respects every refusal and applies an unsound rule violates nothing recorded and proves nothing. The lifecycle of Chapter~\ref{ch:lifecycle} separates the same two things by assigning the first to verifiers and the second to disposition authority.
+
+\section{What this chapter fixes}
+
+\begin{principal}
+(1) A search is a sequence of $\Pop$, $\Refuse$, $\Bind$ events on a world $(H,\Omega)$; only refusal and collapse can change $\Omega$ (Proposition~\ref{prop:dynamics}, Corollary~\ref{cor:fixed-space}). (2) A refusal is lossless iff the refused item is obtainable from the remaining available items, which is redundancy (Proposition~\ref{prop:dynamics}(c)). (3) A collapse is admissible for a task family iff it is sufficient for the family and refusal-respecting; both conditions can fail independently (Proposition~\ref{prop:two-conditions}). (4) The extensional state is minimal for all futures and does not determine proofs (Theorem~\ref{thm:future}, Proposition~\ref{prop:prov-not-state}).
+\end{principal}
+
+\begin{exercise}
+Show that Proposition~\ref{prop:dynamics}(b) fails if $\mathrm{Cn}$ is not required to respect $\mathsf I$. Give a closure operator, an inference system and a $\Bind$ event for which $\Omega$ strictly increases.
+\end{exercise}
+
+\begin{exercise}
+Prove that $\rho$ itself is not minimal for the family of tasks $\{H\mapsto\Omega(H\cdot w)\}_w$ by exhibiting two histories with $\rho(H)\ne\rho(H')$ that agree on every $\Omega(H\cdot w)$. What does this say about the role of $P$?
+\end{exercise}
+
+\begin{exercise}
+Let $\mathrm{Cn}=\mathrm{Cn}_{\mathsf I}$ for propositional resolution. Show that $\Refuse(f)$ at $H$ is lossless if and only if $f$ can be derived by resolution from the other available clauses, and use this to show that refusing a clause subsumed by an available clause is in general \emph{not} lossless in this sense. (This is the observation that motivates the closure of Chapter~\ref{ch:redundancy}.)
+\end{exercise}

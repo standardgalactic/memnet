@@ -1,0 +1,157 @@
+\chapter{Redundancy as Admissible Collapse}
+\label{ch:redundancy}
+
+Provers discard clauses. Without deletion, saturation procedures drown in consequences that add nothing, and every serious implementation removes tautologies and subsumed clauses as a matter of course. In the vocabulary of Chapter~\ref{ch:search-worlds}, deletion is $\Refuse$, and Proposition~\ref{prop:dynamics} says that it is the only event that changes the option space. This chapter proves that for propositional resolution the two standard deletions are admissible, in the strongest sense that fair runs with deletion remain refutationally complete, and shows by a small example that the admissibility of a refusal is a property of the current world and not of the refused item alone.
+
+Throughout, clauses are finite sets of literals as in Chapter~\ref{ch:resolution}, $\mathrm{Res}(S)$ denotes the set of clauses derivable from $S$ by resolution (including $S$ itself), and $\mathsf I$ is propositional resolution.
+
+\section{A closure adapted to redundancy}
+
+The closure $\mathrm{Res}$ is the wrong option closure for deletion. If $D\subsetneq C$ and $C$ is refused while $D$ remains available, then $C\in\mathrm{Av}$ is typically not in $\mathrm{Res}(\mathrm{Av}\setminus\{C\})$, because resolution never weakens a clause. So by Proposition~\ref{prop:dynamics}(c) the refusal is lossy for $\mathrm{Res}$, although every use that could be made of $C$ can be made of $D$ (Exercise in Chapter~\ref{ch:search-worlds}). The remedy is to measure options up to redundancy.
+
+\begin{definition}[Redundancy closure]
+\label{def:updown}
+For a set $N$ of clauses let
+\[
+\uparrow^{\ast}\!N=\{C:\ C\text{ is a tautology, or }E\subseteq C\text{ for some }E\in N\},
+\]
+and put $\mathrm{Cn}_{\sqsubseteq}(S)=\ \uparrow^{\ast}\!\mathrm{Res}(S)$.
+\end{definition}
+
+A clause is in $\mathrm{Cn}_{\sqsubseteq}(S)$ if it is derivable up to subsumption, or is a tautology (which is entailed by everything).
+
+\begin{lemma}[Lifting through redundancy]
+\label{lem:red-lifting}
+Let $N$ be a set of clauses that is \emph{saturated up to redundancy}: every resolvent of two members of $N$ lies in $\uparrow^{\ast}\!N$. Then every clause derivable by resolution from $\uparrow^{\ast}\!N$ lies in $\uparrow^{\ast}\!N$.
+\end{lemma}
+
+\begin{proof}
+Induct on the derivation. Premises from $\uparrow^{\ast}\!N$ are trivially in it. Let $C=C_1'\cup C_2'$ be the resolvent on $l$ of $C_1=C_1'\cup\{l\}$ and $C_2=C_2'\cup\{\overline l\}$, both in $\uparrow^{\ast}\!N$.
+
+\emph{Case 1: neither premise is a tautology.} Then $E_1\subseteq C_1$ and $E_2\subseteq C_2$ for some $E_1,E_2\in N$. If $l\notin E_1$ then $E_1\subseteq C_1'\subseteq C$, so $C\in\uparrow^{\ast}\!N$; likewise if $\overline l\notin E_2$. Otherwise $E_1=E_1'\cup\{l\}$ and $E_2=E_2'\cup\{\overline l\}$ with $E_i'\subseteq C_i'$. The resolvent $E_1'\cup E_2'$ of $E_1,E_2$ lies in $\uparrow^{\ast}\!N$ by saturation up to redundancy, and $E_1'\cup E_2'\subseteq C$. A superset of a tautology is a tautology and a superset of a member of $N$ is in $\uparrow^{\ast}\!N$, so $C\in\uparrow^{\ast}\!N$.
+
+\emph{Case 2: $C_1$ is a tautology.} Then $C_1$ contains a complementary pair. If that pair lies inside $C_1'$ then $C\supseteq C_1'$ is a tautology. Otherwise the pair is $l,\overline l$, so $\overline l\in C_1'\subseteq C$ and $C\supseteq C_2'\cup\{\overline l\}=C_2\in\uparrow^{\ast}\!N$, hence $C\in\uparrow^{\ast}\!N$. The case $C_2$ tautology is symmetric.
+\end{proof}
+
+\begin{proposition}[$\mathrm{Cn}_{\sqsubseteq}$ is an option closure respecting resolution]
+\label{prop:cnsub}
+$\mathrm{Cn}_{\sqsubseteq}$ is a closure operator, it respects $\mathsf I$ (Definition~\ref{def:closure}), and $\square\in\mathrm{Cn}_{\sqsubseteq}(S)$ if and only if $S$ is unsatisfiable, for finite $S$.
+\end{proposition}
+
+\begin{proof}
+Extensive: $S\subseteq\mathrm{Res}(S)$. Monotone: $\mathrm{Res}$ is monotone and $\uparrow^{\ast}$ is monotone. Idempotent and respecting $\mathsf I$: $N=\mathrm{Res}(S)$ is closed under resolution, hence saturated up to redundancy. By Lemma~\ref{lem:red-lifting}, any resolvent of members of $\uparrow^{\ast}\!N$ lies in $\uparrow^{\ast}\!N$, which is $\mathrm{Cn}_{\sqsubseteq}(S)$; this is the respect for $\mathsf I$. For idempotence, $\mathrm{Cn}_{\sqsubseteq}(\mathrm{Cn}_{\sqsubseteq}(S))=\uparrow^{\ast}\!\mathrm{Res}(\uparrow^{\ast}\!N)$, and $\mathrm{Res}(\uparrow^{\ast}\!N)\subseteq\uparrow^{\ast}\!N$ by the lemma applied to derivations; applying $\uparrow^{\ast}$ gives $\uparrow^{\ast}\!N$ again.
+
+Finally $\square$ is not a tautology and $E\subseteq\square$ forces $E=\square$, so $\square\in\mathrm{Cn}_{\sqsubseteq}(S)$ iff $\square\in\mathrm{Res}(S)$, which for finite $S$ holds iff $S$ is unsatisfiable by Proposition~\ref{prop:prop-res-sound} and Theorem~\ref{thm:prop-complete}.
+\end{proof}
+
+Hence the framework of Chapter~\ref{ch:search-worlds} applies with $\Omega=\mathrm{Cn}_{\sqsubseteq}(\mathrm{Av})$, and the refutability task $\mathsf{unsat}(H)=[\square\in\Omega(H)]$ is the verdict of the run.
+
+\section{Tautology and subsumption refusal}
+
+\begin{theorem}[Admissible refusals]
+\label{thm:admissible-refusals}
+Let $H$ be a well-formed history, $f\in\mathrm{Av}(H)$ and $A=\mathrm{Av}(H)$. Refusing $f$ is lossless for $\Omega=\mathrm{Cn}_{\sqsubseteq}(\mathrm{Av})$ in each of the cases
+\begin{enumerate}[label=(\roman*),nosep]
+\item $f$ is a tautology;
+\item $f$ is \emph{subsumed}: there is $D\in A\setminus\{f\}$ with $D\subseteq f$.
+\end{enumerate}
+In particular, in both cases $\mathsf{unsat}(H\cdot\Refuse(f))=\mathsf{unsat}(H)$.
+\end{theorem}
+
+\begin{proof}
+By Proposition~\ref{prop:dynamics}(c) it suffices to show $f\in\mathrm{Cn}_{\sqsubseteq}(A\setminus\{f\})$. In case (i), $f\in\uparrow^{\ast}\!(\cdot)$ by definition. In case (ii), $D\in A\setminus\{f\}\subseteq\mathrm{Res}(A\setminus\{f\})$ and $D\subseteq f$, so $f\in\uparrow^{\ast}\!\mathrm{Res}(A\setminus\{f\})$. Proposition~\ref{prop:cnsub} supplies the closure properties used by Proposition~\ref{prop:dynamics}, and the last claim follows since $\square\in\Omega$ is the verdict.
+\end{proof}
+
+The theorem is the formal sense of the slogan that redundancy is lossless refusal. Note that the witness $D$ must lie in the \emph{current} available set. This is exactly where history enters.
+
+\begin{example}[Duplicates and the witness that was already refused]
+\label{ex:dup-cycle}
+Let items be \emph{occurrences} of clauses, so that two occurrences $c_1,c_2$ may carry the same clause $\{a\}$, and let $S_0=\{c_1,c_2,c_3\}$ with $c_3=\{\neg a\}$. The set is unsatisfiable. The refusal $\Refuse(c_1)$ is admissible, since the available $c_2$ carries the same clause. After it, $\Refuse(c_2)$ is \emph{not} lossless: the available set is $\{c_3\}$, which is satisfiable. A refusal criterion that accepts a witness among all items \emph{seen so far}, available or refused, would approve both steps and destroy the refutation. The criterion of Theorem~\ref{thm:admissible-refusals} is correct because it quantifies over $\mathrm{Av}(H)$, not over $D(H)$.
+\end{example}
+
+This is the clause-level instance of the principle that a refusal is judged by the world in which it is made. Quotienting the occurrences $c_1,c_2$ to one item with the status ``available if and only if some member is available'' is the refusal-respecting collapse of Definition~\ref{def:collapse}; giving the class the status ``refused if some member is refused'' is not, and destroys the refutation in the same way.
+
+\section{Completeness with deletion}
+
+The fairness theorem of Chapter~\ref{ch:search} (Theorem~\ref{thm:fair}) is stated for increasing chains $N_0\subseteq N_1\subseteq\cdots$ and does not apply to a procedure that deletes. It must be replaced by an argument about \emph{persistent} clauses and the witnesses that justify each deletion. Lossless refusals preserve refutability at each step. A prover must also \emph{find} the refutation, and an infinite sequence of individually admissible refusals could in principle remove every witness in turn. The following theorem shows that for propositional resolution under a fair strategy, it cannot.
+
+\begin{definition}[Fair run with deletion]
+\label{def:fair-deletion}
+A well-formed infinite or terminated sequence of events starting from a finite set $S_0$ of clauses is a \emph{run with admissible deletion} if every $\Refuse(f)$ event is of the form (i) or (ii) of Theorem~\ref{thm:admissible-refusals}. Its \emph{persistent set} is $N_\infty=\bigcup_i\bigcap_{j\ge i}\mathrm{Av}(H_j)$, where $H_j$ is the prefix of length $j$. The run is \emph{fair} if every instance of the resolution rule whose two premises lie in $N_\infty$ has its conclusion in $D(H_j)$ for some $j$.
+\end{definition}
+
+\begin{theorem}[Completeness with admissible deletion]
+\label{thm:complete-deletion}
+Let $S_0$ be a finite unsatisfiable set of clauses and let $(H_j)$ be a fair run with admissible deletion. Then $\square\in D(H_j)\setminus R(H_j)$ for some $j$. Equivalently, $\square$ is persistent.
+\end{theorem}
+
+\begin{proof}
+All clauses ever derived contain atoms of $S_0$ only, and clauses are sets, so the universe of clauses is finite; hence $D_\infty=\bigcup_jD(H_j)$ is finite and $N_\infty$, being a subset, is finite.
+
+\emph{Step 1: every clause in $D_\infty$ is a tautology or contains a member of $N_\infty$.} Let $f\in D_\infty$. If $f$ is persistent, take $f$ itself. If $f$ is a tautology there is nothing to show. Otherwise $f$ is not a tautology and not persistent, so it was refused at some time $t$, necessarily by a subsumption step, with witness $f_1\subseteq f$, $f_1\in\mathrm{Av}(H_t)$ and $f_1\ne f$, so $f_1\subsetneq f$. Repeat for $f_1$: either $f_1$ is persistent, or a tautology, or refused later with a witness $f_2\subsetneq f_1$. The cardinalities strictly decrease along the chain, and a subset of a non-tautology is a non-tautology, so every member is a non-tautology and the chain ends at a clause that is never refused. An unrefused derived clause is available from its derivation onward, hence persistent. So $f$ contains a persistent clause.
+
+\emph{Step 2: $N_\infty$ is unsatisfiable.} Suppose $v\models N_\infty$. By Step 1, $v$ satisfies every clause of $D_\infty$, since each is a tautology or a superset of a clause $v$ satisfies. In particular $v\models S_0$, contradicting unsatisfiability of $S_0$.
+
+\emph{Step 3: $N_\infty$ is saturated up to redundancy.} Let $E$ be a resolvent of two members of $N_\infty$. By fairness $E\in D_\infty$, and by Step 1 $E\in\uparrow^{\ast}\!N_\infty$.
+
+\emph{Step 4.} By Step 2 and Theorem~\ref{thm:prop-complete}, $\square\in\mathrm{Res}(N_\infty)$. By Step 3 and Lemma~\ref{lem:red-lifting}, $\mathrm{Res}(N_\infty)\subseteq\uparrow^{\ast}\!N_\infty$, so $\square\in\uparrow^{\ast}\!N_\infty$. Since $\square$ is not a tautology, some $E\in N_\infty$ satisfies $E\subseteq\square$, that is, $E=\square$. So $\square\in N_\infty$.
+\end{proof}
+
+The proof is a short instance of the model-based arguments of Bachmair and Ganzinger \cite{bachmairganzinger1994} specialised to the propositional case, where finiteness of the clause universe replaces the ordering machinery. Two features are worth recording. Step 1 uses the strictness $f_1\subsetneq f$, which is available because items are clause sets; with occurrences, a chain $c_1\to c_2\to\cdots$ of equal copies can in principle continue forever, which is why implementations impose a tie-break by age. And Step 2 is purely semantic: it uses no property of the strategy except that every deleted clause was redundant at its time. The role of the history is concentrated in Step 1.
+
+\section{Admissibility is task-relative}
+
+Deletion preserves refutability but not the option space under $\mathrm{Res}$.
+
+\begin{proposition}[Premature relative to the wrong task]
+\label{prop:wrong-task}
+Let $S_0=\{p,\ p\vee q\}$ and $H=\Refuse(p\vee q)$. Under $\mathrm{Cn}_{\sqsubseteq}$ the refusal is lossless. Under $\mathrm{Cn}_{\mathrm{Res}}=\mathrm{Res}$ it is lossy: $p\vee q\in\mathrm{Res}(S_0)\setminus\mathrm{Res}(S_0\setminus\{p\vee q\})$. So the deletion is admissible for the task ``is $S_0$ refutable'' and premature for the task ``list every clause derivable from $S_0$''.
+\end{proposition}
+
+\begin{proof}
+$p\subseteq p\vee q$ gives the first statement by Theorem~\ref{thm:admissible-refusals}(ii). For the second, $\mathrm{Res}(\{p\})=\{p\}$ does not contain $p\vee q$.
+\end{proof}
+
+The proposition is the clause-level shadow of Theorem~\ref{thm:nofree}: a non-injective treatment of the clause set serves some task families and not others, and the family must be named. Table~\ref{tab:redundancy} summarizes the standard criteria. The third row is a fact about complexity, cited and not proved here.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}p{4.1cm}p{3.1cm}p{5.1cm}@{}}
+\toprule
+Criterion for refusing $f$ in $A$ & Decidable in & Status\\
+\midrule
+$f$ is a tautology & linear time & lossless for $\mathrm{Cn}_{\sqsubseteq}$ (Thm.~\ref{thm:admissible-refusals}(i))\\
+Some $D\in A\setminus\{f\}$ has $D\subseteq f$ & polynomial time & lossless for $\mathrm{Cn}_{\sqsubseteq}$ (Thm.~\ref{thm:admissible-refusals}(ii)); fair runs complete (Thm.~\ref{thm:complete-deletion})\\
+$f$ is entailed by $A\setminus\{f\}$ & coNP-complete \cite{cook1971} & lossless for refutability by semantics, but the persistence argument of Thm.~\ref{thm:complete-deletion} needs an ordering restriction not developed here\\
+$f$ matches a witness among all items seen, refused or not & linear in the history & \emph{not} admissible (Example~\ref{ex:dup-cycle})\\
+\bottomrule
+\end{tabular}
+\caption{Redundancy criteria for propositional clause sets. The first two rows are proved in this chapter.}
+\label{tab:redundancy}
+\end{table}
+
+\begin{remark}[Deletion records and repair obligations (proposed extension)]
+\label{rem:deletion-records}
+The proof of Theorem~\ref{thm:complete-deletion} uses, for each refused clause, a replacement witness that was available when the refusal was made. A deletion record that retains the refused clause together with its witness is what is needed to reconsider the deletion if the witness is later removed or an initial assumption is altered: the clauses whose only witnesses depend on the altered item are exactly the deletions that generate repair obligations. This is a proposal and is not proved here. Its natural home is the typed dependency structure of Chapter~\ref{ch:inheritance}, with the refusal record as a new kind of edge, and the mutation experiments of Chapter~\ref{ch:mutation}.
+\end{remark}
+
+\section{What this chapter fixes}
+
+\begin{principal}
+(1) Redundancy is lossless refusal for the option closure adapted to the task: $\mathrm{Cn}_{\sqsubseteq}$ for refutation (Proposition~\ref{prop:cnsub}, Theorem~\ref{thm:admissible-refusals}). (2) Fair runs of propositional resolution with tautology and subsumption deletion remain refutationally complete (Theorem~\ref{thm:complete-deletion}). (3) A refusal is admissible only relative to the current available set, and a criterion that consults refused items is not (Example~\ref{ex:dup-cycle}). (4) The same deletion is admissible for one task and premature for another (Proposition~\ref{prop:wrong-task}).
+\end{principal}
+
+The refusals of this chapter are decided by the search procedure itself, from information it holds. The next chapter considers refusals and selections that are \emph{guided} by an external signal, and asks what such a signal can and cannot certify.
+
+\begin{exercise}
+In Step 1 of Theorem~\ref{thm:complete-deletion}, show that the chain of witnesses cannot end at a tautology. (The parenthetical in the proof gives the idea; write it as a lemma.)
+\end{exercise}
+
+\begin{exercise}
+Show that Theorem~\ref{thm:complete-deletion} fails if admissible deletion is replaced by deletion of any clause entailed by the remaining available clauses and the fairness condition is unchanged. (Hint: two mutually entailed clauses.)
+\end{exercise}
+
+\begin{exercise}
+Prove that backward subsumption, refusing already processed clauses subsumed by a newly derived clause, is an instance of Theorem~\ref{thm:admissible-refusals}(ii), and that forward subsumption, discarding a newly derived clause that is subsumed, requires the refused clause to be recorded in $R$ if later re-derivation is to be blocked.
+\end{exercise}

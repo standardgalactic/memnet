@@ -1,0 +1,230 @@
+\chapter{SAT and Clause Learning as Resolution with Memory}
+\label{ch:sat}
+
+Modern propositional solvers decide satisfiability of formulas with millions of clauses, and they do so by a procedure whose logic is almost entirely resolution. This chapter makes the claim exact. A conflict-driven solver is a transition system whose learned clauses are resolution consequences, so every refutation it finds is a resolution refutation, and the trace of the search can be compressed into a certificate that an independent checker accepts. The same material supplies the first fully worked case of a recurring theme: an optimization that is perfectly sound for deciding satisfiability can discard exactly the information needed to produce a model, and the discarded information can be named.
+
+\section{Clauses, trails, and unit propagation}
+\label{sec:trail}
+
+Notation follows Chapter~\ref{ch:resolution}. A \emph{partial assignment} is represented as a \emph{trail} $M$, a finite sequence of literals containing no complementary pair. Each element of the trail is either a \emph{decision} literal, written $l^{\mathsf d}$, or a \emph{propagated} literal. We write $M\models\neg C$ if for every literal $l\in C$ the complement $\overline{l}$ occurs in $M$, and say $M$ \emph{falsifies} $C$. A literal is \emph{undefined} in $M$ if neither it nor its complement occurs.
+
+A clause $C\cup\{l\}$ is \emph{unit under} $M$ with unit literal $l$ if $M\models\neg C$ and $l$ is undefined in $M$. \emph{Unit propagation} extends $M$ by unit literals until no clause is unit; it \emph{refutes} $M$ against a clause set $F$ if some clause of $F$ ends up falsified. A run of unit propagation is computable in time linear in the size of $F$ with the standard watching schemes, and the only fact we need is that the result of propagation is well-defined as a refutation or non-refutation (it is confluent in this sense; see Exercise~\ref{ex:up-confluent}).
+
+\section{Conflict-driven clause learning as a transition system}
+\label{sec:cdcl}
+
+We follow the abstract presentation of Nieuwenhuis, Oliveras and Tinelli. A state is either $\mathsf{Fail}$ or a pair $\langle M\,\|\,F\rangle$ of a trail and a finite set $F$ of clauses. The initial state for a formula $F_0$ is $\langle\varepsilon\,\|\,F_0\rangle$, with the empty trail.
+
+\begin{definition}[Abstract CDCL]
+\label{def:cdcl}
+The transition rules are as follows.
+\begin{description}[leftmargin=1.5em,nosep]
+\item[UnitPropagate] $\langle M\,\|\,F\rangle\Rightarrow\langle M\,l\,\|\,F\rangle$ if some $C\cup\{l\}\in F$ is unit under $M$ with unit literal $l$.
+\item[Decide] $\langle M\,\|\,F\rangle\Rightarrow\langle M\,l^{\mathsf d}\,\|\,F\rangle$ if $l$ or $\overline l$ occurs in $F$ and $l$ is undefined in $M$.
+\item[Fail] $\langle M\,\|\,F\rangle\Rightarrow\mathsf{Fail}$ if $M\models\neg C$ for some $C\in F$ and $M$ contains no decision literal.
+\item[Backjump] $\langle M'\,l^{\mathsf d}\,M''\,\|\,F\rangle\Rightarrow\langle M'\,l'\,\|\,F\cup\{C'\}\rangle$ if some $C\in F$ is falsified by $M'\,l^{\mathsf d}M''$, and there is a clause $C'=l'\cup D'$ such that $F\models C'$, $M'\models\neg D'$, and $l'$ is undefined in $M'$.
+\end{description}
+\end{definition}
+
+The clause $C'$ is called \emph{asserting}: it is unit under $M'$. \textsf{Backjump} abstracts conflict analysis, learning, and backjumping together. It leaves the choice of $C'$ open except for the requirement $F\models C'$; Section~\ref{sec:conflict-analysis} shows what choices practical solvers make.
+
+\begin{lemma}[Invariants]
+\label{lem:cdcl-inv}
+Let $\langle M\,\|\,F\rangle$ be reachable from $\langle\varepsilon\,\|\,F_0\rangle$. Then
+\begin{enumerate}[label=(\roman*),nosep]
+\item $F$ and $F_0$ have the same models;
+\item every literal $l$ occurring in $M$ before the first decision literal satisfies $F_0\models l$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By induction on the length of the run. Both hold initially.
+
+(i) \textsf{UnitPropagate}, \textsf{Decide}, \textsf{Fail} leave $F$ unchanged. \textsf{Backjump} adds $C'$ with $F\models C'$, so $F\cup\{C'\}$ and $F$ have the same models, and these are the models of $F_0$ by the induction hypothesis.
+
+(ii) Call the literals before the first decision the \emph{base}. \textsf{Decide} adds a decision, so the base is unchanged. \textsf{UnitPropagate}: if $M$ contains a decision then the new literal lies after it and the base is unchanged; otherwise the whole of $M$ is base, each member entailed by $F_0$ by hypothesis, and the new literal $l$ comes from $C\cup\{l\}\in F$ with $M\models\neg C$. Then $F_0\models\overline{c}$ for each $c\in C$, and $F_0\models C\cup\{l\}$ by~(i), so $F_0\models l$. \textsf{Backjump}: the new trail $M'\,l'$ has $M'$ as a prefix of the old trail. If $M'$ contains a decision, its base is the old base, and $l'$ lies after that decision. Otherwise $M'$ is part of the old base, so each member is entailed by $F_0$. Then $M'\models\neg D'$ gives $F_0\models\overline{d}$ for each $d\in D'$, and $F\models l'\cup D'$ with~(i) gives $F_0\models l'$.
+\end{proof}
+
+\begin{theorem}[Soundness of failure]
+\label{thm:cdcl-sound}
+If a run from $\langle\varepsilon\,\|\,F_0\rangle$ reaches $\mathsf{Fail}$, then $F_0$ is unsatisfiable. If a run reaches a state $\langle M\,\|\,F\rangle$ in which every atom of $F$ is defined in $M$ and no clause of $F$ is falsified by $M$, then $M$ satisfies $F_0$.
+\end{theorem}
+
+\begin{proof}
+Suppose the last step is \textsf{Fail} from $\langle M\,\|\,F\rangle$ with $M\models\neg C$ and $C\in F$. $M$ has no decision, so all of $M$ is base and by Lemma~\ref{lem:cdcl-inv}(ii) $F_0\models\overline{c}$ for every $c\in C$. Also $F_0\models C$ by~(i). A model of $F_0$ would falsify every member of $C$ and satisfy one, which is impossible.
+
+For the second claim, if $M$ is total on the atoms of $F$ and falsifies no clause then it satisfies every clause of $F$, hence by (i) it satisfies $F_0$.
+\end{proof}
+
+The converse, that a maximal run on an unsatisfiable input ends in $\mathsf{Fail}$ and that runs terminate, requires a termination argument that depends on how $C'$ is chosen.
+
+\begin{theorem}[Termination, cited]
+\label{thm:cdcl-term}
+\cited{Nieuwenhuis, Oliveras, Tinelli 2006, quoted in the form needed here} Suppose that in every \textsf{Backjump} step the clause $C'$ is not already in $F$, and that \textsf{Backjump} is applied whenever the trail falsifies a clause and contains a decision (an asserting clause exists in that case, by conflict analysis to the first unique implication point). Then every run from $\langle\varepsilon\,\|\,F_0\rangle$ is finite. A maximal run on an unsatisfiable $F_0$ ends in $\mathsf{Fail}$, and on a satisfiable $F_0$ ends in a state $\langle M\,\|\,F\rangle$ in which $M$ is total and satisfies $F_0$.
+\end{theorem}
+
+Together, Theorems~\ref{thm:cdcl-sound} and~\ref{thm:cdcl-term} make the system a decision procedure for propositional satisfiability. Notice the structure it shares with Chapter~\ref{ch:search}: soundness of the verdict does not depend on the heuristics that drive \textsf{Decide} and the choice of $C'$, whereas termination does depend on a non-repetition condition. This is Theorem~\ref{thm:independence} again.
+
+\section{Conflict analysis is resolution}
+\label{sec:conflict-analysis}
+
+The rule \textsf{Backjump} requires only $F\models C'$. Practical solvers choose $C'$ by a specific procedure, and this procedure is a sequence of resolution steps. For a propagated literal $l$ in $M$, a \emph{reason} for $l$ is a clause $C\cup\{l\}\in F$ with $M_{<l}\models\neg C$, where $M_{<l}$ is the prefix of $M$ before $l$.
+
+\begin{definition}[Conflict analysis]
+\label{def:analysis}
+Let $C_0\in F$ be falsified by $M$. For $i\ge0$, if $C_i$ contains a literal $\overline{l}$ with $l$ a propagated literal of $M$, let $l$ be the one occurring \emph{latest} in $M$ among those, take its reason $R=D_i\cup\{l\}$, and put
+\[
+C_{i+1}\;=\;(C_i\setminus\{\overline{l}\})\cup D_i,
+\]
+the resolvent of $C_i$ and $R$ on $l$. Stop when no such literal remains.
+\end{definition}
+
+\begin{proposition}[Analysis steps are resolution steps]
+\label{prop:analysis-resolution}
+Each $C_{i+1}$ is a resolvent of $C_i$ and a clause of $F$, so each $C_i$ has a resolution derivation from $F$ with at most $i$ steps. The process terminates after at most as many steps as $M$ has propagated literals. Every $C_i$ is falsified by $M$.
+\end{proposition}
+
+\begin{proof}
+The first claim is the definition of resolution (Definition~\ref{def:prop-res}). Falsification: $M\models\neg C_0$; if $M\models\neg C_i$ and $l$ is as in the definition, then $M\models\neg D_i$ is witnessed by the prefix $M_{<l}$ of $M$, and $\overline{l}\in C_i$ is removed, so $M\models\neg C_{i+1}$. For termination, every literal added to $C_{i+1}$ has its complement in $M_{<l}$, so strictly earlier in $M$ than $l$. Hence the latest propagated literal whose complement lies in $C_{i+1}$ is strictly earlier than $l$, and the sequence of literals resolved on is strictly decreasing in trail position; each propagated literal is used at most once.
+\end{proof}
+
+The standard stopping criterion (first unique implication point) halts the process at a clause that is falsified by $M$ and contains exactly one literal assigned at the current decision level; this is asserting after backjumping to the second-highest level occurring in it. We do not need the criterion to state the following consequence.
+
+\begin{theorem}[CDCL refutations are resolution refutations]
+\label{thm:cdcl-resolution}
+Suppose a run from $\langle\varepsilon\,\|\,F_0\rangle$ reaches $\mathsf{Fail}$ and every clause added by \textsf{Backjump} is the last or an intermediate clause $C_i$ of a conflict analysis as in Definition~\ref{def:analysis}, started at a falsified clause of the current $F$. Then $F_0$ has a resolution refutation in which every added clause is a line, and the total number of resolution steps is at most $\sum_{j}|M_j|$, where $M_j$ ranges over the trails at the conflicts that occurred.
+\end{theorem}
+
+\begin{proof}
+By induction along the run, every clause in $F$ has a resolution derivation from $F_0$: initial clauses trivially, and each clause added by \textsf{Backjump} by Proposition~\ref{prop:analysis-resolution}, whose premises are clauses of the current $F$. At the final \textsf{Fail}, $M$ has no decision, so every literal of $M$ is propagated and has a reason. Let $C_0$ be the falsified clause. Running the analysis of Definition~\ref{def:analysis} until no propagated literal remains, with no decision literal to block it, leaves a clause $C_n$ with no literals at all: every literal $c\in C_n$ would have $\overline{c}\in M$ propagated, and so would be resolved away. Hence $C_n=\square$. The step count follows from the proposition.
+\end{proof}
+
+The theorem identifies the \emph{proof system} that a conflict-driven solver searches in: general resolution, as a dag in which learned clauses are reusable lines. It does not claim that the solver finds short resolution proofs. The converse question, which proofs a CDCL search can find, has a definite answer that we quote.
+
+\begin{theorem}[Simulation, cited]
+\label{thm:cdcl-simulates}
+\cited{Pipatsrisawat and Darwiche 2011; Atserias, Fichte, Thurley 2011} CDCL with non-deterministic decisions and restarts polynomially simulates general resolution: for every unsatisfiable $F_0$ with a resolution refutation of size $s$, there is a run reaching $\mathsf{Fail}$ with a number of conflicts polynomial in $s$ and in the number of variables. The exact side conditions on the learning scheme are in the sources.
+\end{theorem}
+
+\begin{theorem}[Haken 1985, cited]
+\label{thm:haken}
+\cited{Haken} Every resolution refutation of the pigeonhole formula $\mathrm{PHP}_n^{n+1}$ has size $2^{\Omega(n)}$.
+\end{theorem}
+
+Theorems~\ref{thm:cdcl-resolution} to~\ref{thm:haken} show that the compression from a search trace to a resolution proof is neither lossless nor bounded. CDCL on pigeonhole formulas is exponential because the proof system is, whatever the heuristics. This is a different barrier from the uncomputable bound of Proposition~\ref{prop:no-bound}: it is a concrete, quantitative gap, established for a specific family.
+
+\section{Certificates: RUP, RAT, and DRAT}
+\label{sec:drat}
+
+A solver that answers ``satisfiable'' hands back an assignment, which any one can check against the formula in linear time. A solver that answers ``unsatisfiable'' owes a proof, and the proofs that matter in practice are logs of learned clauses.
+
+\begin{definition}[RUP]
+\label{def:rup}
+Let $F$ be a clause set. A clause $C$ has the \emph{reverse unit propagation} property with respect to $F$, written $F\vdash_{1}C$, if unit propagation starting from the trail consisting of the complements $\overline{l}$ for $l\in C$, as propagated literals, refutes the clause set $F$.
+\end{definition}
+
+\begin{proposition}[RUP is sound]
+\label{prop:rup-sound}
+If $F\vdash_1 C$ then $F\models C$.
+\end{proposition}
+
+\begin{proof}
+Suppose $v\models F$ and $v\not\models C$, so $v$ makes every $\overline{l}$ with $l\in C$ true, and $v$ satisfies every initial trail literal. Unit propagation adds a literal $l$ only from a clause $C'\cup\{l\}\in F$ whose other literals are false in the current trail. By induction on the length of propagation, $v$ satisfies every literal of the trail: if $v$ satisfies all literals in the trail, then $v\models\overline{c}$ for each $c\in C'$, and since $v\models C'\cup\{l\}$ we get $v\models l$. So $v$ satisfies the trail. A refutation produces a clause of $F$ all of whose literals are false under the trail, hence under $v$, contradicting $v\models F$.
+\end{proof}
+
+\begin{definition}[RUP refutation, checker]
+\label{def:rup-refutation}
+A \emph{RUP refutation} of $F$ is a sequence of clauses $C_1,\dots,C_n$ with $C_n=\square$ such that $F\cup\{C_1,\dots,C_{i-1}\}\vdash_1C_i$ for each $i$. The relation $\Chk_{\mathrm{RUP}}(d,F)$ holds when $d$ is a RUP refutation of $F$; it is decidable in polynomial time, by running unit propagation for each line.
+\end{definition}
+
+\begin{theorem}[RUP is a complete proof system]
+\label{thm:rup-complete}
+The system with $\Phi$ the finite clause sets, $D$ the finite sequences of clauses, $\Chk_{\mathrm{RUP}}$ as above, and $\mathrm{Val}$ the unsatisfiable clause sets is sound and complete.
+\end{theorem}
+
+\begin{proof}
+Soundness follows from Proposition~\ref{prop:rup-sound} by induction on $i$: every $C_i$ is entailed by $F$, so $\square$ is entailed, so $F$ is unsatisfiable.
+
+For completeness let $F$ be unsatisfiable over atoms $p_1,\dots,p_n$. For $0\le k\le n$ call a clause \emph{$k$-full} if it contains, for each $1\le j\le k$, exactly one of $p_j,\neg p_j$, and no other literals. The $n$-full clauses each exclude exactly one total assignment. Each $n$-full clause $C$ is RUP with respect to $F$: the trail $\overline{C}$ is a total assignment, and since $F$ is unsatisfiable it falsifies a clause of $F$, so propagation refutes immediately. List all $2^n$ $n$-full clauses. Having listed all $(k+1)$-full clauses, each $k$-full clause $C$ is RUP with respect to them: from the trail $\overline{C}$, the clause $C\cup\{p_{k+1}\}$ is unit and propagates $p_{k+1}$, after which the clause $C\cup\{\neg p_{k+1}\}$ is falsified. List the $k$-full clauses next. Continuing down to $k=0$ lists $\square$. This is a RUP refutation.
+\end{proof}
+
+The proof is, of course, exponentially long in $n$. Its role is to show that RUP is not weaker than resolution in provability, while the actual strength in terms of proof size is that of the clause sequences produced by solvers, which are polynomial in the number of learned clauses (each clause learned by the analysis of Definition~\ref{def:analysis} is RUP; see Exercise~\ref{ex:learned-rup}).
+
+Certificates in practice permit one further kind of line, whose soundness is subtler and instructive.
+
+\begin{definition}[RAT]
+\label{def:rat}
+Let $F$ be a clause set, $C$ a clause and $l\in C$ a literal. $C$ has the \emph{resolution asymmetric tautology} property with respect to $F$ on $l$ if for every $D\in F$ with $\overline{l}\in D$, the resolvent $(C\setminus\{l\})\cup(D\setminus\{\overline{l}\})$ satisfies $F\vdash_1(\cdot)$ (or is a tautology).
+\end{definition}
+
+\begin{proposition}[RAT preserves satisfiability, not entailment]
+\label{prop:rat}
+If $C$ is RAT with respect to $F$ on $l$, and $F$ is satisfiable, then $F\cup\{C\}$ is satisfiable. In general $F\not\models C$.
+\end{proposition}
+
+\begin{proof}
+Let $v\models F$. If $v\models C$ we are done. Otherwise let $v'$ agree with $v$ except $v'(l)=1$, so $v'\models C$. Let $D\in F$. If $\overline{l}\notin D$, then $v'\models D$, since $v\models D$ and only the value of $l$ changed in the direction that cannot falsify a clause not containing $\overline{l}$. If $\overline{l}\in D$, the resolvent $R=(C\setminus\{l\})\cup(D\setminus\{\overline{l}\})$ is entailed by $F$ (it is RUP, hence entailed by Proposition~\ref{prop:rup-sound}, or it is a tautology), so $v\models R$. Since $v\not\models C$, we have $v\not\models C\setminus\{l\}$, hence $v\models D\setminus\{\overline{l}\}$, and the same literals are true under $v'$ because $v'$ differs from $v$ only on the atom of $l$, which does not occur in $D\setminus\{\overline{l}\}$ unless the clause is tautological. So $v'\models D$. Thus $v'\models F\cup\{C\}$.
+
+For the failure of entailment take $F=\{\{q\}\}$ and $C=\{p\}$ with $l=p$: no clause of $F$ contains $\neg p$, so $C$ is RAT on $p$, and $F\not\models\{p\}$.
+\end{proof}
+
+A \emph{DRAT proof} is a sequence of steps each of which adds a clause that is RUP or RAT with respect to the current database, or deletes a clause from the current database, and ends with an addition of $\square$.
+
+\begin{theorem}[DRAT checking is sound]
+\label{thm:drat}
+If $d$ is a DRAT proof for $F_0$, then $F_0$ is unsatisfiable.
+\end{theorem}
+
+\begin{proof}
+Let $\mathrm{DB}_0=F_0$ and $\mathrm{DB}_{i+1}$ the database after step $i+1$. We claim $\mathrm{DB}_i$ is satisfiable whenever $F_0$ is. By induction: an RUP addition $C$ satisfies $\mathrm{DB}_i\models C$ by Proposition~\ref{prop:rup-sound}, so $\mathrm{DB}_i\cup\{C\}$ has the same models as $\mathrm{DB}_i$. An RAT addition preserves satisfiability by Proposition~\ref{prop:rat}. A deletion gives a subset, which is satisfiable if $\mathrm{DB}_i$ is. If $F_0$ is satisfiable then the final database is satisfiable; but it contains $\square$, which no assignment satisfies. Hence $F_0$ is unsatisfiable.
+\end{proof}
+
+Theorem~\ref{thm:drat} deserves emphasis because it shows how little a certificate need certify. The intermediate lines of a DRAT proof need not be consequences of $F_0$, and a deletion step may weaken what later steps are checked against. What the checker certifies is a single fact, the unsatisfiability of $F_0$, and the proof's internal story about why is not a part of the certified content.
+
+\section{Elimination, and what a reduced formula forgets}
+\label{sec:model-reconstruction}
+
+Chapter~\ref{ch:resolution} introduced elimination of an atom $p$ by Davis and Putnam, which replaces $N$ by $N_p$. Practical solvers use it as bounded variable elimination during preprocessing, and the transformation is sound for satisfiability by Lemma~\ref{lem:elim}. It is not an equivalence-preserving transformation: $N\models N_p$, but $N_p\not\models N$ in general, and models of $N_p$ are not models of $N$ until a value for $p$ is supplied.
+
+\begin{proposition}[Model reconstruction]
+\label{prop:reconstruct}
+Let $N=E\cup P\cup Q$ be as in Lemma~\ref{lem:elim}, with $P^-=\{C:C\cup\{p\}\in P\}$. If $v\models N_p$, define $v'$ to agree with $v$ off $p$ and put $v'(p)=1$ if $v$ falsifies some member of $P^-$, and $v'(p)=0$ otherwise. Then $v'\models N$.
+\end{proposition}
+
+\begin{proof}
+This is the pair of cases in the proof of Lemma~\ref{lem:elim}.
+\end{proof}
+
+The reconstruction rule reads the \emph{eliminated clauses} $P$ (and $Q$ is not needed). It is a function of $v$ and of $P$, so a task that asks for a model of the original formula $N$ is not determined by the reduced formula alone. A single example makes this precise.
+
+\begin{example}[Same reduced formula, opposite extensions]
+\label{ex:reconstruct}
+Let $N_1=\{\{p,a\},\{\neg p,b\}\}$ and $N_2=\{\{p,b\},\{\neg p,a\}\}$. Eliminating $p$ gives, in both cases, $(N_i)_p=\{\{a,b\}\}$. The valuation $v$ with $v(a)=1$, $v(b)=0$ satisfies $\{a,b\}$. To extend $v$ to a model of $N_1$ we need $\neg p\vee b$ true with $b$ false, so $p=0$. To extend it to a model of $N_2$ we need $p\vee b$ true with $b$ false, so $p=1$. The same reduced formula and the same model of it demand opposite values of $p$.
+\end{example}
+
+Example~\ref{ex:reconstruct} instantiates Proposition~\ref{prop:factor} exactly. Consider the task ``produce a model of the original formula'', and let the \emph{fibre} over a reduced formula consist of all originals that reduce to it. The task is not constant on the fibre, so it does not factor through the reduction. Practical solvers respond by retaining a \emph{reconstruction stack}, the eliminated clauses in order, which is precisely the residue that Proposition~\ref{prop:reconstruct} requires. Decision (satisfiable or not) factors through the reduction; model production does not; and the stack is the minimal supplement that restores it.
+
+\section{The residue of a solver run}
+\label{sec:sat-residue}
+
+The pieces assemble into a description of what a SAT result consists of, and of what it discards.
+\begin{itemize}[nosep]
+\item A \emph{satisfiable} verdict is certified by a total assignment, which is checkable in linear time and carries no information about the search.
+\item An \emph{unsatisfiable} verdict is certified by a DRAT proof, whose lines are not necessarily consequences of the input (Theorem~\ref{thm:drat}). The proof certifies the verdict and nothing about the decisions, heuristic scores, restarts, or clause deletions of the run that produced it, nor about preprocessing steps that were later undone by reconstruction.
+\item Different runs, with different decision orders, yield different proofs of the same verdict. The verdict is the common output of a large fibre of runs (Definition~\ref{def:residue}).
+\end{itemize}
+This is not a flaw. The checker's job is served exactly. The next chapters extend the pattern to theories (Chapter~\ref{ch:smt}) and to kernels (Chapter~\ref{ch:kernels}), where the discarded information starts to include things that a person may need.
+
+\begin{exercise}
+\label{ex:up-confluent}
+Show that unit propagation is confluent in the sense that if two maximal sequences of unit propagation steps from the same trail and the same clause set both end without a falsified clause then they end in the same set of trail literals, and that if one reaches a falsified clause then every maximal sequence does.
+\end{exercise}
+
+\begin{exercise}
+\label{ex:learned-rup}
+Prove that every clause $C_i$ produced by Definition~\ref{def:analysis} is RUP with respect to the clause set $F$ at the conflict. (Hint: starting from the complement of $C_i$, propagate the literals that were resolved away, in the reverse of the order in which they were resolved.)
+\end{exercise}
+
+\begin{exercise}
+Give a DRAT proof, with at least one RAT step that is not RUP, of the unsatisfiability of $\{\{p\},\{\neg p\}\}$. Explain why the RAT step is not entailed by the formula, and why this does not endanger Theorem~\ref{thm:drat}.
+\end{exercise}

@@ -1,0 +1,178 @@
+\chapter{Kernels, Tactics, and the Trusted Base}
+\label{ch:kernels}
+
+The previous chapters concerned procedures whose outputs are certificates for an independent checker. This chapter concerns the architecture in which the checker is built into the interface: a small \emph{kernel} guards the only way to construct a theorem, and arbitrary programs, called tactics, may drive the kernel as they please. The architecture, due to Milner and his collaborators in the LCF system, is the reason the soundness of a large body of machine-checked mathematics reduces to the correctness of a few thousand lines of code. This chapter states that reduction precisely, extends it to dependent type theory with proof irrelevance, and examines three things it leaves open: whether the theorem proved is the one intended, which axioms the proof actually uses, and what the kernel's identification of proofs forgets.
+
+\section{The LCF discipline}
+\label{sec:lcf}
+
+\begin{definition}[Kernel]
+\label{def:kernel}
+A \emph{kernel} for a set $\Phi$ of statements with semantic validity $\mathrm{Val}\subseteq\Phi$ consists of an abstract type $\mathsf{Thm}$, a function $\mathrm{concl}:\mathsf{Thm}\to\Phi$, and a finite set of \emph{rules}. Each rule is a partial function $r:\mathsf{Thm}^{k}\times\mathsf{Args}\rightharpoonup\mathsf{Thm}$. The only way to obtain a value of type $\mathsf{Thm}$ is to apply a rule to arguments (the \emph{abstraction barrier}). The kernel is \emph{locally sound} if for every rule $r$ and arguments $\theta_1,\dots,\theta_k,a$ with $\mathrm{concl}(\theta_i)\in\mathrm{Val}$ for all $i$ and $r(\vec\theta,a)=\theta$ defined, we have $\mathrm{concl}(\theta)\in\mathrm{Val}$.
+\end{definition}
+
+The abstraction barrier is not a mathematical notion; it is enforced by the type system of the implementation language, by module opacity in ML or by the checker of the proof assistant in more modern systems. Granting it, the following holds for arbitrary client programs.
+
+\begin{theorem}[Soundness for arbitrary clients]
+\label{thm:lcf}
+Let $K$ be a locally sound kernel and $P$ any program, with any control flow, any use of heuristics or randomness, and possibly nonterminating, that interacts with $K$ only through its interface. If $P$ evaluates to a value $\theta:\mathsf{Thm}$ in some execution, then $\mathrm{concl}(\theta)\in\mathrm{Val}$.
+\end{theorem}
+
+\begin{proof}
+Every value of type $\mathsf{Thm}$ that exists in an execution was created by some rule application, since the abstraction barrier forbids any other construction. By induction on the number of rule applications that precede the creation of a given value, each existing value has a valid conclusion: the arguments to a rule application are earlier values, hence valid by the induction hypothesis (or are non-$\mathsf{Thm}$ data, which are unconstrained), and local soundness gives validity of the result.
+\end{proof}
+
+Theorem~\ref{thm:lcf} is Theorem~\ref{thm:independence} of Chapter~\ref{ch:proof-systems} in a different dress. The producer is a program and the checker is distributed into the constructors of $\mathsf{Thm}$, but the structure is the same: assurance depends on the kernel and on nothing else. A program that fails to produce a $\mathsf{Thm}$ value says nothing.
+
+\begin{definition}[Tactic]
+\label{def:tactic}
+A \emph{tactic} is a function $t$ from goals $g\in\Phi$ to pairs $t(g)=(\vec g,v)$ where $\vec g=(g_1,\dots,g_k)$ is a list of \emph{subgoals} and $v:\mathsf{Thm}^k\to\mathsf{Thm}$ is a \emph{validation}. The tactic is \emph{valid} if for every goal $g$, with $t(g)=(\vec g,v)$, and every $\vec\theta$ with $\mathrm{concl}(\theta_i)=g_i$, the value $v(\vec\theta)$ is defined and $\mathrm{concl}(v(\vec\theta))=g$.
+\end{definition}
+
+A \emph{tactic proof} of $g$ with a family of tactics resolves the subgoals recursively: $\mathrm{solve}(g)=v(\mathrm{solve}(g_1),\dots,\mathrm{solve}(g_k))$ for $t(g)=(\vec g,v)$ and a tactic $t$ chosen for each goal; a goal for which the chosen tactic returns the empty list of subgoals is closed by $v()$.
+
+\begin{proposition}[Valid tactics prove what they say]
+\label{prop:tactic}
+If every tactic used is valid and $\mathrm{solve}(g)$ terminates, then $\mathrm{concl}(\mathrm{solve}(g))=g$. If some tactic is not valid, then $\mathrm{solve}(g)$, if it terminates, still has a valid conclusion by Theorem~\ref{thm:lcf}, but $\mathrm{concl}(\mathrm{solve}(g))$ may differ from $g$.
+\end{proposition}
+
+\begin{proof}
+The first claim is by induction on the recursion depth of $\mathrm{solve}$: each $\mathrm{solve}(g_i)$ has conclusion $g_i$ by hypothesis, so validity of the tactic at $g$ gives $\mathrm{concl}(v(\ldots))=g$. The second is Theorem~\ref{thm:lcf}. For a tactic that is not valid, take $t(g)=((),v)$ with $v()$ a theorem whose conclusion is some valid $h\ne g$.
+\end{proof}
+
+The proposition separates two guarantees that are often conflated. A bug in a tactic cannot produce an \emph{invalid theorem}, but can produce a \emph{valid theorem about the wrong statement}. The defense in practice is that the client states $g$ and compares it with $\mathrm{concl}(\theta)$ at the end, or in a dependently typed system that the kernel checks a proof term against a stated type; either way the agreement of the statement is checked, and that check is a separate component of the trusted base (Section~\ref{sec:tcb}).
+
+\section{Dependent type theory as kernel}
+\label{sec:dtt}
+
+Modern proof assistants of the Lean family replace the abstract type $\mathsf{Thm}$ by the typing judgement of a dependent type theory, with the Curry--Howard reading in which a proposition $\varphi$ is a type and a proof is a term of that type. The proof system of Definition~\ref{def:proof-system} is then:
+\begin{itemize}[nosep]
+\item $\Phi$ is the set of types in a given environment of declarations,
+\item $D$ is the set of terms,
+\item $\Chk(d,\varphi)$ holds when the kernel's type checking derives $d:\varphi$ in the environment, and
+\item $\mathrm{Val}$ is truth in an intended interpretation of the type theory.
+\end{itemize}
+Soundness is the consistency and correctness of the type theory with respect to a model; completeness fails by G\"odel's incompleteness theorem for the theories at issue and is not expected. The decidability of $\Chk$ is a hypothesis of Definition~\ref{def:proof-system} that holds for strongly normalizing theories. The metatheory of the type theories implemented by real kernels, which add features such as proof irrelevance, quotients, and primitive literals, is subtler than the textbook case, and the question of how closely the implemented checker matches the idealized rules has been studied in detail; we treat decidability and soundness of the kernel as hypotheses and do not rederive them (see Carneiro 2024 for a careful analysis of the Lean kernel).
+
+Three features of the Lean kernel matter for this book.
+\begin{enumerate}[label=(\roman*),nosep]
+\item \emph{Proof irrelevance.} Any two proofs of the same proposition (a term of a type living in the universe $\mathsf{Prop}$) are definitionally equal.
+\item \emph{Axioms are declarations.} Besides definitions and theorems, an environment may contain axioms: constants with a type and no value. Lean's standard library uses three, $\mathsf{propext}$, $\mathsf{Classical.choice}$ and $\mathsf{Quot.sound}$, and the \emph{elaborator}, a trusted-for-convenience but untrusted-for-soundness component, can add a distinguished axiom $\mathsf{sorryAx}$ as a placeholder for incomplete work.
+\item \emph{Elaboration is separate from checking.} Tactics and the elaborator build terms; the kernel checks the final terms. By the argument of Theorem~\ref{thm:lcf}, bugs in the elaborator cannot produce an invalid theorem. They can produce a term whose type is not the one the author intended.
+\end{enumerate}
+
+\section{Proof irrelevance as a collapse}
+\label{sec:irrelevance}
+
+Let $\varphi:\mathsf{Prop}$ and let $\mathrm{Proof}(\varphi)$ be the set of closed terms of type $\varphi$ in some environment.
+
+\begin{proposition}[No term distinguishes proofs]
+\label{prop:irrelevance}
+Let $\pi_1,\pi_2\in\mathrm{Proof}(\varphi)$. Then $\pi_1\equiv\pi_2$ by definitional equality. Consequently, for every term $f$ of function type $(\,h:\varphi)\to B$ in the kernel, $f\,\pi_1\equiv f\,\pi_2$, and in particular no definable function from proofs of $\varphi$ to a data type separates $\pi_1$ from $\pi_2$.
+\end{proposition}
+
+\begin{proof}
+The first claim is the proof irrelevance rule. The second follows because definitional equality is a congruence: the application $f\,\pi_i$ is built from $\pi_i$, and $\equiv$ is closed under application. Two definitionally equal terms of a data type are indistinguishable by any term, since any observation is again a term and congruence applies.
+\end{proof}
+
+The proposition states, as a theorem, the way in which the kernel is a quotient. All proofs of a proposition are mapped to a single point, and the structure internal to a proof, namely which lemmas it used, which case split it chose, and how long it is, is invisible \emph{from inside the system}. This is a deliberate and valuable design choice. It makes checking cheaper, since equality of proofs need never be tested, and it keeps data from depending on proofs. In the vocabulary of Chapter~\ref{ch:proof-systems}, the kernel realizes the factorization criterion (Proposition~\ref{prop:factor}) as an architectural principle: the only tasks permitted on proofs are those that factor through the single class.
+
+The proof term itself, however, is an ordinary data structure outside the kernel, available to meta-level programs, and these can read what the kernel refuses to distinguish. This is the first appearance of a fact that organizes Part~III: the residue is not destroyed by the collapse, it is relocated, and whether it is retained depends on whether anyone keeps the term.
+
+\section{Axiom footprints}
+\label{sec:footprint}
+
+A proof term mentions constants, each constant has a type and possibly a value mentioning further constants. The \emph{dependency closure} $\mathrm{cl}(c)$ of a constant $c$ is the smallest set containing $c$ and every constant occurring in the type or value of a member of $\mathrm{cl}(c)$. The \emph{axiom footprint} $\mathrm{Ax}(c)$ is the set of axiom constants in $\mathrm{cl}(c)$.
+
+\begin{proposition}[Locality of checking]
+\label{prop:locality}
+Let $\Gamma$ be a well-formed environment and $c:\varphi$ a declaration in it. The sub-environment $\Gamma_c$ consisting of the members of $\mathrm{cl}(c)$, in their original order, is well-formed and $c:\varphi$ is derivable in it. Consequently $\varphi$ is derivable in the pure type theory extended by exactly the axioms of $\mathrm{Ax}(c)$ and the definitions in $\mathrm{cl}(c)$.
+\end{proposition}
+
+\begin{proof}
+Inspection of the typing and reduction rules shows that checking a declaration consults only the constants occurring in it and those whose definitions are unfolded during conversion; unfolding a constant reveals its value, whose constants lie in the closure by definition. Hence the check of each declaration in $\mathrm{cl}(c)$ succeeds in $\Gamma_c$ exactly as in $\Gamma$, by induction along the declaration order. This is a property of the kernel's design and is assumed here.
+\end{proof}
+
+The proposition says that the footprint is the \emph{logical cost} of a theorem: it identifies the additional principles that were assumed in order to establish $c$. Two warnings follow from earlier chapters.
+
+\begin{proposition}[Footprint is not a function of the statement or the definitional class]
+\label{prop:footprint-not-invariant}
+There are two proofs $\pi_1,\pi_2$ of the same proposition $\varphi$, definitionally equal by proof irrelevance, with $\mathrm{Ax}(\pi_1)\ne\mathrm{Ax}(\pi_2)$.
+\end{proposition}
+
+\begin{proof}
+Let $\varphi$ be the proposition $2+2=4$ over the natural numbers. The term $\pi_1=\mathsf{rfl}$ depends on no axioms. Let $\pi_2$ be the term obtained by proving $\varphi$ via excluded middle, case analysis on $\varphi\vee\neg\varphi$ using $\mathsf{Classical.em}$; its closure contains $\mathsf{Classical.choice}$. Both have type $\varphi:\mathsf{Prop}$, so $\pi_1\equiv\pi_2$ by Proposition~\ref{prop:irrelevance}. Their footprints differ.
+\end{proof}
+
+The proposition has a consequence that is easy to miss. Since the footprint is a property of the \emph{term} and not of the definitional class, a statement of the form ``the theorem is choice-free'' is a claim about a particular term and must be established by inspecting that term, for instance by a footprint audit of the final environment. It cannot be read off from the statement of the theorem, and it is not preserved if the kernel replaces a proof by a definitionally equal one.
+
+\begin{proposition}[The placeholder axiom is inconsistent]
+\label{prop:sorry}
+The constant $\mathsf{sorryAx}$ has a type of the form $\forall(\alpha:\mathsf{Sort}\ u),\ \alpha$ (with an additional Boolean flag distinguishing synthetic placeholders). Hence every proposition $\varphi$ has a term $\mathsf{sorryAx}\ \varphi$ of type $\varphi$ whose footprint contains $\mathsf{sorryAx}$. A theorem whose footprint contains $\mathsf{sorryAx}$ therefore certifies nothing beyond the Boolean fact that the file compiled with warnings.
+\end{proposition}
+
+\begin{proof}
+Instantiate the type at $\alpha=\varphi$.
+\end{proof}
+
+The elaborator inserts $\mathsf{sorryAx}$ not only for an explicit placeholder but also as error recovery when elaboration of a declaration fails, so that later declarations can be elaborated against it. The practical consequence, which was found in the experiments underlying the verification-inheritance papers of the author's corpus, is that the presence of a stored value for a declaration is not evidence of successful verification: the check that matters is the footprint, computed on the final environment, which must exclude $\mathsf{sorryAx}$.
+
+\begin{example}[An axiom that encodes the compiler]
+\label{ex:native}
+The decision procedures \textsf{decide} and \textsf{native\_decide} both establish decidable propositions by evaluation. The first has the kernel itself reduce a decision procedure to $\mathsf{true}$, so its footprint is the footprint of the procedure. The second evaluates the procedure with the compiled evaluator and records the result through an axiom, $\mathsf{Lean.ofReduceBool}$, whose soundness is the correctness of the compiler and its runtime. Its footprint therefore contains an axiom with no model-theoretic content, whose justification is the correctness of a code generator. Both procedures produce a term of the same type; they differ in what they ask the reader to trust.
+\end{example}
+
+\section{The trusted base of a verified statement}
+\label{sec:tcb}
+
+Gathering the components identified in this and the preceding chapters, the assurance attached to a declaration $c:\varphi$ depends on the following list, and on nothing else.
+
+\begin{definition}[Trusted base]
+\label{def:tcb}
+The \emph{trusted base} of a verified result $c:\varphi$ consists of
+\begin{enumerate}[label=(T\arabic*),nosep]
+\item the kernel implementation and the soundness of its type theory with respect to the intended interpretation;
+\item the axioms in $\mathrm{Ax}(c)$, each read at its intended meaning (and including any axiom, such as $\mathsf{Lean.ofReduceBool}$, that encodes a trusted program);
+\item the definitions in $\mathrm{cl}(c)$ that appear in $\varphi$, as faithful formalizations of the notions they name; and
+\item the translation $\tau$ from the intended claim $\psi$ to $\varphi$ (Definition~\ref{def:adequate}).
+\end{enumerate}
+\end{definition}
+
+Items (T1) and (T2) are the traditional focus of discussions of the trusted base and are the part addressed by re-checkers and footprint audits. Items (T3) and (T4) are specifications, and no kernel checks them. A theorem about a quantity named $\mathrm{jerk}$ in a formalized mechanics is a theorem about the formal definition. Whether the definition captures the physical or mathematical notion is an extra-kernel obligation, which is the subject of Chapter~\ref{ch:obligations}.
+
+\begin{proposition}[Assurance decomposition]
+\label{prop:decomposition}
+Suppose (T1) holds, the axioms in $\mathrm{Ax}(c)$ are true in the intended interpretation, the definitions in $\mathrm{cl}(c)$ interpret as intended, and $\tau$ is adequate. Then the intended claim $\psi$ is true. If any of these hypotheses fails, no conclusion about $\psi$ follows from $c:\varphi$.
+\end{proposition}
+
+\begin{proof}
+Soundness of the kernel gives $\varphi\in\mathrm{Val}$ relative to the interpretation, which by hypothesis validates the axioms and definitions. Adequacy of $\tau$ gives $\psi$ by Proposition~\ref{prop:composition}. The last sentence records that nothing in the premises substitutes for a failed hypothesis. Example~\ref{ex:not-stably-infinite} shows a verdict going wrong when a hypothesis of a procedure fails silently, and Example~\ref{ex:native} shows the trusted base growing by an axiom that encodes a program.
+\end{proof}
+
+\section{Scripts and terms}
+\label{sec:scripts}
+
+A tactic script is a history, a sequence of commands that, run in the elaborator, produces a term. The elaboration map from scripts to terms is a many-to-one function, so scripts and terms are related exactly as search traces and derivations were in Chapter~\ref{ch:proof-systems}.
+
+\begin{proposition}[Scripts are not recoverable from terms]
+\label{prop:scripts}
+Let $\mathsf{Elab}$ map scripts to the terms they produce. In general $\mathsf{Elab}$ is not injective: there are distinct scripts producing the same term, and a script's structure (the decomposition into lemmas, the order of independent subgoals, comments) is not determined by the term.
+\end{proposition}
+
+\begin{proof}
+For a goal $p\wedge q$ with hypotheses $p,q$, the scripts that close the two conjuncts in either order both produce the same term $\wedge\mathrm{I}\,h_p\,h_q$, as in Example~\ref{ex:independent}. Comments and layout do not affect the term at all.
+\end{proof}
+
+Consequently the three layers of a machine-checked result, the script, the term, and the proposition proved, are linked by two many-to-one maps, and each map is a collapse in the sense that will be made precise in Part~III. The term is the right object for the kernel, the script is the right object for a human who wants to understand, adapt, or repair the proof, and the proposition is the right object for the reader of the result. A representation fixed at one layer is sufficient for the tasks of that layer and, in general, for no others.
+
+\begin{exercise}
+Prove that the composition of two valid tactics, run in sequence on the subgoals of the first, is a valid tactic.
+\end{exercise}
+
+\begin{exercise}
+Show that the conclusion of Proposition~\ref{prop:irrelevance} fails in a type theory that has no proof irrelevance and in which disjunction may eliminate into data: for a proposition $p$ with a proof $h$, define a function $p\vee p\to\mathsf{Bool}$ that separates $\mathsf{inl}\ h$ from $\mathsf{inr}\ h$.
+\end{exercise}
+
+\begin{exercise}
+Give an example of a proposition $\varphi$ for which every proof has footprint containing $\mathsf{Classical.choice}$, and explain why the footprint of such a proof is still not an invariant of $\varphi$ in the sense of Proposition~\ref{prop:footprint-not-invariant}.
+\end{exercise}

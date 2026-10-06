@@ -1,0 +1,205 @@
+\chapter{Verification Obligations}
+\label{ch:obligations}
+
+Part~II ended with a checked derivation and a list of what the check leaves out: the translation from the intended claim, the meaning of the definitions, the structure of the search. This chapter begins the construction of a framework for the second half of that list, where what is at stake is not whether a proof is correct but whether a \emph{correct proof} supports the use that is made of it. In the sciences the use is a claim about a physical or empirical system, and three questions can then be asked of a machine-checked result separately: whether the mathematics is right, whether the mathematical model respects the principles the science takes for granted, and whether the model corresponds to what is measured. The questions are independent, in a sense that can be made exact, and the three answers need different kinds of evidence. The chapter defines a verified result as a structured object, proves the independence, gives one of the obligations (dimensional consistency) a complete formal treatment, and introduces the ledger in which an honest report records which obligations are discharged by what.
+
+\section{A verified result is a tuple}
+\label{sec:tuple}
+
+\begin{definition}[Bridged result]
+\label{def:bridged}
+A \emph{bridged result} consists of
+\begin{enumerate}[label=(\roman*),nosep]
+\item a proof system $\mathsf{S}$ (Definition~\ref{def:proof-system}) and a \emph{formal theorem} $\varphi\in\Phi$ with a checked derivation $d$, $\Chk(d,\varphi)$;
+\item a class $\mathcal{M}$ of \emph{models} (mathematical objects, such as dynamical systems or structures) of which $\varphi$ is a statement;
+\item a class $\mathcal{P}$ of \emph{target systems} (physical, computational, or empirical) together with a \emph{bridge} $\beta:\mathcal{P}\rightharpoonup\mathcal{M}$ assigning to each target system within its \emph{scope} $S=\mathrm{dom}(\beta)$ an idealizing model, under stated \emph{bridge hypotheses};
+\item an \emph{observation protocol} $\nu$ specifying, for each target system $p\in S$, which operations produce data and how data are compared with the values of model quantities, with a stated error model; and
+\item an \emph{empirical claim} $\psi$ about target systems in $S$, asserted to follow from $\varphi$ together with the bridge hypotheses.
+\end{enumerate}
+\end{definition}
+
+The tuple makes explicit what Proposition~\ref{prop:composition} left implicit. The kernel certifies (i) alone. Everything else is an obligation of a different kind. Their separation has a precise form.
+
+\begin{definition}[Three obligation layers]
+\label{def:layers}
+For a bridged result,
+\begin{description}[leftmargin=1.5em,nosep]
+\item[(O1) mathematical correctness:] $\Chk(d,\varphi)$ holds, and the definitions in the closure of $d$ formalize the models of $\mathcal{M}$ faithfully (items (T1) to (T3) of Definition~\ref{def:tcb});
+\item[(O2) compatibility with principles:] every model in $\mathcal{M}$ satisfies the principles declared for the science in question (dimensional homogeneity, conservation laws, symmetries, causality), each stated as a predicate $\Pi_j$ on models;
+\item[(O3) correspondence:] for every $p\in S$ the model $\beta(p)$ predicts the values given by the protocol $\nu$ within the declared tolerance, and the conditions under which this prediction is counted as success or failure were fixed before the data were collected.
+\end{description}
+\end{definition}
+
+The layers are logically independent: no two imply the third.
+
+\begin{proposition}[Independence of the layers]
+\label{prop:independence-layers}
+For each choice of a layer there is a bridged result satisfying the other two and failing that one.
+\end{proposition}
+
+\begin{proof}
+We give a one-line witness for each; the second and third are developed in the examples below.
+
+\emph{(O1) fails, (O2) and (O3) hold.} A dimensionally homogeneous, empirically excellent conjecture with no proof: the relation $E=mc^2$ before any derivation from the premises of a theory, stated as a theorem of a formal system with a missing proof. Here $\Chk(d,\varphi)$ fails for every $d$ available, while the model satisfies the principles and agrees with measurement.
+
+\emph{(O2) fails, (O1) and (O3) hold in a trivial regime.} Example~\ref{ex:ill-typed} below: a formally proved statement about a sum of a length and a time whose truth changes with units, which by choice of units can be made to agree with any single measurement.
+
+\emph{(O3) fails, (O1) and (O2) hold.} Example~\ref{ex:freefall}: the free-fall law proved for the ideal model and applied where drag cannot be neglected.
+\end{proof}
+
+The proposition is deliberately weak in what it asserts, namely independence of satisfiability, and strong in what it forbids: no verification of one layer, however thorough, discharges another. In particular, a machine-checked proof is about O1 only.
+
+\section{Dimensional homogeneity as a theorem}
+\label{sec:dimensions}
+
+Layer (O2) is easy to leave abstract, so we give one principle a complete treatment. It is chosen because it is checkable, because it is routinely violated in informal and sometimes in formal work, and because the kernel does not check it.
+
+Fix $k$ base dimensions (length, time, mass, and so on). A \emph{dimension} is a vector $a\in\mathbb{Z}^k$. A \emph{dimensional context} $\Gamma$ assigns a dimension to each variable. \emph{Terms} are generated by variables, real constants (dimensionless), sums $t_1+t_2$, products $t_1t_2$, integer powers $t^n$, and applications $g(t)$ of functions $g$ from a fixed set $G$ of transcendental functions (such as $\exp,\sin,\log$).
+
+\begin{definition}[Dimensional typing]
+\label{def:dim-typing}
+The judgment $\Gamma\vdash t:a$ is generated by:
+\begin{itemize}[nosep]
+\item $\Gamma\vdash x:\Gamma(x)$ and $\Gamma\vdash c:0$ for a real constant $c$;
+\item if $\Gamma\vdash t_1:a$ and $\Gamma\vdash t_2:a$ then $\Gamma\vdash t_1+t_2:a$;
+\item if $\Gamma\vdash t_1:a$ and $\Gamma\vdash t_2:b$ then $\Gamma\vdash t_1t_2:a+b$;
+\item if $\Gamma\vdash t:a$ then $\Gamma\vdash t^n:na$;
+\item if $\Gamma\vdash t:0$ and $g\in G$ then $\Gamma\vdash g(t):0$.
+\end{itemize}
+\end{definition}
+
+A \emph{change of units} is an element $\lambda\in(\mathbb{R}_{>0})^k$. It acts on a dimension $a$ by the scalar $\lambda^a=\prod_i\lambda_i^{a_i}$, and on an assignment $x$ of real values to variables by $(\lambda\cdot x)(v)=\lambda^{\Gamma(v)}x(v)$.
+
+\begin{theorem}[Dimensional homogeneity]
+\label{thm:homogeneity}
+If $\Gamma\vdash t:a$ then $t(\lambda\cdot x)=\lambda^{a}\,t(x)$ for every change of units $\lambda$ and assignment $x$.
+\end{theorem}
+
+\begin{proof}
+By induction on the derivation. For a variable $v$: $t(\lambda\cdot x)=\lambda^{\Gamma(v)}x(v)$. For a constant, $\lambda^0c=c$. For a sum with both summands of dimension $a$: $t_1(\lambda\cdot x)+t_2(\lambda\cdot x)=\lambda^a(t_1(x)+t_2(x))$. For a product: the factors scale by $\lambda^a$ and $\lambda^b$, so the product scales by $\lambda^{a+b}$. For a power: $(\lambda^at(x))^n=\lambda^{na}t(x)^n$. For $g(t)$ with $t:0$: $t(\lambda\cdot x)=t(x)$, so $g(t)(\lambda\cdot x)=g(t(x))=\lambda^0g(t)(x)$.
+\end{proof}
+
+\begin{corollary}[Unit invariance of well-typed equations]
+\label{cor:unit-invariance}
+If $\Gamma\vdash t_1:a$ and $\Gamma\vdash t_2:a$ then for every assignment $x$ and change of units $\lambda$, $t_1(x)=t_2(x)$ if and only if $t_1(\lambda\cdot x)=t_2(\lambda\cdot x)$. The solution set of a well-typed equation is therefore invariant under the action of units.
+\end{corollary}
+
+\begin{proof}
+Both sides scale by the same positive factor $\lambda^a$.
+\end{proof}
+
+The converse direction, that every unit-invariant relation among quantities of given dimensions is expressible through dimensionless combinations, is the Buckingham $\pi$ theorem (\cited{Buckingham 1914}); it is not needed here.
+
+\begin{example}[An ill-typed statement that is formally provable]
+\label{ex:ill-typed}
+Take $\Gamma(x)=(1,0)$ (a length) and $\Gamma(y)=(0,1)$ (a time), and the equation $x+y=1$. The term $x+y$ has no dimensional type, since the summands have different dimensions. The equation is satisfied by $x=y=1/2$. Under the change of units $\lambda=(2,1)$ (halving the length unit) the same physical situation is described by $\lambda\cdot x=(1,1/2)$, and $1+1/2\ne1$. The truth of the equation depends on the choice of units, so it cannot express a fact about the system.
+
+The kernel, however, sees only real numbers. The statement $\forall x\,y:\mathbb{R},\ x=y\to x+y=2x$, for instance, or any specific instance of the equation above, is a perfectly well-typed formal statement of an ordinary real-number theory, and can be proved. The dimensional well-typedness of a formalization is not checked by the kernel unless the formalization encodes dimensions in its types, which the standard libraries of real analysis do not.
+\end{example}
+
+\begin{remark}[What the example shows about the trusted base]
+\label{rem:dimensional-tcb}
+Example~\ref{ex:ill-typed} is the observation of Proposition~\ref{prop:decomposition} for item (T3): a theorem about a formal definition of a physical quantity certifies only the formal object. Dimensional consistency is a checkable property of the formalization, as Theorem~\ref{thm:homogeneity} shows, and checking it is an obligation of layer (O2) that can be discharged by a decision procedure for $\Gamma\vdash t:a$, or by a typed encoding of dimensions inside the proof assistant. It must be discharged by something.
+\end{remark}
+
+\section{Correspondence and scope: the free-fall example}
+\label{sec:freefall}
+
+Layer (O3) needs the bridge to be explicit, and the bridge carries the scope.
+
+\begin{example}[Free fall]
+\label{ex:freefall}
+The ideal model $\mathcal{M}_0$ is the equation $\dot v=g$ with $v(0)=0$. Its solution is $v(t)=gt$, and the statement $\forall t,\ v(t)=gt$ is provable in any standard formalization of real analysis (O1). The statement is dimensionally homogeneous: $[v]=LT^{-1}$, $[g]=LT^{-2}$, $[t]=T$ (O2). The empirical claim $\psi$ is ``an object released at rest from a high place has speed $gt$ after $t$ seconds''. The bridge sends a falling body to $\mathcal{M}_0$, and its hypothesis is that drag is negligible.
+
+Take the model with linear drag, $m\dot v=mg-kv$. Its solution is $v_{\mathrm{drag}}(t)=(mg/k)(1-e^{-kt/m})$. With $\epsilon=kt/m$ the relative error of the ideal law is
+\[
+\frac{gt-v_{\mathrm{drag}}(t)}{gt}\;=\;1-\frac{1-e^{-\epsilon}}{\epsilon}\;\le\;\frac{\epsilon}{2},
+\]
+using $e^{-\epsilon}\le1-\epsilon+\epsilon^2/2$. So the ideal law is accurate to relative error $\epsilon/2$ whenever $kt/m\le\epsilon$, and the empirical claim has a \emph{scope}: $S_\epsilon=\{(t,k,m):kt/m\le\epsilon\}$. Outside it the theorem remains true of $\mathcal{M}_0$ and the claim $\psi$ is false of the target, to a degree that grows with $\epsilon$.
+\end{example}
+
+The example separates cleanly what the kernel can and cannot do. The inequality $\epsilon/2$ bounding the error is a second theorem, about the pair of models $\mathcal{M}_0$ and the drag model, and it too can be machine-checked. What the kernel cannot do is decide that a linear drag model is the right comparison class for a real falling body, or that its parameter $k$ has the value a particular experiment requires. Those are bridge hypotheses, and their support is empirical.
+
+\begin{proposition}[Post hoc scope immunizes a claim]
+\label{prop:scope}
+Let a claim be a pair $(\psi,S)$ of a prediction map $P:S\to\mathrm{Out}$ (conditions to sets of acceptable outcomes) and a scope $S$. An observation $(c,o)$ \emph{refutes} the claim if $c\in S$ and $o\notin P(c)$. If the scope may be revised after the observation is made, then no observation refutes the claim: for any $(c,o)$ with $o\notin P(c)$, replace $S$ by $S\setminus\{c\}$.
+\end{proposition}
+
+\begin{proof}
+After revision, $c\notin S$, so the observation does not satisfy the refutation condition.
+\end{proof}
+
+The proposition is a trivial fact with a pointed consequence. A claim is falsifiable only to the extent that the scope was declared before data were seen; hence the requirement in (O3) that the success and failure conditions be fixed in advance. Scope declarations are therefore part of the claim, and a \emph{revision} of scope is a new claim, with a new set of obligations.
+
+\section{The ledger}
+\label{sec:ledger}
+
+An honest report of a verified result lists its obligations and, for each, the evidence that discharges it and the kind of that evidence.
+
+\begin{definition}[Obligation ledger]
+\label{def:ledger}
+An \emph{obligation} $o$ has a \emph{kind} (formal, dimensional, principle, bridge, scope, measurement), a \emph{statement}, a set $\mathrm{deps}(o)$ of obligations it depends on, and a \emph{status} in
+\begin{itemize}[nosep]
+\item $\mathsf{proved}(d)$: discharged by a checked derivation or a decision procedure whose verdict is checked;
+\item $\mathsf{tested}(\mathsf{plan},r)$: discharged by a preregistered test with plan $\mathsf{plan}$ and result $r$ that met the preregistered success condition;
+\item $\mathsf{assumed}$: used without discharge, explicitly declared;
+\item $\mathsf{open}$: not yet addressed;
+\item $\mathsf{refuted}$: a proof or a preregistered test has contradicted it.
+\end{itemize}
+A \emph{ledger} is a finite acyclic graph of obligations. A claim $\psi$ has a set $D(\psi)$ of obligations on which it depends.
+\end{definition}
+
+Let $\mathrm{Sup}$, the \emph{supported} set, be the least set of obligations containing every $o$ whose status is $\mathsf{proved}$ or $\mathsf{tested}$ and whose dependencies lie in $\mathrm{Sup}$.
+
+\begin{proposition}[Supported claims]
+\label{prop:supported}
+\begin{enumerate}[label=(\roman*),nosep]
+\item If $D(\psi)\subseteq\mathrm{Sup}$ then $\psi$ is \emph{unconditionally supported}. Otherwise $\psi$ is supported at most \emph{conditionally on} the obligations in $D(\psi)\setminus\mathrm{Sup}$ of status $\mathsf{assumed}$ or $\mathsf{open}$.
+\item If some obligation in the dependency closure of $\psi$ is $\mathsf{refuted}$, then $\psi$ is not supported.
+\item The retraction of a non-formal obligation does not retract any $\mathsf{proved}(d)$ obligation of kind formal that does not depend on it.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) and (ii) are the definition of $\mathrm{Sup}$ together with the observation that a refuted obligation has status outside $\{\mathsf{proved},\mathsf{tested}\}$ and so lies outside $\mathrm{Sup}$, as do all obligations whose dependencies include it. For (iii), $\mathrm{Sup}$ is defined by dependencies, and a formal obligation not depending on the refuted one is unaffected by its status.
+\end{proof}
+
+Part~(iii) states the independence of the layers (Proposition~\ref{prop:independence-layers}) in the language of the ledger. When a physical claim is retracted because the bridge fails, the \emph{theorem} on which it was based stands. This is a feature, not an embarrassment, of formal verification: the failure is localized to the layer where it occurred. A report that does not separate the layers invites the opposite inference, that the failure of the claim undermines the proof or that the proof secures the claim.
+
+\section{What discharges what}
+\label{sec:discharge}
+
+The assignment of evidence to obligation types is summarized below. The right column states the \emph{kind} of evidence admissible; the difference between a proof and a test is not a difference of degree.
+
+\begin{center}
+\small
+\begin{tabular}{p{3.1cm}p{4.0cm}p{5.0cm}}
+\toprule
+Obligation & Discharged by & Checker\\
+\midrule
+Theorem $\varphi$ holds & derivation $d$ & kernel (Ch.~\ref{ch:kernels})\\
+Definitions faithful & review against the intended notion; sometimes a second formalization and a proved equivalence & humans; kernel for the equivalence\\
+Dimensional homogeneity & typing derivation (Def.~\ref{def:dim-typing}) & decision procedure or typed encoding\\
+Conservation or symmetry principle & a theorem about the model class & kernel\\
+Bridge hypotheses & derivation of the bound relating models, as in Example~\ref{ex:freefall}; otherwise an empirical test & kernel for the derivation; experiment for the rest\\
+Scope & preregistered declaration (Prop.~\ref{prop:scope}) & procedure; audit\\
+Correspondence & preregistered measurement with a stated success condition & experiment\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Two rows deserve emphasis. The fourth shows that parts of the bridge \emph{can} be proved, namely the mathematical relation between an idealized model and a more detailed one, and that doing so converts an assumed bridge hypothesis into a theorem about a family of models. The last shows that correspondence is never discharged by proof.
+
+The remaining chapters of Part~III address what a verified result must retain in order for these obligations to stay dischargeable under later work. Chapter~\ref{ch:sufficiency} formalizes the notion of sufficiency of a representation for a declared family of tasks, which is the right general framework. Chapter~\ref{ch:history-repair} shows what is lost when a result is retained only as a certificate. Chapter~\ref{ch:inheritance} treats what carries over when the artifact is transformed.
+
+\begin{exercise}
+Extend Definition~\ref{def:dim-typing} to the case where integer powers are replaced by rational powers $t^{p/q}$, noting where the proof of Theorem~\ref{thm:homogeneity} needs positivity of $\lambda$.
+\end{exercise}
+
+\begin{exercise}
+Using the series for $e^{-\epsilon}$, prove the stronger bound $1-(1-e^{-\epsilon})/\epsilon\le\epsilon/2$ for all $\epsilon>0$, and show that the constant $1/2$ cannot be improved.
+\end{exercise}
+
+\begin{exercise}
+Give a ledger with five obligations in which the retraction of a single obligation of kind scope leaves exactly two claims unsupported and no formal obligation retracted.
+\end{exercise}

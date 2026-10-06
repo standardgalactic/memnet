@@ -1,0 +1,83 @@
+\chapter{What a Verified Result Owes}
+\label{ch:synthesis}
+
+The book began from a pair of questions: what does a verification assure, and what must a verified result keep in order to remain useful? The chapters between give answers in pieces, each proved where it is stated. This chapter collects them as three principles, converts them into a list of items that a verified result should carry, and states plainly which parts of the book are proved, which are cited, which were checked by computation, and which are proposals.
+
+\section{Three principles}
+
+\begin{principal}
+\textbf{Principle 1: Assurance attaches to the checker and the bridge, never to the producer, and failure to certify is not certification of failure.}
+
+A proof system is a producer together with a decidable checking relation (Definition~\ref{def:proof-system}); soundness of the producer is irrelevant to the assurance (Theorem~\ref{thm:independence}); the assurance of a translated result is the conjunction of the checker's and the translation's (Proposition~\ref{prop:composition}); a verified statement is bridged to an observation through layers $\mathrm{O1}$ to $\mathrm{O3}$ of which a kernel can discharge only the first (Chapter~\ref{ch:obligations}). A report of preservation has three values, and the third is not a failure (Theorem~\ref{thm:verdict}). A gate that sees only what the proposer sees cannot discriminate what the proposer cannot (Theorem~\ref{thm:selfgate}).
+\end{principal}
+
+\begin{principal}
+\textbf{Principle 2: Sufficiency is always sufficiency for a declared task, and the declaration is part of the result.}
+
+A representation serves a task exactly when the task is constant on its fibres (Proposition~\ref{prop:factor}, Theorem~\ref{thm:suff-refine}); a declared family has a minimal artifact and a closure of served tasks (Theorem~\ref{thm:closure}); every non-injective representation fails some task (Theorem~\ref{thm:nofree}). A certificate is a region and a verdict is a point (Theorems~\ref{thm:farkas-geom} and~\ref{thm:mus-union}); repair is a relation, and local repair is impossible from a representation that identifies distant artifacts (Theorems~\ref{thm:rel-factor} and~\ref{thm:locality}).
+\end{principal}
+
+\begin{principal}
+\textbf{Principle 3: A collapse is admissible only relative to a declared task and the refusals on record.}
+
+In a search, the option space is changed only by refusal and collapse (Proposition~\ref{prop:dynamics}); a refusal is lossless iff the refused item is redundant for the declared option closure (Theorem~\ref{thm:admissible-refusals}); fair runs with admissible deletion remain complete (Theorem~\ref{thm:complete-deletion}); ordering guidance does not change what is obtainable (Theorem~\ref{thm:guidance-irrelevant}); verifiers report and never dispose, and a failed verification is a live state (Theorems~\ref{thm:authority}, Proposition~\ref{prop:auto-refusal}). The history that a collapse forgets is exactly what repair and audit later require (Proposition~\ref{prop:prov-not-state}).
+\end{principal}
+
+The principles are consequences of a single observation, that a function factors through a quotient if and only if it respects the equivalence the quotient imposes. Their content is what follows when the observation is applied to the objects of automated reasoning: runs, certificates, worlds, dependency graphs, observation records.
+
+\section{The result card}
+
+A verified result that is to remain scientifically useful carries, in addition to its statement and derivation, the items of Table~\ref{tab:card}. Each is tied to the chapter where it is defined and to the principle it discharges. The list is not a template to be filled but a set of questions to be answerable.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}p{0.5cm}p{5.6cm}p{3.6cm}p{2.5cm}@{}}
+\toprule
+ & Item & Where defined & Principle\\
+\midrule
+1 & Statement and checked derivation ($\mathrm{O1}$) & Ch.~\ref{ch:proof-systems}, \ref{ch:kernels} & 1\\
+2 & Formalization of the target and units ($\mathrm{O2}$) & Ch.~\ref{ch:obligations} & 1\\
+3 & Interpretation, operationalization, preregistered failure condition ($\mathrm{O3}$) & Ch.~\ref{ch:correspondence} & 1\\
+4 & Declared task family and the minimal artifact serving it & Ch.~\ref{ch:sufficiency} & 2\\
+5 & Region of validity: certificate regions or stability margin & Ch.~\ref{ch:history-repair} & 2\\
+6 & Typed dependencies and axiom footprint audited on the final environment & Ch.~\ref{ch:inheritance}, \ref{ch:mutation} & 1, 3\\
+7 & Search record sufficient for the declared diagnostic and repair tasks (history, refusals, provenance) & Ch.~\ref{ch:search-worlds}, \ref{ch:redundancy} & 3\\
+8 & Lifecycle record separating verification from disposition & Ch.~\ref{ch:lifecycle} & 3\\
+9 & Retained negative and unresolved outcomes & Ch.~\ref{ch:mutation}, \ref{ch:negative} & 1, 3\\
+\bottomrule
+\end{tabular}
+\caption{The items a verified result owes.}
+\label{tab:card}
+\end{table}
+
+None of the items requires a particular tool. Several, notably items 4, 5 and 7, are cheap to record at the time of the run and impossible to reconstruct afterwards (Proposition~\ref{prop:prov-not-state}). The bearing of Principle~2 on item~4 is that the card is incomplete without a statement of which tasks the artifact is claimed to serve, since by Theorem~\ref{thm:nofree} an artifact that serves all of them is the whole history.
+
+\section{What is proved, cited, computed and proposed}
+
+\begin{description}
+\item[Proved in the text.] The factorization criterion and independence of soundness (Ch.~\ref{ch:proof-systems}); fair derivations and the consequences of Church's theorem (Ch.~\ref{ch:search}); propositional resolution completeness by elimination, unification, first-order resolution modulo cited Herbrand and lifting theorems (Ch.~\ref{ch:resolution}); Newman's lemma, termination by interpretation, the critical pair lemma (Ch.~\ref{ch:rewriting}); the CDCL transition system, RUP, RAT (Ch.~\ref{ch:sat}); congruence closure, Farkas certificates, the Nelson--Oppen counterexample (Ch.~\ref{ch:smt}); the LCF theorem and footprints (Ch.~\ref{ch:kernels}); certificate schemes (Ch.~\ref{ch:certificates}); dimensional homogeneity and the obligation ledger (Ch.~\ref{ch:obligations}); the Galois connection, lower bounds, no free sufficiency, and the realizability criterion and residue theorem for exterior data of a flat sheet, modulo the cited extension and isometric-immersion theorems (Ch.~\ref{ch:sufficiency}); Farkas geometry, margins, RUP monotonicity, relational factorization and locality (Ch.~\ref{ch:history-repair}); undecidability of preservation, certified fragments, the interface lemma and blast radius (Ch.~\ref{ch:inheritance}); the world model, redundancy closure, completeness with deletion, gate theorems, the lifecycle machine (Ch.~\ref{ch:search-worlds}--\ref{ch:lifecycle}); identifiability and the Burgers example (Ch.~\ref{ch:correspondence}); soundness of the typed predictor and insufficiency of the flat one (Ch.~\ref{ch:mutation}); incremental value and power (Ch.~\ref{ch:negative}).
+\item[Cited and not proved.] The theorems of Appendix~\ref{app:external}.
+\item[Assumed as design properties of kernels.] Convention~\ref{conv:kernel} (consultation of types and values, opacity of theorems); decidability and soundness of real kernels (Chapter~\ref{ch:kernels}).
+\item[Checked by computation, not mechanized.] The 55 critical pairs of the group rewriting system (Ch.~\ref{ch:rewriting}); preservation of satisfiability by variable elimination and the reconstruction rule on random clause sets (Ch.~\ref{ch:sat}); the Farkas example and margins on a grid (Ch.~\ref{ch:history-repair}); the RUP derivations of Example~\ref{ex:two-regions}; closure properties of the redundancy closure on random clause sets (Ch.~\ref{ch:redundancy}); the lifecycle machine by exhaustive enumeration of traces (Ch.~\ref{ch:lifecycle}); the Galois connection of Chapter~\ref{ch:sufficiency} on small sets. These are checks of statements whose proofs are in the text and are not substitutes for them. No theorem of this book has been formalized in a proof assistant.
+\item[Reported, not reproduced.] The mutation matrix and its outcomes (Ch.~\ref{ch:mutation}) and the study of Chapter~\ref{ch:negative}, both from the author's separate manuscripts. Statements about them in this book are statements of what was reported; the chapters prove what such reports can and cannot support.
+\item[Proposed.] Deletion records generating repair obligations (Remark~\ref{rem:deletion-records}); the use of the framework for guided proof search beyond the propositional case; the scoped-certificate structure described below.
+\end{description}
+
+\section{Open directions}
+
+\paragraph{Mechanization.} The lifecycle machine, the interface lemma and the stability results of Chapter~\ref{ch:history-repair} are small enough to be formalized. A formalization of the lifecycle in a proof assistant would also be a test of the claims of Chapter~\ref{ch:mutation}: the typed predictor makes a prediction about the effect of mutating that very development.
+
+\paragraph{Beyond propositional deletion.} Theorem~\ref{thm:complete-deletion} uses finiteness of the clause universe. For first-order resolution the persistence argument needs a well-founded ordering on clauses and redundancy defined relative to smaller clauses, as in the model-based completeness theorems of Bachmair and Ganzinger \cite{bachmairganzinger1994}. Combining that machinery with the world model, with refusal records as first-class objects, is a task of the same kind as Chapter~\ref{ch:redundancy} at greater technical cost.
+
+\paragraph{Scoped certificates and gluing.} A certificate with its scope can be regarded as a local object over the regime in which it was verified, with restriction to a smaller regime (a narrower scope, a subset of the assumptions) and compatibility conditions on overlaps (agreement on shared variables and assumptions). Whether the resulting structure supports a useful gluing theorem, and whether an obstruction to gluing is detected by cohomological invariants, depends on a particular choice of base space and coefficients, which has not been constructed in this book. The proposal is recorded here as a programmatic remark and is not a result.
+
+\paragraph{Certified fragments of practical interest.} Example~\ref{ex:prop-fragment} gives a complete fragment for propositional rewriting. The corresponding fragments for linear arithmetic, bit-vectors and rewriting modulo theories, with certificates in the sense of Definition~\ref{def:fragment}, are the natural next cases.
+
+\paragraph{Exact prediction.} Proposition~\ref{prop:flat-typed} gives a sound predictor of the blast set and no more. Exact prediction for definitional unfolding requires deciding convertibility of replacement bodies, which is checker-dependent.
+
+\section{Conclusion}
+
+A verification is a function from a statement and a derivation to a verdict. Everything that makes the verdict \emph{useful}, that it be about the right statement, that it survive what changes, that it be repairable, auditable and extendable, is information that the function does not return and that the run, the dependency graph and the surrounding record contain or lose. The preceding chapters show that this information has precise structure: partitions and their refinements, regions and their margins, options and their refusals, versions and their obligations. A result that carries it can be reused; one that does not can be rechecked and nothing more. The contribution of the book is to say exactly which information, for which task, and what it costs to keep.
+
+The related manuscripts of the author on binding, disposition and foundations \cite{flyxion-binding,flyxion-disposition,flyxion-foundations} supply the vocabulary of worlds, refusal and collapse, and the discussion of conventions in logic that underlies the treatment of kernels in Part~II. They are cited for provenance and are not used in any proof.

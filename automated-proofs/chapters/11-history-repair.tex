@@ -1,0 +1,247 @@
+\chapter{History, Stability and Repair}
+\label{ch:history-repair}
+
+Chapter~\ref{ch:sufficiency} fixed a history space and asked which tasks a representation serves. Reuse of a verified result is rarely a task on a fixed history space: a hypothesis is strengthened, a constant is changed, a lemma is renamed, a library is upgraded. Each is a map from one problem instance to another, and the question becomes what a certificate says about the instance it was not issued for. This chapter treats that question in three settings where the answer can be computed exactly: linear arithmetic, where a certificate has a geometric stability region; propositional clause sets, where a certificate has a combinatorial one; and local repair of proof terms, where the relevant structure is a metric. A relational version of the factorization criterion handles tasks with many correct outputs, and a locality theorem shows that no representation which identifies two distant proofs can support local repair.
+
+\section{Stability regions}
+
+\begin{definition}[Instance space and region]
+\label{def:region}
+Let $\mathsf{S}=(\Phi,D,\Chk,\mathrm{Val})$ be a proof system and let $I\subseteq\Phi$ be a set of \emph{instances}, regarded as the points of a space with some notion of neighbourhood. The \emph{region} of a derivation $d$ is $\mathrm{Reg}(d)=\{\varphi\in I:\Chk(d,\varphi)\}$. The \emph{verdict region} is $\mathrm{Reg}_{\mathrm{Val}}=I\cap\mathrm{Val}$. By soundness $\mathrm{Reg}(d)\subseteq\mathrm{Reg}_{\mathrm{Val}}$, and by completeness $\mathrm{Reg}_{\mathrm{Val}}=\bigcup_d\mathrm{Reg}(d)$.
+\end{definition}
+
+A verdict is a fact about one instance. A certificate is a fact about a region containing that instance. The distinction matters because a change of the instance asks whether the new instance still lies in a region one already has, and it is only the certificate that supplies a region. The next sections compute these regions.
+
+\section{Linear arithmetic: certificates are half-spaces}
+
+Fix a matrix $A\in\mathbb{Q}^{m\times n}$ and regard the right-hand side $b\in\mathbb{R}^m$ as the instance. Write $Ax\le b$ for the system, $Y=\{y\in\mathbb{R}^m:y\ge0,\ y^{\top}A=0\}$ for the cone of Farkas multipliers, and
+\[
+U=\{b\in\mathbb{R}^m:\ Ax\le b\text{ has no solution } x\in\mathbb{R}^n\}.
+\]
+A \emph{certificate for $b$} is a $y\in Y$ with $y^{\top}b<0$. Farkas' lemma (Theorem~\ref{thm:farkas}, stated over $\mathbb{Q}$) holds over $\mathbb{R}$ as well, and says that $b\in U$ if and only if a certificate for $b$ exists. For a nonzero $y\in Y$ put
+\[
+\mathrm{Reg}(y)=\{b'\in\mathbb{R}^m:\ y^{\top}b'<0\}.
+\]
+This is the region of the derivation $y$ in the sense of Definition~\ref{def:region}, because checking $y$ against $b'$ consists of verifying $y\ge0$, $y^{\top}A=0$ (independent of $b'$) and $y^{\top}b'<0$.
+
+\begin{theorem}[Geometry of Farkas certificates]
+\label{thm:farkas-geom}
+\leavevmode
+\begin{enumerate}[label=(\alph*),nosep]
+\item For nonzero $y,y'\in Y$ one has $\mathrm{Reg}(y)=\mathrm{Reg}(y')$ if and only if $y'=cy$ for some $c>0$.
+\item $U=\bigcup_{y\in Y\setminus\{0\}}\mathrm{Reg}(y)$. The set $U$ is open, closed under multiplication by positive scalars, and downward closed: if $b\in U$ and $b'\le b$ componentwise then $b'\in U$.
+\item If $r_1,\dots,r_k$ generate the cone $Y$ then $U=\bigcup_{i=1}^k\mathrm{Reg}(r_i)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) Sufficiency of proportionality is clear. Conversely suppose $y,y'$ nonzero in $Y$ and not positively proportional. They are not negatively proportional either, since $y'=-cy$ with $c>0$ would give $y'\le0$ and $y'\ge0$, so $y'=0$. Hence $y,y'$ are linearly independent, the map $b\mapsto(y^{\top}b,y'^{\top}b)$ is onto $\mathbb{R}^2$, and some $b$ has $y^{\top}b<0\le y'^{\top}b$. Then $b\in\mathrm{Reg}(y)\setminus\mathrm{Reg}(y')$.
+
+(b) The union formula is Farkas' lemma (the zero multiplier is excluded since $0^{\top}b<0$ is false). Each $\mathrm{Reg}(y)$ is open and closed under positive scaling, hence so is the union. For downward closure, if $y^{\top}b<0$ and $b'\le b$ then $y^{\top}b'\le y^{\top}b<0$ since $y\ge0$.
+
+(c) Every $y\in Y$ is a nonnegative combination $y=\sum_i\lambda_ir_i$. If $y^{\top}b<0$ then $\sum_i\lambda_i(r_i^{\top}b)<0$, so $r_i^{\top}b<0$ for some $i$ with $\lambda_i>0$. By the Minkowski--Weyl theorem \cited{Schrijver, \emph{Theory of Linear and Integer Programming}, Section~7.2} the polyhedral cone $Y$ has a finite generating set.
+\end{proof}
+
+Part (c) gives a finite description of the unsatisfiability region as a union of $k$ open half-spaces, one per generator, while part (a) says that two certificates have the same region only if they differ by a positive scalar. In particular certificates that produce the same verdict at $b$ typically have different regions.
+
+\begin{example}[One variable, three constraints]
+\label{ex:farkas-stab}
+Take $n=1$, $m=3$ and the system $x\le b_1$, $-x\le b_2$, $x\le b_3$, so $A=(1,-1,1)^{\top}$. Then $Y=\{(a,a+c,c):a,c\ge0\}$ with generators $r_a=(1,1,0)$ and $r_b=(0,1,1)$, and
+\[
+U=\{b_1+b_2<0\}\cup\{b_2+b_3<0\},
+\]
+the instances for which the interval $[-b_2,\min(b_1,b_3)]$ is empty. At $b=(1,-3,0)$ both generators are certificates: $r_a^{\top}b=-2$ and $r_b^{\top}b=-3$. Increase $b_1$ by $3$ to $b'=(4,-3,0)$. Then $r_a^{\top}b'=1\ge0$, so $r_a$ no longer certifies, while $r_b^{\top}b'=-3$ and the combination $(1,2,1)$ with $(1,2,1)^{\top}b'=-2$ still do. The system is still unsatisfiable; the certificate $r_a$ has become useless and $r_b$ has not. A verdict ``unsatisfiable at $b$'' is identical in the two cases.
+\end{example}
+
+\subsection*{Margins}
+
+The perturbation tolerance of a certificate is exact. Measure perturbations in the supremum norm and write $\|y\|_1=\sum_i|y_i|$ for the dual norm.
+
+\begin{proposition}[Margin of a certificate]
+\label{prop:margin}
+Let $y\in Y\setminus\{0\}$ and $b\in\mathrm{Reg}(y)$. For $\rho>0$ the open ball $B_\rho(b)=\{b':\|b'-b\|_\infty<\rho\}$ is contained in $\mathrm{Reg}(y)$ if and only if $\rho\le m(y,b)$, where
+\[
+m(y,b)=\frac{-y^{\top}b}{\|y\|_1}.
+\]
+\end{proposition}
+
+\begin{proof}
+For $b'\in B_\rho(b)$ write $b'=b+\delta$ with $\|\delta\|_\infty<\rho$. Then $y^{\top}\delta<\rho\|y\|_1$, with supremum $\rho\|y\|_1$ not attained. If $\rho\|y\|_1\le-y^{\top}b$ then $y^{\top}b'<y^{\top}b+\rho\|y\|_1\le0$. If $\rho\|y\|_1>-y^{\top}b$, take $\delta=\rho'\,\mathrm{sign}(y)$ with $\rho'<\rho$ close enough to $\rho$ that $\rho'\|y\|_1>-y^{\top}b$; then $y^{\top}(b+\delta)>0$ and $b+\delta\in B_\rho(b)\setminus\mathrm{Reg}(y)$.
+\end{proof}
+
+\begin{theorem}[The best certificate attains the true radius]
+\label{thm:radius}
+For $b\in U$ let $R(b)=\sup\{\rho:B_\rho(b)\subseteq U\}$. Then $R(b)=\max\{m(y,b):y\in Y\setminus\{0\}\}$, and the maximum is attained.
+\end{theorem}
+
+\begin{proof}
+Since $\mathrm{Reg}(y)\subseteq U$, Proposition~\ref{prop:margin} gives $R(b)\ge m(y,b)$ for every $y$. The set $\{y\in Y:\|y\|_1=1\}$ is a compact polytope and $y\mapsto-y^{\top}b$ is continuous on it, so the maximum of $m(y,b)$ over $Y\setminus\{0\}$ (a scale-invariant function) is attained.
+
+For the reverse inequality let $C=\mathbb{R}^m\setminus U=\{Ax+s:x\in\mathbb{R}^n,\,s\in\mathbb{R}^m_{\ge0}\}$, the set of feasible right-hand sides. It is a finitely generated cone, hence closed and convex, and contains $0$. Since $b\notin C$ and $C$ is closed, $R=R(b)$ is finite or $+\infty$; if $R=+\infty$ then $U=\mathbb{R}^m$ and $0\in C$ is a contradiction, so $R<\infty$. The open ball $B_R(b)$ is disjoint from $C$ and convex. By the separation theorem for disjoint convex sets, one of which is open, there is $\lambda\ne0$ with $\lambda^{\top}c\le\lambda^{\top}b'$ for all $c\in C$ and $b'\in B_R(b)$ \cited{Rockafellar, \emph{Convex Analysis}, Theorem~11.3}. The left side is bounded above over the cone $C$ only if $\lambda^{\top}A=0$ (since $\pm Ax\in$ the generators) and $\lambda\le0$ (since $e_i\in C$); put $y=-\lambda\in Y\setminus\{0\}$. Then $\sup_C\lambda^{\top}c=0$ (attained at $c=0$) and
+\[
+0\le\inf_{b'\in B_R(b)}\lambda^{\top}b'=\lambda^{\top}b-R\|\lambda\|_1=-y^{\top}b-R\|y\|_1,
+\]
+so $R\le m(y,b)$.
+\end{proof}
+
+The maximizing certificate is exactly the one that reports the largest uniform perturbation of the constants under which the unsatisfiability result remains valid. In Example~\ref{ex:farkas-stab}, with $b=(1,-3,0)$,
+\[
+m(r_a,b)=\tfrac{2}{2}=1,\qquad m(r_b,b)=\tfrac{3}{2}=\tfrac32,\qquad m((1,2,1),b)=\tfrac54,
+\]
+and writing a general multiplier as $(a,a+c,c)$ one gets $m=(2a+3c)/(2a+2c)\le\tfrac32$ with equality at $a=0$. The distance from $b$ to the feasible set, computed independently by enumeration over a fine grid of perturbations, is $1.5$. The certificate $r_a$, which a solver might equally output, guarantees only a perturbation of size $1$ in the supremum norm, and a perturbation of size $3$ in $b_1$ destroys it (though not the verdict).
+
+\begin{theorem}[Stability family and minimal artifact]
+\label{thm:stab-min}
+Fix $b\in U$. Let $H_b$ be the set of runs of any procedure that outputs a certificate for $b$, with $\varrho(h)\in Y\setminus\{0\}$ the certificate output. For $\delta\in\mathbb{R}^m$ let $S_\delta:H_b\to\{0,1\}$ be $S_\delta(h)=1$ iff $\varrho(h)$ certifies $b+\delta$. For the family $\mathcal S=\{S_\delta:\delta\in\mathbb{R}^m\}$, the minimal $\mathcal S$-sufficient representation is the \emph{ray} $y\mapsto\mathbb{R}_{>0}y$, equivalently the normalization $y/\|y\|_1$. The verdict ``unsatisfiable'' is not $\mathcal S$-sufficient unless all certificates for $b$ are positively proportional.
+\end{theorem}
+
+\begin{proof}
+$S_\delta(h)=1$ iff $b+\delta\in\mathrm{Reg}(\varrho(h))$. Hence $\ker\mathcal S$ identifies $h,h'$ iff $\mathrm{Reg}(\varrho(h))=\mathrm{Reg}(\varrho(h'))$ (the regions agree on every translate $b+\delta$, and $\delta$ ranges over all of $\mathbb{R}^m$), which by Theorem~\ref{thm:farkas-geom}(a) holds iff the certificates are positively proportional. The conclusion follows from Theorem~\ref{thm:suff-refine}. The verdict is a constant function on $H_b$, whose kernel is all of $H_b^2$.
+\end{proof}
+
+The theorem identifies precisely what a certificate carries beyond a verdict: its direction, no more and no less, for the purpose of predicting survival under changes to the constants. If the family is enlarged to include perturbations of $A$ the answer changes, since $y^{\top}A=0$ is then no longer a fixed condition, and the region of a certificate becomes a more complicated algebraic set; nothing in the theorem extends to that case.
+
+\section{Clause sets: regions are up-sets}
+
+For propositional clause sets, the natural change is addition or removal of clauses. Fix a finite universe $\mathfrak U$ of clauses over a fixed set of atoms. An instance is a subset $G\subseteq\mathfrak U$, ordered by inclusion. The verdict region $\mathcal U$ of unsatisfiable subsets is an up-set. Write $\uparrow M=\{G:M\subseteq G\}$.
+
+\begin{lemma}[Unit propagation is monotone]
+\label{lem:up-mono}
+Let $G\subseteq G'$ be clause sets and $T$ a set of literals. If some maximal unit propagation sequence from $T$ on $G$ ends in a conflict, then every maximal unit propagation sequence from $T$ on $G'$ ends in a conflict.
+\end{lemma}
+
+\begin{proof}
+Let $T=T_0\subset T_1\subset\dots\subset T_k$ be a propagation sequence on $G$ ending in a conflict, where step $i+1$ adds $l_{i+1}$ using $C_{i+1}\cup\{l_{i+1}\}\in G$ with $\overline{C_{i+1}}\subseteq T_i$ and the final trail falsifies a clause of $G$. Let $T'$ be the final trail of a maximal propagation sequence on $G'$ from $T$ and suppose it contains no conflict. We show by induction that $T_i\subseteq T'$. The case $i=0$ is trivial. If $T_i\subseteq T'$, the clause $C_{i+1}\cup\{l_{i+1}\}\in G'$ has all literals but $l_{i+1}$ false under $T'$. If $\overline{l_{i+1}}\in T'$ the clause is falsified, a conflict. If $l_{i+1}$ is unassigned the clause is unit and propagation could continue, contradicting maximality. So $l_{i+1}\in T'$. Finally the clause of $G$ falsified by $T_k\subseteq T'$ is a clause of $G'$ falsified by $T'$, a conflict. This contradicts the assumption.
+\end{proof}
+
+\begin{proposition}[RUP refutations are monotone]
+\label{prop:rup-mono}
+If $d$ is a RUP refutation of $G$ and $G\subseteq G'$ then $d$ is a RUP refutation of $G'$. Consequently $\mathrm{Reg}(d)=\{G':\Chk_{\mathrm{RUP}}(d,G')\}$ is an up-set.
+\end{proposition}
+
+\begin{proof}
+For each line $C_i$, the refutation condition is that unit propagation from $\overline{C_i}$ on $G\cup\{C_1,\dots,C_{i-1}\}$ ends in a conflict. This clause set is contained in $G'\cup\{C_1,\dots,C_{i-1}\}$, so Lemma~\ref{lem:up-mono} applies.
+\end{proof}
+
+\begin{definition}[Used clauses]
+\label{def:used}
+For a RUP refutation $d$ of $G$ and for each line, fix one successful propagation trace; let $\mathrm{use}(d)\subseteq G$ be the set of input clauses (not lemma lines) that occur as reasons in these chosen traces together with the clauses falsified at their ends.
+\end{definition}
+
+By construction $d$ is a RUP refutation of $\mathrm{use}(d)$, so $\uparrow\mathrm{use}(d)\subseteq\mathrm{Reg}(d)$ by Proposition~\ref{prop:rup-mono}. The set $\mathrm{use}(d)$ is a certified unsatisfiable core.
+
+\begin{theorem}[Verdict region is a union of certificate regions]
+\label{thm:mus-union}
+Let $\mathcal M$ be the set of minimal unsatisfiable subsets of $\mathfrak U$. Then
+\[
+\mathcal U=\bigcup_{M\in\mathcal M}\uparrow M=\bigcup_d\mathrm{Reg}(d),
+\]
+the second union over all RUP refutations $d$, and for each $M\in\mathcal M$ there is a refutation $d_M$ with $\mathrm{use}(d_M)=M$.
+\end{theorem}
+
+\begin{proof}
+Every unsatisfiable $G$ contains a minimal unsatisfiable subset because $\mathfrak U$ is finite, and each $\uparrow M\subseteq\mathcal U$. The second equality is Theorem~\ref{thm:rup-complete} together with Proposition~\ref{prop:rup-mono}. For $M\in\mathcal M$ take a refutation $d_M$ of $M$, which exists by completeness. Then $\mathrm{use}(d_M)\subseteq M$ is unsatisfiable by soundness of $d_M$ as a refutation of $\mathrm{use}(d_M)$, so equals $M$ by minimality.
+\end{proof}
+
+Theorem~\ref{thm:mus-union} is the combinatorial counterpart of Theorem~\ref{thm:farkas-geom}(c): the verdict region is covered by finitely many certificate regions, each a principal up-set or a half-space, and an individual certificate covers a proper part of it.
+
+\begin{example}[Two refutations, two regions]
+\label{ex:two-regions}
+Let $a,b,e$ be atoms and $F_4=\{a\vee b,\ a\vee\neg b,\ \neg a\vee b,\ \neg a\vee\neg b\}$. Put $G=F_4\cup\{e,\neg e\}$ and $G'=F_4\cup\{\neg e\}$. The one-line derivation $d_1=(\square)$ is a RUP refutation of $G$: propagation from the empty trail derives $e$ and then falsifies $\neg e$. It is not a refutation of $G'$, which has no unit clause that propagates to a conflict, though $G'$ is unsatisfiable. The derivation $d_2=(a,\ \square)$ is a RUP refutation of $F_4$. From the trail $\{\neg a\}$ the clause $a\vee b$ propagates $b$, and $a\vee\neg b$ is then falsified, so $a$ is RUP. With $a$ added, propagation from the empty trail uses $a$ to derive $b$ through $\neg a\vee b$ and falsifies $\neg a\vee\neg b$, so $\square$ is RUP. Therefore $\mathrm{Reg}(d_1)\supseteq\uparrow\{e,\neg e\}$ and $\mathrm{Reg}(d_2)\supseteq\uparrow F_4$; also $G\in\mathrm{Reg}(d_1)\cap\mathrm{Reg}(d_2)$ and $G'\in\mathrm{Reg}(d_2)\setminus\mathrm{Reg}(d_1)$. Both derivations certify the same fact about $G$.
+\end{example}
+
+\noindent The check of $d_1$ and $d_2$ against $G$ and $G'$ in this example was also run mechanically with a short unit-propagation script.
+
+A solver that produces $d_1$ has done nothing wrong, and the solver's choice of $d_1$ over $d_2$ is invisible in the verdict. If a clause $e$ is removed later because the corresponding hypothesis is weakened, the proof $d_1$ fails while the verdict, for the weaker problem, persists. This is the clause-set analogue of Example~\ref{ex:farkas-stab}: \emph{which} certificate was produced is a fact about the history, and the stability of the result under change depends on it.
+
+\section{Repair as a relation}
+
+The tasks of the preceding chapters were functions: a history determines the answer. Repair is different. After a change there are usually many correct outputs, and the requirement is that a representation suffices to produce \emph{one}. The factorization criterion must be extended from functions to relations.
+
+\begin{definition}[Repair relation, repair function]
+\label{def:repair}
+Let $H$ be a history space, $\Delta$ a set of changes, $O$ a set of outputs, and $\mathrm{Good}\subseteq H\times\Delta\times O$ a relation, read as ``$o$ is an acceptable repair of the history $h$ under the change $\delta$''. For a representation $\sigma:H\to R$, a \emph{$\sigma$-repair function} is $r:R\times\Delta\to O$ with $(h,\delta,r(\sigma(h),\delta))\in\mathrm{Good}$ for all $h\in H$, $\delta\in\Delta$.
+\end{definition}
+
+\begin{theorem}[Factorization for relations]
+\label{thm:rel-factor}
+A $\sigma$-repair function exists if and only if for every fibre $F=\sigma^{-1}(s)$ with $s\in\sigma(H)$ and every $\delta\in\Delta$,
+\[
+\bigcap_{h\in F}\mathrm{Good}(h,\delta)\ne\emptyset,\qquad\text{where }\mathrm{Good}(h,\delta)=\{o:(h,\delta,o)\in\mathrm{Good}\}.
+\]
+\end{theorem}
+
+\begin{proof}
+If $r$ exists then $r(s,\delta)$ lies in every $\mathrm{Good}(h,\delta)$, $h\in F$. Conversely, choose for each pair $(s,\delta)$ with $s\in\sigma(H)$ an element of the nonempty intersection, and an arbitrary element of $O$ if $s\notin\sigma(H)$ (assuming $O\ne\emptyset$). This defines $r$.
+\end{proof}
+
+When each $\mathrm{Good}(h,\delta)$ is a singleton $\{f_\delta(h)\}$ the condition says that $f_\delta$ is constant on fibres, which is Proposition~\ref{prop:factor}. The relational form is needed because it captures a requirement not expressible by functions: that a repair be \emph{local}.
+
+\begin{definition}[Locality]
+\label{def:locality}
+Let $(O,\mathrm{dist})$ be a metric space, for instance proof terms under a tree edit distance, and let $\pi:H\to O$ be the artifact that each history produced. Let $\mathrm{Cor}(\delta)\subseteq O$ be the set of correct artifacts after the change $\delta$. For $k\ge0$ define
+\[
+\mathrm{Good}_k(h,\delta)=\{o\in\mathrm{Cor}(\delta):\ \mathrm{dist}(o,\pi(h))\le k\},
+\]
+the \emph{$k$-local repairs} of $h$ under $\delta$.
+\end{definition}
+
+\begin{theorem}[Locality needs history]
+\label{thm:locality}
+Let $\sigma:H\to R$ and let $h,h'\in H$ satisfy $\sigma(h)=\sigma(h')$ and $\mathrm{dist}(\pi(h),\pi(h'))>2k$. Then for every $\delta\in\Delta$ the intersection $\mathrm{Good}_k(h,\delta)\cap\mathrm{Good}_k(h',\delta)$ is empty. Consequently no $\sigma$-repair function exists for $\mathrm{Good}_k$ on a history space containing both, even when each of $h$ and $h'$ individually has a $k$-local repair under every $\delta\in\Delta$.
+\end{theorem}
+
+\begin{proof}
+If $o$ lay in both sets then $\mathrm{dist}(\pi(h),\pi(h'))\le\mathrm{dist}(\pi(h),o)+\mathrm{dist}(o,\pi(h'))\le2k$, contradicting the hypothesis. The consequence follows from Theorem~\ref{thm:rel-factor} with $F\ni h,h'$.
+\end{proof}
+
+Applied to the proof-irrelevant representation of Definition~\ref{def:pirrel}, with $\sigma(P,p)=P$ and $\pi(P,p)=p$, the theorem says: if a proposition has two proofs more than $2k$ edits apart, there is no procedure which, given only the proposition and a change, returns a repair within $k$ edits of whichever proof was originally given. This is the formal sense in which one cannot patch a result from its statement, and it holds however the change $\delta$ is chosen. It remains consistent with the fact that a procedure can always \emph{reprove} the changed statement from scratch, which is $\mathrm{Good}_\infty$.
+
+\begin{remark}[The same theorem for certificates]
+\label{rem:cert-locality}
+In Example~\ref{ex:farkas-stab} let $\sigma$ be the verdict, let $\pi(h)$ be the output certificate normalized to $\|y\|_1=1$, so $\pi(h_a)=(\tfrac12,\tfrac12,0)$ and $\pi(h_b)=(0,\tfrac12,\tfrac12)$, and take the Euclidean distance, which is $1/\sqrt2$. For $k<1/(2\sqrt2)$ Theorem~\ref{thm:locality} applies: no procedure that sees only the verdict can return a certificate within distance $k$ of whichever certificate was originally output. The numerical case is thus an instance of the general statement.
+\end{remark}
+
+\section{Scripts are functions, terms are points}
+
+Proof assistants distinguish a \emph{script}, a sequence of tactic invocations, from the \emph{term} it elaborates to (Chapter~\ref{ch:kernels}). The distinction is, in the terminology of this chapter, the distinction between a family of certificates indexed by goals and one member of the family.
+
+\begin{definition}[Script]
+\label{def:script}
+Let $\mathcal G$ be a set of goals. A \emph{script} is a partial computable function $s:\mathcal G\rightharpoonup D$. It is \emph{correct at} $g$ if $s(g)$ is defined and $\Chk(s(g),g)$. Its \emph{region} is $\mathrm{Reg}(s)=\{g\in\mathcal G:s\text{ is correct at }g\}$.
+\end{definition}
+
+\begin{proposition}[Terms are points]
+\label{prop:terms-points}
+Suppose the checking relation has unique types: $\Chk(t,g)$ and $\Chk(t,g')$ imply $g\equiv g'$, where $\equiv$ is the definitional equality of the calculus. Then for every term $t$, $\mathrm{Reg}(t)\subseteq[g]_\equiv$ for any $g\in\mathrm{Reg}(t)$, that is, the region of a term is contained in a single definitional class of goals, while the region of a script can be infinite and can contain goals pairwise not definitionally equal.
+\end{proposition}
+
+\begin{proof}
+The first claim is the hypothesis. For the second, let $\mathcal G=\{n+0=n:n\in\mathbb{N}\}$ with addition defined by recursion on the second argument, so each $n+0=n$ holds by reflexivity, and let $s(n+0=n)=\mathsf{rfl}_n$ where $\mathsf{rfl}_n$ is the reflexivity proof at $n$. The script is correct at every goal, so $\mathrm{Reg}(s)=\mathcal G$ is infinite, while the goals $n+0=n$ for distinct numerals $n$ are not definitionally equal.
+\end{proof}
+
+A script therefore carries a \emph{program} for producing certificates and its region is the domain on which that program is correct. The kernel stores one value of the program. The two have different stability properties: a term is stable under changes to the surrounding context that preserve its type, and a script is stable under changes that preserve its elaboration, which depend on the version of the tactic library and not on the goal alone. These are different kernels on different history spaces, and neither contains the other. A statement that a proof is ``robust'' is therefore incomplete until it says on which of these spaces the perturbations are taken.
+
+\section{What this chapter fixes}
+
+\begin{principal}
+\textbf{A certificate is a region, a verdict is a point.} (1) In linear arithmetic the region of a Farkas certificate is an open half-space, determined by the certificate's direction, and the verdict region is a finite union of such half-spaces (Theorems~\ref{thm:farkas-geom} and~\ref{thm:stab-min}). (2) A certificate's perturbation margin is explicit and the best certificate attains the true radius, but a solver need not output it (Proposition~\ref{prop:margin}, Theorem~\ref{thm:radius}). (3) In clause sets, RUP refutations are monotone under adding clauses, the verdict region is a union of principal up-sets, and verdict-equal refutations can have incomparable regions (Proposition~\ref{prop:rup-mono}, Theorem~\ref{thm:mus-union}, Example~\ref{ex:two-regions}). (4) Repair is a relation, and a $\sigma$-repair function exists iff the acceptable repairs of the histories in each fibre have a common element (Theorem~\ref{thm:rel-factor}); local repair is impossible from any representation that identifies two distant artifacts (Theorem~\ref{thm:locality}).
+\end{principal}
+
+The results above are about what a result \emph{survives}. The next chapter turns to a result's dependents, the other direction of change: what is inherited by a theorem that uses a lemma, and what is not. There the relevant structure is a typed dependency graph, and the interface lemma will say that proof irrelevance makes the body of a lemma invisible to dependents.
+
+\begin{exercise}
+In Example~\ref{ex:farkas-stab} compute $R(b)$ for $b=(1,-3,5)$ and identify which generator attains it.
+\end{exercise}
+
+\begin{exercise}
+Show that the verdict region $U$ of Theorem~\ref{thm:farkas-geom} is not in general convex. Give an example with $m=3$.
+\end{exercise}
+
+\begin{exercise}
+Show that the maximum in Theorem~\ref{thm:radius} is attained at a normalized generator (an extreme ray) of $Y$. (Hint: on the polytope $\{y\in Y:\|y\|_1=1\}$ the function $y\mapsto-y^{\top}b$ is linear.)
+\end{exercise}
+
+\begin{exercise}
+In Example~\ref{ex:two-regions}, compute $\mathrm{use}(d_1)$ and $\mathrm{use}(d_2)$ and show $\uparrow\mathrm{use}(d_1)\cap\uparrow\mathrm{use}(d_2)=\uparrow G$.
+\end{exercise}

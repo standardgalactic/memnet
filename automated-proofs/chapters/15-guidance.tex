@@ -1,0 +1,145 @@
+\chapter{Guidance and the Verifier Gate}
+\label{ch:guidance}
+
+The search procedures of Part~I choose their next step by fixed rules: oldest clause first, smallest clause first, a weighted mixture. Modern systems replace the rule by a learned model that proposes the next step, a premise to use, a tactic to try, a lemma to add. This chapter asks what such a proposer can change and what it cannot. The answer has two halves. In the world model of Chapter~\ref{ch:search-worlds}, a proposal is an event, and only $\Refuse$ and collapse change the option space, so guidance that merely orders $\Pop$ and $\Bind$ events cannot affect what is obtainable (Section~\ref{sec:ordering}). Guidance that proposes refusals can, and the second half separates proposals from acceptance: a \emph{gate} that checks each proposed event against a decidable criterion makes the proposer irrelevant for soundness and for completeness, and an \emph{ungated} proposer is shown to be capable of destroying both (Sections~\ref{sec:gate} and~\ref{sec:ungated}). The last section proves in abstract form that a gate which can see only what the proposer sees cannot discriminate between situations the proposer cannot distinguish (Section~\ref{sec:selfgate}).
+
+\section{Ordering does not change the option space}
+\label{sec:ordering}
+
+Retain the setting of Chapter~\ref{ch:redundancy}: propositional resolution over a finite set $S_0$, worlds with $\Omega=\mathrm{Cn}_{\sqsubseteq}(\mathrm{Av})$, and refusals restricted to the admissible forms of Theorem~\ref{thm:admissible-refusals}.
+
+\begin{lemma}[Runs are finite and maximal runs are fair]
+\label{lem:maximal}
+Every well-formed history over a finite clause universe has length at most $3N$, where $N$ is the number of clauses over the atoms of $S_0$. Call a history \emph{saturating} if no $\Pop$ or $\Bind$ event is well formed after it. Every history extends to a saturating one, and every saturating history is a fair run in the sense of Definition~\ref{def:fair-deletion}.
+\end{lemma}
+
+\begin{proof}
+Each $\Pop$ adds an item to $P$, each $\Refuse$ adds an item to $R$, each $\Bind$ adds an item to $D$, and these sets only grow within a set of size $N$; the bound follows. Extension to a saturating history is by repeatedly adding well-formed $\Pop$ and $\Bind$ events, which terminates by the bound. For fairness, let a resolution instance have both premises persistent, that is, available at the end. If its conclusion $E$ were not in $D$ at the end, then $\Pop$ of any unpopped available premise would be well formed, contradicting saturation, so both premises are popped and available, and $\Bind$ of the instance is well formed, contradicting saturation again. Hence $E\in D$.
+\end{proof}
+
+\begin{theorem}[Guidance is irrelevant to completeness]
+\label{thm:guidance-irrelevant}
+Let $S_0$ be a finite unsatisfiable set of clauses and let $H$ be any saturating history all of whose $\Refuse$ events are admissible in the sense of Theorem~\ref{thm:admissible-refusals}. Then $\square\in D(H)\setminus R(H)$, whatever the order of the $\Pop$ and $\Bind$ events. In particular this holds for histories produced by any selection function, learned or otherwise, provided it does not stop before saturation.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:maximal} the history is a fair run with admissible deletion. Apply Theorem~\ref{thm:complete-deletion}.
+\end{proof}
+
+The theorem is not a statement that guidance is useless. The length of the history, the number of items derived before $\square$ appears, and the memory used all depend strongly on the order. What it excludes is a different claim, sometimes made implicitly: that a better selection function can change which refutations \emph{exist}. In the language of Chapter~\ref{ch:search-worlds}, selection acts within a fixed space (Corollary~\ref{cor:fixed-space}). A formal reading of ``the model found a proof the baseline could not find'' is therefore always a statement about a resource bound, never about the option space, unless the model's proposals include refusals or collapses.
+
+\begin{remark}[Early stopping]
+The hypothesis ``does not stop before saturation'' cannot be dropped. A guided procedure that stops at a time limit is not a saturating run, and Theorem~\ref{thm:guidance-irrelevant} says nothing about it. Its power is the probability, over inputs, that $\square$ has appeared by the time limit, which is a property of the guidance and the distribution of inputs. No such probability is computed in this book.
+\end{remark}
+
+\section{The verifier gate}
+\label{sec:gate}
+
+\begin{definition}[Proposer, gate, gated run]
+\label{def:gate}
+A \emph{proposer} is an arbitrary function $\mathsf{Prop}$ from histories to events. It need not be computable, deterministic, or sound; a language model with sampling is an example, understood as a nondeterministic proposer. The \emph{gate} for refutation of clause sets is the decidable predicate $\mathsf{Gate}(H,e)$ that holds iff $e$ is well formed after $H$ and, in case $e=\Refuse(f)$, $f$ is a tautology or is subsumed by some $D\in\mathrm{Av}(H)\setminus\{f\}$. A \emph{gated run} starting from $\varepsilon$ applies the proposed event if the gate accepts it and discards it otherwise.
+\end{definition}
+
+\begin{theorem}[Gate separates the proposer from soundness and completeness]
+\label{thm:gate}
+Let $S_0$ be a finite set of clauses.
+\begin{enumerate}[label=(\roman*),nosep]
+\item \emph{Soundness.} For every proposer, every gated run is a well-formed history with admissible refusals, every $f\in D(H)$ is a consequence of $S_0$, and $\square\in D(H)$ implies $S_0$ is unsatisfiable.
+\item \emph{Completeness.} If $S_0$ is unsatisfiable and the proposer is \emph{exhaustive}, in the sense that at every history at which some $\Pop$ or $\Bind$ event is well formed it eventually proposes one, then every gated run extends to $\square\in D(H)\setminus R(H)$.
+\item \emph{Necessity of exhaustiveness.} There are finite unsatisfiable $S_0$ and non-exhaustive proposers whose gated runs never derive $\square$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) Every applied event satisfies the gate, so is well formed and, if a refusal, admissible. Every $f\in D(H)$ is in $S_0$ or is the conclusion of a sound rule instance with premises in $D(H)$, so is a consequence of $S_0$ by induction (Proposition~\ref{prop:prop-res-sound}). If $\square\in D(H)$ then $S_0\models\square$.
+
+(ii) A gated run with an exhaustive proposer continues until no $\Pop$ or $\Bind$ is well formed, that is, to a saturating history, since the run is finite by Lemma~\ref{lem:maximal} and each stage at which an event is well formed will eventually see one proposed and, if well formed, accepted. Apply Theorem~\ref{thm:guidance-irrelevant}.
+
+(iii) Let $S_0=\{\{a\},\{\neg a\}\}$ and let the proposer propose only $\Refuse$ events that the gate rejects. The run is $\varepsilon$ forever; $\square\notin D(\varepsilon)$.
+\end{proof}
+
+The architectural content of the theorem is Theorem~\ref{thm:independence} of Chapter~\ref{ch:proof-systems} in the setting of search: assurance attaches to the gate, and the producer may be arbitrarily unreliable without affecting soundness. Completeness is an exhaustiveness property of the producer, and exhaustiveness is cheap to impose: any proposer can be wrapped to fall back to a fixed fair strategy every $k$th step, at a cost of at most a factor $k$ in the length of the history.
+
+\section{Ungated proposals}
+\label{sec:ungated}
+
+If the gate is omitted for $\Refuse$ events, the proposer acquires the one power that changes the option space.
+
+\begin{proposition}[Ungated refusal can destroy refutability]
+\label{prop:ungated}
+There is a finite unsatisfiable $S_0$ and a well-formed history consisting of a single $\Refuse$ event such that $\square\notin\Omega(H)$, and $\square$ lies in $D(H')$ for no extension $H'$ of $H$.
+\end{proposition}
+
+\begin{proof}
+Take $S_0=\{\{a\},\{\neg a\}\}$ and $H=\Refuse(\{a\})$. Then $\mathrm{Av}(H)=\{\{\neg a\}\}$ is satisfiable, so $\square\notin\mathrm{Cn}_{\sqsubseteq}(\mathrm{Av}(H))=\Omega(H)$. By Corollary~\ref{cor:fixed-space} and its proof, no extension enlarges $\Omega$, and every item bound in an extension lies in $\Omega$ (Proposition~\ref{prop:dynamics}(b)). Hence $\square$ is never derived.
+\end{proof}
+
+The example is trivial on purpose. A learned proposer that predicts which clauses are ``useless'' is making a prediction of exactly this kind, and its errors are irrecoverable in the sense of Proposition~\ref{prop:dynamics}: a refused item stays refused and the option space is smaller for good. The remedy is not to forbid such predictions but to demote them: a prediction of uselessness should lower the priority of an item (ordering, harmless by Theorem~\ref{thm:guidance-irrelevant}) and not delete it (refusal, harmless only if gated).
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}p{3.9cm}p{4.0cm}p{4.0cm}@{}}
+\toprule
+ & Gate on all events & Gate omitted for refusal\\
+\midrule
+Proposer exhaustive & sound and complete; efficiency depends on proposer (Thm.~\ref{thm:gate}) & sound (derived items are consequences); completeness lost if a needed item is refused (Prop.~\ref{prop:ungated})\\
+Proposer not exhaustive & sound; may be incomplete (Thm.~\ref{thm:gate}(iii)) & sound; may be incomplete for either reason\\
+\bottomrule
+\end{tabular}
+\caption{What the proposer and the gate each control. Soundness of derived items never depends on the proposer, since $\Bind$ is always checked as a rule instance; refutational completeness depends on the gate for refusals and on exhaustiveness.}
+\label{tab:gate}
+\end{table}
+
+\section[Self-contained gates]{Self-contained gates cannot discriminate what the proposer cannot}
+\label{sec:selfgate}
+
+The gate of Definition~\ref{def:gate} is decidable and external: it reads the history and the clause, which are the same objects the checker of Chapter~\ref{ch:proof-systems} reads. A different design asks the proposer, or another model sharing its inputs, to judge its own outputs. The structural limit of such a design is a consequence of Proposition~\ref{prop:factor}, and is stated here in the abstract form it will be needed in (see also \cite{flyxion-grounding}).
+
+\begin{definition}[Environments, evidence, gate]
+\label{def:env-gate}
+Let $\mathcal E$ be a set of \emph{environments} (the situations in which a proposal will be used), $Z$ a set of \emph{evidence states}, and $z:\mathcal E\to Z$ the \emph{evidence map}. A \emph{correct action} is a function $\alpha:\mathcal E\to\{\textsf{accept},\textsf{reject}\}$. A \emph{gate restricted to $z$} is a function $G\circ z$ with $G:Z\to\{\textsf{accept},\textsf{reject}\}$. It is \emph{correct} if $G\circ z=\alpha$.
+\end{definition}
+
+\begin{theorem}[Impossibility of self-contained gates]
+\label{thm:selfgate}
+A correct gate restricted to $z$ exists if and only if $\alpha$ is constant on every fibre of $z$. In particular, if $e_0,e_1\in\mathcal E$ satisfy $z(e_0)=z(e_1)$ and $\alpha(e_0)\ne\alpha(e_1)$, then no gate restricted to $z$ is correct, however it is constructed and however much computation it uses.
+\end{theorem}
+
+\begin{proof}
+This is Proposition~\ref{prop:factor} for the task $\alpha$ and the representation $z$. For the second statement, a gate $G\circ z$ takes the same value at $e_0$ and $e_1$.
+\end{proof}
+
+\begin{corollary}[A signal from outside the evidence class is necessary]
+\label{cor:outside}
+Let $\alpha$ be a correct-action function not constant on some fibre of $z$. Any correct gate must read a quantity not determined by $z$. Adding to the gate a function of $z$, such as the proposer's own confidence or an independent run of a model that sees the same inputs, leaves the set of indistinguishable pairs unchanged.
+\end{corollary}
+
+\begin{proof}
+A gate reading $z$ and a function $u(z)$ is a function of $z$; Theorem~\ref{thm:selfgate} applies.
+\end{proof}
+
+In proof search, an example is immediate. Let an environment consist of a statement $\varphi$ together with its status (provable or not), and let the evidence be a natural-language justification produced by a model. If the model produces the same justification for a provable $\varphi_0$ and an unprovable $\varphi_1$ (as a fluent but wrong argument might), then by Theorem~\ref{thm:selfgate} no judge that sees only the justification can accept one and reject the other. The kernel check $\Chk(d,\varphi)$ is not subject to the theorem because its evidence is $(d,\varphi)$ together with the independently defined meaning of $\Chk$, a function of the environment that is not determined by what the model emitted. This is the content of the independence principle of Chapter~\ref{ch:proof-systems} in the abstract setting.
+
+\begin{remark}[Grounded does not mean correct]
+\label{rem:grounded}
+Acceptance by an external check is not acceptance of the intended claim. The kernel verdict is correct for the question ``does $d$ check against $\varphi$'', which is the layer $\mathrm{O1}$ of Chapter~\ref{ch:obligations}. If the formalization $\varphi$ of the target $\tau$ is wrong (layer $\mathrm{O2}$) or the target does not correspond to the observation (layer $\mathrm{O3}$), a grounded gate accepts a proof of the wrong thing. Grounding removes the self-referential failure; it does not remove the others.
+\end{remark}
+
+\section{What this chapter fixes}
+
+\begin{principal}
+(1) Ordering guidance acts within a fixed option space and cannot affect completeness for saturating runs (Theorem~\ref{thm:guidance-irrelevant}). (2) A gate that checks each proposed event against a decidable criterion makes soundness independent of the proposer and reduces completeness to an exhaustiveness condition (Theorem~\ref{thm:gate}). (3) An ungated refusal changes the option space irreversibly (Proposition~\ref{prop:ungated}), so predictions of uselessness should demote, not delete. (4) A gate confined to the evidence the proposer already has cannot discriminate environments that evidence does not distinguish (Theorem~\ref{thm:selfgate}); a grounded gate fixes that failure and no other (Remark~\ref{rem:grounded}).
+\end{principal}
+
+\begin{exercise}
+Prove the claim in the text that wrapping a proposer to fall back to a fixed fair strategy every $k$th step yields an exhaustive proposer. State precisely what ``fixed fair strategy'' must satisfy.
+\end{exercise}
+
+\begin{exercise}
+Show that Theorem~\ref{thm:guidance-irrelevant} fails for first-order resolution unless the clause universe is replaced by a finiteness assumption, and identify the step of the proof that uses finiteness. (Hint: Lemma~\ref{lem:maximal}.)
+\end{exercise}
+
+\begin{exercise}
+In Theorem~\ref{thm:selfgate}, let $\mathcal E$ be finite and $\alpha$ arbitrary. Compute the minimal number of values of an evidence map $z'$ such that a correct gate restricted to $z'$ exists, and relate it to Theorem~\ref{thm:lower}.
+\end{exercise}

@@ -1,0 +1,224 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,enumitem,booktabs,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\emergencystretch=2em
+
+\title{What a Boundary Leaves Undetermined:\\ Realizability and Residue for Marked Sheets}
+\author{Flyxion\\ \small Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A flat sheet is mapped into space by a length-preserving map, and only the restriction of that map to a marked part of the sheet is recorded. Two questions arise. Which recordings can arise from some length-preserving map? And, given a recording, how much of the rest of the map does it fix? The first has a necessary and sufficient answer in terms of one inequality between pairs of marked points, which is decidable for polygonal markings. For the second, the set of positions an unmarked point can take is a closed convex region cut out by distance inequalities. Its interior measures robust freedom through a concave slack function; its dimension is either $0$ or $3$, with nothing between; in a worked example with three faces at a cube corner it shrinks to a single point as the gaps between the faces close; and for several unmarked points the joint region is strictly smaller than the product of the individual regions, so the freedoms are coupled. The first result rests on two cited theorems of analysis, and the rest is elementary given it.
+\end{abstract}
+
+\section{The question}
+
+Take a flat sheet and a map from it into three-dimensional space that preserves lengths of paths, so that the sheet may be bent, creased and crumpled but not stretched or torn. Suppose that only the restriction of the map to some marked squares is recorded: where each square ends up, and in what orientation. Call that restriction the \emph{exterior}. Two things are then worth knowing. The first is whether a given exterior can occur at all. The second is how much of the remaining map, the \emph{interior}, an exterior determines. The general principle that governs the second is elementary: a quantity is determined by a record exactly when it takes one value on all maps with that record. What the sheet adds is a concrete description of which quantities those are.
+
+\section{Setting}
+
+\begin{definition}[Marking problem]\label{def:marking}
+Let $\Sigma\subset\mathbb R^2$ be compact and convex with nonempty interior. A \emph{marking} is a compact set $A=A_1\cup\dots\cup A_k\subset\Sigma$ with the $A_i$ pairwise disjoint, together with a \emph{target} $\tau:A\to\mathbb R^3$ whose restriction to each $A_i$ preserves distances. A \emph{path isometry} is a continuous $f:\Sigma\to\mathbb R^3$ such that $f\circ\gamma$ has the same length as $\gamma$ for every rectifiable path $\gamma$ in $\Sigma$. For $\delta\ge0$, a \emph{$\delta$-realization} of $\tau$ is a path isometry with $|f-\tau|\le\delta$ on $A$; a $0$-realization is a \emph{realization}. The \emph{exterior map} is $E(f)=f|_A$.
+\end{definition}
+
+Path isometries may pass through themselves, as a crumpled sheet in a model without thickness does. Embeddedness is a stricter question, not addressed here. The condition that controls everything is the following.
+
+\begin{definition}[Nonexpansion]\label{def:L}
+$\tau$ satisfies $(\mathrm L)$ if $|\tau(p)-\tau(q)|\le|p-q|$ for all $p,q\in A$. Because $\tau$ preserves distances on each $A_i$, this is a condition on pairs in different squares.
+\end{definition}
+
+\section{Which exteriors occur}
+
+\begin{lemma}[Necessity]\label{lem:nec}
+If $f$ is a $\delta$-realization of $\tau$ then $|\tau(p)-\tau(q)|\le|p-q|+2\delta$ for all $p,q\in A$. Hence a realization exists only if $(\mathrm L)$ holds.
+\end{lemma}
+
+\begin{proof}
+The segment $[p,q]$ lies in $\Sigma$ and has length $|p-q|$. Its image has the same length and joins $f(p)$ to $f(q)$, so $|f(p)-f(q)|\le|p-q|$. Then $|\tau(p)-\tau(q)|\le|f(p)-f(q)|+2\delta$.
+\end{proof}
+
+Two classical theorems supply the converse.
+
+\begin{description}[leftmargin=1.2em,itemsep=2pt]
+\item[Kirszbraun \cite{kirszbraun1934}.] A $1$-Lipschitz map from a subset of $\mathbb R^m$ to $\mathbb R^n$ extends to a $1$-Lipschitz map on all of $\mathbb R^m$.
+\item[Nash--Kuiper, in Gromov's form \cite{nash1954,kuiper1955,eliashbergmishachev2002}.] On a compact Riemannian manifold with boundary of dimension $n$, every smooth strictly short map into $\mathbb R^q$, $q>n$, is uniformly approximable by $C^1$ isometric immersions.
+\end{description}
+
+\begin{theorem}[Realizability criterion]\label{thm:criterion}
+The following are equivalent: (a) $\mathcal R_\delta(\tau)\ne\emptyset$ for every $\delta>0$; (b) $(\mathrm L)$ holds. When they hold, the $\delta$-realizations may be chosen with image within $\delta$ of $K=\mathrm{conv}\,\tau(A)$.
+\end{theorem}
+
+\begin{proof}
+(a)$\Rightarrow$(b) is Lemma~\ref{lem:nec} with $\delta\to0$. For the converse, $(\mathrm L)$ and the isometry on each square make $\tau$ a $1$-Lipschitz map on $A$. Extend it by Kirszbraun to a $1$-Lipschitz $F:\mathbb R^2\to\mathbb R^3$, and compose with the nearest-point projection onto $K$, which is $1$-Lipschitz and fixes $\tau(A)$; so $F$ takes values in $K$. For $c\in K$ and $s\in(0,1)$ put $G=(1-s)F+sc$, which is $(1-s)$-Lipschitz, has values in $K$, and satisfies $|G-F|\le s\,\mathrm{diam}K$. Mollify $G$ at scale $\eta$: the result $G_\eta$ is smooth, $(1-s)$-Lipschitz, $K$-valued, and within $(1-s)\eta$ of $G$ on $\Sigma$. Its differential has norm at most $1-s<1$, so $G_\eta$ is strictly short on a smooth compact convex neighbourhood $\tilde\Sigma\supset\Sigma$. The Nash--Kuiper theorem gives, for any $\rho>0$, a $C^1$ isometric immersion $f$ with $|f-G_\eta|<\rho$. Its restriction to $\Sigma$ is a path isometry, and on $A$,
+\[
+|f-\tau|\le\rho+\eta+s\,\mathrm{diam}K,
+\]
+which is at most $\delta$ for suitable $\rho,\eta,s$. The image lies within $\rho$ of $K$.
+\end{proof}
+
+The condition is a certificate. It does not exhibit the interior; it shows that one exists, and the hull $K$ shows where the surplus sheet can be put.
+
+\begin{proposition}[Decidability]\label{prop:decid}
+If the $A_i$ are polygons and $\tau|_{A_i}$ are rational affine maps, $(\mathrm L)$ is a first-order sentence over the reals and is decidable by Tarski's quantifier elimination \cite{tarski1951}. When it fails, $\mathcal R_\delta(\tau)=\emptyset$ for all small $\delta$.
+\end{proposition}
+
+The verdict is therefore two-valued in this fragment: either the exterior is realizable to any tolerance, or Lemma~\ref{lem:nec} refutes it. A failure of a general-purpose search to find a folding says nothing about which verdict holds, which is the usual asymmetry between a certificate and the absence of one.
+
+\section{An example}
+
+\begin{example}[Three faces at a corner]\label{ex:corner}
+Fix $g>0$ and let $x,y,z$ range over $[0,1]$. Put
+\[
+A_1=\{(-z-g,\,y)\},\qquad A_2=\{(x,\,-z-g)\},\qquad A_3=[0,1]^2,
+\]
+with $\tau(-z-g,y)=(0,y,z)$, $\tau(x,-z-g)=(x,0,z)$, $\tau(x,y)=(x,y,0)$: three faces of the unit cube meeting at the origin, placed on the sheet with gaps. Each restriction preserves distances. For $p=(-z-g,y_1)\in A_1$ and $q=(x',-z'-g)\in A_2$,
+\[
+|p-q|^2-|\tau p-\tau q|^2=2x'(z+g)+2y_1(z'+g)+2zz'+2g(z+z')+2g^2\ \ge\ 2g^2,
+\]
+and for $p\in A_1$, $q=(x,y)\in A_3$,
+\[
+|p-q|^2-|\tau p-\tau q|^2=2xz+2g(x+z)+g^2\ \ge\ g^2,
+\]
+with the same bound for $A_2$ and $A_3$ by symmetry. So $(\mathrm L)$ holds with strict slack, and by Theorem~\ref{thm:criterion} any sheet containing the three squares can be bent so that they appear as the three faces, to any tolerance, with the rest of the sheet inside the hull of the faces. The squares need not be adjacent on the sheet.
+\end{example}
+
+\section{What the exterior leaves undetermined}
+
+Fix an unmarked point $p_0\in\Sigma\setminus A$. Two regions of space govern where $f(p_0)$ can be. The \emph{open region} and the \emph{closed region} are
+\[
+\Phi(p_0)=\{y:\ |y-\tau(q)|<|p_0-q|\ \ \forall q\in A\},\qquad
+C(p_0)=\{y:\ |y-\tau(q)|\le|p_0-q|\ \ \forall q\in A\}.
+\]
+Clearly $\Phi(p_0)\subseteq C(p_0)$. Both are convex, being intersections of balls. Say that $y$ is \emph{attainable at $p_0$} if for every $\delta>0$ there is a $\delta$-realization $f$ with $|f(p_0)-y|\le\delta$.
+
+\begin{theorem}[Attainable positions]\label{thm:attain}
+Assume $(\mathrm L)$. A point $y$ is attainable at $p_0$ if and only if $y\in C(p_0)$. In particular $C(p_0)$ is nonempty and compact.
+\end{theorem}
+
+\begin{proof}
+Suppose $y\in C(p_0)$. Adjoin the one-point square $\{p_0\}$ to the marking with target value $y$. A single point trivially preserves distances, and $(\mathrm L)$ holds for the enlarged target: pairs in $A$ by hypothesis, pairs $(p_0,q)$ because $y\in C(p_0)$. Theorem~\ref{thm:criterion} gives $\delta$-realizations of the enlarged target for every $\delta$, and these are $\delta$-realizations of $\tau$ with $|f(p_0)-y|\le\delta$. Conversely, if $y$ is attainable, then for each $\delta$ there is $f_\delta$ with $|f_\delta(p_0)-y|\le\delta$, and by Lemma~\ref{lem:nec} applied to the pair $(p_0,q)$ with the path-isometry bound $|f_\delta(p_0)-f_\delta(q)|\le|p_0-q|$ we get $|y-\tau(q)|\le|p_0-q|+2\delta$ for all $q\in A$. Letting $\delta\to0$ gives $y\in C(p_0)$. The set $C(p_0)$ is closed, bounded because $A\neq\emptyset$, and nonempty because attainable points exist (apply the criterion to the unaugmented target and take a cluster point of $f_{1/n}(p_0)$, which lies in each closed set $\{|y-\tau(q)|\le|p_0-q|+2/n\}$).
+\end{proof}
+
+Where $C(p_0)$ is a single point, every approximate realization has the same value there. Where it is larger, the exterior does not determine $f(p_0)$, and by the factorization principle no task that depends on $f(p_0)$ can be served by the exterior alone. The remaining sections ask how large $C(p_0)$ is, in what sense, and how the regions at different points interact.
+
+\section{Slack and robust freedom}
+
+Define the \emph{slack} of a candidate position $y$ at $p_0$ by
+\[
+s(p_0,y)=\min_{q\in A}\bigl(|p_0-q|-|y-\tau(q)|\bigr),
+\]
+the minimum being attained because $A$ is compact. Then $\Phi(p_0)=\{y:s(p_0,y)>0\}$ and $C(p_0)=\{y:s(p_0,y)\ge0\}$.
+
+\begin{proposition}[Slack]\label{prop:slack}
+(a) For fixed $p_0$ the function $y\mapsto s(p_0,y)$ is concave and $1$-Lipschitz. (b) If $s(p_0,y)>0$ then the open ball $B(y,s(p_0,y))$ lies in $\Phi(p_0)$. (c) The supremum $\rho(p_0)=\sup_y s(p_0,y)$ equals the largest radius of a ball contained in $C(p_0)$.
+\end{proposition}
+
+\begin{proof}
+(a) Each map $y\mapsto|p_0-q|-|y-\tau(q)|$ is concave, being a constant minus a norm, and $1$-Lipschitz; a pointwise minimum of concave $1$-Lipschitz functions is concave and $1$-Lipschitz. (b) If $|y'-y|<s=s(p_0,y)$ then for every $q$, $|y'-\tau(q)|<|y-\tau(q)|+s\le|p_0-q|$. (c) If $B(y,r)\subseteq C(p_0)$, then for each $q$ the point $y'=y+t\,e$, where $e$ is the unit vector from $\tau(q)$ to $y$ (any unit vector if $y=\tau(q)$) and $0<t<r$, satisfies $|y'-\tau(q)|=|y-\tau(q)|+t\le|p_0-q|$; letting $t\to r$ gives $s(p_0,y)\ge r$. Conversely (b) shows that $B(y,s(p_0,y))\subseteq\Phi(p_0)\subseteq C(p_0)$.
+\end{proof}
+
+The number $\rho(p_0)$ is a quantitative measure of what the exterior leaves undetermined at $p_0$: it is the radius of the largest ball of positions, each of which survives any perturbation of the target by less than the ball's radius in the sense of (b). It separates mere nonuniqueness, which only needs $C(p_0)$ to have two points, from robust nonuniqueness, which needs $\rho(p_0)>0$.
+
+\section{Degrees of determination}
+
+It is natural to ask whether $C(p_0)$ can have intermediate dimension, a segment or a patch of surface, between a single forced point and a full region. For this problem it cannot.
+
+\begin{theorem}[Dichotomy]\label{thm:dichotomy}
+Assume $(\mathrm L)$. Then $C(p_0)$ is either a single point or has nonempty interior; equivalently, $\dim_{\mathrm{aff}}C(p_0)\in\{0,3\}$. In the second case $\Phi(p_0)=\operatorname{int}C(p_0)\neq\emptyset$.
+\end{theorem}
+
+\begin{proof}
+Let $y_1\ne y_2$ lie in $C(p_0)$ and let $m$ be their midpoint. Fix $q\in A$ and put $a_i=y_i-\tau(q)$, so that $|a_i|\le|p_0-q|$ and $m-\tau(q)=(a_1+a_2)/2$. By the triangle inequality $|m-\tau(q)|\le(|a_1|+|a_2|)/2$. If this is an equality then $a_1,a_2$ are nonnegative multiples of one vector; since $a_1\ne a_2$, the norms $|a_1|,|a_2|$ differ, so their average is strictly less than $\max_i|a_i|\le|p_0-q|$. If it is a strict inequality then again $|m-\tau(q)|<(|a_1|+|a_2|)/2\le|p_0-q|$. In either case $|m-\tau(q)|<|p_0-q|$. This holds for every $q\in A$, so $m\in\Phi(p_0)$, and $\Phi(p_0)$ is open (Proposition~\ref{prop:slack}) and nonempty. Hence $C(p_0)\supseteq\Phi(p_0)$ has nonempty interior. For the last claim, if $y\in\operatorname{int}C(p_0)$ then a ball $B(y,\varepsilon)$ lies in every closed ball $\overline B(\tau(q),|p_0-q|)$, which forces $|y-\tau(q)|+\varepsilon\le|p_0-q|$, so $y\in\Phi(p_0)$; the reverse inclusion $\Phi(p_0)\subseteq\operatorname{int}C(p_0)$ holds because $\Phi(p_0)$ is open.
+\end{proof}
+
+The mechanism is the strict convexity of the Euclidean ball: two distinct admissible positions have an admissible midpoint that strictly satisfies every constraint. An exterior therefore either pins a point exactly or leaves it free in a full-dimensional region; there is no partial pinning to a line or surface for a single unmarked point. The dichotomy would fail for sets bounded by non-strictly convex constraints, such as a norm with flat faces.
+
+\begin{example}[A taut pair]\label{ex:taut}
+Let $A_1=\{(0,0)\}$, $A_2=\{(2,0)\}$ in a sheet containing the segment between them, with $\tau(0,0)=(0,0,0)$, $\tau(2,0)=(2,0,0)$. Then $|\tau q_1-\tau q_2|=2=|q_1-q_2|$, so $(\mathrm L)$ holds with equality. For $p_0=(1,0)$, $C(p_0)=\overline B((0,0,0),1)\cap\overline B((2,0,0),1)=\{(1,0,0)\}$: the two balls touch at one point and the value at $p_0$ is forced. For $p_0=(1,\tfrac12)$ the radii are $\sqrt5/2>1$, the balls overlap in a lens, and $\operatorname{int}C(p_0)\ne\emptyset$. A tight pair pins the points between them as a stretched string pins its interior.
+\end{example}
+
+In terms of slack, the dichotomy reads: either $\rho(p_0)=0$ and $C(p_0)$ is a single point, or $\rho(p_0)>0$.
+
+\section{The corner as the gap closes}
+
+Return to Example~\ref{ex:corner} and the gap point $p_0=(-g,-g)$, and let the sheet be the convex hull of $A\cup\{p_0\}$ (of $A\cup\{p_1,p_2\}$ in Proposition~\ref{prop:corr}). The region $C(p_0)$ can be bracketed explicitly for $0<g\le1$.
+
+\begin{theorem}[The corner residue]\label{thm:corner}
+For $0<g\le1$ and $p_0=(-g,-g)$,
+\[
+B\bigl(0,\sqrt{1+g^2}-1\bigr)\ \subseteq\ \Phi(p_0)\ \subseteq\ C(p_0)\ \subseteq\ \overline B(0,g).
+\]
+In particular $\operatorname{diam}C(p_0)\le2g\to0$ as $g\to0^+$. When $g=0$ the three squares meet along common edges, the point $p_0=(0,0)$ then lies in the marked set itself, and its position is forced to be the origin of space.
+\end{theorem}
+
+\begin{proof}
+\emph{Outer bound.} The point $q=(-g,0)$ lies in $A_1$ (take $z=0$, $y_1=0$), with $\tau(q)=(0,0,0)$ and $|p_0-q|=g$. Every $y\in C(p_0)$ satisfies $|y|=|y-\tau(q)|\le g$.
+
+\emph{Inner bound.} It suffices to show $s(p_0,0)\ge\sqrt{1+g^2}-1$, since then Proposition~\ref{prop:slack}(b) gives the ball. For $q=(-z-g,y_1)\in A_1$,
+\[
+|p_0-q|-|\tau q|=\sqrt{z^2+(g+y_1)^2}-\sqrt{z^2+y_1^2}.
+\]
+For fixed $z$ this is nondecreasing in $y_1$, because $t\mapsto t/\sqrt{z^2+t^2}$ is increasing, so its derivative $(g+y_1)/\sqrt{z^2+(g+y_1)^2}-y_1/\sqrt{z^2+y_1^2}$ is nonnegative. At $y_1=0$ it equals $\sqrt{z^2+g^2}-z=g^2/(\sqrt{z^2+g^2}+z)$, which is decreasing in $z$ and so is at least its value $\sqrt{1+g^2}-1$ at $z=1$. The case of $A_2$ is symmetric. For $q=(x,y)\in A_3$ write $u=(x,y)$, $w=(g,g)$, $t=|u|\in[0,\sqrt2]$. Then
+\[
+|p_0-q|-|\tau q|=|u+w|-|u|=\frac{2u\cdot w+|w|^2}{|u+w|+|u|}\ \ge\ \frac{2gt+2g^2}{2t+\sqrt2\,g},
+\]
+using $u\cdot w=g(x+y)\ge g|u|$ and $|u+w|\le|u|+|w|$. The right side is decreasing in $t$, so it is at least its value at $t=\sqrt2$, namely $g(2+\sqrt2\,g)/(2+g)\ge2g/3$ for $g\le1$. Since $\sqrt{1+g^2}-1\le g^2/2\le g/2<2g/3$, the minimum of the slack over $A$ is $\sqrt{1+g^2}-1$.
+\end{proof}
+
+Thus the room left by the three faces at the gap point is sandwiched between a ball of radius about $g^2/2$ and a ball of radius $g$. A numerical solution of the largest-ball problem on a $41\times41$ grid of marked points per face (computed, not proved; the grid relaxes the constraints, so the figures slightly overestimate) gave inradii of about $0.707,\ 0.309,\ 0.140,\ 0.052$ for $g=1,\tfrac12,\tfrac14,\tfrac1{10}$, consistent with the bracket and with a decay linear in $g$. The same computation confirmed $(\mathrm L)$ on the grid and reproduced $s(p_0,0)=\sqrt{1+g^2}-1$ to five decimals. The qualitative moral is that separation of the marked squares is what keeps the interior free: the gap $g$ is the parameter that interpolates between a forced interior at $g=0$ and a robustly undetermined one for $g>0$.
+
+\section{Joint residue and correlated freedom}
+
+The theorems so far describe each unmarked point separately. For a finite set $P=\{p_1,\dots,p_m\}\subset\Sigma\setminus A$, distinct from each other, define the \emph{joint regions}
+\[
+\Phi(P)=\Bigl\{(y_i)\in(\mathbb R^3)^m:\ |y_i-\tau(q)|<|p_i-q|\ (q\in A),\ \ |y_i-y_j|<|p_i-p_j|\ (i\ne j)\Bigr\},
+\]
+and $C(P)$ with the inequalities nonstrict. Both are convex, and the single-point regions are the case $m=1$.
+
+\begin{theorem}[Joint attainability]\label{thm:joint}
+Assume $(\mathrm L)$. A tuple $(y_i)$ is jointly attainable, meaning that for every $\delta>0$ there is a $\delta$-realization $f$ with $|f(p_i)-y_i|\le\delta$ for all $i$, if and only if $(y_i)\in C(P)$. Moreover $\Phi(P)\subseteq C(P)\subseteq\prod_iC(p_i)$.
+\end{theorem}
+
+\begin{proof}
+If $(y_i)\in C(P)$, adjoin the one-point squares $\{p_i\}$ with targets $y_i$. The enlarged target satisfies $(\mathrm L)$: pairs in $A$ by hypothesis, pairs $(p_i,q)$ and $(p_i,p_j)$ by membership in $C(P)$. Theorem~\ref{thm:criterion} gives the realizations. Conversely, for a $\delta$-realization $f$ with $|f(p_i)-y_i|\le\delta$, Lemma~\ref{lem:nec} applied to all pairs from $A\cup P$ gives the defining inequalities with slack $2\delta$, and letting $\delta\to0$ gives $(y_i)\in C(P)$. The inclusions are immediate from the definitions.
+\end{proof}
+
+The second inclusion in Theorem~\ref{thm:joint} is generally strict, so knowing the marginal regions is not enough to know which tuples can occur together.
+
+\begin{proposition}[Correlation]\label{prop:corr}
+In Example~\ref{ex:corner} with $0<g\le1$ and $r=\sqrt{1+g^2}-1$, take $p_1=(-g,-g)$ and $p_2=p_1+(r/2,0)$. Then $\Phi(\{p_1,p_2\})\subsetneq\Phi(p_1)\times\Phi(p_2)$.
+\end{proposition}
+
+\begin{proof}
+By Theorem~\ref{thm:corner}, $B(0,r)\subseteq\Phi(p_1)$. Since $|p_2-q|\ge|p_1-q|-r/2$ for every $q$, we have $s(p_2,0)\ge s(p_1,0)-r/2\ge r/2$, so $B(0,r/2)\subseteq\Phi(p_2)$. Let $e$ be a unit vector and take $y_1=0.9\,r\,e\in\Phi(p_1)$, $y_2=-0.4\,r\,e\in\Phi(p_2)$. Then $|y_1-y_2|=1.3\,r>r/2=|p_1-p_2|$, so $(y_1,y_2)$ violates the pair inequality and lies outside $\Phi(\{p_1,p_2\})$ while lying in the product.
+\end{proof}
+
+The consequence is that the residue is \emph{correlated}. The exterior may leave each unmarked point individually free in an open region while still constraining the pair: placing one point in the part of its region far from the other's chosen position is impossible when the sheet distance between them is short. In the language of the first section, the task ``report the positions of $p_1$ and $p_2$ together'' is not served by the two single-point regions, even though each marginal is served by the exterior up to its region. A representation that keeps the marginals and discards the joint region has forgotten exactly the correlations.
+
+\section{Scope}
+
+Four limits should be stated. First, the criterion gives realizations only up to a tolerance $\delta$. Exact agreement with $\tau$ on $A$ would require a relative form of the isometric immersion theorem, which is not used; all statements about attainable positions are statements about $\delta$-realizations for every $\delta$, that is, about the closure of the set of exact realizations in a suitable sense. Second, path isometries may self-intersect, so nothing here says that a physical sheet without self-contact can reach the target; the regions $C(p_0)$ and $C(P)$ may overestimate what an embedded sheet can do. Third, Gromov's form of the Nash--Kuiper theorem is cited, and its hypotheses should be checked against the source before the sufficiency half of Theorem~\ref{thm:criterion} is relied on. Fourth, the dichotomy of Theorem~\ref{thm:dichotomy} is a statement about one unmarked point; for several points the joint region $C(P)$ is convex but no dimension statement is made.
+
+What the results do establish is a graded account of what an exterior leaves open. The first question is whether a fibre over the exterior is nonempty, which is the criterion. The second is where an unmarked point can sit, which is the closed region $C(p_0)$. The third is how robustly, which is the slack and its supremum $\rho(p_0)$. The fourth is how much, which is the dichotomy between a forced point and a full region. The fifth is how those regions couple, which is the joint region and its strict inclusion in the product. Any question about the interior on which two members of one fibre disagree is not answerable from the exterior, and the size of the disagreement is measured by these quantities.
+
+\begin{thebibliography}{9}
+\bibitem{eliashbergmishachev2002} Y.~Eliashberg, N.~Mishachev. \emph{Introduction to the $h$-Principle}. American Mathematical Society, 2002.
+\bibitem{kirszbraun1934} M.~D. Kirszbraun. \"{U}ber die zusammenziehende und Lipschitzsche Transformationen. \emph{Fundamenta Mathematicae} 22 (1934), 77--108.
+\bibitem{kuiper1955} N.~H. Kuiper. On $C^1$-isometric imbeddings I, II. \emph{Indagationes Mathematicae} 17 (1955), 545--556, 683--689.
+\bibitem{nash1954} J.~Nash. $C^1$ isometric imbeddings. \emph{Annals of Mathematics} 60 (1954), 383--396.
+\bibitem{tarski1951} A.~Tarski. \emph{A Decision Method for Elementary Algebra and Geometry}, 2nd ed. University of California Press, 1951.
+\end{thebibliography}
+\end{document}
+

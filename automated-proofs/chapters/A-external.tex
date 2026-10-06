@@ -1,0 +1,32 @@
+\chapter{External Theorems Used}
+\label{app:external}
+
+The following results are used in the text and are stated here as they are used. They are cited, not proved. Entries are in the order of first use. Where the text proves a special case (Newman's lemma, propositional resolution completeness, the Nelson--Oppen counterexample), the proof is in the chapter indicated.
+
+\begin{description}[leftmargin=1.2em,style=nextline]
+\item[A.1 Church and Turing (Chapter~\ref{ch:search}, \ref{ch:inheritance}).] The set of valid first-order sentences over a signature containing a binary relation symbol is recursively enumerable and not decidable \cite{church1936,turing1937}.
+\item[A.2 Compactness (Chapter~\ref{ch:resolution}).] A set of first-order sentences has a model if and only if each finite subset does (G\"odel; Mal'cev).
+\item[A.3 Herbrand's theorem (Chapter~\ref{ch:resolution}).] A set of universal clauses is unsatisfiable if and only if some finite set of its ground instances is propositionally unsatisfiable \cite{herbrand1930}.
+\item[A.4 Lifting lemma (Chapter~\ref{ch:resolution}).] If clauses $C',D'$ are ground instances of $C,D$ by a common substitution and $E'$ is a resolvent of $C',D'$, then $C,D$ have a resolvent $E$ (using a most general unifier) of which $E'$ is an instance \cite{robinson1965}.
+\item[A.5 Birkhoff's completeness theorem (Chapter~\ref{ch:rewriting}).] An equation $s\approx t$ holds in all models of an equational theory $E$ if and only if it is derivable from $E$ by the rules of equational logic \cite{birkhoff1935}.
+\item[A.6 Knuth--Bendix completion (Chapter~\ref{ch:rewriting}).] Given a finite set of equations and a reduction order, a fair run of the completion procedure that does not fail on an unorientable equation produces a convergent rewrite system generating the same equational theory \cite{knuthbendix1970,huet1981,bdh1986}.
+\item[A.7 Tseitin transformation (Chapter~\ref{ch:inheritance}).] Every propositional formula has an equisatisfiable clause form of size linear in the formula, over extra variables \cite{tseitin1968}.
+\item[A.8 Cook--Reckhow (Chapter~\ref{ch:certificates}).] There exists a propositional proof system in which every tautology has a proof of polynomial size if and only if $\mathrm{NP}=\mathrm{coNP}$ \cite{cookreckhow1979}.
+\item[A.9 Haken (Chapter~\ref{ch:sat}, \ref{ch:certificates}).] Resolution refutations of the clause sets expressing the pigeonhole principle have size exponential in the number of pigeons \cite{haken1985}.
+\item[A.10 CDCL and resolution (Chapter~\ref{ch:sat}).] Conflict-driven clause learning with nondeterministic decisions and restarts polynomially simulates general resolution \cite{pd2011,aft2011}.
+\item[A.11 Nelson--Oppen (Chapter~\ref{ch:smt}).] For quantifier-free theories over disjoint signatures that are stably infinite, satisfiability of the combination is decidable whenever it is for each component, by exchanging equalities between shared variables \cite{nelsonoppen1979,tinelliharandi1996}.
+\item[A.12 DPLL$(T)$ (Chapter~\ref{ch:smt}).] The abstract lazy architecture is sound and complete relative to a theory solver that returns theory lemmas \cite{not2006}.
+\item[A.13 Farkas' lemma (Chapter~\ref{ch:smt}, \ref{ch:history-repair}).] The system $Ax\le b$ has no real solution if and only if there is $y\ge0$ with $y^{\top}A=0$ and $y^{\top}b<0$ \cite{farkas1902,schrijver1986}.
+\item[A.14 Minkowski--Weyl (Chapter~\ref{ch:history-repair}).] A convex cone is polyhedral (defined by finitely many linear inequalities) if and only if it is finitely generated \cite{schrijver1986}.
+\item[A.15 Separation of convex sets (Chapter~\ref{ch:history-repair}).] Two disjoint nonempty convex subsets of $\mathbb R^m$, one of them open, are separated by a hyperplane: there are $\lambda\ne0$ and $\alpha$ with $\lambda^{\top}x\le\alpha\le\lambda^{\top}y$ for $x$ in the first set and $y$ in the second \cite{rockafellar1970}.
+\item[A.16 Rice's theorem (Chapter~\ref{ch:inheritance}).] Every nontrivial extensional property of partial computable functions, given by programs, is undecidable \cite{rogers1967}.
+\item[A.17 Cook's theorem (Chapter~\ref{ch:redundancy}).] Propositional satisfiability is NP-complete, so propositional entailment is coNP-complete \cite{cook1971}.
+\item[A.18 Data-processing inequality (Chapter~\ref{ch:sufficiency}).] For a Markov chain $X\to Y\to Z$, $I(X;Z)\le I(X;Y)$ \cite{coverthomas2006}.
+\item[A.19 Buckingham $\pi$ theorem (Chapter~\ref{ch:obligations}).] A physically meaningful relation among $n$ quantities expressed in $k$ independent dimensions can be rewritten as a relation among $n-k$ dimensionless products \cite{buckingham1914}.
+\item[A.20 Inverse function theorem (Chapter~\ref{ch:correspondence}).] If a $C^1$ map has invertible derivative at a point, it is a $C^1$ diffeomorphism between neighbourhoods of the point and its image \cite{rudin1976}.
+\item[A.21 Hadamard--Caccioppoli (Chapter~\ref{ch:correspondence}).] A $C^1$ map $\mathbb R^n\to\mathbb R^n$ with everywhere invertible derivative that is proper is a $C^1$ diffeomorphism onto $\mathbb R^n$ \cite{hadamard1906,caccioppoli1932,krantzparks2013}.
+\item[A.22 Model-based completeness of saturation (Chapter~\ref{ch:redundancy}, remark).] For ordered resolution with redundancy, saturated unsatisfiable clause sets contain the empty clause \cite{bachmairganzinger1994}.
+\item[A.23 Kirszbraun's extension theorem (Chapter~\ref{ch:sufficiency}).] A $1$-Lipschitz map from a subset of a Euclidean space into a Euclidean space extends to a $1$-Lipschitz map on the whole space \cite{kirszbraun1934}.
+\item[A.24 Nash--Kuiper, in Gromov's form (Chapter~\ref{ch:sufficiency}).] Let $(V,g)$ be a compact Riemannian manifold with boundary of dimension $n$ and $q>n$. Every smooth strictly short map $V\to\mathbb R^q$ (one whose pullback of the Euclidean metric is smaller than $g$) is uniformly approximable by $C^1$ isometric immersions \cite{nash1954,kuiper1955,eliashbergmishachev2002}.
+\item[A.25 Tarski's quantifier elimination (Chapter~\ref{ch:sufficiency}).] The first-order theory of real closed fields is decidable \cite{tarski1951}.
+\end{description}

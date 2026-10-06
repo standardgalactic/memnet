@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Memnet Flashcards</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #ffffff;
+    --line: #d0d7de;
+    --text: #1f2328;
+    --muted: #656d76;
+    --btn-bg: #f6f8fa;
+    --btn-hover: #eaeef2;
+    --green: #1a7f37;
+    --green-soft: #dafbe1;
+    --amber: #9a6700;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --panel: #0d1117;
+      --line: #30363d;
+      --text: #e6edf3;
+      --muted: #8d96a0;
+      --btn-bg: #21262d;
+      --btn-hover: #30363d;
+      --green: #3fb950;
+      --green-soft: #12261e;
+      --amber: #d29922;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  header h1 { font-size: 24px; margin: 0 0 4px; font-weight: 600; }
+  header p { margin: 0 0 20px; color: var(--muted); }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .tabs { display: flex; gap: 4px; }
+  .tab {
+    border: 1px solid var(--line); background: var(--btn-bg); color: var(--text);
+    padding: 4px 12px; border-radius: 6px; cursor: pointer; font: inherit;
+  }
+  .tab[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .progress { color: var(--muted); font-size: 13px; }
+  .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin-bottom: 16px; }
+  .bar > div { height: 100%; width: 0; background: var(--green); transition: width .25s; }
+
+  ul { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  li {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 16px; background: var(--panel);
+    border-top: 1px solid var(--line);
+  }
+  li:first-child { border-top: 0; }
+  .info { flex: 1; min-width: 0; }
+  .word { font-size: 16px; font-weight: 600; color: var(--text); }
+  .pos { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 6px; font-style: italic; }
+  .desc { color: var(--muted); margin-top: 2px; }
+  li.known .word { color: var(--green); }
+
+  .toggle {
+    flex: none; min-width: 112px; text-align: center;
+    border: 1px solid var(--line); background: var(--btn-bg); color: var(--text);
+    padding: 7px 16px; min-height: 36px; border-radius: 6px; font: inherit; font-weight: 500; cursor: pointer;
+  }
+  @media (hover: hover) { .toggle:hover { background: var(--btn-hover); } }
+  /* Following-style state: shows "Known", swaps to "Still learning" on hover */
+  .toggle.on { background: var(--green-soft); border-color: var(--green); color: var(--green); }
+  .toggle.on .hover-label { display: none; }
+  @media (hover: hover) {
+    .toggle.on:hover .label { display: none; }
+    .toggle.on:hover .hover-label { display: inline; }
+    .toggle.on:hover { color: var(--amber); border-color: var(--amber); background: var(--btn-bg); }
+  }
+  .toggle:not(.on) .hover-label { display: none; }
+
+  .decks { display: flex; gap: 8px; border-bottom: 1px solid var(--line); margin-bottom: 16px; overflow-x: auto; }
+  .deck {
+    background: none; border: 0; border-bottom: 2px solid transparent;
+    color: var(--muted); padding: 8px 12px; font: inherit; cursor: pointer; white-space: nowrap;
+  }
+  .deck:hover { color: var(--text); }
+  .deck[aria-current="true"] { color: var(--text); border-bottom-color: #fd8c73; font-weight: 600; }
+  .deck .n {
+    margin-left: 6px; background: var(--btn-bg); border: 1px solid var(--line);
+    border-radius: 10px; padding: 0 7px; font-size: 12px; font-weight: 400; color: var(--muted);
+  }
+  ul[data-deck="vim"] .word, ul[data-deck="python"] .word {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 15px;
+  }
+  .search {
+    width: 100%; padding: 7px 12px; margin-bottom: 8px; font: inherit;
+    color: var(--text); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 6px;
+  }
+  .search::placeholder { color: var(--muted); }
+  .hint { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+  .options { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 0 0 14px; }
+  .check { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); cursor: pointer; }
+  .reveal {
+    background: none; border: 1px dashed var(--line); color: var(--muted);
+    font: inherit; font-size: 13px; padding: 2px 10px; margin-top: 4px;
+    border-radius: 6px; cursor: pointer;
+  }
+  .reveal:hover { color: var(--text); border-color: var(--muted); }
+  .reveal:focus-visible, .check input:focus-visible { outline: 2px solid #388bfd; outline-offset: 2px; }
+  kbd {
+    font: 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--btn-bg); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  .notice {
+    border: 1px solid var(--amber); color: var(--amber);
+    border-radius: 6px; padding: 8px 12px; margin-bottom: 12px;
+  }
+  .notice[hidden], .toast[hidden], .toast button[hidden] { display: none; }
+  .toast {
+    position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%);
+    display: flex; gap: 12px; align-items: center; z-index: 10;
+    background: var(--text); color: var(--bg);
+    padding: 10px 14px; border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.25); max-width: calc(100% - 32px);
+  }
+  .toast button {
+    background: none; border: 0; color: inherit; font: inherit;
+    font-weight: 600; text-decoration: underline; cursor: pointer; padding: 4px;
+  }
+  li.sel { outline: 2px solid #388bfd; outline-offset: -2px; }
+  .toggle:focus-visible, .deck:focus-visible, .tab:focus-visible,
+  .reset:focus-visible, .toast button:focus-visible, .search:focus-visible {
+    outline: 2px solid #388bfd; outline-offset: 2px;
+  }
+  @media (hover: none) { .hint { display: none; } }
+  @media (max-width: 560px) {
+    main { padding: 20px 12px 64px; }
+    li { gap: 12px; padding: 12px; }
+    .toggle { min-width: 92px; padding: 7px 10px; min-height: 40px; }
+  }
+  .empty { padding: 32px; text-align: center; color: var(--muted); }
+  .reset { background: none; border: 0; color: var(--muted); cursor: pointer; font: inherit; text-decoration: underline; padding: 6px 8px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Memnet Flashcards</h1>
+    <p>Pick a deck and mark cards as known. Click again to send one back to learning.</p>
+  </header>
+
+  <div class="decks" id="decks"></div>
+
+  <div class="notice" id="notice" role="alert" hidden>
+    Progress can't be saved in this browser, so it will last only until you close this page.
+  </div>
+
+  <input class="search" id="q" type="search" placeholder="Search terms, descriptions, categories" aria-label="Search cards" autocomplete="off">
+  <p class="hint"><kbd>/</kbd> search &middot; <kbd>j</kbd> <kbd>k</kbd> move &middot; <kbd>Space</kbd> toggle &middot; <kbd>r</kbd> reveal &middot; <kbd>Esc</kbd> clear</p>
+  <div class="options">
+    <label class="check"><input type="checkbox" id="hideDefs"> Hide definitions</label>
+    <label class="check"><input type="checkbox" id="shuffle"> Shuffle</label>
+  </div>
+
+  <div class="toolbar">
+    <div class="tabs" id="tabs">
+      <button class="tab" data-filter="all" aria-pressed="true">All</button>
+      <button class="tab" data-filter="learning" aria-pressed="false">Still learning</button>
+      <button class="tab" data-filter="known" aria-pressed="false">Known</button>
+    </div>
+    <div class="progress"><span id="count"></span> <button class="reset" id="reset">reset</button></div>
+  </div>
+  <div class="bar"><div id="fill"></div></div>
+
+  <ul id="list"></ul>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toastMsg"></span>
+    <button type="button" id="toastUndo">Undo</button>
+  </div>
+</main>
+
+<script>
+  // Edit these lists to change the cards. Progress is saved in this browser.
+  const VOCAB = [
+    { w: "ephemeral",   p: "adj.", d: "Lasting for a very short time." },
+    { w: "ubiquitous",  p: "adj.", d: "Present or found everywhere at once." },
+    { w: "sanguine",    p: "adj.", d: "Optimistic, especially in a difficult situation." },
+    { w: "perfunctory", p: "adj.", d: "Done with minimal effort, as a routine duty." },
+    { w: "obfuscate",   p: "verb", d: "To make something unclear or hard to understand." },
+    { w: "laconic",     p: "adj.", d: "Using very few words." },
+    { w: "recalcitrant",p: "adj.", d: "Stubbornly resisting authority or control." },
+    { w: "equanimity",  p: "noun", d: "Mental calmness and composure under stress." },
+    { w: "pernicious",  p: "adj.", d: "Having a harmful effect, often in a gradual way." },
+    { w: "sycophant",   p: "noun", d: "A person who flatters someone powerful to gain advantage." },
+    { w: "ineffable",   p: "adj.", d: "Too great or deep to be expressed in words." },
+    { w: "mercurial",   p: "adj.", d: "Subject to sudden, unpredictable changes of mood." },
+    { w: "ameliorate",  p: "verb", d: "To make a bad situation better or more tolerable." },
+    { w: "anachronism", p: "noun", d: "Something placed in the wrong historical period." },
+    { w: "apocryphal",  p: "adj.", d: "Of doubtful authenticity, though widely circulated as true." },
+    { w: "assiduous",   p: "adj.", d: "Showing great care and persistent effort." },
+    { w: "austere",     p: "adj.", d: "Severely plain, with no luxury or ornament." },
+    { w: "benevolent",  p: "adj.", d: "Well-meaning and kindly toward others." },
+    { w: "bombastic",   p: "adj.", d: "High-sounding but with little real meaning." },
+    { w: "capricious",  p: "adj.", d: "Given to sudden changes of mind or behavior without reason." },
+    { w: "circumspect", p: "adj.", d: "Cautious and careful to consider consequences." },
+    { w: "clandestine", p: "adj.", d: "Kept secret, especially because it is improper or illicit." },
+    { w: "cogent",      p: "adj.", d: "Clear, logical, and convincing." },
+    { w: "conflate",    p: "verb", d: "To merge two or more distinct things into one." },
+    { w: "copious",     p: "adj.", d: "Abundant in supply or quantity." },
+    { w: "corroborate", p: "verb", d: "To confirm or support a claim with additional evidence." },
+    { w: "cursory",     p: "adj.", d: "Hasty and therefore not thorough." },
+    { w: "debacle",     p: "noun", d: "A sudden and complete failure." },
+    { w: "deference",   p: "noun", d: "Respectful submission to the judgment of another." },
+    { w: "diffident",   p: "adj.", d: "Modest or shy because of a lack of self-confidence." },
+    { w: "dogmatic",    p: "adj.", d: "Asserting opinions as undeniable truth." },
+    { w: "ebullient",   p: "adj.", d: "Overflowing with enthusiasm and energy." },
+    { w: "eclectic",    p: "adj.", d: "Drawing from a wide range of sources or styles." },
+    { w: "efficacy",    p: "noun", d: "The ability to produce a desired result." },
+    { w: "enervate",    p: "verb", d: "To drain of energy or vitality." },
+    { w: "esoteric",    p: "adj.", d: "Understood by only a small number of specialists." },
+    { w: "fastidious",  p: "adj.", d: "Very attentive to accuracy and detail." },
+    { w: "fecund",      p: "adj.", d: "Fertile; producing abundant growth or ideas." },
+    { w: "gregarious",  p: "adj.", d: "Fond of company; sociable." },
+    { w: "hegemony",    p: "noun", d: "Dominance of one group or state over others." },
+    { w: "iconoclast",  p: "noun", d: "A person who attacks cherished beliefs or institutions." },
+    { w: "idiosyncratic", p: "adj.", d: "Peculiar to one individual." },
+    { w: "inchoate",    p: "adj.", d: "Just begun and not yet fully formed." },
+    { w: "insouciant",  p: "adj.", d: "Showing a casual lack of concern." },
+    { w: "intransigent",p: "adj.", d: "Unwilling to change one's views or compromise." },
+    { w: "inure",       p: "verb", d: "To accustom to something unpleasant until it is tolerable." },
+    { w: "juxtapose",   p: "verb", d: "To place side by side for contrast or comparison." },
+    { w: "lucid",       p: "adj.", d: "Clearly expressed and easy to understand." },
+    { w: "magnanimous", p: "adj.", d: "Generous and forgiving, especially toward a rival." },
+    { w: "mendacious",  p: "adj.", d: "Not telling the truth; lying." },
+    { w: "obsequious",  p: "adj.", d: "Excessively eager to please or obey." },
+    { w: "obstinate",   p: "adj.", d: "Stubbornly refusing to change one's opinion or course." },
+    { w: "ostensible",  p: "adj.", d: "Apparent or stated, but not necessarily real." },
+    { w: "parsimonious",p: "adj.", d: "Extremely unwilling to spend money or use resources." },
+    { w: "pellucid",    p: "adj.", d: "Transparently clear in expression or appearance." },
+    { w: "penchant",    p: "noun", d: "A strong and habitual liking for something." },
+    { w: "perspicacious", p: "adj.", d: "Having keen insight; quick to understand." },
+    { w: "pragmatic",   p: "adj.", d: "Dealing with things sensibly and practically." },
+    { w: "propitious",  p: "adj.", d: "Giving or indicating a good chance of success." },
+    { w: "prosaic",     p: "adj.", d: "Ordinary and lacking imagination." },
+    { w: "quixotic",    p: "adj.", d: "Idealistic to an impractical degree." },
+    { w: "reticent",    p: "adj.", d: "Not revealing thoughts or feelings readily." },
+    { w: "sagacious",   p: "adj.", d: "Having sound judgment and good sense." },
+    { w: "sardonic",    p: "adj.", d: "Grimly mocking or cynical." },
+    { w: "taciturn",    p: "adj.", d: "Habitually silent or reserved in speech." },
+    { w: "tenacious",   p: "adj.", d: "Holding firmly to a purpose or position." },
+    { w: "truculent",   p: "adj.", d: "Eager or quick to argue or fight." },
+    { w: "venerable",   p: "adj.", d: "Deserving respect because of age or wisdom." },
+    { w: "verbose",     p: "adj.", d: "Using more words than necessary." },
+    { w: "vicissitude", p: "noun", d: "A change of circumstances, often unwelcome." },
+    { w: "vituperate",  p: "verb", d: "To blame or insult in strong, abusive language." },
+    { w: "zealous",     p: "adj.", d: "Filled with intense devotion to a cause." }
+  ];
+
+  const VIM = [
+    { w: "h j k l", p: "motion", d: "Move left, down, up, right." },
+    { w: "w", p: "motion", d: "Jump to the start of the next word." },
+    { w: "b", p: "motion", d: "Jump to the start of the previous word." },
+    { w: "e", p: "motion", d: "Jump to the end of the current or next word." },
+    { w: "0", p: "motion", d: "Jump to the first column of the line." },
+    { w: "^", p: "motion", d: "Jump to the first non-blank character of the line." },
+    { w: "$", p: "motion", d: "Jump to the end of the line." },
+    { w: "gg", p: "motion", d: "Jump to the first line of the file." },
+    { w: "G", p: "motion", d: "Jump to the last line of the file." },
+    { w: "%", p: "motion", d: "Jump to the matching bracket, brace, or parenthesis." },
+    { w: "f{char}", p: "motion", d: "Jump forward to the next occurrence of char on the line." },
+    { w: "t{char}", p: "motion", d: "Jump forward to just before the next occurrence of char on the line." },
+    { w: ";", p: "motion", d: "Repeat the last f, F, t, or T motion." },
+    { w: "{ }", p: "motion", d: "Move to the previous or next blank line (paragraph boundary)." },
+    { w: "Ctrl-d / Ctrl-u", p: "scroll", d: "Scroll half a page down or up." },
+    { w: "zz", p: "scroll", d: "Center the screen on the cursor line." },
+    { w: "i", p: "insert", d: "Enter insert mode before the cursor." },
+    { w: "a", p: "insert", d: "Enter insert mode after the cursor." },
+    { w: "I", p: "insert", d: "Enter insert mode at the first non-blank character of the line." },
+    { w: "A", p: "insert", d: "Enter insert mode at the end of the line." },
+    { w: "o", p: "insert", d: "Open a new line below and enter insert mode." },
+    { w: "O", p: "insert", d: "Open a new line above and enter insert mode." },
+    { w: "x", p: "edit", d: "Delete the character under the cursor." },
+    { w: "dd", p: "edit", d: "Delete the current line." },
+    { w: "yy", p: "edit", d: "Yank (copy) the current line." },
+    { w: "p", p: "edit", d: "Paste after the cursor or below the current line." },
+    { w: "u", p: "edit", d: "Undo the last change." },
+    { w: "Ctrl-r", p: "edit", d: "Redo the last undone change." },
+    { w: ".", p: "edit", d: "Repeat the last change." },
+    { w: "ciw", p: "edit", d: "Change inner word: delete the word under the cursor and enter insert mode." },
+    { w: 'ci"', p: "edit", d: "Change the text inside the surrounding double quotes." },
+    { w: "dap", p: "edit", d: "Delete a paragraph, including the blank line after it." },
+    { w: ">>", p: "edit", d: "Indent the current line." },
+    { w: "~", p: "edit", d: "Toggle the case of the character under the cursor." },
+    { w: "v", p: "visual", d: "Start character-wise visual selection." },
+    { w: "V", p: "visual", d: "Start line-wise visual selection." },
+    { w: "Ctrl-v", p: "visual", d: "Start block-wise visual selection." },
+    { w: "/pattern", p: "search", d: "Search forward for pattern." },
+    { w: "n", p: "search", d: "Jump to the next search match." },
+    { w: "*", p: "search", d: "Search forward for the word under the cursor." },
+    { w: ":%s/a/b/g", p: "command", d: "Replace every a with b in the whole file." },
+    { w: ":w", p: "command", d: "Write (save) the file." },
+    { w: ":wq", p: "command", d: "Save the file and quit." },
+    { w: ":q!", p: "command", d: "Quit without saving." },
+    { w: "qa", p: "macro", d: "Start recording a macro into register a (press q again to stop)." },
+    { w: "@a", p: "macro", d: "Play back the macro stored in register a." }
+  ];
+
+  const PYTHON = [
+    { w: "enumerate()", p: "builtin", d: "Loop over a sequence while also getting an index." },
+    { w: "zip()", p: "builtin", d: "Pair up items from several iterables." },
+    { w: "sorted()", p: "builtin", d: "Return a new sorted list from any iterable." },
+    { w: "reversed()", p: "builtin", d: "Return an iterator that walks a sequence backwards." },
+    { w: "any() / all()", p: "builtin", d: "True if at least one item is truthy / if every item is truthy." },
+    { w: "map()", p: "builtin", d: "Apply a function to each item of an iterable, lazily." },
+    { w: "filter()", p: "builtin", d: "Keep only the items for which a function returns true." },
+    { w: "range()", p: "builtin", d: "An immutable sequence of integers, usually used in for loops." },
+    { w: "isinstance()", p: "builtin", d: "Check whether an object is an instance of a class." },
+    { w: "list comprehension", p: "syntax", d: "[x * 2 for x in xs if x > 0] builds a list in one expression." },
+    { w: "dict comprehension", p: "syntax", d: "{k: v for k, v in pairs} builds a dict in one expression." },
+    { w: "generator expression", p: "syntax", d: "Like a list comprehension in parentheses, but produces items lazily." },
+    { w: "lambda", p: "syntax", d: "A small anonymous function limited to a single expression." },
+    { w: "f-string", p: "syntax", d: "A string prefixed with f that embeds expressions in braces." },
+    { w: "with", p: "syntax", d: "Run a block inside a context manager so cleanup is guaranteed." },
+    { w: "*args", p: "syntax", d: "Collect extra positional arguments into a tuple." },
+    { w: "**kwargs", p: "syntax", d: "Collect extra keyword arguments into a dict." },
+    { w: "slicing", p: "syntax", d: "seq[start:stop:step] takes a part of a sequence." },
+    { w: "unpacking", p: "syntax", d: "Assign items to several names at once, as in a, b = pair." },
+    { w: "walrus operator", p: "syntax", d: ":= assigns a value to a name inside an expression." },
+    { w: "decorator", p: "concept", d: "A function that wraps another function to change its behavior, applied with @." },
+    { w: "generator", p: "concept", d: "A function that uses yield to produce values one at a time." },
+    { w: "iterator", p: "concept", d: "An object whose __next__ returns items until it raises StopIteration." },
+    { w: "context manager", p: "concept", d: "An object with __enter__ and __exit__ methods, used with the with statement." },
+    { w: "is vs ==", p: "concept", d: "is tests whether two names point to the same object; == tests equal values." },
+    { w: "mutable default argument", p: "gotcha", d: "A default list or dict is created once at definition time and shared across calls." },
+    { w: "__init__", p: "dunder", d: "The method that initializes a new instance of a class." },
+    { w: "__repr__", p: "dunder", d: "Returns an unambiguous string for an object, mainly for debugging." },
+    { w: "@property", p: "decorator", d: "Expose a method as a read-only attribute." },
+    { w: "@dataclass", p: "decorator", d: "Auto-generate __init__, __repr__, and comparisons for a class." },
+    { w: "defaultdict", p: "collections", d: "A dict that creates a default value for missing keys." },
+    { w: "Counter", p: "collections", d: "A dict subclass for counting hashable items." },
+    { w: "deque", p: "collections", d: "A double-ended queue with fast appends and pops at both ends." },
+    { w: "pathlib.Path", p: "stdlib", d: "Object-oriented file system paths." },
+    { w: "itertools.chain", p: "stdlib", d: "Iterate over several iterables as if they were one." },
+    { w: "functools.lru_cache", p: "stdlib", d: "Memoize a function so repeated calls with the same arguments are cached." },
+    { w: "try / except", p: "control", d: "Catch and handle exceptions raised in a block of code." },
+    { w: 'if __name__ == "__main__"', p: "idiom", d: "Run code only when the file is executed directly, not when imported." },
+    { w: "venv", p: "tooling", d: "An isolated environment with its own packages, created with python -m venv." }
+  ];
+
+  const DECKS = {
+    vocab:  { name: "Vocabulary", items: VOCAB },
+    vim:    { name: "Vim",        items: VIM },
+    python: { name: "Python",     items: PYTHON }
+  };
+  let deck = "vocab";
+
+  const KEY = "wordlist-known-v1";
+
+  function probeStorage() {
+    try {
+      localStorage.setItem("wordlist-probe", "1");
+      localStorage.removeItem("wordlist-probe");
+      return true;
+    } catch (e) { return false; }
+  }
+  let storageOk = probeStorage();
+
+  let known = new Set();
+  try {
+    const stored = localStorage.getItem(KEY);
+    if (stored) {
+      const raw = JSON.parse(stored);
+      if (Array.isArray(raw)) {
+        // Older saves had bare words (all vocabulary); give them the vocab prefix.
+        known = new Set(raw
+          .filter(k => typeof k === "string")
+          .map(k => k.includes(":") ? k : "vocab:" + k));
+      }
+    }
+  } catch (e) { /* malformed saved data is ignored */ }
+
+  let filter = "all";
+  let query = "";
+  let selectedKey = null;
+  let hideDefs = false;
+  let shuffled = false;
+  const revealed = new Set();
+  const ranks = {};
+
+  function makeOrder() {
+    Object.keys(DECKS).forEach(id => {
+      const idx = DECKS[id].items.map((_, i) => i);
+      for (let i = idx.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [idx[i], idx[j]] = [idx[j], idx[i]];
+      }
+      const m = new Map();
+      idx.forEach((original, rank) => m.set(DECKS[id].items[original].w, rank));
+      ranks[id] = m;
+    });
+  }
+
+  const list = document.getElementById("list");
+  const count = document.getElementById("count");
+  const fill = document.getElementById("fill");
+  const q = document.getElementById("q");
+  const notice = document.getElementById("notice");
+  const toast = document.getElementById("toast");
+  const toastMsg = document.getElementById("toastMsg");
+  const toastUndo = document.getElementById("toastUndo");
+
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify([...known]));
+      storageOk = true;
+    } catch (e) { storageOk = false; }
+    notice.hidden = storageOk;
+  }
+
+  function keyOf(item) { return deck + ":" + item.w; }
+
+  function matches(item) {
+    const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if (!terms.length) return true;
+    const hay = (item.w + " " + item.d + " " + item.p).toLowerCase();
+    return terms.every(t => hay.includes(t));
+  }
+
+  function visible() {
+    const items = DECKS[deck].items.filter(item => {
+      const isKnown = known.has(keyOf(item));
+      if (filter === "known" && !isKnown) return false;
+      if (filter === "learning" && isKnown) return false;
+      return matches(item);
+    });
+    if (shuffled && ranks[deck]) items.sort((a, b) => ranks[deck].get(a.w) - ranks[deck].get(b.w));
+    return items;
+  }
+
+  // Toast with optional undo
+  let toastTimer = null;
+  let currentUndo = null;
+  function hideToast() {
+    toast.hidden = true;
+    currentUndo = null;
+    clearTimeout(toastTimer);
+  }
+  function showToast(msg, undo) {
+    toastMsg.textContent = msg;
+    currentUndo = undo || null;
+    toastUndo.hidden = !undo;
+    toast.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(hideToast, 7000);
+  }
+  toastUndo.addEventListener("click", () => {
+    const fn = currentUndo;
+    hideToast();
+    if (fn) fn();
+  });
+
+  // Decks: built once so their buttons keep focus across updates
+  const deckButtons = {};
+  Object.keys(DECKS).forEach(id => {
+    const b = document.createElement("button");
+    b.className = "deck";
+    b.append(DECKS[id].name);
+    const n = document.createElement("span");
+    n.className = "n";
+    b.appendChild(n);
+    b.addEventListener("click", () => { deck = id; selectedKey = null; render(); });
+    document.getElementById("decks").appendChild(b);
+    deckButtons[id] = { b, n };
+  });
+
+  function updateDecks() {
+    Object.keys(DECKS).forEach(id => {
+      const total = DECKS[id].items.length;
+      const done = DECKS[id].items.filter(i => known.has(id + ":" + i.w)).length;
+      deckButtons[id].n.textContent = done + "/" + total;
+      deckButtons[id].b.setAttribute("aria-current", id === deck ? "true" : "false");
+    });
+  }
+
+  function render(opts) {
+    opts = opts || {};
+    const hadListFocus = list.contains(document.activeElement);
+    const vis = visible();
+
+    // If the selected card left the view, move the selection to its neighbour
+    if (selectedKey && !vis.some(i => keyOf(i) === selectedKey)) {
+      selectedKey = (opts.fromIndex != null && vis.length)
+        ? keyOf(vis[Math.min(opts.fromIndex, vis.length - 1)])
+        : null;
+    }
+
+    list.innerHTML = "";
+    list.dataset.deck = deck;
+
+    vis.forEach(item => {
+      const key = keyOf(item);
+      const isKnown = known.has(key);
+
+      const li = document.createElement("li");
+      li.dataset.key = key;
+      if (isKnown) li.classList.add("known");
+      if (key === selectedKey) li.classList.add("sel");
+
+      const info = document.createElement("div");
+      info.className = "info";
+      const word = document.createElement("div");
+      word.className = "word";
+      word.textContent = item.w;
+      const pos = document.createElement("span");
+      pos.className = "pos";
+      pos.textContent = item.p;
+      word.appendChild(pos);
+      info.append(word);
+      if (hideDefs && !revealed.has(key)) {
+        const r = document.createElement("button");
+        r.type = "button";
+        r.className = "reveal";
+        r.textContent = "Show definition";
+        r.setAttribute("aria-label", "Show definition of " + item.w);
+        r.addEventListener("click", () => { revealed.add(key); selectedKey = key; render({ focus: true }); });
+        info.append(r);
+      } else {
+        const desc = document.createElement("div");
+        desc.className = "desc";
+        desc.textContent = item.d;
+        info.append(desc);
+      }
+
+      const btn = document.createElement("button");
+      btn.className = "toggle" + (isKnown ? " on" : "");
+      btn.setAttribute("aria-label",
+        isKnown ? "Mark " + item.w + " as still learning" : "Mark " + item.w + " as known");
+      btn.innerHTML = isKnown
+        ? '<span class="label">Known</span><span class="hover-label">Still learning</span>'
+        : '<span class="label">I know it</span>';
+      btn.addEventListener("click", () => toggle(item));
+
+      li.append(info, btn);
+      list.appendChild(li);
+    });
+
+    if (!vis.length) {
+      const li = document.createElement("li");
+      li.className = "empty";
+      if (query.trim()) {
+        li.textContent = "No matching cards in " + DECKS[deck].name +
+          (filter === "all" ? "." : " for this filter.");
+      } else if (filter === "known") {
+        li.textContent = "Nothing marked as known yet.";
+      } else if (filter === "learning") {
+        li.textContent = "Everything is known. Nice.";
+      } else {
+        li.textContent = "This deck has no cards.";
+      }
+      list.appendChild(li);
+    }
+
+    const items = DECKS[deck].items;
+    const n = items.filter(i => known.has(keyOf(i))).length;
+    count.textContent = n + " of " + items.length + " known" +
+      (vis.length !== items.length ? " \u00b7 " + vis.length + " shown" : "");
+    fill.style.width = (n / items.length * 100) + "%";
+    updateDecks();
+
+    if (hadListFocus || opts.focus) {
+      const b = list.querySelector("li.sel .toggle");
+      if (b) b.focus();
+    }
+  }
+
+  function toggle(item) {
+    const key = keyOf(item);
+    const was = known.has(key);
+    const idx = visible().indexOf(item);
+    if (was) known.delete(key); else known.add(key);
+    save();
+    selectedKey = key;
+    const stillShown = visible().includes(item);
+    render({ fromIndex: idx });
+    if (!stillShown) {
+      showToast('"' + item.w + '" marked ' + (was ? "still learning" : "known") + ".", () => {
+        if (was) known.add(key); else known.delete(key);
+        save();
+        selectedKey = key;
+        render();
+      });
+    }
+  }
+
+  // Keyboard selection
+  function setSelClass() {
+    list.querySelectorAll("li.sel").forEach(li => li.classList.remove("sel"));
+    const li = [...list.children].find(el => el.dataset.key === selectedKey);
+    if (li) li.classList.add("sel");
+    return li;
+  }
+
+  function move(delta) {
+    const vis = visible();
+    if (!vis.length) return;
+    let i = vis.findIndex(it => keyOf(it) === selectedKey);
+    if (i === -1) i = delta > 0 ? 0 : vis.length - 1;
+    else i = Math.max(0, Math.min(vis.length - 1, i + delta));
+    selectedKey = keyOf(vis[i]);
+    const li = setSelClass();
+    if (li) li.querySelector(".toggle").focus();
+  }
+
+  list.addEventListener("focusin", e => {
+    const li = e.target.closest("li[data-key]");
+    if (li && li.dataset.key !== selectedKey) {
+      selectedKey = li.dataset.key;
+      setSelClass();
+    }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const t = e.target;
+    const typing = t.matches && t.matches("input:not([type=checkbox]), textarea, select, [contenteditable]");
+    if (typing) {
+      if (e.key === "Escape" && t === q) {
+        if (q.value) { q.value = ""; query = ""; render(); }
+        else q.blur();
+      }
+      return;
+    }
+    if (e.key === "/") { e.preventDefault(); q.focus(); q.select(); }
+    else if (e.key === "j") { move(1); }
+    else if (e.key === "k") { move(-1); }
+    else if (e.key === "u" && !toast.hidden && currentUndo) {
+      const fn = currentUndo;
+      hideToast();
+      fn();
+    }
+    else if (e.key === "r") {
+      if (hideDefs && selectedKey && !revealed.has(selectedKey)) {
+        revealed.add(selectedKey);
+        render({ focus: true });
+      }
+    }
+    else if (e.key === " " && t.tagName !== "BUTTON" && t.tagName !== "A" && t.tagName !== "INPUT") {
+      const item = visible().find(it => keyOf(it) === selectedKey);
+      if (item) { e.preventDefault(); toggle(item); }
+    }
+  });
+
+  q.addEventListener("input", () => { query = q.value; render(); });
+
+  document.getElementById("tabs").addEventListener("click", e => {
+    const t = e.target.closest(".tab");
+    if (!t) return;
+    filter = t.dataset.filter;
+    document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-pressed", b === t));
+    render();
+  });
+
+  document.getElementById("reset").addEventListener("click", () => {
+    const removed = [...known].filter(k => k.startsWith(deck + ":"));
+    if (!removed.length) { showToast("Nothing to reset in " + DECKS[deck].name + "."); return; }
+    removed.forEach(k => known.delete(k));
+    save();
+    selectedKey = null;
+    render();
+    showToast("Progress reset for " + DECKS[deck].name + ".", () => {
+      removed.forEach(k => known.add(k));
+      save();
+      render();
+    });
+  });
+
+  document.getElementById("hideDefs").addEventListener("change", e => {
+    hideDefs = e.target.checked;
+    revealed.clear();
+    render();
+  });
+  document.getElementById("shuffle").addEventListener("change", e => {
+    shuffled = e.target.checked;
+    if (shuffled) makeOrder();
+    render();
+  });
+
+  notice.hidden = storageOk;
+  render();
+</script>
+</body>
+</html>

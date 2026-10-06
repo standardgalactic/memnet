@@ -1,0 +1,176 @@
+\chapter{Certificates and Checkers}
+\label{ch:certificates}
+
+Chapters~\ref{ch:sat} to~\ref{ch:kernels} met certificates in three forms: logs of learned clauses, theory lemmas with their explanations, and terms checked by a kernel. This chapter abstracts what they share. A \emph{certifying computation} returns an answer together with a witness that a simple, independent procedure can check; the witness is bound to a particular input; and the checker's correctness, not the producer's, carries the assurance. After the abstract definition, the chapter treats the case that is not a single call but a \emph{pipeline} of transformations, where a certificate for the last stage must be connected to the original input; proves the asymmetry between certifying unsatisfiability and certifying satisfiability through a pipeline; and describes the third architecture for a checker, proof by reflection, in which the certificate is the input itself and all of the content lies in a verified computation.
+
+\section{Certifying computation}
+\label{sec:certifying}
+
+\begin{definition}[Certificate scheme]
+\label{def:cert-scheme}
+Let $R\subseteq X\times Y$ be a relation between inputs and answers, to be read as ``$y$ is a correct answer for $x$''. A \emph{certificate scheme} for $R$ consists of a set $W$ of \emph{witnesses} and a decidable relation $\mathrm{Wit}\subseteq X\times Y\times W$ such that
+\begin{enumerate}[label=(\roman*),nosep]
+\item (\emph{soundness}) $\mathrm{Wit}(x,y,w)$ implies $R(x,y)$, and
+\item (\emph{completeness}) $R(x,y)$ implies $\mathrm{Wit}(x,y,w)$ for some $w$.
+\end{enumerate}
+A \emph{certifying algorithm} for $R$ computes, from $x$, a pair $(y,w)$; its output is \emph{accepted} if $\mathrm{Wit}(x,y,w)$.
+\end{definition}
+
+\begin{theorem}[Assurance rests on the checker]
+\label{thm:assurance-checker}
+If $(x,y,w)$ is accepted, then $R(x,y)$, whatever algorithm computed $(y,w)$. If $R(x,y)$ then there exists some witness accepted, but no particular algorithm is guaranteed to find it.
+\end{theorem}
+
+\begin{proof}
+Soundness and completeness of the scheme, respectively.
+\end{proof}
+
+This is Theorem~\ref{thm:independence} for a general relation. The examples below fix the scale of the checkers involved. In each, the witness is much simpler to check than the answer is to find.
+
+\begin{center}
+\small
+\begin{tabular}{p{2.8cm}p{2.7cm}p{3.6cm}p{3.2cm}}
+\toprule
+Problem & Answer & Witness & Checker's work\\
+\midrule
+Satisfiability & satisfiable & total assignment & evaluate each clause\\
+ & unsatisfiable & DRAT proof (Ch.~\ref{ch:sat}) & unit propagation per line\\
+Linear programming & optimal value $v$ & primal and dual feasible points with equal objective & feasibility and equality of objective values (strong duality, cited)\\
+Bipartiteness & bipartite & 2-colouring & test each edge\\
+ & not bipartite & odd cycle & follow the cycle\\
+Primality & prime & Pratt certificate (recursively certified factorization of $p-1$ and a generator) & modular exponentiations\\
+Maximum flow & flow of value $f$ & flow and cut of equal value (max-flow min-cut, cited) & feasibility of both\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+In every row the witness certifies one answer and says nothing about the process that found it. For problems with both an affirmative and a negative certificate (the bipartiteness rows), the relation $\mathrm{Wit}$ is indexed by the answer.
+
+\section{Pipelines and the direction of preservation}
+\label{sec:pipelines}
+
+Real solvers do not apply a checker to the input they are given. They transform the input (encode it, simplify it, eliminate variables, split it into cases), solve the transformed problem, and read the answer back. A certificate for the final problem must be connected to the original, and the connection is a property of each transformation.
+
+Let $X$ be a set of instances (clause sets, say) and $\mathrm{Mod}(x)$ the set of models of an instance $x$.
+
+\begin{definition}[Reflecting and reconstructing transformations]
+\label{def:reflecting}
+A transformation $T:X\to X'$ is \emph{unsat-reflecting} if $x'=T(x)$ unsatisfiable implies $x$ unsatisfiable. It is \emph{model-reconstructing} if there is a set $\mathrm{Data}_T(x)$ of side data produced alongside $T(x)$ and a function $\rho_T$ such that for every model $m'$ of $T(x)$ and $s\in\mathrm{Data}_T(x)$, $\rho_T(m',s)$ is a model of $x$.
+\end{definition}
+
+\begin{theorem}[Composition along a pipeline]
+\label{thm:pipeline}
+Let $x_0\xrightarrow{T_1}x_1\to\cdots\xrightarrow{T_n}x_n$ with $x_i=T_i(x_{i-1})$.
+\begin{enumerate}[label=(\roman*),nosep]
+\item If every $T_i$ is unsat-reflecting and $x_n$ is unsatisfiable, then $x_0$ is unsatisfiable. A certificate for the unsatisfiability of $x_n$ is thus a certificate for $x_0$ provided each reflection property holds.
+\item If every $T_i$ is model-reconstructing and $m_n$ is a model of $x_n$, then, given side data $s_i\in\mathrm{Data}_{T_i}(x_{i-1})$ for $i=n,\dots,1$, the model $m_0=\rho_{T_1}(\cdots\rho_{T_n}(m_n,s_n)\cdots,s_1)$ is a model of $x_0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) By downward induction: $x_n$ unsatisfiable gives $x_{n-1}$ unsatisfiable, and so on. (ii) By downward induction on $i$, each intermediate value is a model of $x_{i-1}$.
+\end{proof}
+
+The two parts are asymmetric in what they require.
+
+\begin{proposition}[Unsatisfiability needs no data; satisfiability does]
+\label{prop:asymmetry}
+In (i) no additional information about the pipeline is required beyond the reflection property of each stage, which is a statement about the stage and not about the run. In (ii) the side data $s_i$ must be retained from the run. In general, a satisfying assignment for $x_0$ is not determined by a satisfying assignment for $x_n$.
+\end{proposition}
+
+\begin{proof}
+The first two sentences restate the theorem. For the last, apply Example~\ref{ex:reconstruct} of Chapter~\ref{ch:sat}: two inputs $N_1,N_2$ with the same reduced formula and the same model of it need opposite extensions to the eliminated variable, so no function of the reduced model alone yields a model of the original.
+\end{proof}
+
+\begin{example}[Where the reflection property comes from]
+\label{ex:reflecting-source}
+Variable elimination (Lemma~\ref{lem:elim}) is unsat-reflecting, because satisfiability of the original implies satisfiability of $N_p$ (the resolvents are entailed). It is model-reconstructing with $\mathrm{Data}=P$, the eliminated clauses (Proposition~\ref{prop:reconstruct}). Tseitin's encoding of a Boolean circuit as a clause set is both unsat-reflecting and, with the identity on the original variables as $\rho$ and no side data, model-reconstructing.
+\end{example}
+
+A transformation whose reflection property is merely \emph{believed} enlarges the trusted base by the transformation's implementation. The DRAT format removes preprocessors from the trusted base in the unsatisfiability direction by logging each preprocessing step as an RAT addition or a deletion (Theorem~\ref{thm:drat}): the check of the log then re-establishes the reflecting property for those steps, rather than assuming it. The \emph{encoding} from the user's problem to clauses is typically not logged this way, and remains an item (T4) of the trusted base in the sense of Definition~\ref{def:tcb}.
+
+\section{Proof by reflection}
+\label{sec:reflection}
+
+The certificates described so far are objects that a checker examines. A different architecture runs the decision procedure \emph{inside} the checker. Suppose a kernel can evaluate functions and has a theorem relating a Boolean-valued function $A:X\to\mathsf{Bool}$ to a property $P$:
+\[
+\mathsf{sound}:\ \forall x,\ A(x)=\mathsf{true}\ \to\ P(x).
+\]
+
+\begin{definition}[Reflective proof]
+\label{def:reflective}
+The \emph{reflective proof} of $P(x_0)$ is the term $\pi(x_0)=\mathsf{sound}\ x_0\ \mathsf{rfl}$.
+\end{definition}
+
+The kernel accepts $\pi(x_0):P(x_0)$ exactly when it can verify that the argument $\mathsf{rfl}:A(x_0)=\mathsf{true}$ typechecks, that is, when it reduces $A(x_0)$ to $\mathsf{true}$ by computation.
+
+\begin{theorem}[Size and cost of reflective proofs]
+\label{thm:reflection}
+Assume $\mathsf{sound}$ is a theorem accepted by the kernel. Then $\pi(x_0)$ has size $|x_0|+O(1)$ plus the size of a reference to $\mathsf{sound}$, independent of the running time of $A$. The kernel's checking cost is the cost of reducing $A(x_0)$. If $\pi(x_0)$ is accepted, then $P(x_0)$ holds in every interpretation validating the kernel.
+\end{theorem}
+
+\begin{proof}
+The term consists of one constant, one argument $x_0$, and the constant $\mathsf{rfl}$. Acceptance requires the type of $\mathsf{rfl}$, which is $A(x_0)=A(x_0)$, to be convertible with $A(x_0)=\mathsf{true}$, which holds if and only if $A(x_0)$ and $\mathsf{true}$ are definitionally equal, that is, if $A(x_0)$ reduces to $\mathsf{true}$. Soundness of the kernel gives the last claim.
+\end{proof}
+
+Reflective proofs invert the usual trade-off: the certificate is tiny, the check is expensive, and the correctness argument has moved into the proof of $\mathsf{sound}$, which is done once. They are also the extreme case of a trace-free certificate. The proof term contains nothing that depends on how $A$ reached its answer, and the reduction performed by the kernel is not recorded. A reader who asks \emph{why} $P(x_0)$ holds is told to rerun the computation. This will become the example of an object that is sufficient for checking and \emph{minimally} informative for diagnosis, in the sense made precise in Chapter~\ref{ch:sufficiency}.
+
+A variant evaluates $A(x_0)$ with a compiled evaluator outside the kernel and records the outcome through an axiom (Example~\ref{ex:native}). The proof term is the same and the cost drops, at the price of replacing the kernel's reduction by trust in the compiler. The footprint (Definition of Section~\ref{sec:footprint}) is where the difference appears.
+
+\section{How large must certificates be?}
+\label{sec:cook-reckhow}
+
+Certificate size is a resource in its own right. For propositional logic the question has a famous formulation.
+
+\begin{theorem}[Cook and Reckhow 1979]
+\label{thm:cook-reckhow}
+\cited{Cook and Reckhow} There is a propositional proof system, in the sense of Definition~\ref{def:proof-system} restricted to propositional tautologies and polynomial-time $\Chk$, in which every tautology has a proof of polynomial size in the size of the tautology, if and only if $\mathrm{NP}=\mathrm{co}\mbox{-}\mathrm{NP}$.
+\end{theorem}
+
+This sits beside Proposition~\ref{prop:no-bound}, which showed that for first-order logic no computable bound exists. For propositional logic, bounds exist for each fixed system (Haken's theorem, Theorem~\ref{thm:haken}, shows exponential lower bounds for resolution), and the existence of a system with polynomial bounds for all tautologies is equivalent to an open question of complexity theory. Whatever the answer, the shape of the situation is that of the first chapter: a certificate scheme is a compression of the evidence, and the compressed object can be large.
+
+Verified checkers for the standard clausal certificate formats have been built inside proof assistants (Cruz-Filipe, Heule, Hunt, Kaufmann, Schneider-Kamp 2017; Tan, Heule, Myreen 2021), so that for propositional unsatisfiability the chain from certificate to meaning can be mechanized end to end, leaving the encoding of the user's problem as the remaining item of the trusted base.
+
+\section{Certificates are bound to inputs}
+\label{sec:binding}
+
+A witness certifies $R(x,y)$ for the particular $x$ it was checked against. Two features follow, and Chapter~\ref{ch:inheritance} builds on both.
+
+\begin{proposition}[Fragility of binding]
+\label{prop:binding}
+In general $\mathrm{Wit}(x,y,w)$ does not imply $\mathrm{Wit}(x',y,w)$ for an instance $x'$ equivalent to $x$ in meaning. Even an alphabetic renaming of variables may invalidate a literal-clause proof.
+\end{proposition}
+
+\begin{proof}
+A DRAT proof refers to variables by number. Let $F=\{\{1,2\},\{\neg1\},\{\neg2\}\}$ with the proof consisting of the lines $\{2\}$ and $\square$: the line $\{2\}$ is RUP, since assuming $\neg2$ makes $\{1,2\}$ unit, propagating $1$ and falsifying $\{\neg1\}$. Rename variable $2$ to $3$ to obtain $F'=\{\{1,3\},\{\neg1\},\{\neg3\}\}$, equivalent to $F$ up to renaming. The same proof fails on $F'$: the line $\{2\}$ is not RUP, because assuming $\neg2$ propagates nothing.
+\end{proof}
+
+The certificate's validity is a fact about a syntactic pair, and its \emph{meaning} (the semantic claim it supports) is a fact about the pair's interpretation. The two can come apart when an artifact is transformed. An analogous point holds for proof terms against statements: a term checked against a type is checked against that exact type up to definitional equality, not up to logical equivalence.
+
+\section{Certificates are not explanations}
+\label{sec:cert-vs-expl}
+
+By Theorem~\ref{thm:assurance-checker}, any two witnesses for the same $(x,y)$ serve the acceptance task equally. This is both the strength of certificates and the reason they cannot serve every purpose. Consider tasks that depend on the witness itself: finding the \emph{shortest} witness, finding the witness that uses a given lemma, locating which input clauses a witness never touches, adapting a witness to a perturbed input. These are functions of $w$, not of $(x,y)$, and by Proposition~\ref{prop:factor} none of them factors through the acceptance relation. The consequence for later chapters is stated here in its simplest form.
+
+\begin{proposition}[Acceptance is invariant on witnesses]
+\label{prop:acceptance-invariant}
+Let $w_1,w_2$ be two witnesses with $\mathrm{Wit}(x,y,w_1)$ and $\mathrm{Wit}(x,y,w_2)$. Any task that depends on the acceptance of $(x,y,w)$ alone gives the same result for $w_1$ and $w_2$. A task with $\mathsf{T}(w_1)\neq\mathsf{T}(w_2)$ is not determined by acceptance.
+\end{proposition}
+
+\begin{proof}
+The first sentence is the definition of a task depending on acceptance only; the second is its contrapositive.
+\end{proof}
+
+In Part~III this will be developed as the claim that a verified result serves a \emph{family} of tasks, of which checking is one, and that the right question about any representation is which members of the family it is sufficient for.
+
+\begin{exercise}
+Complete the table of Section~\ref{sec:certifying} with a row for graph non-isomorphism, and explain why a witness scheme with a deterministic polynomial-time checker is not known for it.
+\end{exercise}
+
+\begin{exercise}
+Show that the composition of an unsat-reflecting transformation with a model-reconstructing one is unsat-reflecting but need not reconstruct models. What additional data must be retained for a pipeline whose first stage is only unsat-reflecting?
+\end{exercise}
+
+\begin{exercise}
+For a reflective proof $\pi(x_0)$ as in Definition~\ref{def:reflective}, describe a modified decision function $A'$ that returns, besides $\mathsf{true}$, a trace of its computation, and a corresponding soundness theorem $\mathsf{sound}'$ such that the trace is part of the proof term. State how this changes the size bound of Theorem~\ref{thm:reflection}.
+\end{exercise}

@@ -1,0 +1,174 @@
+\chapter{Lifecycle and Authority}
+\label{ch:lifecycle}
+
+A search step changes a world. A claim, however, has a life that extends beyond a single search: it is opened as a goal, tied to evidence and obligations, transformed as it is repaired or reformulated, verified, and eventually accepted or rejected. This chapter models that life as a small labelled transition system, proves two safety properties of it, and shows that the most natural-looking simplification, treating a failed verification as a refusal, destroys exactly the repairability that Chapter~\ref{ch:history-repair} showed to be essential. The first property is about \emph{what must have happened} before a claim is collapsed into an accepted state. The second is about \emph{who may do it}: verifiers report results and never gain the authority to dispose of a claim.
+
+\section{The machine}
+
+\begin{definition}[Lifecycle machine]
+\label{def:lifecycle}
+Fix a finite set $\mathsf{Obl}$ of \emph{obligations}, for instance the layers $\mathrm O1$ to $\mathrm O3$ of Chapter~\ref{ch:obligations} together with any declared by the claim. A \emph{configuration} is a triple $(q,v,W)$ where
+\begin{itemize}[nosep]
+\item $q\in\{\textsf{open},\textsf{bound},\textsf{transformed},\textsf{verified},\textsf{verificationFailed},\textsf{refused},\textsf{collapsed}\}$ is the \emph{status};
+\item $v\in\mathbb N$ is the \emph{artifact version};
+\item $W\subseteq\mathsf{Obl}$ is the set of obligations verified \emph{at version $v$}.
+\end{itemize}
+The initial configuration is $(\textsf{open},0,\emptyset)$. Each transition is labelled by an event and an \emph{actor}, either $\mathsf{disp}$ (a disposition authority) or $\mathsf{ver}$ (a verifier):
+\begin{center}
+\small
+\begin{tabular}{@{}p{3.2cm}p{4.3cm}p{5cm}@{}}
+\toprule
+Event (actor) & Source status & Result\\
+\midrule
+$\Bind$ ($\mathsf{disp}$) & \textsf{open} & \textsf{bound}, $v,W$ unchanged\\
+$\mathsf{Transform}$ ($\mathsf{disp}$) & \textsf{bound}, \textsf{transformed}, \textsf{verified}, \textsf{verificationFailed} & \textsf{transformed}, $v:=v+1$, $W:=\emptyset$\\
+$\mathsf{VerifyOK}(o)$ ($\mathsf{ver}$) & \textsf{bound}, \textsf{transformed} & $W:=W\cup\{o\}$; status \textsf{verified} if now $W=\mathsf{Obl}$, else unchanged\\
+$\mathsf{VerifyFail}(o)$ ($\mathsf{ver}$) & \textsf{bound}, \textsf{transformed} & \textsf{verificationFailed}, $v,W$ unchanged\\
+$\Collapse$ ($\mathsf{disp}$) & \textsf{verified} & \textsf{collapsed}\\
+$\Refuse$ ($\mathsf{disp}$) & any status other than \textsf{refused}, \textsf{collapsed} & \textsf{refused}\\
+\bottomrule
+\end{tabular}
+\end{center}
+The statuses \textsf{refused} and \textsf{collapsed} are \emph{terminal}: no transition leaves them. The statuses other than the terminal ones are \emph{live}.
+\end{definition}
+
+The table adopts three design decisions. (1) Every $\mathsf{Transform}$ clears $W$: a verification is a statement about one version of the artifact and does not survive its replacement. (2) $\Refuse$ is permitted from every live status, so the disposition authority can always decline to continue, which corresponds to the append-only refusal set of Chapter~\ref{ch:search-worlds}. (3) \textsf{verificationFailed} is a live status: its outgoing transitions are $\mathsf{Transform}$ and $\Refuse$.
+
+The \textsf{open} status has no verify transition: a claim must first be bound to the obligations it will be verified against.
+
+\section{Collapse safety}
+
+\begin{theorem}[Collapse requires current, complete verification]
+\label{thm:collapse-safety}
+In every reachable configuration with $q=\textsf{collapsed}$ one has $W=\mathsf{Obl}$. Moreover in every trace reaching such a configuration, for each $o\in\mathsf{Obl}$ the last event concerning $o$ among $\{\mathsf{VerifyOK}(o),\mathsf{VerifyFail}(o)\}$ is a $\mathsf{VerifyOK}(o)$, and no $\mathsf{Transform}$ occurs after the first of these final $\mathsf{VerifyOK}$ events.
+\end{theorem}
+
+\begin{proof}
+\emph{Invariant.} Every reachable configuration with $q=\textsf{verified}$ has $W=\mathsf{Obl}$. This holds because \textsf{verified} is entered only by $\mathsf{VerifyOK}$ when the new $W$ equals $\mathsf{Obl}$, and the only transitions that change $W$ from a status \textsf{verified} are $\mathsf{Transform}$, which leaves \textsf{verified}. The status \textsf{collapsed} is entered only by $\Collapse$ from \textsf{verified}, with $W$ unchanged, so $W=\mathsf{Obl}$.
+
+\emph{Trace claim.} Let the trace end in \textsf{collapsed}. Let $t$ be the last $\mathsf{Transform}$ in the trace, or the start if none. After $t$, $W=\emptyset$ at the moment $t$ occurs, and $W$ grows only by $\mathsf{VerifyOK}$ events. Since $W=\mathsf{Obl}$ at collapse, every $o$ has a $\mathsf{VerifyOK}(o)$ after $t$. Between that event and the collapse there is no $\mathsf{VerifyFail}(o)$: a $\mathsf{VerifyFail}$ moves to \textsf{verificationFailed}, from which the only exits are $\mathsf{Transform}$ and $\Refuse$, and there is no $\mathsf{Transform}$ after $t$, while $\Refuse$ is terminal. So the last event concerning $o$ is a $\mathsf{VerifyOK}(o)$, and it comes after the last $\mathsf{Transform}$.
+\end{proof}
+
+The theorem is the lifecycle form of a requirement stated in Chapter~\ref{ch:inheritance}: an inherited verification is a fact about a particular version. A claim that has been verified, then transformed, and then collapsed without re-verification is excluded by the machine and not merely discouraged. It also interacts with Chapter~\ref{ch:obligations}: since $\mathsf{Obl}$ includes the layers beyond $\mathrm O1$, the machine can enter \textsf{verified} only after an actor outside the kernel has produced $\mathsf{VerifyOK}(\mathrm O2)$ and $\mathsf{VerifyOK}(\mathrm O3)$. The kernel is one verifier among several, and it can contribute only $\mathsf{VerifyOK}(\mathrm O1)$.
+
+\section{Authority is not verification}
+
+\begin{theorem}[Verifiers do not dispose]
+\label{thm:authority}
+Every transition whose actor is $\mathsf{ver}$ has target status in $\{\textsf{bound},\textsf{transformed},\textsf{verified},\textsf{verificationFailed}\}$, and none has target \textsf{refused} or \textsf{collapsed}. Consequently no sequence of verifier events alone reaches a terminal status, and the set of terminal statuses reachable from a configuration depends on verifier events only through which disposition events become enabled.
+\end{theorem}
+
+\begin{proof}
+Inspection of the table: the verifier events $\mathsf{VerifyOK}$ and $\mathsf{VerifyFail}$ have the stated targets, and the only events with targets \textsf{refused}, \textsf{collapsed} are $\Refuse$ and $\Collapse$, both with actor $\mathsf{disp}$. A sequence of verifier events cannot contain an event leaving a live status through a disposition label, so it stays live. The last sentence restates that $\Collapse$ is enabled exactly at \textsf{verified}, a status that verifier events can produce.
+\end{proof}
+
+The separation is the lifecycle counterpart of the gate of Chapter~\ref{ch:guidance}. The gate rejects proposals; it does not decide what to propose. Here the verifier reports; it does not decide the fate of the claim. A system in which a verifier's negative report removes a claim from circulation has assigned the verifier a disposition authority that the verifier's own assurance does not warrant, since a failed check is not a refutation (Chapter~\ref{ch:proof-systems}).
+
+\section{Why a failed verification must stay live}
+
+Consider the variant machine $\mathcal L'$ in which the target of every $\mathsf{VerifyFail}(o)$ transition is \textsf{refused} instead of \textsf{verificationFailed}.
+
+\begin{proposition}[Automatic refusal destroys repair]
+\label{prop:auto-refusal}
+In the machine of Definition~\ref{def:lifecycle} there is a trace reaching \textsf{collapsed} that contains a $\mathsf{VerifyFail}$ event. In $\mathcal L'$ no trace containing a $\mathsf{VerifyFail}$ event reaches \textsf{collapsed}.
+\end{proposition}
+
+\begin{proof}
+Take $\mathsf{Obl}=\{\mathrm O1\}$. The trace $\Bind,\ \mathsf{VerifyFail}(\mathrm O1),\ \mathsf{Transform},\ \mathsf{VerifyOK}(\mathrm O1),\ \Collapse$ is valid: after the failure the status is \textsf{verificationFailed}, whose exits include $\mathsf{Transform}$ (to \textsf{transformed} at version $1$ with $W=\emptyset$); $\mathsf{VerifyOK}(\mathrm O1)$ gives $W=\mathsf{Obl}$ and status \textsf{verified}, and $\Collapse$ follows. In $\mathcal L'$ the same $\mathsf{VerifyFail}$ moves to \textsf{refused}, which is terminal.
+\end{proof}
+
+Proposition~\ref{prop:auto-refusal} is the lifecycle form of Chapter~\ref{ch:history-repair}. The repair of a failed result, the replacement of an artifact by a nearby one, is a transition out of \textsf{verificationFailed}. If the failure refuses, there is nothing to repair, and the option space of the claim, in the sense of Chapter~\ref{ch:search-worlds}, has been reduced by an actor who was not authorized to reduce it. Formally: the set of terminal statuses reachable from \textsf{verificationFailed} is $\{\textsf{refused},\textsf{collapsed}\}$ in $\mathcal L$ and $\{\textsf{refused}\}$ in $\mathcal L'$.
+
+\begin{remark}[Information in a failure]
+The statement of Theorem~\ref{thm:rel-factor} applies to the failure itself: what is retained in \textsf{verificationFailed} should include which obligation failed, on which version, and with which witness, because the repair relation of Definition~\ref{def:repair} reads that information. The machine records only the status; the history carries the rest.
+\end{remark}
+
+\section{Reachability and history}
+
+The machine is deliberately small enough to be explored exhaustively. With a bound on the version, the configuration space is finite, and the claims above were checked by exhaustive enumeration of all traces up to a fixed length for $|\mathsf{Obl}|=2$ and $3$ (no violations). The proofs given are the general ones; enumeration is a check on the table.
+
+\begin{proposition}[Histories are not recoverable from configurations]
+\label{prop:terminal}
+A live configuration always has an enabled event, so every maximal finite trace ends in a terminal status. Two distinct traces can end in the same configuration, so the final configuration does not determine the history.
+\end{proposition}
+
+\begin{proof}
+$\Refuse$ is enabled at every live status. The traces $\Refuse$ and $\Bind,\Refuse$ both end in $(\textsf{refused},0,\emptyset)$ and differ. This is the analogue of Proposition~\ref{prop:prov-not-state} for lifecycles.
+\end{proof}
+
+
+\section{Proposed extension: typed memory consolidation}
+\label{sec:memory}
+
+\emph{This section is a proposed formalization. It does not describe the guarantees of any implemented memory system, and no property of the retrieval dynamics of such a system is assumed.}
+
+The lifecycle machine governs one claim. A system that stores many claims and the traces that produced them has the further problem of \emph{consolidation}: replacing the full history by a smaller memory representation. The elements of the preceding chapters combine into a small calculus for this, in which retrieval guides search, verification is separate from commitment, and consolidation is an admissible collapse.
+
+\begin{definition}[Memory configuration]
+\label{def:memconfig}
+A \emph{memory configuration} is $S=(H,M,K,\nu)$ where $H$ is an append-only event history, $M$ a memory representation, $K$ a finite set of \emph{commit capabilities}, and $\nu\in\mathbb N$ the \emph{environment version}, which counts the changes to assumptions, policy or checking environment. Items are triples $m=(p,\eta,\varrho)$: payload, retrieval parameters, provenance reference. Events are $\mathsf{Recall}(q,L)$, $\mathsf{Verify}(m,v)$, $\mathsf{Permit}(m)$, $\mathsf{Commit}(m,k)$, $\mathsf{Refuse}(m,r)$, $\mathsf{Reopen}(m,r)$, $\mathsf{Env}(\delta)$, $\mathsf{Transport}(m,w)$ and $\mathsf{Consolidate}(c)$. Fix a family $\mathcal F$ of future tasks on histories.
+\end{definition}
+
+Evidence is indexed by version. Define by recursion on $H$ the sets $\mathrm{Ver}(H)$ and $\mathrm{Perm}(H)$ of items \emph{currently verified} and \emph{currently permitted}: both start empty; $\mathsf{Verify}(m,v)$ adds $m$ to $\mathrm{Ver}$ and $\mathsf{Permit}(m)$ adds $m$ to $\mathrm{Perm}$; $\mathsf{Env}(\delta)$ empties both and increments $\nu$; $\mathsf{Transport}(m,w)$, applicable immediately after an $\mathsf{Env}$ and only when $w$ witnesses that the obligations behind the verification (respectively permission) of $m$ survive that change, restores $m$ to the set in which it stood before the $\mathsf{Env}$; $\mathsf{Refuse}(m,\cdot)$ removes $m$ from both sets. The witness $w$ plays the role of the interface lemma of Chapter~\ref{ch:inheritance}: it is a certificate that the consulted set of the verification is disjoint from what the change touched.
+
+The transition rules are:
+\begin{itemize}[nosep]
+\item $\mathsf{Recall}(q,L)$ may be applied to any configuration; it appends the event and returns a list $L$ of \emph{candidates}. Candidates carry no standing: recall changes neither verification, permission, nor commitment status.
+\item $\mathsf{Verify}(m,v)$ is applied when $v$ is a witness of the declared verification condition $V_H(m)$ for the current history and version; it appends the event.
+\item $\mathsf{Permit}(m)$ is applied by the disposition authority when policy at the current version permits commitment of $m$.
+\item $\mathsf{Commit}(m,k)$ is applicable only if $m\in\mathrm{Ver}(H)\cap\mathrm{Perm}(H)$ and $k\in K$; it removes $k$ from $K$ and appends the event.
+\item $\mathsf{Refuse}(m,r)$ appends the event. $\mathsf{Reopen}(m,r)$ is applicable only to a refused item, by the disposition authority, and appends the event with its reason. A reopened item has no current evidence until it is verified and permitted again.
+\item $\mathsf{Env}(\delta)$ and $\mathsf{Transport}(m,w)$ act on versions as just described.
+\item $\mathsf{Consolidate}(c)$ replaces $M$ by the pair $(c(H),\varepsilon)$ and is applicable only if $c:\mathcal H\to\mathcal M$ is \emph{$\mathcal F$-extension-sufficient}: $c(H_1)=c(H_2)$ implies $f(H_1H'')=f(H_2H'')$ for every $f\in\mathcal F$ and every suffix $H''$. Subsequent events are appended to the second component of $M$.
+\end{itemize}
+
+\begin{definition}[Invariants]
+\label{def:meminv}
+A configuration is \emph{well founded} if (I1) every committed $m$ was in $\mathrm{Ver}\cap\mathrm{Perm}$ of the prefix of $H$ immediately before its $\mathsf{Commit}$, that is, had evidence for the version current at commitment; (I2) the capabilities used by the $\mathsf{Commit}$ events in $H$ are pairwise distinct and disjoint from $K$; (I3) every $\mathsf{Reopen}(m,r)$ in $H$ is preceded by a $\mathsf{Refuse}(m,\cdot)$; (I4) $M=(c(H'),H'')$ for a factorization $H=H'H''$ and an $\mathcal F$-extension-sufficient $c$ whose consolidation event ends $H'$, or $M$ is the initial representation.
+\end{definition}
+
+\begin{theorem}[Preservation of memory invariants]
+\label{thm:mempres}
+If $S$ is well founded and $S\to S'$ by any rule above, then $S'$ is well founded. Moreover recall never changes the set of committed items.
+\end{theorem}
+
+\begin{proof}
+By cases on the rule. I1 concerns the prefix before each $\mathsf{Commit}$ and so is untouched by any rule except a new $\mathsf{Commit}$, which satisfies it by applicability. $\mathsf{Commit}(m,k)$ removes $k$ from $K$ while recording it in $H$, so the used capabilities remain pairwise distinct (since $k\in K$ and $K$ is disjoint from the used set) and disjoint from the new $K$, giving I2; all other rules leave $K$ and the used set unchanged. $\mathsf{Reopen}$ is applicable only after a refusal, which gives I3; the other rules do not add a $\mathsf{Reopen}$. For I4, every rule other than $\mathsf{Consolidate}$ appends an event to $H$ and to the second component of $M$, preserving the factorization; $\mathsf{Consolidate}(c)$ is applicable only for extension-sufficient $c$ and sets $H'=H$, $H''=\varepsilon$. For the last statement, only $\mathsf{Commit}$ changes the set of committed items.
+\end{proof}
+
+Theorem~\ref{thm:mempres} fixes what I1 asserts: not that some verification once occurred, but that evidence for the version current at commitment did. An $\mathsf{Env}$ event between a verification and a commitment forces either a fresh verification or a transport witness. The cost of the latter is the cost of an interface lemma, and without one the calculus refuses the commitment.
+
+\begin{proposition}[Memory answers current-history tasks]
+\label{prop:memanswers}
+If $M=(c(H'),H'')$ with $c$ extension-sufficient, then for each $f\in\mathcal F$ the value $f(H'H'')$ is a function of $M$ alone.
+\end{proposition}
+
+\begin{proof}
+Fix $f$ and $H''$. The map $g:H_1\mapsto f(H_1H'')$ is constant on the fibres of $c$ by extension-sufficiency, so $g=\bar g\circ c$ by Proposition~\ref{prop:factor}, and $f(H'H'')=\bar g(c(H'))$. The pair $(c(H'),H'')$ determines $\bar g$ and its argument.
+\end{proof}
+
+Extension-sufficiency is a right-congruence condition, in the manner of Myhill and Nerode: the coarsest sufficient encoder is the quotient of histories by the relation $H_1\sim H_2$ iff $f(H_1H'')=f(H_2H'')$ for all $f\in\mathcal F$ and all $H''$, and by Theorem~\ref{thm:suff-refine} the sufficient encoders are exactly those whose kernel refines it. A consolidation that is sufficient only for tasks on the history at the moment of consolidation is not enough once new events arrive, which is why the weaker condition $\ker c\subseteq\ker\mathcal F$ does not appear in the rule.
+
+The refinement relation is one of inclusion: a sufficient encoder retains \emph{at least} the distinctions the declared tasks need and may retain more. Equality of the two relations would be minimality, which is a separate property. If $\mathcal F$ contains only proof checking, discarding search history can be sufficient. If it also contains diagnosis, refusal audit or repair after assumption changes, the corresponding distinctions (Chapters~\ref{ch:history-repair} and~\ref{ch:search-worlds}) must survive consolidation, and by Theorem~\ref{thm:nofree} nothing beyond the declared family can be asserted. The same encoder can be sufficient for the first family and insufficient for the second, and a type that records the family in the encoder's signature makes this visible.
+
+Two limits should be recorded. The use of a capability in $K$ prevents reuse within the calculus only; exactly-once execution across distributed components requires protocol guarantees beyond this model. And the verification predicate $V_H$ is application-specific: for a proof capsule it may be a successful kernel check against a stated statement and axiom environment, for a historical record it may be resolution of provenance and consistency of replay. A single generic ``verified'' flag would conceal that difference, which is the point of Chapter~\ref{ch:obligations}.
+
+\section{What this chapter fixes}
+
+\begin{principal}
+(1) A lifecycle machine with versions and per-obligation verification enforces that collapse is preceded by complete verification of the current version (Theorem~\ref{thm:collapse-safety}). (2) Verifiers report and never dispose: no verifier event reaches a terminal status (Theorem~\ref{thm:authority}). (3) A failed verification is a live status, since otherwise the possibility of repair is removed by an actor without the authority to remove it (Proposition~\ref{prop:auto-refusal}). (4) The final status does not determine the history that produced it (Proposition~\ref{prop:terminal}).
+\end{principal}
+
+This completes the account of the process. Part~V turns to its product and asks what a verified, collapsed result may be taken to say about the world.
+
+\begin{exercise}
+Add a status \textsf{superseded} reached by a new claim replacing an old one, and decide, with a proof, whether Theorem~\ref{thm:collapse-safety} and Theorem~\ref{thm:authority} continue to hold when \textsf{collapsed} claims may be superseded.
+\end{exercise}
+
+\begin{exercise}
+Replace the clearing of $W$ at every $\mathsf{Transform}$ by clearing only those obligations in a set $\mathrm{Aff}(\text{transform})$ determined by the typed dependency graph of Chapter~\ref{ch:inheritance}. State a condition on $\mathrm{Aff}$ under which Theorem~\ref{thm:collapse-safety} remains true with ``current'' reinterpreted, and show by example that without the condition it fails.
+\end{exercise}
+
+\begin{exercise}
+Enumerate the configuration space for $|\mathsf{Obl}|=2$, $v\le2$ and verify Theorem~\ref{thm:collapse-safety} by exhaustive search over all traces of length at most eight.
+\end{exercise}

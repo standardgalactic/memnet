@@ -1,0 +1,198 @@
+\chapter{Resolution, Unification, and Saturation}
+\label{ch:resolution}
+
+Resolution is the calculus on which the most influential automated provers were built, and it is also the cleanest laboratory for the questions of this book. It has one rule, a completeness proof short enough to give in full for the propositional case, and a first-order extension whose only new ingredient is unification, which can also be proved correct from scratch. At the end of the chapter, resolution is placed in the framework of Chapters~\ref{ch:proof-systems} and~\ref{ch:search}: it is a proof system, its fair saturation is a producer, and the proof extracted from a saturation is a compression whose residue can be seen with the naked eye.
+
+\section{Propositional resolution}
+\label{sec:prop-res}
+
+Fix a countable set $A$ of propositional atoms. A \emph{literal} is an atom $p$ or a negated atom $\neg p$; write $\overline{L}$ for the complement of $L$. A \emph{clause} is a finite set of literals, read as their disjunction, and the empty clause is written $\square$. A \emph{valuation} $v:A\to\{0,1\}$ satisfies a clause if it makes some member true, so $\square$ is satisfied by no valuation. A set of clauses is satisfied by $v$ if every member is. A clause is a \emph{tautology} if it contains both $p$ and $\neg p$ for some $p$.
+
+\begin{definition}[Resolution rule]
+\label{def:prop-res}
+From clauses $C\cup\{p\}$ and $D\cup\{\neg p\}$ infer $C\cup D$. The inferred clause is the \emph{resolvent on $p$}. Because clauses are sets, repeated literals in $C\cup D$ merge automatically, so no separate factoring rule is needed in the propositional case.
+\end{definition}
+
+Take $X$ to be the set of clauses, $\mathcal{M}$ the set of valuations, $\bot=\square$, and $\mathcal{R}$ the set of rule instances $(\{C\cup\{p\},D\cup\{\neg p\}\},C\cup D)$. This is an inference system in the sense of Definition~\ref{def:inference-system}.
+
+\begin{proposition}[Soundness]
+\label{prop:prop-res-sound}
+Every instance of the resolution rule is sound.
+\end{proposition}
+
+\begin{proof}
+Let $v$ satisfy $C\cup\{p\}$ and $D\cup\{\neg p\}$. If $v(p)=1$ then $v$ does not satisfy $\neg p$, so it satisfies some member of $D$ and hence $C\cup D$. If $v(p)=0$ then it does not satisfy $p$ and satisfies some member of $C$.
+\end{proof}
+
+\section{Completeness by elimination}
+\label{sec:dp}
+
+The completeness proof below eliminates one atom at a time. The elimination is the Davis--Putnam procedure, and Chapter~\ref{ch:sat} returns to it as the ancestor of conflict-driven learning.
+
+\begin{lemma}[Elimination preserves satisfiability]
+\label{lem:elim}
+Let $N$ be a finite set of non-tautological clauses and $p$ an atom. Split $N=E\cup P\cup Q$ where $P$ is the set of clauses containing $p$, $Q$ the set containing $\neg p$, and $E$ the set containing neither. Let $\mathrm{Res}_p(N)$ be the set of resolvents on $p$ of a clause of $P$ with a clause of $Q$, and put $N_p=E\cup\mathrm{Res}_p(N)$. Then $N$ is satisfiable if and only if $N_p$ is satisfiable, and every clause of $N_p$ is in $N$ or is a resolvent of two clauses of $N$.
+\end{lemma}
+
+\begin{proof}
+The last claim is immediate from the construction. If $v\models N$ then $v$ satisfies every resolvent by Proposition~\ref{prop:prop-res-sound} and every clause of $E$, so $v\models N_p$.
+
+Conversely, let $v\models N_p$; we may take $v$ arbitrary on $p$ and modify only that value. Write $P^-=\{C: C\cup\{p\}\in P\}$ and $Q^-=\{D:D\cup\{\neg p\}\in Q\}$, where $C$ and $D$ do not contain $p$ or $\neg p$ because the clauses are non-tautological. The resolvents are exactly the clauses $C\cup D$ for $C\in P^-$, $D\in Q^-$.
+
+\emph{Case 1:} some $C_0\in P^-$ is not satisfied by $v$. Then for every $D\in Q^-$ the resolvent $C_0\cup D$ is satisfied by $v$, hence $v$ satisfies $D$. Let $v'$ agree with $v$ except $v'(p)=1$. Then $v'$ satisfies all of $P$ through $p$, all of $Q$ because each $D$ is satisfied by $v$ and therefore by $v'$ (which agrees with $v$ off $p$), and all of $E$.
+
+\emph{Case 2:} every $C\in P^-$ is satisfied by $v$. Let $v'$ agree with $v$ except $v'(p)=0$. Then $v'$ satisfies all of $Q$ through $\neg p$, all of $P$ because every $C$ is satisfied, and all of $E$.
+
+In either case $v'\models N$.
+\end{proof}
+
+\begin{theorem}[Completeness for finite sets]
+\label{thm:prop-complete}
+If $N$ is a finite unsatisfiable set of propositional clauses, then $\square$ is derivable from $N$ by finitely many resolution steps.
+\end{theorem}
+
+\begin{proof}
+By induction on the number $k$ of atoms occurring in $N$.
+
+Let $N^\circ$ be $N$ with all tautologies removed. A valuation satisfies a tautology, so $N^\circ$ has the same models as $N$, and a derivation from $N^\circ$ is a derivation from $N$. So we may assume $N$ contains no tautologies. If $\square\in N$ there is nothing to prove, which covers $k=0$: with no atoms every clause is $\square$, and an unsatisfiable $N$ must contain it.
+
+Let $k\ge1$ and $\square\notin N$, and choose an atom $p$ occurring in $N$. By Lemma~\ref{lem:elim}, $N_p$ is finite, unsatisfiable, and mentions only atoms other than $p$, hence fewer than $k$ atoms. By the induction hypothesis, $\square$ is derivable from $N_p$. Each clause of $N_p$ is either in $N$ or a resolvent of two clauses of $N$, so prefixing the derivation by the corresponding steps gives a derivation of $\square$ from $N$.
+\end{proof}
+
+To pass from finite to arbitrary sets we use the compactness theorem for propositional logic.
+
+\begin{theorem}[Compactness]
+\label{thm:compactness}
+\cited{G\"odel, Mal'cev} A set of propositional clauses is satisfiable if and only if every finite subset is satisfiable.
+\end{theorem}
+
+\begin{corollary}[Refutational completeness]
+\label{cor:prop-refutational}
+Propositional resolution is sound and refutationally complete in the sense of Definition~\ref{def:inference-system}: every saturated unsatisfiable set of clauses contains $\square$.
+\end{corollary}
+
+\begin{proof}
+Let $N$ be saturated and unsatisfiable. By compactness some finite $N_0\subseteq N$ is unsatisfiable. By Theorem~\ref{thm:prop-complete} there is a derivation $C_1,\dots,C_n=\square$ in which each $C_i$ is in $N_0$ or a resolvent of earlier lines. By induction on $i$, each $C_i\in N$: lines in $N_0$ lie in $N$, and a resolvent of two members of $N$ lies in $N$ because $N$ is saturated. Hence $\square=C_n\in N$.
+\end{proof}
+
+Combined with Theorem~\ref{thm:fair}, any fair derivation of resolvents from a finite set $N_0$ of clauses eventually contains $\square$ if and only if $N_0$ is unsatisfiable. For propositional clauses over finitely many atoms the closure is finite, so the procedure terminates on every input; this is the propositional face of the dichotomy that Church's theorem makes sharp at first order.
+
+\section{Unification}
+\label{sec:unification}
+
+First-order clauses contain variables, and the resolution rule must find substitutions that make complementary literals equal. Fix a signature of function symbols with arities and a countable set $\mathcal{V}$ of variables. \emph{Terms} are built freely: a variable, or $f(t_1,\dots,t_n)$ with $f$ of arity $n$. The size $|t|$ of a term is the number of symbol occurrences. A \emph{substitution} $\sigma$ is a map from variables to terms that is the identity on all but finitely many variables, extended homomorphically to terms and written on the left. Substitutions compose as functions.
+
+An \emph{equation} is a pair $s\doteq t$ of terms. A substitution $\sigma$ is a \emph{unifier} of a finite set $E$ of equations if $\sigma(s)=\sigma(t)$ for every $(s\doteq t)\in E$. A unifier $\sigma$ is \emph{most general} if every unifier $\theta$ of $E$ factors as $\theta=\theta'\circ\sigma$ for some substitution $\theta'$.
+
+\begin{definition}[Solved form]
+\label{def:solved-form}
+A set of equations is in \emph{solved form} if it has the shape $\{x_1\doteq t_1,\dots,x_m\doteq t_m\}$ with the $x_i$ pairwise distinct variables, none of which occurs in any $t_j$. Its associated substitution is $\sigma_E=\{x_i\mapsto t_i\}$.
+\end{definition}
+
+The following transformation rules, due to Martelli and Montanari in this form, act on a finite set $E$ of equations.
+\begin{itemize}[nosep]
+\item \textsf{Delete}: $E\cup\{t\doteq t\}\Rightarrow E$.
+\item \textsf{Decompose}: $E\cup\{f(s_1,\dots,s_n)\doteq f(t_1,\dots,t_n)\}\Rightarrow E\cup\{s_i\doteq t_i:1\le i\le n\}$.
+\item \textsf{Conflict}: $E\cup\{f(\dots)\doteq g(\dots)\}\Rightarrow\mathsf{fail}$ if $f\ne g$.
+\item \textsf{Orient}: $E\cup\{t\doteq x\}\Rightarrow E\cup\{x\doteq t\}$ if $t$ is not a variable.
+\item \textsf{Occurs}: $E\cup\{x\doteq t\}\Rightarrow\mathsf{fail}$ if $x$ occurs in $t$ and $t\ne x$.
+\item \textsf{Eliminate}: $E\cup\{x\doteq t\}\Rightarrow E[x\mapsto t]\cup\{x\doteq t\}$ if $x\notin\mathrm{Var}(t)$ and $x$ occurs in $E$.
+\end{itemize}
+Constants are function symbols of arity zero, so \textsf{Decompose} with $n=0$ coincides with \textsf{Delete}.
+
+\begin{theorem}[Unification]
+\label{thm:unification}
+Every sequence of applications of the rules terminates. It terminates either in \textsf{fail}, in which case $E$ has no unifier, or in a solved form $E'$, in which case $\sigma_{E'}$ is a most general unifier of $E$.
+\end{theorem}
+
+\begin{proof}
+\emph{Rules preserve unifiers.} For \textsf{Delete} the equation is satisfied by every substitution. For \textsf{Decompose}, $\sigma(f(\vec s))=\sigma(f(\vec t))$ if and only if $\sigma(s_i)=\sigma(t_i)$ for all $i$, because terms are built freely. \textsf{Orient} is symmetric. For \textsf{Eliminate}, if $\sigma(x)=\sigma(t)$ then $\sigma\circ\{x\mapsto t\}=\sigma$ as substitutions (on $x$ both give $\sigma(t)=\sigma(x)$, and elsewhere both give $\sigma(y)$), so $\sigma$ unifies $E$ if and only if it unifies $E[x\mapsto t]$. For \textsf{Conflict} and \textsf{Occurs} there is no unifier of the displayed equation: heads differ in the first case, and in the second $\sigma(x)=\sigma(t)$ would force a term to be a proper subterm of itself, which contradicts finiteness of size since $|\sigma(t)|>|\sigma(x)|$ whenever $x$ occurs in $t\ne x$.
+
+\emph{Termination.} Call a variable \emph{solved} in $E$ if it is the left-hand side of an equation $x\doteq t$ with $x\notin\mathrm{Var}(t)$ and $x$ occurs nowhere else in $E$. Let $n_1(E)$ be the number of variables occurring in $E$ that are not solved, $n_2(E)$ the total size of all terms in $E$, and $n_3(E)$ the number of equations of the form $t\doteq x$ with $t$ not a variable. We check that each rule strictly decreases the triple $(n_1,n_2,n_3)$ in the lexicographic order, with $n_1$ never increasing in the rules that decrease $n_2$ or $n_3$.
+\begin{itemize}[nosep]
+\item \textsf{Delete}: no variable becomes unsolved ($n_1$ does not increase) and $n_2$ drops by $2|t|\ge2$.
+\item \textsf{Decompose}: the set of variables is unchanged; a solved variable is not in the decomposed equation, so it stays solved; $n_2$ drops by $2$.
+\item \textsf{Orient}: the variable set and $n_2$ are unchanged; $n_1$ does not increase; $n_3$ drops by $1$.
+\item \textsf{Eliminate}: after the step $x$ occurs only in $x\doteq t$ and $x\notin\mathrm{Var}(t)$, so $x$ is solved, whereas before it was not solved because it occurred elsewhere. A variable solved before remains solved: it occurred only in its own equation, so it is neither $x$ nor in $t$, and substituting $t$ for $x$ in the right-hand side of its equation cannot introduce it. Hence $n_1$ decreases by at least $1$.
+\end{itemize}
+The lexicographic order on triples of naturals is well-founded, so the rules cannot be applied forever.
+
+\emph{Normal forms.} Suppose no rule applies and the result is not \textsf{fail}. Every equation has a variable on the left, else \textsf{Orient}, \textsf{Decompose}, \textsf{Conflict} or \textsf{Delete} would apply; none is of the form $x\doteq x$ or has $x$ in its right-hand side, else \textsf{Delete} or \textsf{Occurs} would apply; and no left-hand variable occurs elsewhere in $E$, else \textsf{Eliminate} would apply. Thus $E$ is in solved form.
+
+\emph{Most general unifier.} Let $E'=\{x_i\doteq t_i\}$ be in solved form and $\sigma=\sigma_{E'}$. Since no $x_j$ occurs in any $t_i$ we have $\sigma(t_i)=t_i=\sigma(x_i)$, so $\sigma$ unifies $E'$. If $\theta$ is any unifier of $E'$ then $\theta(x_i)=\theta(t_i)$, so $\theta\circ\sigma=\theta$ on each $x_i$ and trivially elsewhere; thus $\theta=\theta\circ\sigma$ and $\sigma$ is most general. Since the rules preserve unifiers, $\sigma$ is a most general unifier of the original $E$.
+\end{proof}
+
+\section{First-order resolution}
+\label{sec:fo-res}
+
+A first-order \emph{literal} is an atomic formula $P(t_1,\dots,t_n)$ or its negation, a \emph{clause} a finite set of literals with all variables implicitly universally quantified, and clauses are identified up to renaming of variables. A structure $\mathfrak{A}$ satisfies a clause if every assignment of the variables into $\mathfrak{A}$ satisfies some member.
+
+\begin{definition}[First-order resolution]
+\label{def:fo-res}
+\emph{Binary resolution}: from clauses $C\cup\{A\}$ and $D\cup\{\neg B\}$ with no shared variables, where $A,B$ are atoms with most general unifier $\sigma$, infer $\sigma(C\cup D)$. \emph{Factoring}: from $C\cup\{A,B\}$ with $A,B$ atoms of the same polarity and most general unifier $\sigma$ of $A$ and $B$, infer $\sigma(C\cup\{A\})$.
+\end{definition}
+
+\begin{proposition}[Soundness]
+\label{prop:fo-res-sound}
+Binary resolution and factoring are sound: any structure satisfying the premises satisfies the conclusion.
+\end{proposition}
+
+\begin{proof}
+Let $\mathfrak{A}$ satisfy $C\cup\{A\}$ and $D\cup\{\neg B\}$ and let $a$ be an assignment. Define an assignment $b$ by $b(x)=[\![\sigma(x)]\!]^{\mathfrak{A},a}$. By the substitution lemma, every term $t$ satisfies $[\![t]\!]^{\mathfrak{A},b}=[\![\sigma(t)]\!]^{\mathfrak{A},a}$, and hence the same holds for literals. Since $\sigma(A)=\sigma(B)$, either $A$ and $B$ are both true under $b$ or both false. If both true, $\neg B$ is false under $b$, so $D$ has a literal true under $b$, i.e.\ $\sigma(D)$ has a literal true under $a$. If both false, $C$ has a literal true under $b$, i.e.\ $\sigma(C)$ has one under $a$. Either way $\sigma(C\cup D)$ is satisfied under $a$. The argument for factoring is the same with one premise.
+\end{proof}
+
+Completeness is a consequence of two standard results about grounding, which we cite. A \emph{ground instance} of a clause is the result of replacing all its variables by closed terms.
+
+\begin{theorem}[Herbrand]
+\label{thm:herbrand}
+\cited{Herbrand 1930, Skolem, G\"odel} A set $N$ of first-order clauses is unsatisfiable if and only if some finite set of ground instances of members of $N$ is unsatisfiable as a set of propositional clauses.
+\end{theorem}
+
+\begin{lemma}[Lifting]
+\label{lem:lifting}
+\cited{Robinson 1965} Let $C_1,C_2$ be clauses without shared variables, $C_1',C_2'$ ground instances of them, and $C'$ a propositional resolvent of $C_1',C_2'$. Then there is a first-order resolvent $C$ of $C_1,C_2$, possibly after factoring $C_1$ and $C_2$, of which $C'$ is a ground instance.
+\end{lemma}
+
+\begin{theorem}[Refutational completeness of resolution]
+\label{thm:fo-complete}
+First-order binary resolution with factoring is sound and refutationally complete: if $N$ is unsatisfiable then $\square$ is derivable from $N$, and every saturated unsatisfiable $N$ contains $\square$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:herbrand} there is a finite unsatisfiable set $N'$ of ground instances of clauses of $N$. By Theorem~\ref{thm:prop-complete} there is a propositional resolution derivation $C_1',\dots,C_n'=\square$ from $N'$. By induction on $i$ we construct clauses $C_i$ derivable from $N$ by first-order resolution and factoring such that $C_i'$ is a ground instance of $C_i$. If $C_i'\in N'$, take $C_i$ to be the member of $N$ of which it is an instance. If $C_i'$ is a propositional resolvent of $C_j',C_k'$, apply Lemma~\ref{lem:lifting} to $C_j,C_k$. The only ground instance of a clause that equals $\square$ is an instance of $\square$ itself, so $C_n=\square$. The claim about saturated sets follows as in Corollary~\ref{cor:prop-refutational}: every $C_i$ lies in $N$ by induction.
+\end{proof}
+
+Theorem~\ref{thm:fo-complete} together with Theorem~\ref{thm:fair} gives the usual conclusion: a fair saturation of resolvents, for instance by the given-clause loop of Proposition~\ref{prop:given-clause-fair}, is a semi-decision procedure for unsatisfiability of first-order clause sets, and by Theorem~\ref{thm:church} it cannot be improved to a decision procedure.
+
+\section{Resolution as a proof system, and what extraction discards}
+\label{sec:res-ps}
+
+Resolution is a proof system in the sense of Definition~\ref{def:proof-system}, a \emph{refutation} system. Let $\Phi$ be the set of finite sets of clauses, $\mathrm{Val}$ the unsatisfiable ones, $D$ the set of finite sequences of clauses annotated with their justification (an input clause, or a resolution or factoring step citing earlier lines and a unifier), and $\Chk(d,N)$ the relation that holds when each annotation is verified by the unification algorithm of Theorem~\ref{thm:unification} and the last line is $\square$. Then $\Chk$ is decidable, and the system is sound and complete by Proposition~\ref{prop:fo-res-sound} and Theorem~\ref{thm:fo-complete}.
+
+The producer is a saturation. A given-clause run generates a possibly enormous set $N_\infty$ of clauses, and extraction keeps only those on which $\square$ depends.
+
+\begin{definition}[Proof dag]
+\label{def:proof-dag}
+Given a run that generates $\square$, record for each generated clause its parents. The \emph{proof dag} is the sub-dag consisting of $\square$ and all of its ancestors. The extracted derivation $d$ is any linearization of the proof dag consistent with the parent relation.
+\end{definition}
+
+\begin{example}[Unused material]
+\label{ex:unused}
+Let $N=\{\,\{p\},\ \{\neg p,q\},\ \{\neg q\},\ \{r,s\},\ \{\neg r,s\}\,\}$. A saturation derives $\{q\}$ from the first two clauses, $\square$ from $\{q\}$ and $\{\neg q\}$, and also $\{s\}$ from the last two clauses. In a run that first obtains $\square$ through $\{q\}$, the proof dag of $\square$ contains exactly $\{p\}$, $\{\neg p,q\}$, $\{\neg q\}$, $\{q\}$, $\square$. The clauses $\{r,s\},\{\neg r,s\},\{s\}$ are in the run and not in the derivation. A different order of the saturation, which resolves $q$ against $\neg q$ before touching the $r,s$ clauses, yields the same derivation $d$ with a different trace.
+\end{example}
+
+Example~\ref{ex:unused} is tiny, but it instantiates Definition~\ref{def:residue} of Chapter~\ref{ch:proof-systems} precisely. Two runs on the same $N$ with different traces and the same extracted derivation share a fibre, and the $r,s$ clauses are part of the trace and no part of the output. Nothing in the framework bounds the unused portion in terms of the derivation, and Proposition~\ref{prop:no-bound} shows that even the derivation's own size admits no computable bound in terms of the statement. A task that depends on what \emph{was tried} (for instance, which lemma candidates were found irrelevant, which instance of a heuristic parameter produced the proof) is not a function of $d$ and cannot be served by it, in the sense of Proposition~\ref{prop:factor}.
+
+This is not a defect of resolution. The extraction of Definition~\ref{def:proof-dag} is exactly the compression a proof checker needs, and it is lossless with respect to the one task the checker serves. The point of the book is that other tasks exist, and that the same compression is lossy for them.
+
+\begin{exercise}
+Identify exactly where the proof of Lemma~\ref{lem:elim} uses the assumption that no clause is a tautology, and explain what the splitting $N=E\cup P\cup Q$ would mean for a clause containing both $p$ and $\neg p$.
+\end{exercise}
+
+\begin{exercise}
+Prove that \textsf{Eliminate} must carry the side condition ``$x$ occurs in $E$'': without it, show the rule system does not terminate.
+\end{exercise}
+
+\begin{exercise}
+Show that the clauses $\{P(x,x)\}$ and $\{\neg P(y,f(y))\}$ have no resolvent because unification fails by the occurs check, and verify that no pair of their ground instances admits a propositional resolution step.
+\end{exercise}

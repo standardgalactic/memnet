@@ -14,6 +14,8 @@ xtra/
 .vscode
 .DS_Store*
 
+
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -31,7 +33,23 @@ coverage
 *.lcov
 
 # nyc test coverage
-.nyc_output
+.TeX build artifacts
+*.aux
+*.out
+*.toc
+*.bcf
+*.bbl
+*.blg
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.run.xml
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrbnyc_output
 
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt

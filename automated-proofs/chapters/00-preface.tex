@@ -1,0 +1,21 @@
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+Automated reasoning systems have become dependable producers of verified statements: a satisfiability solver emits a refutation that a small checker accepts, a proof assistant elaborates a script into a term that a kernel typechecks, a rewrite engine normalizes an expression and a certificate says the normalization was sound. In each case the output of the process is a verdict together with evidence that a trusted component can examine. This book is about what such an output is \emph{not}, and about what it would have to retain in order to remain useful to a scientist who relies on it.
+
+A verified result can be correct and still fail its user in at least three ways. It may be correct about a formal object that is not the object of interest, so that the bridge from the formal statement to the observation carries obligations no kernel can discharge. It may be correct and fragile, valid for the constants it was checked against and silent about the neighbouring ones. And it may be correct and opaque: the history of the search that found it, the options that were refused, the alternatives that were tried, may be the only thing that would let a later reader repair it when an assumption changes, and that history is precisely what compression throws away. The central claim is that these three failures have a common mathematical form. In each, a function that was needed was not constant on the fibres of the representation that was kept.
+
+\paragraph{Structure.} Part~I sets out proof systems and search as transition systems and develops the classical machinery used throughout: inference systems and fairness, resolution and unification, rewriting and normal forms. Part~II treats the decision procedures and kernels that supply certificates in practice: conflict-driven clause learning and its proof formats, theory combination, the kernel architecture of proof assistants, and the trusted base. Part~III is the core. It defines verification obligations, sufficiency of a representation relative to a declared task family, stability regions and repair, and inheritance along transformations. Part~IV applies the same structure to the steps of a search, asking when a search may discard possibilities while keeping the guarantees that justify it. Part~V turns to scientific use: correspondence with observations, mutation of verified artifacts as an experiment on the claims of Part~III, and a negative result treated as a method. Part~VI collects the three principles and an honest account of what has been proved.
+
+\paragraph{Standards of proof.} Results internal to the argument are proved. Classical external theorems are stated precisely and cited; they are listed in Appendix~\ref{app:external}. Several statements were also checked by computation, as recorded in Chapter~\ref{ch:synthesis}, and these checks are marked as checks and not as proofs. No theorem of the book has been mechanized in a proof assistant. Where the book describes experimental work reported elsewhere, the chapters prove what such reports can and cannot support and do not reproduce the data.
+
+\paragraph{A note on vocabulary.} The verbs \emph{pop}, \emph{refuse}, \emph{bind} and \emph{collapse} are used in Part~IV for the operations on a search world, following earlier manuscripts of the author on binding and on disposition calculi \cite{flyxion-binding,flyxion-disposition}. Every definition needed is restated, and nothing from those manuscripts is assumed.
+
+\paragraph{Reading.} A reader interested only in the classical material can read Parts~I and~II alone; they are independent of the rest. A reader interested in the argument can begin with Chapter~\ref{ch:proof-systems}, Chapter~\ref{ch:sufficiency}, and Chapter~\ref{ch:synthesis}. Each chapter closes with a boxed statement of what it establishes and with exercises, some of which are open-ended extensions flagged as such.
+
+\bigskip
+\begin{flushright}
+Flyxion\\
+Independent Researcher\\
+October 2026
+\end{flushright}
