@@ -1,5 +1,7 @@
 # MEMNET
 
+[Memnet Flashcards](https://standardgalactic.github.io./memnet/) — *Advanced English, Vim, Python*
+
 [Perspectives](https://github.com/standardgalactic/memnet/tree/main/perspectives/README.md)
 
 [Reachable History](https://github.com/standardgalactic/memnet/tree/main/derivatives/README.md)
@@ -30,7 +32,7 @@
 
 [The Semantic State](https://standardgalactic.github.io/memnet/semantic_state.pdf)
 
-* [Audio Overview](https://standardgalactic.github.io/memnet/)
+* [Audio Overview](https://standardgalactic.github.io/memnet/semantic-state.html)
 
 [Programming Experiments](https://github.com/standardgalactic/memnet/tree/main/forth/README.md) — *Forth Language*
 
