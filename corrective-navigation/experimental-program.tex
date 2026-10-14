@@ -1,0 +1,194 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{hypothesis}{Hypothesis}
+\newcommand{\ev}[1]{\texttt{#1}}
+
+\title{Experimental Program for Corrective Navigation:\\
+Conditions, Tasks, and Measures}
+\author{Flyxion\\Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+This document defines an experimental program for the system specified in \emph{Semantic Geometry and Corrective Navigation: Event Semantics, Spatial Projection, and Admissible Continuation}. The specification fixes what the system is meant to preserve. The program asks whether preserving it changes what users can do. Five navigation conditions are compared on a corpus whose ground truth is planted and known to the experimenter, across five tasks that test explanation, dependency discovery, recovery from incorrect assertions, identification of repair consequences, and discrimination between relevance and support. Each hypothesis is stated as a directional prediction that may fail, each measure is defined before data are collected, and each invariant that bears on user performance is mapped to the measure that would reveal its violation. The remaining invariants are checked by an automated audit alone.
+\end{abstract}
+
+\section{Purpose and dependence on the specification}
+
+The specification states eleven invariants, each with a machine-checkable test. Those tests establish that the system is built as described. They do not establish that the description is worth building, because a system can satisfy every invariant and still be no more useful than a directory listing. The experiments in this document address that second question. They are deliberately organized so that a poor result can be traced to a specific cause: either the corresponding invariant was violated in the implementation, or it was satisfied and the underlying idea did not help. Keeping those two outcomes distinguishable is the reason the specification was written first.
+
+The program has two parts. The first is an automated audit that runs the invariant tests from the specification against each implementation and requires no participants. The second is a human-subject comparison of navigation conditions. Results from the second part are interpreted only for implementations that pass the first.
+
+\section{Hypotheses}
+
+Each hypothesis is a prediction about a contrast between conditions, defined in Section~\ref{sec:conditions}. A hypothesis is supported only if the stated contrast is observed in the stated direction on the stated measure. Failure to observe it is reported as a failure and is not reinterpreted afterward.
+
+\begin{hypothesis}[Explanation]
+Participants using the full corrective geometry produce more correct explanations of why two objects are related, and of why an object moved, than participants using embedding-only navigation.
+\end{hypothesis}
+
+\begin{hypothesis}[Dependency discovery]
+Participants using typed graph navigation or the full corrective geometry recover more of the planted dependents of a target object, at no lower precision, than participants using directory browsing or keyword search.
+\end{hypothesis}
+
+\begin{hypothesis}[Recovery]
+Given a planted incorrect assertion, participants using the full corrective geometry are more often able to locate it, identify the claims that rest on it, and retract it with a correctly formed record than participants in any other condition.
+\end{hypothesis}
+
+\begin{hypothesis}[Repair consequences]
+Participants using the full corrective geometry identify more of the objects affected by a repair, and more accurately judge whether their traversal was complete, than participants using typed graph navigation without completeness status.
+\end{hypothesis}
+
+\begin{hypothesis}[Relevance is not support]
+Participants using conditions that encode relevance and support in separate channels are less likely to rate a relevant but unsupported item as supported than participants using conditions that present a single ranking.
+\end{hypothesis}
+
+Hypotheses 1 and 3 through 5 are the ones most exposed to the risk that added structure costs more attention than it returns, and the design includes a time budget so that such a cost shows up as lost performance and not as hidden extra effort.
+
+\section{Conditions}
+\label{sec:conditions}
+
+All conditions operate over the same underlying content and the same planted ground truth. They differ only in how the content is organized and presented.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}p{0.9cm}p{3.2cm}p{8.9cm}@{}}
+\toprule
+Label & Condition & Description\\
+\midrule
+C1 & Directory browsing & Content laid out as a repository tree with file listings, a web-style repository view, and cross-references only where the content itself contains links.\\
+C2 & Keyword search & A full-text search box over the same content, with results ordered by match strength.\\
+C3 & Embedding-only navigation & A spatial or list view in which proximity is determined by embedding similarity alone, with no typed relations, no provenance resolution, and a single similarity ranking.\\
+C4 & Typed graph navigation & A graph view with typed, attributed relations and provenance resolution, but without relevance and support separated, repair records with completeness status, or admissibility doors.\\
+C5 & Full corrective geometry & The complete specification: typed relations, separated channels, reproducible projection, explanation on demand, repair records with completeness status, and derived admissibility.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Condition C4 is the most informative comparison for the claim that the additional machinery of the specification matters, because it holds typed structure constant and varies only the parts that are new. Condition C3 is the most informative comparison for the claim that explanation and provenance matter, because it holds spatial navigation constant and varies whether proximity is accountable.
+
+The conditions must be implemented with comparable care. A weak implementation of any baseline invalidates the contrast it is meant to provide, so each baseline is reviewed against a short checklist of standard features expected of that kind of tool before any participants are run.
+
+\section{Testbed}
+
+\subsection{Corpus}
+
+The corpus is a body of linked technical writing large enough that no participant can hold it in mind, with its content drawn from existing material and its structure recorded in a ledger conforming to the specification. Using a body of writing whose relations are already partly known allows the experimenter to construct ground truth without inventing a synthetic domain, while a held-out portion is reserved for participants who have not seen it.
+
+\subsection{Planted ground truth}
+
+The experimenter plants, and records privately before any session, the following items.
+
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Dependency sets.} For selected target objects, the full set of objects that depend on them, with each dependency present in the ledger and some reachable only through two or more intermediate steps.
+\item \textbf{Incorrect assertions.} A small number of assertions that are false or unsupported, each with a known set of dependent claims.
+\item \textbf{Decoys.} Items that are highly relevant to a task context but unsupported, and items that are well supported but irrelevant to it, to test the separation of the two relations.
+\item \textbf{Out-of-scope dependents.} For each incorrect assertion, at least one dependent placed outside the scope a participant would reach by default, simulating a federated or inaccessible portion of the graph.
+\item \textbf{Unrecorded layout decisions.} For the explanation task, objects whose positions changed between two projection versions, with the true cause (graph, constraint, or algorithm change) known.
+\end{itemize}
+
+The ground truth is held by the experimenter and is not visible in any condition. In conditions C1 through C3, the same facts exist in the content but are not presented as typed relations.
+
+\section{Tasks}
+
+\begin{enumerate}[leftmargin=1.5em]
+\item \textbf{T1, explanation.} The participant is shown two objects, or one object that has moved between two versions, and is asked why. Hypothesis 1.
+\item \textbf{T2, dependency discovery.} The participant is given a target object and asked to list everything that depends on it. Hypothesis 2.
+\item \textbf{T3, recovery.} The participant is told that something in a region of the corpus may be incorrect, is asked to find it, to say what rests on it, and to retract it using the interface's record-making facility. Hypothesis 3.
+\item \textbf{T4, repair consequences.} After a repair is applied by the experimenter, the participant is asked to list the affected objects and to state whether they believe the list is complete and why. Hypothesis 4.
+\item \textbf{T5, relevance and support.} Given a task context and a set of items, the participant rates each item for how supported it is, separately from how relevant it is. Hypothesis 5.
+\end{enumerate}
+
+Each task has a fixed time budget identical across conditions, set from a pilot so that a competent participant can finish in the best condition without hurrying.
+
+\section{Measures}
+
+All measures are defined here, before data collection, and scored against the planted ground truth by a scorer who does not know the participant's condition.
+
+\subsection{Dependency discovery}
+
+For a target with true dependent set $T$ and a participant-reported set $R$, precision is $|R \cap T| / |R|$ and recall is $|R \cap T| / |T|$. Both are reported, together with recall restricted to dependents reachable only through two or more steps, since shallow dependents can be found by almost any method.
+
+\subsection{Explanation}
+
+An explanation is scored on three components, each judged correct or incorrect against the ledger: whether a supporting event chain was identified, whether the chain is the correct one, and, for a position change, whether the cause was correctly attributed to a change in the graph, the constraints, or the algorithm. The score for a response is the number of components judged correct. Responses are scored by two independent raters, and disagreement is resolved by reference to the ledger and reported.
+
+\subsection{Recovery}
+
+Recovery is scored as a sequence of four outcomes: the incorrect assertion was located, its dependents were identified, a retraction was recorded, and the retraction record was well formed according to the specification. Each outcome is recorded separately, and the number of interface actions taken is logged.
+
+\subsection{Repair consequences and honest completeness}
+
+Identification of affected objects is scored as precision and recall against the planted set. Honest completeness is scored on the participant's statement about whether their list is complete: a statement of completeness is incorrect if an out-of-scope dependent exists, and a statement of incompleteness is correct only if accompanied by a reason that corresponds to a real limit on the traversal.
+
+\subsection{Relevance and support discrimination}
+
+For each decoy that is relevant but unsupported, a rating of supported counts as a confusion. The confusion rate is the fraction of such decoys rated supported. The same is computed for well-supported but irrelevant items rated as relevant.
+
+\subsection{Cost}
+
+Task completion time, number of interface actions, and a short self-reported effort rating are collected for every task. These are secondary measures whose purpose is to detect cases where a condition appears accurate only because participants spent more effort.
+
+\section{Design}
+
+\subsection{Allocation}
+
+The design is within-subject. Each participant completes tasks under every condition, each on a different partition of the corpus, with the order of conditions and the assignment of partitions to conditions counterbalanced. Separate partitions prevent a participant from carrying knowledge of the content from one condition to the next. Because the interfaces differ greatly in familiarity, each condition is preceded by a short, scripted training session of equal length.
+
+\subsection{Sample and analysis}
+
+The number of participants is set from the variance observed in a pilot and recorded, with its rationale, before the main study begins. Primary comparisons are paired comparisons on the measures above, reported as effect sizes with intervals and not as threshold verdicts. No numerical significance threshold is chosen here, because it would be an arbitrary figure presented as a finding. Results are reported for each hypothesis whether or not the contrast was observed.
+
+\subsection{Machine-evaluable arm}
+
+Independently of participants, the invariant tests from the specification are run against C4 and C5, and the applicable subset against C3. This arm produces a pass or fail for each invariant and is reported first, so that a human-subject result is never interpreted for an implementation that violates the property it was built to test.
+
+\section{Ablations}
+
+To trace a result to a mechanism, a set of ablated variants of C5 is built, each removing or violating exactly one invariant. The ablations are compared with the intact C5 on the measure that the removed invariant is expected to protect.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}p{3.6cm}p{4.3cm}p{4.2cm}@{}}
+\toprule
+Invariant removed & Ablated variant & Measure expected to degrade\\
+\midrule
+Proximity is not authority & Adjacency displayed as a relation without event resolution & Explanation (T1)\\
+Channel separation & Relevance and support merged into one ranking & Confusion rate (T5)\\
+Reproducible projection & Positions stored as authoritative, layout attribution removed & Explanation of position change (T1)\\
+Retrieval nominates & Embedding output licenses relations directly & Precision of dependency discovery (T2)\\
+Repair accountability & Repair omits dependents and scope & Recall in T4\\
+Honest completeness & Repair always marked complete & Honest completeness (T4)\\
+Derived admissibility & Door state stored and edited by hand & Recovery (T3), in cases where evidence changes\\
+Explanation on demand & Event chain unavailable & Explanation (T1)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three invariants have no ablation row: ledger primacy, the provenance split, and unverified marking. Each concerns the integrity of the record and not an effect a participant would be expected to notice within a task, so they are checked only by the automated audit of the machine-evaluable arm. An ablation of unverified marking could be added if a task were designed in which participants relied on unchecked citations, but no such task is included here.
+
+If an ablation shows no degradation on its expected measure, the invariant is either not doing the work attributed to it or the task does not test it. Both are reported as findings about the specification.
+
+\section{Threats to validity and limits}
+
+The principal limit is that planted defects are constructed by the same party who designed the system, which can bias them toward the system's strengths. To reduce this, a portion of the planted items is generated by someone who has not seen the interface, and the construction procedure is recorded. A second limit is novelty: a new spatial interface may be handled worse or better than its design deserves simply because it is unfamiliar, and the within-subject training equalizes exposure only partially. A third is the choice of corpus, since results on one body of technical writing may not generalize to software repositories or to collaborative claim graphs, and the claim of the program is accordingly restricted to the corpus tested.
+
+The correction-coupling diagnostic remains outside the primary analysis. It may be evaluated in an exploratory arm once its variables are operationally defined, but no primary hypothesis depends on it, and no behavior of the system is gated by it.
+
+\section{Reporting}
+
+Deviations from the plan, changes to measures, and changes to conditions are recorded in an append-only log kept under the same discipline as the ledger the system uses, with the reason and the time of each change. A result obtained after a change is labelled as such. Negative and null results are reported with the same prominence as positive ones.
+
+\end{document}

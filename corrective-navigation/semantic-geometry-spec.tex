@@ -1,0 +1,286 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{invariant}{Invariant}
+
+\newcommand{\Ledger}{\mathcal{L}}
+\newcommand{\Graph}{\mathcal{G}}
+\newcommand{\Eff}{\operatorname{Eff}}
+\newcommand{\Interp}{\operatorname{Interp}}
+\newcommand{\Layout}{\operatorname{Layout}}
+\newcommand{\Rel}{\operatorname{Relevant}}
+\newcommand{\Supp}{\operatorname{Supported}}
+\newcommand{\Adm}{\operatorname{Admissible}}
+\newcommand{\ev}[1]{\texttt{#1}}
+
+\title{Semantic Geometry and Corrective Navigation:\\
+Event Semantics, Spatial Projection, and Admissible Continuation}
+\author{Flyxion\\Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+This document specifies a navigable information environment in which spatial position expresses relationships but never establishes them. Authority is placed in an append-only event ledger. A semantic graph is derived from the currently effective events, and a spatial projection is derived from that graph by a reproducible layout procedure. Relevance, evidential support, and admissibility of continuation are kept as three distinct relations that are never merged into a single score. Corrections are first-class events that record the scope and completeness of the dependency traversal that accompanied them. The specification is stated as a set of independently testable invariants, so that any later experimental program has a fixed definition of what the system is meant to preserve.
+\end{abstract}
+
+\section{Scope and status}
+
+This is a conceptual specification and a proposed design direction. It does not describe an implemented system. Several earlier formulations motivate it: a principle of routing by meaning rather than by address, a coherence-first alternative to social media built on persistent semantic objects, a distinction between routing and adjudication, and a treatment of correction as a geometric property of an information structure. The dates, titles, and exact wording attributed to those earlier works have not been verified against the original manuscripts, and nothing in this specification depends on them. Any ledger entry that cites them must carry the status \ev{unverified} until the citation is checked. Historical verification is a separate task and is deliberately excluded from this document.
+
+\section{Central requirement}
+
+The specification is organized around one requirement.
+
+\begin{quote}
+Every authoritative relationship must be typed, attributable, and reconstructible from an event history. Spatial proximity may express such relationships, but must never establish them. Retrieval proposes candidates, adjudication determines evidential status, and admissibility governs possible continuations.
+\end{quote}
+
+The three sentences of the requirement assign three different jobs to three different mechanisms. Retrieval, whether by embedding similarity, keyword match, or any other method, can only nominate a candidate relation. Adjudication, carried out through explicit support and defeat events, is the only route by which a claim acquires an evidential status. Admissibility is a constraint on what may come next, and it is computed from the current state of evidence rather than asserted by the interface. None of the three is permitted to stand in for another.
+
+\section{Architectural layers}
+
+The system has three layers whose authority is strictly ordered, together with an external version-control substrate.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}p{2.6cm}p{4.9cm}p{3.2cm}p{2.6cm}@{}}
+\toprule
+Layer & Contents & Authority & Mutability\\
+\midrule
+Event ledger $\Ledger$ & Typed, attributed events: assertions, relations, support, defeat, repair, layout constraints, admissibility conditions & Authoritative for semantic provenance & Append only\\
+Semantic graph $\Graph_v$ & Interpretation of the effective events at ledger version $v$ & None of its own; derived & Recomputed from $\Ledger$\\
+Spatial projection $P$ & Positions and visual encodings of graph elements & None of its own; derived & Recomputed or cached\\
+Git & Content-addressed history of Git-managed artifacts & Authoritative for those artifacts' version history & Append only\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The ledger records what was asserted and how it was later changed. The graph is a derived interpretation of the currently effective events. The projection is a navigational representation of the graph. Neither the graph nor the projection may independently establish a historical fact. If the two derived layers were deleted, they could be rebuilt from the ledger, and the rebuilt graph would be identical to the deleted one.
+
+\section{The event ledger}
+
+\subsection{Schema}
+
+Each event carries the following fields.
+
+\begin{verbatim}
+event {
+  id            // content-addressed identifier
+  t             // timestamp
+  actor         // human, agent, or named process (including
+                // any retriever, with model identifier and version)
+  kind          // assert | relate | unrelate | support | defeat
+                // | repair | constrain | admit
+  subject, object
+  rel_type      // shares_concept | depends_on | shares_obligation
+                // | admits_transform | cites
+  channel       // relevance | support | admissibility
+  basis         // list of event ids or evidence references;
+                // required for every kind except assert
+  caused_by     // event id, or null
+  supersedes    // event id, or null
+  git_ref       // commit hash, or null
+  status        // provisional | established | unverified
+}
+\end{verbatim}
+
+\subsection{Event kinds}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}p{2.2cm}p{10.9cm}@{}}
+\toprule
+Kind & Meaning\\
+\midrule
+\ev{assert} & Introduces an object or claim, with an actor but no required basis.\\
+\ev{relate} & Records a typed relation between two objects in exactly one channel.\\
+\ev{unrelate} & Withdraws an earlier relation by superseding it.\\
+\ev{support} & Records evidence for a claim, with the evidence cited in the basis.\\
+\ev{defeat} & Records evidence against a claim or against a support event. It alters the claim's epistemic status. It does not delete the relation.\\
+\ev{repair} & Records the correction of a defective event, relation, or object (Section~\ref{sec:repair}).\\
+\ev{constrain} & Records a user-requested layout constraint such as pinning, grouping, or separating (Section~\ref{sec:projection}).\\
+\ev{admit} & Declares a continuation admissible, conditional on stated evidence requirements.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Computed positional change is deliberately absent from this list. A change in position is a derived result of the projection procedure and is never itself an event.
+
+\subsection{Status values}
+
+An event with status \ev{provisional} has been proposed but not adjudicated. Events nominated by retrieval processes enter as provisional. An event with status \ev{established} has met whatever adjudication policy the deployment declares. An event with status \ev{unverified} cites material, such as an earlier manuscript, whose existence or content has not been checked. Provisional and unverified events may be displayed, but they must be rendered distinguishably from established ones.
+
+\section{The semantic graph}
+
+Let $\Ledger_v$ denote the ledger at version $v$. An event is \emph{effective} at $v$ if no later event in $\Ledger_v$ supersedes it, either through its \ev{supersedes} field or through an \ev{unrelate} targeting it. The graph is the interpretation of the effective set:
+\[
+\Graph_v = \Interp\bigl(\Eff(\Ledger_v)\bigr).
+\]
+A \ev{defeat} event does not remove the defeated relation from $\Eff(\Ledger_v)$. It changes the support status computed for the relevant claim. This keeps a defeated claim visible together with the record of its defeat, which is what makes later inspection of the correction possible.
+
+\section{Spatial projection}
+\label{sec:projection}
+
+\subsection{Constraints and computed placement}
+
+The projection distinguishes two sources of position. A \emph{layout constraint} is an event: a user or agent asks that an object be pinned, grouped with others, or kept apart from others, and the request is attributed and recorded. A \emph{computed placement} is the output of a layout procedure applied to the graph and the active constraints. Writing $C_v$ for the effective constraint events, the projection is
+\[
+P = \Layout\bigl(\Graph_v,\; C_v;\; a,\; \theta,\; s\bigr),
+\]
+where $a$ identifies the layout algorithm and its version, $\theta$ its parameters, and $s$ its random seed. The tuple $(v, a, \theta, s)$ is the \emph{projection key}.
+
+\subsection{Reproducibility}
+
+A projection is reproducible if, given its key, the same positions are obtained. Cached positions are permitted as an optimization, but a cache is keyed by the projection key and discarded when any component changes. A cached position is never authoritative, and it is never cited as the reason a relation holds.
+
+When two projections of the same object differ, the system must be able to attribute the difference to one or more of three sources: a change in the effective graph, a change in the effective constraints, or a change in the algorithm, its parameters, or its seed. This attribution is the operational form of the requirement that every movement be explicable. A movement supported by a \ev{relate} event but dependent on an unrecorded layout decision would fail the requirement, and the projection key exists to prevent that case.
+
+\subsection{Retrieval and embeddings}
+
+Embedding similarity may nominate a candidate relation by emitting a provisional \ev{relate} event whose actor is the retriever, with the model identifier and version recorded in the basis. Such an event may influence layout only according to a declared policy, and by default a provisional relation is rendered as provisional and does not license a position on its own.
+
+\section{Three relations}
+
+\subsection{Definitions}
+
+Relevance, support, and admissibility are distinct relations that may hold over the same objects.
+
+\begin{itemize}[leftmargin=1.5em]
+\item $\Rel(x,u)$ holds when object $x$ bears on the context $u$, which may be a user, a task, or a current activity. Relevance is relative to a context and is computed from the graph and that context.
+\item $\Supp(x)$ is the evidential status of claim $x$, computed from the effective \ev{support} and \ev{defeat} events. It takes values in a small discrete set such as unassessed, supported, contested, and defeated, and it is not a scalar.
+\item $\Adm(c \mid \Graph_v)$ holds when a continuation $c$ is permitted at version $v$, meaning that every evidence requirement in the governing \ev{admit} events is met by effective support events.
+\end{itemize}
+
+\subsection{Non-implication}
+
+The specification adopts the following non-implications as requirements on any component that consumes these relations:
+\begin{align*}
+\Rel(x,u) &\not\Rightarrow \Supp(x),\\
+\Supp(x) &\not\Rightarrow \Rel(x,u),\\
+\Adm(c) &\not\Rightarrow \Supp(c).
+\end{align*}
+A continuation may be admissible because its stated requirements are met even though the claim it produces is not yet supported, and a well-supported claim may be inadmissible as a next step in the current context. A system that collapses these relations becomes a recommendation engine that mistakes salience for truth.
+
+\subsection{No scalar collapse}
+
+An interface may compute a ranking for presentation, but a ranking is a presentation function. It must declare its inputs, and it must not be labelled with epistemic terms such as confidence, credibility, or truth. No ranking value is written to the ledger as evidence.
+
+\section{Correction}
+\label{sec:repair}
+
+\subsection{Repair events}
+
+A \ev{repair} event targets an earlier event, relation, or object and records the following in addition to the common fields: the nature of the defect, an optional replacement, the \emph{traversal scope}, the \emph{graph version} on which the traversal ran, the \emph{completeness status}, and the set of dependents found. Dependency is traversed over a declared subset $D$ of relation types, by default \ev{depends\_on} and \ev{shares\_obligation}.
+
+\subsection{Completeness}
+
+A traversal can identify known dependents but cannot in general establish that every affected object has been found. The completeness status therefore takes one of three values.
+
+\begin{itemize}[leftmargin=1.5em]
+\item \ev{complete}: every $D$-edge reachable within the declared scope was traversed, and the scope is declared closed under $D$.
+\item \ev{partial}: the scope was limited by depth, access rights, or the absence of reachable federated peers.
+\item \ev{unknown}: reachability could not be assessed.
+\end{itemize}
+
+In a federated deployment, a repair whose scope extends beyond the locally accessible graph is \ev{partial} unless each remote peer has confirmed its own traversal against a recorded graph version. A completeness status is itself a claim, and it is revisable. When a dependent is discovered later, the original repair record is not rewritten. A follow-up \ev{repair} event references it and extends the dependent set.
+
+\subsection{Consequences are events}
+
+For each dependent found, the repair produces a new status event. The visible change in the interface, such as a re-sealed or collapsed passage, is therefore the rendering of a logged consequence and not a styling decision.
+
+\section{Relation to Git}
+
+Git remains the authoritative record for the version history of Git-managed artifacts, including what changed, who changed it, and in which branch. The ledger does not duplicate this. Not every semantic event corresponds to a source change, so \ev{git\_ref} is nullable. The ledger is explicitly responsible for semantic provenance, meaning the assertions, relations, evidence, and corrections about artifacts and claims, including those with no commit behind them. Where an event concerns a Git-managed artifact, \ev{git\_ref} anchors it to the relevant commit, and the two records are consulted together.
+
+\section{Interface obligations}
+
+The interface is a projection of the graph and the ledger, and it inherits the following obligations.
+
+\begin{enumerate}[leftmargin=1.5em]
+\item \textbf{Explanation.} For any displayed relation, and for any change in position between two projections, the system returns the chain of events and the attribution described in Section~\ref{sec:projection}.
+\item \textbf{Channel encodings.} Relevance, support status, and admissibility use separate visual encodings. A blended similarity encoding is not permitted.
+\item \textbf{Typed passages.} Each relation type has its own architectural form. Passages are physically traversable in both directions and semantically directed from the citing object to the cited object, with one-way passages reserved for irreversible relations.
+\item \textbf{Doors.} A possible continuation appears as a door that remains dimmed until its evidence requirements are met. Door state is computed from the \ev{admit} events and current support, and it is never stored as a position.
+\item \textbf{Path history.} The rear view shows the actual path taken by the user. It is a navigation record distinct from the semantic ledger and from citation ancestry.
+\item \textbf{Text projection.} A text-mode navigator is another projection of the same graph and ledger and never maintains a second history.
+\end{enumerate}
+
+\section{Provisional diagnostic: correction coupling}
+
+An earlier conceptual formulation treats the sensitivity of a system's internal evaluation $E$ to an external corrective channel $O$ as a coupling $\rho = \partial E / \partial O$, with $\rho \to 0$ marking a system whose evaluations no longer respond to external correction. This remains a research hypothesis and not an invariant of the specification. A literal derivative requires an operational definition of both variables, a perturbation procedure, and assumptions that distinguish a change in the corrective channel from an unrelated change in the evaluation. Until those are supplied, the diagnostic may be explored as an experiment but must not be used to gate any behavior of the system.
+
+\section{Invariants and test obligations}
+
+Each invariant is stated so that it can be tested independently.
+
+\begin{invariant}[Ledger primacy]
+Every authoritative relation is the image of one or more effective ledger events. The graph and the projection hold no fact that cannot be derived from the ledger.
+\end{invariant}
+\noindent\emph{Test:} delete the derived layers, rebuild from the ledger, and compare.
+
+\begin{invariant}[Proximity is not authority]
+No displayed adjacency establishes a relation. Every displayed relation resolves to its event identifiers.
+\end{invariant}
+\noindent\emph{Test:} for a sample of displayed relations, resolve each to events, and confirm that adjacency with no supporting event is never rendered as a relation.
+
+\begin{invariant}[Channel separation]
+Each relation belongs to exactly one channel. Promotion from one channel to another occurs only through an explicit event with a basis.
+\end{invariant}
+\noindent\emph{Test:} audit the ledger for relations lacking a channel, and for state changes across channels that lack a promoting event.
+
+\begin{invariant}[Reproducible projection]
+Computed positions are reproducible from the projection key $(v, a, \theta, s)$. Layout requests are events, and computed positions are derived and may be cached without becoming authoritative.
+\end{invariant}
+\noindent\emph{Test:} regenerate a projection from its key and compare, and confirm that every positional difference between versions is attributed to graph, constraint, or algorithm changes.
+
+\begin{invariant}[Retrieval nominates]
+Retrieval output enters only as provisional events with the retriever recorded as actor. It does not independently license a relation, a position, or a status.
+\end{invariant}
+\noindent\emph{Test:} disable the retriever and confirm that no established relation changes.
+
+\begin{invariant}[Repair accountability]
+Every repair records its target, scope, graph version, completeness status, and dependents found. Each dependent receives a logged status event.
+\end{invariant}
+\noindent\emph{Test:} inject a known defective assertion with known dependents, apply a repair, and compare the recorded dependents with the known set.
+
+\begin{invariant}[Honest completeness]
+A repair is recorded as \ev{complete} only when the declared scope is closed under $D$ and fully traversed. Scopes extending into unconfirmed federated peers are \ev{partial}.
+\end{invariant}
+\noindent\emph{Test:} plant a dependent outside the declared scope and confirm that the repair is not recorded as complete.
+
+\begin{invariant}[Provenance split]
+\ev{git\_ref} is nullable. Git is authoritative for the history of Git-managed artifacts, and the ledger is authoritative for semantic provenance.
+\end{invariant}
+\noindent\emph{Test:} confirm that semantic events without commits are representable, and that no Git history is copied into the ledger.
+
+\begin{invariant}[Derived admissibility]
+Door state is computed from \ev{admit} events and current support, and is not stored.
+\end{invariant}
+\noindent\emph{Test:} add a supporting event and confirm that the door state changes with no edit to any stored position.
+
+\begin{invariant}[Explanation on demand]
+For any displayed relation or position change, the system returns the supporting event chain.
+\end{invariant}
+\noindent\emph{Test:} sample displayed relations and movements, and score each for the existence and correctness of the returned chain.
+
+\begin{invariant}[Unverified marking]
+Any event citing unchecked external material carries the status \ev{unverified}, and the interface renders it distinguishably.
+\end{invariant}
+\noindent\emph{Test:} confirm that no unverified event is rendered with the same encoding as an established one.
+
+\section{Forward reference: experimental program}
+
+With these obligations fixed, an experimental program can compare five conditions: directory browsing, keyword search, embedding-only navigation, typed graph navigation, and the full corrective geometry. The measures of interest extend beyond retrieval performance to whether users can explain relationships, discover dependencies, recover from incorrect assertions, and identify the consequences of repairs. Because each invariant above carries its own test, a failure in a condition can be traced to a specific violated obligation and not merely to a poorer outcome score.
+
+\end{document}
