@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{hypothesis}{Pilot hypothesis}
+\newcommand{\ev}[1]{\texttt{#1}}
+
+\title{A Staged Pilot for Corrective Navigation:\\
+Separating the Ledger from the Geometry}
+\author{Flyxion\\Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+This document specifies a first, narrow study that sits inside the typed-graph family of the experimental program for corrective navigation. The program compares five navigation conditions, and its full corrective-geometry condition bundles a repair ledger with a spatial corrective layout, so a positive result for that condition cannot say which component produced it. The pilot separates them in a four-arm factorial crossover, in which the ledger and the geometry are independent switches over one shared substrate. It fixes independent ground truth, dependent-level binary outcomes for precision and recall, a mixed-effects primary analysis, and a restricted role for causal-inference tooling. The status of the document is a design specification: nothing described here has been built or run, and every statement below is a commitment about how a later study is to be conducted, not a finding.
+\end{abstract}
+
+\section{Purpose and relation to the experimental program}
+
+The experimental program defines five conditions, C1 through C5, five tasks, and a set of single-invariant ablations. Its condition C5 implements the whole specification, and its comparison against C4, the typed graph without the new machinery, is described there as the most informative contrast for the claim that the specification matters. That contrast is informative about the bundle. It is silent about the parts, because C5 adds at once a participant-visible record of repairs and their completeness, and a spatial layout with path history. A result favoring C5 over C4 is compatible with the ledger doing the work, with the layout doing the work, or with the two doing it only in combination, and the single-invariant ablations of the program do not discriminate among these since each removes a property of the specification and not a whole component.
+
+The pilot is therefore a refinement of one part of the program and not a replacement for it. The directory, keyword, and embedding conditions remain in the full evaluation and are excluded here. The task definitions, the planted ground truth, and the notion of honest completeness are taken from the program: the pilot uses its tasks T2 (dependency discovery), T3 (recovery), and T4 (repair consequences), and the out-of-scope dependents planted there supply the ground truth for completeness. The correction-coupling diagnostic stays a research hypothesis and plays no role in any analysis below.
+
+\section{Question, estimands, and hypothesis}
+
+The question is whether adding a participant-visible repair ledger, a corrective spatial layout, or both to a typed graph changes a person's ability to find the consequences of a planted erroneous claim, and to report how complete their repair is. With the typed graph as baseline, let $L$ indicate the ledger feature and $G$ the geometry feature. The estimands are the main effect of the ledger, the main effect of geometry, and their interaction, each defined on two quantities: the probability that a true dependent is identified, and the probability that a candidate a participant selects is a true dependent.
+
+The working theory is that neither component is strong alone. Geometry makes dependencies navigable, while the ledger makes movements and repairs accountable, so each is expected to be most useful in the presence of the other. That theory predicts a positive interaction and does not require large main effects.
+
+\begin{hypothesis}[Interaction]
+The effect of adding the ledger is larger when the geometry is present than when it is absent, on both the probability of identifying a true dependent and the probability that a selected candidate is a true dependent.
+\end{hypothesis}
+
+The hypothesis is tested with a two-sided interval on the interaction coefficient. A null or negative interaction is reported as such and is not reinterpreted afterward, in keeping with the reporting rule of the program. No direction is predicted for either main effect alone.
+
+\section{Arms}
+\label{sec:arms}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}p{3.0cm}p{3.0cm}p{4.2cm}p{3.0cm}@{}}
+\toprule
+Arm & Typed relations and ordinary navigation & Participant-visible ledger ($L$) & Spatial layout and path history ($G$)\\
+\midrule
+1. Typed graph & yes & no & no\\
+2. Ledger graph & yes & yes & no\\
+3. Geometry graph & yes & no & yes\\
+4. Full system & yes & yes & yes\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All arms use the same append-only event store internally. The ledger feature $L$ controls only whether repair provenance, repair entries, completeness status, and the interface for inspecting them are available to the participant, so Arm~1 contains the hidden event store but not the treatment. Features of C5 that are assigned to neither switch, namely channel separation, explanation on demand, and derived admissibility, are held at one fixed setting across all four arms, and that setting is recorded before the study. Arm~1 is consequently close to, but not identical with, condition C4, and Arm~4 is close to C5.
+
+All arms share the same substrate, corpus, relation schema, typography, and non-treatment controls. The feature switches are the intended differences. The changes they necessarily carry, in visual density, available information, interaction count, and response time, are measured and treated as candidate mechanisms and not as noise.
+
+\section{Stage one: build}
+
+The study has two stages and cannot begin until the first is complete. The first stage implements the common typed-graph substrate over the append-only event store, with graphs and layouts as derived projections; implements the ledger and geometry features as independent switches over that substrate; and freezes the interface versions, so that no arm is modified after tasks are validated. This stage is itself the smallest ledger and projection prototype named in the weekly recap, and it is the point at which the work first moves a design into evidence.
+
+\section{Stage two: ground truth, tasks, and blinding}
+
+Ground truth is constructed independently of the people who built the interfaces. One researcher plants each defect in a research corpus. Two domain readers then independently mark every passage they judge to be affected, and disagreements are adjudicated by a person blind to the interface condition. Some consequences are deliberately implicit, so that they appear in no graph edge. Each dependent is labelled graph-explicit, human-inferred, or disputed. Disputed dependents are excluded from the primary score, and results are reported separately for graph-explicit and human-inferred dependents, so that an arm cannot score well merely by reproducing edges the substrate already encodes.
+
+Corpora are matched across tasks for size and dependency structure, using separate corpora or nonoverlapping claim families wherever possible, and defect type is recorded for every task. Participants cannot be blind to the interface they are using, but the readers who establish ground truth, the adjudicators, and the raters of explanations receive neither arm identity nor participant identity. Interface logs are mapped to neutral arm codes before any scoring.
+
+\section{Outcomes}
+
+The primary outcomes are co-equal. Recall is whether each true dependent was identified. Precision is whether each candidate that a participant selected is a truly dependent passage. Aggregate precision and recall are always reported descriptively as well, because they are the interpretable quantities, and because two arms can share an F1 score while failing in opposite ways; F1 may appear as a summary but never alone.
+
+Honest completeness, meaning accuracy of the participant's statement that a repair is complete, partial, or unknown, is a primary outcome only if it is restricted to a preregistered subset of tasks that contain genuinely complete, genuinely partial, and genuinely unknowable cases, with ground truth for which repairs cross inaccessible federated systems. Otherwise it is secondary.
+
+The secondary outcomes are completion time, path length, the quality of the explained evidential path, confidence calibration, the persistence of unrepaired consequences, and the mechanism measures named in Section~\ref{sec:arms}. Explanation quality is scored against a written rubric by at least two raters, with inter-rater agreement reported. The recorded covariates are prior graph experience, corpus familiarity, reading speed, task difficulty, defect type, trial order, and the arm of the preceding task.
+
+\section{Design}
+
+The design is a randomized crossover in which each participant meets every arm, each on different tasks. Arm order is counterbalanced with a Latin square over the four arms, and tasks are assigned to arms so that each task appears under each arm across participants. A Latin square balances first-order order effects but does not remove carryover, since earlier tasks may teach participants how dependency relations work. The design therefore includes a standardized training task before any measured trial, records the preceding arm for every task, and preregisters a first-order carryover term together with a sensitivity analysis restricted to first-period data. The numbers of participants and tasks are set by the simulation power analysis of Section~\ref{sec:analysis} and are not fixed here.
+
+\section{Primary analysis}
+\label{sec:analysis}
+
+The scoring unit is the dependent and not the task. Aggregated precision and recall are proportions with task-specific denominators and behave badly near zero and one under an ordinary linear model, so the primary models are binary mixed-effects models. For recall, let $Z_{ijkt}=1$ when true dependent $k$ of task $j$ was selected by participant $i$ in period $t$. Then
+\[
+\operatorname{logit}\Pr(Z_{ijkt}=1)
+=
+\beta_0+\beta_L L+\beta_G G+\beta_{LG}\,LG
++\beta_O O_t+\beta_C C_t+u_i+v_j+w_k,
+\]
+where $u_i$ is the participant intercept, $v_j$ the task intercept, $w_k$ the intercept of dependent $k$ nested in its task, $O_t$ the order or accumulated practice, and $C_t$ the preceding-arm carryover term. For precision, each candidate a participant selects is one observation, the outcome is whether that candidate is truly dependent, and the same fixed effects and random intercepts are used. The model, the outcome definitions, the exclusion of disputed dependents, and the stopping rule are preregistered before data collection.
+
+Following the program, results are reported as effect estimates with intervals and not as threshold verdicts, and no numerical significance threshold is fixed here. The sample size is set by simulation from the intended model, specifying participant variance, task variance, denominator sizes, interaction effects, and attrition; a calculation that treats the groups as independent would understate the sample required.
+
+\section{Secondary and exploratory analysis}
+
+A causal graph is recorded with PyWhy, serving as an assumption ledger: it states the treatment assignment mechanism, the causal estimands, the measured post-treatment variables, and the adjustments that are prohibited. The refuters it provides, namely a placebo treatment, a random common cause, and subset removal, are reported as diagnostic checks and not as independent confirmation of the mixed-effects estimates, because they do not repair clustering, carryover, poor ground truth, or model misspecification. Since the interface is randomized and the mediator is not, any analysis of dependency discovery as a mediator between interface and repair completeness is exploratory and is reported as such. A heterogeneity analysis with EconML is considered only if the sample is large enough and the subgroups are specified in advance.
+
+\section{Limits}
+
+The ledger-only and geometry-only arms are constructed variants, so a null difference could reflect a weak implementation of a feature as much as a weak feature. Participants familiar with the project may carry expectations about the full system into Arm~4. Practice and carryover can persist despite counterbalancing and training, and a small set of corpora restricts what the results say about other kinds of material. Independent ground truth reduces circularity but does not remove disagreement about what counts as a consequence, which is why disputed dependents are excluded from the primary score and reported separately.
+
+\section{Carry-forward item}
+
+Build the smallest typed-graph and corrective-navigation prototypes, then run a component-separated crossover pilot using independently validated dependency ground truth, precision and recall outcomes, and a mixed-effects primary analysis. Use PyWhy only as a secondary causal-audit layer.
+
+\end{document}

@@ -1,0 +1,15 @@
+{
+  "version": "0.1-provisional",
+  "fields": ["id", "t", "actor", "kind", "subject", "object", "rel_type", "channel", "basis", "caused_by", "supersedes", "git_ref", "status", "payload"],
+  "kinds": ["assert", "relate", "unrelate", "support", "defeat", "repair", "constrain", "admit"],
+  "rel_types": ["shares_concept", "depends_on", "shares_obligation", "admits_transform", "cites"],
+  "channels": ["relevance", "support", "admissibility"],
+  "statuses": ["provisional", "established", "unverified"],
+  "actor_types": ["human", "agent", "process", "retriever"],
+  "basis_item_types": ["event", "evidence", "model", "external"],
+  "completeness": ["complete", "partial", "unknown"],
+  "repair_roles": ["correction", "follow_up", "dependent_status"],
+  "constraints": ["pin", "group", "separate", "release"],
+  "default_dependency_types": ["depends_on", "shares_obligation"],
+  "symmetric_dependency_types": ["shares_obligation"]
+}
