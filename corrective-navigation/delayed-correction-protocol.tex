@@ -1,0 +1,261 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{definition}{Definition}
+\newcommand{\Ev}{\mathcal{E}}
+\newcommand{\Cn}{\mathcal{C}}
+\newcommand{\Inv}{\mathcal{I}}
+\newcommand{\Dep}{\mathrm{Dep}}
+
+\title{Delayed Correction and Accountable Disposition:\\
+A Protocol for Testing Whether Required Review Improves Resolution of Correction Consequences}
+\author{Flyxion\\Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+Agent harnesses that keep evidence and conclusions as separate persistent states, such as LongHarness, flag the conclusions that cite a superseded or retracted evidence entry but do not require that any of them be reviewed. This protocol specifies a controlled experiment on one question: under the same resource limits, does requiring an accountable disposition for each discovered dependent of a corrected premise improve the independently scored resolution of that correction's consequences? Because a treatment that produces its own records cannot be scored on those records without confounding observability with correction, the protocol separates three things that are easily conflated: the recorded disposition and review coverage, which measure treatment compliance and discovery; the substantively justified resolution, which is the common primary outcome and is scored for every arm from the same standardized post-correction assessment by a blinded scorer; and the completion cost of the treatment's gate. Ground truth is a common inventory of task conclusions frozen before any run, with a separate blinded annotation for conclusions outside it. The protocol states hypotheses, definitions, arms, controlled conditions, outcome measures and an analysis plan that treats repeated runs explicitly. It reports no results.
+\end{abstract}
+
+\section{Purpose and Hypothesis}\label{sec:purpose}
+
+The question addressed is narrow. When a premise that an agent has already used is corrected, what ensures that every conclusion resting on that premise is reconsidered and resolved on an adequate basis? Retention of the correction somewhere in the agent's records is a different property from consultation of the correction when later conclusions are formed, and the experiment is built to measure what the resulting state actually reflects, not what the agent chose to record about it.
+
+The primary hypothesis is that, with model, corpus, retrieval interface and resource limits fixed, requiring a recorded disposition for each discovered dependent of a corrected premise improves the independently scored resolution of the correction's consequences relative to maintaining separate evidence and conclusion states without that requirement. The secondary hypotheses concern review coverage, the accuracy of the agent's own statement of what it examined, and the completion cost of the gate. All are stated as directional predictions to be tested, not as expectations of any particular magnitude, and any of them may fail.
+
+\section{Background and Prior Work Obligations}\label{sec:background}
+
+LongHarness \cite{huang2026longharness} maintains an EvidenceBank of source-linked statements and a Conclusion State of claims, hypotheses and unresolved gaps. Corrections are admitted as new active entries and the prior entry is marked superseded, while a retraction leaves the active state without a replacement. The paper states that superseding or retracting evidence does not automatically rewrite dependent conclusions, that transition logs flag affected references without blocking further action, and that the compute and final operations validate only the evidence identifiers declared in the request rather than every reference retained in the Conclusion State. These statements locate the gap this protocol targets: validation of declared references does not reach claims that retain a stale reference but are not cited at the moment of validation, and a flag does not by itself oblige anyone to act on it.
+
+The paper's own case study shows a recognized correction that failed to reach a downstream calculation. A baseline harness identified a corrected monthly value and nevertheless reported a total computed from the earlier value. The case establishes that recognition of a correction did not suffice to carry it into the computation. It does not establish that an additional flag could not have helped, and whether a flag, a required review, or neither would have changed that outcome is an empirical question that the arms below are designed to separate.
+
+Before any claim that the mechanism adds something beyond existing harnesses is made, its behavior must be compared against the nearest prior work cited by the LongHarness paper, LedgerMind \cite{du2026ledgermind}, which uses grounding checks and event-triggered repair. That comparison is a precondition for interpreting the results and is provided in Appendix~\ref{app:comparison}. The present protocol does not assume its outcome.
+
+\section{Definitions}\label{sec:definitions}
+
+\begin{definition}[Correction event]
+A correction event is a pair $(e,e')$ in which an active evidence entry $e$ is superseded by $e'$, or a pair $(e,\varnothing)$ in which $e$ is retracted, introduced at a controlled step after an initial conclusion has been formed.
+\end{definition}
+
+\begin{definition}[Conclusion inventory]
+The conclusion inventory $\Inv$ for a question is a list of task conclusions, including intermediate values, derived quantities and final-answer components, frozen before any run from the question construction record of Section~\ref{sec:questions}. Each member has a stable identifier and a canonical statement. Primary outcomes are scored against $\Inv$ in every arm.
+\end{definition}
+
+\begin{definition}[True dependent set]
+For a correction event on $e$, the true dependent set $\Dep^{*}(e)\subseteq\Inv$ is the set of inventory conclusions whose truth, value or permitted continuation would change, or whose support would need independent re-establishment, were $e$ replaced by $e'$ or removed. It is established by the procedure of Section~\ref{sec:truth} from the corpus slice and the question construction record, before any run and without reference to any agent state, graph or output. Its complement within $\Inv$ is the set of true non-dependents.
+\end{definition}
+
+\begin{definition}[Out-of-inventory conclusion]
+An out-of-inventory conclusion is a conclusion that an agent generates during a run that has no counterpart in $\Inv$. Such conclusions are annotated for dependency after the run by the blinded procedure of Section~\ref{sec:truth} and are reported separately from the primary outcomes.
+\end{definition}
+
+\begin{definition}[Disposition]
+A disposition for a conclusion $c$ in the scope of a correction event is one of: \emph{revised} (the conclusion changed, with the new basis cited); \emph{reaffirmed} (the conclusion stands, with an independent basis cited that does not run through $e$); \emph{withdrawn} (the conclusion is removed); or \emph{unresolved} (review began and could not be completed, with the obstruction recorded). A conclusion with no disposition is \emph{pending}. A recorded disposition is a treatment-compliance measure. It is not evidence that the conclusion was correctly handled. In particular, an unresolved disposition is a compliance category, and whether it counts toward justified resolution is decided by the rubric of Section~\ref{sec:assessment}: it can earn credit only where the evidence needed to resolve the conclusion was in fact inaccessible or insufficient.
+\end{definition}
+
+\begin{definition}[Justified resolution]\label{def:jr}
+A conclusion $c\in\Inv$ has a justified resolution when the post-correction assessment of Section~\ref{sec:assessment} gives a final stance for $c$ (stands, changed, withdrawn, or lacks adequate support) that matches the stance implied by the frozen ground truth, together with a basis that the blinded scorer judges adequate under the preregistered rubric. Justified resolution is the common outcome across arms.
+\end{definition}
+
+\begin{definition}[Review coverage and resolution status]
+Two fields describe the agent's own account of its post-correction work. \emph{Review coverage} is relative to a declared scope and a declared dependency relation and takes one of three values: \emph{complete}, meaning every conclusion in the declared scope received a review and the agent records no known dependent outside the scope or inaccessible within it; \emph{partial}, meaning at least one conclusion in the declared scope is unreviewed, or at least one known dependent is outside the scope or inaccessible; and \emph{unknown}, meaning the agent cannot bound the dependency relation. \emph{Resolution status} takes the value \emph{resolved} when no conclusion in the declared scope carries an unresolved disposition and \emph{contains unresolved obligations} otherwise. The two fields are independent: a fully traversed region may contain a conclusion correctly marked unresolved, and resolving every discovered conclusion does not establish that discovery was exhaustive. Equality of the declared scope with $\Dep^{*}(e)$ is not a property the harness can certify. It is assessed by the external scorer.
+\end{definition}
+
+Reaffirmation requires a cited independent basis so that it cannot be a bare assertion. Automatic rewriting without review is excluded as a treatment because it can propagate an incorrect correction into conclusions that should have been reaffirmed.
+
+\section{Corpus Slice and Experimental Copy}\label{sec:corpus}
+
+The experiment uses a frozen slice of the author's essay corpus, accessed initially through a plain-text interface so that spatial layout and navigation do not confound the mechanism. Planted changes are made only in a separate experimental copy and are marked in a ledger kept outside the agent-visible workspace, so that planted corrections are never mistaken for the author's actual claims and the original corpus is never altered. The slice is fixed before any run, its hash is recorded, and no document is added or removed after the first run.
+
+\section{Question Construction}\label{sec:questions}
+
+Each question is constructed so that its answer depends on several passages and so that an initial conclusion can be reached before the correction is introduced. For each question the constructor records the intended premises, the intended derivation, the conclusion inventory $\Inv$, and the correction to be planted at a controlled step. Inventory conclusions are stratified by their relation to the corrected premise, and one stratum is the class of non-dependents.
+
+The first stratum, (a), consists of direct dependents, which are conclusions that cite the corrected premise explicitly. The second, (b), consists of multistep dependents, which depend on the premise through one or more intermediate conclusions or computed values. The third, (c), consists of interpretive dependents, whose dependence on the premise holds only under a reading of the passages and is not explicit in any reference. The fourth, (d), consists of lookalike non-dependents, which resemble the corrected material in topic, wording or numerical form but do not depend on it and are included to measure unwarranted change.
+
+\section{Treatment Arms}\label{sec:arms}
+
+All arms use the same model, the same corpus slice, the same retrieval interface, the same turn limit, the same cumulative read budget, the same planted corrections at the same steps, and the same post-correction assessment of Section~\ref{sec:assessment}. The arms differ only in the state the harness exposes and the obligations it imposes.
+
+\paragraph{Arm A, history and notes.} The agent has the full interaction history and an editable free-text notes field. No structured evidence or conclusion state is provided.
+
+\paragraph{Arm B, separate states.} The agent has a source-linked evidence state with supersession and retraction, and a separate conclusion state with claims, hypotheses and open gaps. Superseded entries cause a flag on conclusions that cite them. No review obligation is imposed and no disposition is recorded.
+
+\paragraph{Arm B$'$, active reminder control.} Arm B plus an instruction, delivered at each correction event, to recheck affected conclusions, accompanied by the identical discovered-dependent list and the identical update notifications that Arm C receives. No obligation is recorded, no disposition field exists, no gate applies to final submission, and no coverage field exists. This arm supplies the information and attention that Arm C receives, so it controls for information and prompting and not merely for prompt length, and Arm C differs from it only in recorded dispositions, the coverage record and the submission gate.
+
+\paragraph{Arm C, accountable repair.} Arm B plus the following: at each correction event the harness lists the dependents it can discover from the conclusion state and from the common dependency record of Section~\ref{sec:conditions}; each listed dependent becomes an open obligation; the agent may add dependents it discovers by reading; the final answer is not accepted while any discovered dependent is pending; each disposition must carry a cited basis, which must consist of active source-linked evidence entries and cannot be free-text assertion, so that a reaffirmation or revision rests on evidence the harness can resolve; and the agent must record review coverage and resolution status for the event.
+
+\paragraph{Arm D, structural invalidation.} Arm B plus automatic enforcement of invalidation on direct citers, as a direct-citer invalidation control inspired by LedgerMind, without any claim of implementation fidelity to that system: when an entry is superseded or retracted, every conclusion that cites it is automatically demoted or dropped from the active conclusion state, and the harness may re-acquire evidence through typed tool operations that add no entry without tool-produced provenance. No review is required, no disposition or coverage record is kept, and no gate applies to final submission. This arm separates enforced invalidation of citing conclusions from accountable disposition, and it reaches only conclusions that cite the corrected entry.
+
+Arm B$'$ and Arm D are mandatory. The inference that matters is whether recorded accountability adds value beyond a reminder carrying the same dependency information, and it is drawn from the direct comparison of Arm C with Arm B$'$. Because Arm B$'$ receives the same list and notifications, this contrast estimates the effect of the disposition-and-gate package, which comprises recorded dispositions, the coverage record and the submission gate, and not of the obligation alone. That package is the estimand and is named as such. It is not drawn from the observation that Arm C exceeds Arm B while Arm B$'$ does not, because a difference between two comparison outcomes is not itself evidence of a difference between the effects they estimate.
+
+\section{Controlled Conditions}\label{sec:conditions}
+
+Two conditions are built to exercise the mechanism's distinctive commitments. They are crossed with each other where feasible, since an omitted dependency edge and an inaccessible passage test different limitations, and each cell is applied to a subset of questions in every arm.
+
+\paragraph{Hidden dependency.} One true dependent is absent from the dependency record while the textual basis for its dependence remains readable in the corpus. A harness cannot reliably remove a reference the agent itself wrote without supplying information about the intended answer, so the manipulation is applied to a common experimenter-built dependency record and not to the agent's own references. The same deliberately incomplete record, with the same omissions, is supplied to every arm that exposes dependency information (Arms B, B$'$, C and D), and the identical omission procedure is specified before treatment assignment. Arm A has no dependency record, so the hidden condition acts there only through the readable textual basis, and results for Arm A under this condition are reported as such. This condition tests whether review can discover an obligation absent from the representation and prevents the evaluation from rewarding only the reproduction of encoded edges.
+
+\paragraph{Inaccessible dependency.} One known dependent is made inaccessible to the agent by withholding the passage or state on which a conclusion rests, identically across arms. The agent can know that the dependent exists but cannot inspect it. This condition tests whether the agent's own account of its coverage is accurate when part of the dependency region cannot be examined.
+
+
+Because the information available to the agent differs by arm in each cell, Table~\ref{tab:info} tabulates what each arm is given, so that cell-wise comparisons are read correctly.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}p{0.07\textwidth}p{0.27\textwidth}p{0.27\textwidth}p{0.29\textwidth}@{}}
+\toprule
+Arm & Dependency information exposed & Hidden condition & Inaccessible condition \\
+\midrule
+A & none & acts only through the readable text & no record names the dependent; the agent learns of it only through attempted access or its own notes \\
+B & common record, surfaced as flags on citing conclusions & dependent omitted from the record & record names the dependent; the passage is withheld on access \\
+B$'$ & as B, with the same discovered-dependent list and update notifications as C, delivered as a reminder & as B & as B \\
+C & as B$'$ (same list and notifications), with recorded dispositions and the submission gate & as B & as B; the agent must declare coverage \\
+D & as B, with citers automatically demoted or dropped & omitted from the record, so reached only if it cites the entry & as B \\
+\bottomrule
+\end{tabular}
+\caption{Information available to the agent by arm and condition.}\label{tab:info}
+\end{table}
+
+Table~\ref{tab:design} gives the target design by stratum and condition cell. The counts $n_{s,k}$ are the numbers of independent questions contributing to each cell, with conclusions nested within questions, and they are design parameters fixed before the first run by the simulation described in Section~\ref{sec:analysis}, with no values asserted here. The interpretive and hidden cells, where the mechanism is expected to differentiate, are given a minimum count set so that the interval half-width on the primary difference between Arm C and Arm B$'$ does not exceed a preregistered value in those cells. Achieved counts after annotation exclusions are reported with the results. Lookalike non-dependents are not subject to the hidden or inaccessible manipulations, which apply only to true dependents.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Stratum & Standard & Hidden & Inaccessible & Hidden and inaccessible \\
+\midrule
+(a) Direct dependents & $n_{a,0}$ & $n_{a,h}$ & $n_{a,i}$ & $n_{a,hi}$ \\
+(b) Multistep dependents & $n_{b,0}$ & $n_{b,h}$ & $n_{b,i}$ & $n_{b,hi}$ \\
+(c) Interpretive dependents & $n_{c,0}$ & $n_{c,h}$ & $n_{c,i}$ & $n_{c,hi}$ \\
+(d) Lookalike non-dependents & $n_{d,0}$ & n/a & n/a & n/a \\
+\bottomrule
+\end{tabular}
+\caption{Target number of independent questions contributing to each stratum and condition cell, to be fixed before the first run.}\label{tab:design}
+\end{table}
+
+\section{Post-Correction Assessment}\label{sec:assessment}
+
+After the operational episode ends, whether by an accepted final submission or by exhaustion of a limit, every arm receives the same standardized assessment. The assessment presents each member of $\Inv$ and asks, for each, which conclusions now stand, which change, which lack adequate support, and why, and asks the agent to state which conclusions it examined after the correction and which known dependents it could not examine. It is administered without tools, without further retrieval, and without any permission to revise the persistent state, using a copy of the final state so that the assessment cannot act as another corrective intervention. Its output is a fixed-format record with no harness-specific field names. Because posing the assessment can itself induce fresh reasoning even without retrieval, the operational final answer is preserved and scored separately, and assessment performance is interpreted as what the final state allows the model to recover under explicit questioning. Comparing matched conclusion-level outcomes indicates whether the operational state already expressed a justified resolution or only supports recovering it under questioning. Neither outcome establishes consultation by itself, so the comparison is a diagnostic bearing on the distinction between consultation and retention that motivates the experiment.
+
+A blinded scorer evaluates each $c\in\Inv$ against the preregistered rubric from the assessment record alone. The scorer sees no arm label and no harness record. Normalization is specified before the first run. The assessment is collected in a fixed template with one entry per inventory member in a fixed canonical order, each entry limited to a stance drawn from a closed set and a basis of bounded length. Harness vocabulary, field names, disposition tags and evidence-identifier formats are replaced by neutral labels, basis citations are rewritten to a common reference format, and entries exceeding the length bound are truncated by a fixed rule applied identically in every arm. Because the treatment tends to produce disposition language and cited bases, the normalization is audited for residual arm information, as described in Section~\ref{sec:analysis}. Because Arm C's own disposition and coverage records are produced by the treatment, they are never used to score Arm C's success. They enter the analysis only as compliance and discovery measures.
+
+\paragraph{Rubric.} The rubric distinguishes a correct conclusion from an adequately justified one. A conclusion receives justified-resolution credit when the response identifies the appropriate post-correction status, supplies a sufficient basis available in the episode's permitted information, and avoids relying on the superseded premise or on a chain whose support remains defective. Reaffirmation requires an independent surviving basis. Revision requires a supported replacement. Withdrawal requires correctly identifying the loss of support. An unresolved status requires a specific and legitimate evidential obstruction. Merely declaring uncertainty earns no credit when the available evidence resolves the issue, and justified uncertainty earns credit when access restrictions genuinely prevent resolution, as in the inaccessible-dependency condition. Accordingly, an unresolved disposition recorded under the inaccessible-dependency condition, where the frozen manifest shows that the needed passage was withheld, can earn credit, while an unresolved disposition recorded when the evidence was available earns none.
+
+\section{Establishing Ground Truth}\label{sec:truth}
+
+The conclusion inventory and the true dependent sets are established before any run by two annotators working from the corpus slice and the question construction record, without access to any graph, harness state or agent output. For each planted correction they independently list the inventory conclusions that would change or require independent re-establishment, classify each by the strata of Section~\ref{sec:questions}, and record whether the dependence is graph-explicit or inferred by reading. Disagreements are resolved by discussion, and the unresolved residue is recorded, excluded from the primary analysis and reported separately. The separation between graph-explicit and human-inferred dependencies is retained in all reporting. The ground truth is frozen before runs begin and is not revised in light of agent behavior.
+
+Conclusions that agents generate outside $\Inv$ are annotated after the run by annotators blind to arm, under a rubric preregistered before the first run. This preserves independent ground truth for the primary outcomes without pretending that future agent outputs are knowable beforehand. Out-of-inventory results are reported separately and are not pooled with the primary outcomes.
+
+\section{Outcome Measures}\label{sec:outcomes}
+
+Let $D^{*}=\Dep^{*}(e)$ and let $N^{*}=\Inv\setminus D^{*}$ be the true non-dependents.
+
+\paragraph{Primary outcome, common to all arms.}
+The primary outcome is the justified-resolution rate, the share of $D^{*}$ that has a justified resolution under Definition~\ref{def:jr}, scored by the blinded scorer from the standardized assessment.
+
+\paragraph{Substantive secondary outcomes, common to all arms.}
+Stale-premise reuse records whether the final answer or any cited computation depends on the superseded or retracted premise. Final-answer correctness is the correctness of the operational final answer, scored separately from the assessment, against the answer derived under the corrected premise. It measures operational answer correctness after correction, which can arise through an independent route, guessing or compensating errors, and so does not by itself establish that the correction was consulted.
+
+The recoverability gap is defined only over matched conclusion-level pairs. For each member of $D^{*}$ that has an operational counterpart in the final persistent state or answer, it is the difference between its assessment-based justified resolution and the justified status of that same counterpart scored from the operational state. It is not formed by subtracting assessment resolution across intermediate conclusions from the single whole-answer correctness indicator, which would mix different quantities. The gap is a diagnostic and not a primary claim. The assessment poses explicit questions for each inventory conclusion, which is itself a strong intervention, so the gap measures what the final state together with explicit questioning allows the model to recover. A small gap does not establish that the correction was consulted during the task, because the operational answer and the assessment may both succeed or both fail. The gap is also a difference of two noisy quantities, and it is reported with an interval and read conditionally, alongside the primary justified-resolution rate.
+
+Unsupported change records changes to members of $N^{*}$ that lack an adequate basis, or that alter a conclusion that should have stood. Cost is measured in tokens, steps, reads and searches per episode.
+
+Coverage-statement accuracy is scored on four components from the assessment, each against a fixed reference. (i) Examined set: precision and recall of the conclusions the agent states it examined after the correction, against the set the blinded scorer judges from the trace to have been reconsidered. (ii) Inaccessible set: precision and recall of the dependents the agent states it could not examine, against the manifest of withheld passages and states recorded in the frozen ground truth. (iii) Status: whether the declared coverage status matches the status implied by the frozen true dependent set against the preregistered target scope, which is $D^{*}$ for the correction event. A declaration of complete is correct only if every member of $D^{*}$ was reviewed and no inaccessible remainder is known, which retains the stricter definition of complete coverage. (iv) Accessible-region coverage: the share of the accessible members of $D^{*}$ that were reviewed, scored separately so that a system that describes its accessible region truthfully is not credited with overall completeness. In the hidden-dependency cell, a declaration of complete is false by ground truth whenever the omitted dependent was not reviewed, and it is scored against the true dependent set, which is known to the scorer and not visible to the agent. The four components are reported separately in each cell of the hidden and inaccessible conditions and are not collapsed into one score.
+
+\paragraph{Process and compliance measures.} Review of a dependent is judged by the blinded scorer from the trace in every arm, so that the measures below do not depend on records only one arm produces. Arm C's own recorded dispositions are reported as compliance only.
+Reconsideration recall is $|D^{*}\cap R|/|D^{*}|$, where $R$ is the set of conclusions the scorer judges to have been reconsidered after the correction. Reconsideration precision is $|D^{*}\cap R|/|R|$ when $R$ is nonempty. When $R$ is empty, precision is undefined and is not imputed as zero or one, the share of episodes with empty $R$ is reported alongside, and precision is summarized only over episodes where it is defined.
+
+Correction latency has as its primary measure the number of steps from the correction event until all members of $D^{*}$ are justified and remain so through termination, determined by the blinded procedure from the operational state recorded at each step. Taking the last observed resolution event would miss dependents that remain unresolved and later regressions, so it is not used. The number of steps to the first justified resolution is a descriptive companion. Where the operational state does not express a conclusion's status, latency for that conclusion is undefined and the episode is treated as censored. Budget termination is analyzed as a competing event, with cumulative incidence reported, and where censoring is treated as noninformative the potential for informative censoring is stated explicitly. An episode is never assigned the time of its last observed disposition.
+
+Unnecessary retrieval is the reads and searches after the correction event that bear on no member of $D^{*}$. Completion and gate cost is the share of episodes ending in an accepted final submission, in budget exhaustion, and in an unaccepted submission, reported explicitly for every arm.
+
+The primary outcome is scored on every episode for which the assessment was obtained, including episodes that ended by exhaustion or by an unaccepted submission, because an exhausted episode can still yield a valid assessment and the absence of an accepted final answer does not erase observed assessment resolution. Absence of an accepted final answer is counted as operational noncompletion for the operational outcomes, namely final-answer correctness and stale-premise reuse in the final answer, and is reported as such. Outcomes are also reported on the accepted subset, because Arm C's gate may improve the quality of accepted answers while reducing completion. All outcomes are reported per stratum and per condition cell, since an aggregate can hide a failure confined to interpretive or hidden dependents.
+
+\section{Analysis Plan}\label{sec:analysis}
+
+The unit of analysis is the question. Every arm is run on every question, with matched seeds where the model interface permits, and each arm-question pair is run several times because the episodes are stochastic. Where seeds cannot be matched or controlled, repeats are treated as independent draws, pairing is carried only at the level of the question through the resampling scheme, and no claim rests on seed matching. For each question and arm, outcomes are averaged over repeats, and the treatment effect for a pair of arms on a question is the difference of these averages. Intervals on the question-averaged treatment difference are obtained by resampling questions while retaining each sampled question's complete collection of arms and repeats, which respects both the pairing across arms and the dependence among repeats and among corrected premises within a question. Variation across repeats of the same question is reported alongside, and no claim is made from a single run per arm.
+
+A supplementary analysis uses a deliberately narrow binary endpoint: whether every affected conclusion in the frozen inventory, that is every member of $D^{*}$ for the question, receives a justified resolution in an episode. Within each question and arm, a question is classified as a success when a strict majority of the prespecified repeats succeed, with ties classified as failure. The exact McNemar test \cite{mcnemar1947} is applied to the resulting paired question outcomes for each pair of arms. This discards information, which is acceptable for a supplementary analysis, and the question-averaged differences with clustered bootstrap intervals remain primary. The number of repeats is fixed beforehand because the behavior of the majority rule depends on it. With few repeats the majority rule is erratic and the number of discordant question pairs may be too small for the exact test to have useful power, so discordance counts across repeats for each pair of arms are reported as a descriptive companion to the majority-based table. Where seeds are unmatched, the pairing of repeats across arms is arbitrary and carries no inferential weight, and question-level pairing remains the basis of inference.
+
+The design criterion is interval precision on the primary question-averaged difference. The numbers of questions and repeats are chosen by simulation from pilot estimates of run-to-run and question-to-question variability, allocating questions and repeats under a fixed compute budget, without inventing an effect size. The count that governs precision is the number of independent questions per cell, with inventory conclusions nested within questions, so increasing the number of conclusions within one question cannot substitute for increasing the number of questions. These are design choices and not claims that an effect has been measured. The pilot is not used to select among arms or outcomes. All primary hypotheses, outcomes and tests are written down before the first run, and any departure is reported as a departure. No numerical thresholds for success are asserted in this protocol, because none has been measured.
+
+The comparison of Arm C against Arm B$'$ is primary for the question of whether the disposition-and-gate package adds value beyond an active reminder carrying the same dependency information, and the comparison of Arm C against Arm D is primary for the question of whether accountable disposition adds value beyond automatic invalidation of direct citers. If the mechanism matters beyond structural invalidation, Arm D should improve on Arm B for direct dependents, and Arm C should separate from Arm D mainly in the multistep, interpretive, hidden and inaccessible cells. If it does not, the disposition requirement is not earning its cost. The comparison of Arm C against Arm B isolates the added value of the whole treatment over separate states. The comparison of Arm B against Arm A is secondary and addresses the paper's claim about structured state. The scorer, including any model-assisted component used to judge whether a cited basis is adequate or independent, is audited against annotator judgments on a held-out sample, and its agreement with the annotators is reported with the results. The audit also includes an arm-guessing task: a separate blinded rater, human or model, is asked to guess the arm of each normalized assessment text, and the accuracy is reported against chance as a diagnostic. Arm-guessing performance is a reported diagnostic only. The full-sample estimate is retained, and no analysis is restricted to texts the rater failed to attribute, because guessability may depend on treatment and on answer quality, so such a restriction would select different kinds of responses across arms. A robustness check that rescores a more tightly normalized version of the assessment, scored independently, is reported alongside, and substantial arm guessability is read as weakening the result.
+
+\section{Relation to the Existing Human Pilot}\label{sec:pilot}
+
+The author's existing four-arm human pilot, specified in the companion document \texttt{pilot-design}, uses a ledger switch that controls participant visibility of the repair record and not the existence of the underlying store. The present experiment is separate from it. Here the existence and use of the record is a manipulated variable for an automated agent, and nothing in the two designs is pooled.
+
+\section{Threats to Validity}\label{sec:threats}
+
+The principal threat addressed by the design is that a treatment which produces its own records could appear to succeed because it is more observable, and the separation of compliance from justified resolution, the common assessment and the blinded scorer are the response to it. They reduce the threat without removing it, since the assessment is itself produced by the same model and a blinded scorer may still detect arm from style. Planted corrections are artificial, and an agent may respond to the form of a planted change differently from a naturally arising correction, so a later phase should use corrections that occurred in the corpus's own history. Question construction by the author risks encoding the author's own expectations about which dependents matter, which the independent annotation reduces but does not remove. The slice of one author's essays is not representative of corpora in general, so no generalization beyond comparable corpora is claimed. The disposition requirement raises the cost of each run in tokens and steps and may reduce completion through its gate, so reported gains are read against cost and completion for every arm. A model-assisted scorer introduces its own error, which the audit estimates. Finally, a positive result would show that the added obligation improves resolution in this setting, and it would not establish that the principles involved are new, since evidence stores, provenance, truth maintenance \cite{doyle1979tms,dekleer1986atms} and belief revision are established ideas. The contribution tested here is the specific integration and its measured effect.
+
+\section{Deliverables}\label{sec:deliverables}
+
+The deliverables are the frozen corpus slice and its hash together with the separately kept ledger of planted changes; the question construction record, the frozen conclusion inventories, and the independently established true dependent sets, with graph-explicit and inferred dependencies marked; the common experimenter-built dependency record and the identical omission procedure for the hidden condition, specified before treatment assignment; harness specifications for Arms A, B, B$'$, C and D, differing only in the manipulated variables, and the standardized post-correction assessment with its preregistered rubric; a written comparison of the repair behavior against LedgerMind and LongHarness (Appendix~\ref{app:comparison}), to be rechecked against released code and traces before the results are interpreted; the preregistered analysis script, the aggregation rule for the supplementary paired test, and the scorer audit; and the full per-question, per-repeat results for every arm, so that uncertainty in each difference can be computed from the paired data, together with completion and cost figures.
+
+
+\appendix
+\section{Comparison with LedgerMind and LongHarness}\label{app:comparison}
+
+This appendix compares published specifications, not observed behavior, and cites sections of the LedgerMind paper \cite{du2026ledgermind} and the LongHarness paper \cite{huang2026longharness}.
+
+\paragraph{LongHarness.} Evidence is maintained in a source-linked EvidenceBank with supersession and retraction, and conclusions are held in a separate Conclusion State. When evidence becomes inactive, transition logs flag the affected conclusion references. The runtime does not rewrite those conclusions or block further search, and compute and final validate only the evidence identifiers declared in the request. Review of affected conclusions is therefore left to the model. This corresponds to Arm B.
+
+\paragraph{LedgerMind.} Tool outputs are normalized into ledger entries with a lifecycle status (active, stale, conflicted, dropped) and a reverse set of the claims that cite each entry (Sec.~3.1, App.~B). Claims may cite only active entries. A non-judgment claim whose support set becomes empty is dropped, and a judgment claim is demoted below the verification threshold. Marking an entry stale triggers re-verification of its citing claims, and dropping an entry propagates invalidation to them. Six event triggers route to typed repair operators, with a fixed budget of two repairs per trigger, and a provenance non-amplification proposition guarantees that repair adds no entry without tool-produced provenance (App.~E, Proposition~1). The proposition is explicitly not a guarantee that content is correct.
+
+\paragraph{Differences relevant to the present mechanism.} First, dependency is citation-defined in LedgerMind: an edge exists only when a claim cites an entry, so a dependent that does not cite the corrected entry never enters the affected set, which is the hidden-dependency cell. Grounding checks resolve derivation entries to leaf evidence, but the invalidation operations are stated over citing claims, and propagation through chains of derived values is not specified. Second, outcomes are mechanical, namely drop, demote or refresh. The cited specification does not define a disposition category corresponding to reaffirmation on independent grounds, and it does not state a requirement that every affected claim receive a recorded review. Its repair-locality invariant, which forbids appending free-form content to the ledger, is the model for the evidence-entry constraint on Arm C's cited basis. Third, the affected set is bounded by the maximum entry degree, but the specification describes no record of what was inspected or unreachable, and abstention after the repair budget concerns the answer, not the scope of repair. Fourth, LedgerMind addresses single-question multimodal question answering, where evidence changes arise from tool anomalies, expiry of time-to-live and conflicts, not from corrections to a premise already used in downstream computation.
+
+
+\paragraph{What the reported evidence supports.} The ablations are on one benchmark with one backbone: removing the ledger costs 15.4 points, replacing typed repair with free-form reflection costs 8.5, and removing entity and numeric checks costs 5.2, with no variance reported. The typed-repair ablation tests typed against free-form repair, not propagation to dependents. No reported metric measures recall of affected dependents, and Recovery Rate asks whether a repaired claim is grounded afterward relative to the ledger, not whether it is correct. The trajectory audit uses an external judge symmetrically across arms, which addresses part of the same concern as the post-correction assessment here but is not equivalent to it, since it audits claims decomposed from traces and not a standardized per-conclusion resolution, and the judge is also one of the evaluated backbone families.
+
+\paragraph{Consequences for the design.} Arm D, a direct-citer invalidation control inspired by LedgerMind and not a claim of implementation fidelity to it, is added to isolate automatic invalidation of direct citers from accountable disposition, and Arm C's cited basis is restricted to active source-linked evidence entries. LedgerMind itself disclaims novelty for dependency tracking and cites database and workflow provenance \cite{buneman2001,moreau2011}. Truth-maintenance systems \cite{doyle1979tms,dekleer1986atms} are a further body of prior work on dependency-directed revision, and the repair record should be read against them. The contribution tested here therefore remains the specific integration and its measured effect.
+
+\begin{thebibliography}{9}
+
+\bibitem{buneman2001}
+P.~Buneman, S.~Khanna, and W.-C.~Tan.
+\newblock Why and where: A characterization of data provenance.
+\newblock In \emph{Database Theory---ICDT 2001}, volume 1973 of \emph{Lecture Notes in Computer Science}, pages 316--330. Springer, 2001.
+
+\bibitem{dekleer1986atms}
+J.~de Kleer.
+\newblock An assumption-based TMS.
+\newblock \emph{Artificial Intelligence}, 28(2):127--162, 1986.
+
+\bibitem{doyle1979tms}
+J.~Doyle.
+\newblock A truth maintenance system.
+\newblock \emph{Artificial Intelligence}, 12(3):231--272, 1979.
+
+\bibitem{du2026ledgermind}
+E.~Du, H.~Zhou, C.~Du, S.~Liu, Z.~Chen, Z.~Zheng, and Y.~Zhang.
+\newblock LedgerMind: A structured evidence runtime for auditable multimodal agent trajectories.
+\newblock arXiv preprint arXiv:2607.28374, 2026.
+
+\bibitem{huang2026longharness}
+S.~Huang, Z.~Zhong, X.~He, S.~Zhang, Z.~Yu, L.~Kang, H.~Zhou, Y.~Fan, X.~Yan, B.~Zhang, and S.~Feng.
+\newblock LongHarness: Advancing agentic reasoning over 100M-token corpora via stateful evidence management.
+\newblock arXiv preprint arXiv:2610.13075, 2026.
+
+\bibitem{mcnemar1947}
+Q.~McNemar.
+\newblock Note on the sampling error of the difference between correlated proportions or percentages.
+\newblock \emph{Psychometrika}, 12(2):153--157, 1947.
+
+\bibitem{moreau2011}
+L.~Moreau, B.~Clifford, J.~Freire, J.~Futrelle, Y.~Gil, P.~Groth, N.~Kwasnikowska, S.~Miles, P.~Missier, J.~Myers, B.~Plale, Y.~Simmhan, E.~Stephan, and J.~Van den Bussche.
+\newblock The open provenance model core specification (v1.1).
+\newblock \emph{Future Generation Computer Systems}, 27(6):743--756, 2011.
+
+\end{thebibliography}
+
+\end{document}
